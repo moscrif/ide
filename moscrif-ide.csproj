@@ -102,7 +102,6 @@
     </Compile>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="components\DragNotebook.cs" />
-    <Compile Include="_Temp\MyManager.cs" />
     <Compile Include="StockIconsManager.cs" />
     <Compile Include="ActionManager.cs" />
     <Compile Include="actions\AboutAction.cs" />
@@ -353,12 +352,9 @@
     <Compile Include="actions\ImportZipProjectAction.cs" />
     <Compile Include="actions\ImportFolderProjectAction.cs" />
     <Compile Include="actions\GoToDefinitionAction.cs" />
-    <Compile Include="_Temp\ParameterInformationWindow.cs" />
-    <Compile Include="_Temp\ParameterInformationWindowManager.cs" />
     <Compile Include="components\TooltipWindow.cs" />
     <Compile Include="completion\ScriptTooltipProvider.cs" />
     <Compile Include="devices\EmulatorDisplay.cs" />
-    <Compile Include="_Temp\IParameterDataProvider.cs" />
     <Compile Include="actions\ExportZipprojectAction.cs" />
     <Compile Include="workspace\WorkspaceUserFile.cs" />
     <Compile Include="Iface\Entities\FileSetting.cs" />
@@ -460,7 +456,6 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="components\" />
-    <Folder Include="_Temp\" />
     <Folder Include="actions\" />
     <Folder Include="controls\" />
     <Folder Include="editors\" />
@@ -714,13 +709,7 @@
     <None Include="cfg\displays\noskin_vga.ini">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="version.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="resources\libs.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="readmeOsx.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="cfg\filetemplates\application.mst">
@@ -801,7 +790,6 @@
     <None Include="resources\application.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="sqlite3.dll" />
     <None Include="cfg\displays\noskin_svga.ini">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -829,7 +817,6 @@
     <None Include="cfg\displays\noskin_wvga.ini">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="_Temp\config.txt" />
     <None Include="cfg\displays\noskin_wsvga.ini">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
