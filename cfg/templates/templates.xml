@@ -1,0 +1,829 @@
+<CodeTemplates version="3.0">	
+
+	<CodeTemplate version="2.0">
+		<Header>
+			<_Group>Moscrif</_Group>
+			<Version>1.0</Version>
+			<MimeType>text/moscrif</MimeType>
+			<Shortcut>ctor</Shortcut>
+			<_Description>Template for constructor</_Description>
+			<TemplateType>Expansion</TemplateType>
+		</Header>
+		<Code><![CDATA[function this() 
+{
+	$selected$$end$
+}]]></Code>
+	</CodeTemplate>
+
+	<CodeTemplate version="2.0">
+		<Header>
+			<_Group>MS</_Group>
+			<Version>1.0</Version>
+			<MimeType>text/moscrif</MimeType>
+			<Shortcut>prop2</Shortcut>
+			<_Description>Template for a short property</_Description>
+			<TemplateType>Expansion</TemplateType>
+		</Header>
+		<Variables>
+			<Variable name="type" isIdentifier="true">
+				<Default>object</Default>
+				<_ToolTip>Return type of the indexer</_ToolTip>
+			</Variable>
+			<Variable name="name" isIdentifier="true">
+				<Default>MyProperty</Default>
+				<_ToolTip>Property name</_ToolTip>
+			</Variable>
+		</Variables>
+		<Code><![CDATA[public $type$ $name$ {
+	get;
+	set;
+}]]></Code>
+	</CodeTemplate>
+
+	<CodeTemplate version="2.0">
+		<Header>
+			<_Group>Moscrif</_Group>
+			<Version>1.0</Version>
+			<MimeType>text/moscrif</MimeType>
+			<Shortcut>prop</Shortcut>
+			<_Description>Template for property</_Description>
+			<TemplateType>Expansion</TemplateType>
+		</Header>
+		<Variables>
+			<Variable name="prop" isEditable="true" isIdentifier="true">
+				<Default>prop</Default>
+				<_ToolTip>Property name</_ToolTip>
+			</Variable>
+		</Variables>
+		<Code><![CDATA[property $prop$(v) {
+	get { return this._$prop$; }
+	set { this._$prop$ = v; }
+}]]></Code>
+	</CodeTemplate>
+
+	<CodeTemplate version="2.0">
+		<Header>
+			<_Group>Moscrif</_Group>
+			<Version>1.0</Version>
+			<MimeType>text/moscrif</MimeType>
+			<Shortcut>switch</Shortcut>
+			<_Description>Template for switch statement</_Description>
+			<TemplateType>Expansion</TemplateType>
+		</Header>
+		<Variables>
+			<Variable name="expression">
+				<Default>switch_on</Default>
+				<_ToolTip>Expression to switch on</_ToolTip>
+			</Variable>
+		</Variables>
+		<Code><![CDATA[switch ($expression$) {
+default:
+break;
+}$end$]]></Code>
+	</CodeTemplate>
+	
+	<CodeTemplate version="2.0">
+		<Header>
+			<_Group>Moscrif</_Group>
+			<Version>1.0</Version>
+			<MimeType>text/moscrif</MimeType>
+			<Shortcut>func</Shortcut>
+			<_Description>Function.</_Description>
+			<TemplateType>Expansion</TemplateType>
+		</Header>
+		<Code><![CDATA[ $name$.onFunction = function(sender){
+			$selected$$end$
+}]]></Code>
+
+	</CodeTemplate>
+	
+	<CodeTemplate version="2.0">
+		<Header>
+			<_Group>Moscrif</_Group>
+			<Version>1.0</Version>
+			<MimeType>text/moscrif</MimeType>
+			<Shortcut>sim</Shortcut>
+			<_Description>Declare object.</_Description>
+			<TemplateType>Expansion</TemplateType>
+		</Header>
+		<Code><![CDATA[var $name$ = new $type$( ); ]]></Code>
+	</CodeTemplate>
+	
+	<CodeTemplate version="2.0">
+		<Header>
+			<_Group>Moscrif</_Group>
+			<Version>1.0</Version>
+			<MimeType>text/moscrif</MimeType>
+			<Shortcut>Exception</Shortcut>
+			<_Description>Template for exception</_Description>
+			<TemplateType>Expansion</TemplateType>
+		</Header>
+		<Variables>
+			<Variable name="name" isIdentifier="true">
+				<Default>My</Default>
+				<_ToolTip>ExceptionName</_ToolTip>
+			</Variable>
+			<Variable name="SystemException" isEditable="false">
+				<Default>System.Exception</Default>
+				<Function>GetSimpleTypeName("System.Exception")</Function>
+			</Variable>
+			<Variable name="SystemSerializable" isEditable="false">
+				<Default>System.Serializable</Default>
+				<Function>GetSimpleTypeName("System.Serializable")</Function>
+			</Variable>
+			<Variable name="SystemRuntimeSerializationSerializationInfo" isEditable="false">
+				<Default>System.Runtime.Serialization.SerializationInfo</Default>
+				<Function>GetSimpleTypeName("System.Runtime.Serialization.SerializationInfo")</Function>
+			</Variable>
+			<Variable name="SystemRuntimeSerializationStreamingContext" isEditable="false">
+				<Default>System.Runtime.Serialization.StreamingContext</Default>
+				<Function>GetSimpleTypeName("System.Runtime.Serialization.StreamingContext")</Function>
+			</Variable>
+		</Variables>
+		<Code><![CDATA[
+[$SystemSerializable$]
+public class $name$Exception : $SystemException$
+{
+	/// <summary>
+	/// Initializes a new instance of the <see cref="T:$name$Exception"/> class
+	/// </summary>
+	public $name$Exception ()
+	{
+	}
+	
+	/// <summary>
+	/// Initializes a new instance of the <see cref="T:$name$Exception"/> class
+	/// </summary>
+	/// <param name="message">A <see cref="T:System.String"/> that describes the exception. </param>
+	public $name$Exception (string message) : base (message)
+	{
+	}
+	
+	/// <summary>
+	/// Initializes a new instance of the <see cref="T:$name$Exception"/> class
+	/// </summary>
+	/// <param name="message">A <see cref="T:System.String"/> that describes the exception. </param>
+	/// <param name="inner">The exception that is the cause of the current exception. </param>
+	public $name$Exception (string message, $SystemException$ inner) : base (message, inner)
+	{
+	}
+	
+	/// <summary>
+	/// Initializes a new instance of the <see cref="T:$name$Exception"/> class
+	/// </summary>
+	/// <param name="context">The contextual information about the source or destination.</param>
+	/// <param name="info">The object that holds the serialized object data.</param>
+	protected $name$Exception ($SystemRuntimeSerializationSerializationInfo$ info, $SystemRuntimeSerializationStreamingContext$ context) : base (info, context)
+	{
+	}
+}]]></Code>
+	</CodeTemplate>
+	
+	<CodeTemplate version="2.0">
+		<Header>
+			<_Group>Moscrif</_Group>
+			<Version>1.0</Version>
+			<MimeType>text/moscrif</MimeType>
+			<Shortcut>indexer</Shortcut>
+			<_Description>Template for an indexer</_Description>
+			<TemplateType>Expansion</TemplateType>
+		</Header>
+		<Variables>
+			<Variable name="type" isIdentifier="true">
+				<Default>object</Default>
+				<_ToolTip>Return type of the indexer</_ToolTip>
+			</Variable>
+			<Variable name="indextype" isIdentifier="true">
+				<Default>int</Default>
+				<_ToolTip>Type to index with</_ToolTip>
+			</Variable>
+			<Variable name="SystemNotImplementedException" isEditable="false">
+				<Default>System.NotImplementedException</Default>
+				<Function>GetSimpleTypeName("System.NotImplementedException")</Function>
+			</Variable>
+		</Variables>
+		<Code><![CDATA[public $type$ this [$indextype$ index] {
+	get {
+		$end$
+	}
+	set {
+		throw new $SystemNotImplementedException$ ();
+	}
+}]]></Code>
+	</CodeTemplate>
+		
+	<CodeTemplate version="2.0">
+		<Header>
+			<_Group>Moscrif</_Group>
+			<Version>1.0</Version>
+			<MimeType>text/moscrif</MimeType>
+			<Shortcut>propg</Shortcut>
+			<_Description>Template for a short property with private set.</_Description>
+			<TemplateType>Expansion</TemplateType>
+		</Header>
+		<Variables>
+			<Variable name="type" isIdentifier="true">
+				<Default>object</Default>
+				<_ToolTip>Return type of the indexer</_ToolTip>
+			</Variable>
+			<Variable name="name" isIdentifier="true">
+				<Default>MyProperty</Default>
+				<_ToolTip>Property name</_ToolTip>
+			</Variable>
+		</Variables>
+		<Code><![CDATA[public $type$ $name$  {
+	get;
+	private set;
+}]]></Code>
+	</CodeTemplate>
+	
+	<CodeTemplate version="2.0">
+		<Header>
+			<_Group>Moscrif</_Group>
+			<Version>1.0</Version>
+			<MimeType>text/moscrif</MimeType>
+			<Shortcut>EventArgs</Shortcut>
+			<_Description>Template for event arguments</_Description>
+			<TemplateType>Expansion</TemplateType>
+		</Header>
+		<Variables>
+			<Variable name="name" isIdentifier="true">
+				<Default>My</Default>
+				<_ToolTip>ExceptionName</_ToolTip>
+			</Variable>
+			<Variable name="SystemEventArgs" isEditable="false">
+				<Default>System.EventArgs</Default>
+				<Function>GetSimpleTypeName("System.EventArgs")</Function>
+			</Variable>
+			<Variable name="SystemSerializable" isEditable="false">
+				<Default>System.Serializable</Default>
+				<Function>GetSimpleTypeName("System.Serializable")</Function>
+			</Variable>
+		</Variables>
+		<Code><![CDATA[[$SystemSerializable$]
+public sealed class $name$EventArgs : $SystemEventArgs$
+{
+	public $name$EventArgs ()
+	{
+		$end$
+	}
+}]]></Code>
+	</CodeTemplate>
+	
+	<CodeTemplate version="2.0">
+		<Header>
+			<_Group>Moscrif</_Group>
+			<Version>1.0</Version>
+			<MimeType>text/moscrif</MimeType>
+			<Shortcut>mn</Shortcut>
+			<_Description>Sets minimum value to a variable</_Description>
+			<TemplateType>Expansion</TemplateType>
+		</Header>
+		<Variables>
+			<Variable name="var" isIdentifier="true">
+				<Default>var</Default>
+				<_ToolTip>Variable name</_ToolTip>
+			</Variable>
+			<Variable name="SystemMin" isEditable="false">
+				<Default>System.Min</Default>
+				<Function>GetSimpleTypeName("System.Min")</Function>
+			</Variable>
+		</Variables>
+		<Code><![CDATA[$var$ = $SystemMin$ ($var$, $end$);]]></Code>
+	</CodeTemplate>
+	
+	<CodeTemplate version="2.0">
+		<Header>
+			<_Group>Moscrif</_Group>
+			<Version>1.0</Version>
+			<MimeType>text/moscrif</MimeType>
+			<Shortcut>mx</Shortcut>
+			<_Description>Sets maximum value to a variable</_Description>
+			<TemplateType>Expansion</TemplateType>
+		</Header>
+		<Variables>
+			<Variable name="var" isIdentifier="true">
+				<Default>var</Default>
+				<_ToolTip>Variable name</_ToolTip>
+			</Variable>
+			<Variable name="SystemMax" isEditable="false">
+				<Default>System.Max</Default>
+				<Function>GetSimpleTypeName("System.Max")</Function>
+			</Variable>
+		</Variables>
+		<Code><![CDATA[$var$ = $SystemMax$ ($var$, $end$);]]></Code>
+	</CodeTemplate>
+	
+	<CodeTemplate version="2.0">
+		<Header>
+			<_Group>Moscrif</_Group>
+			<Version>1.0</Version>
+			<MimeType>text/moscrif</MimeType>
+			<Shortcut>lst</Shortcut>
+			<_Description>Access last element of a collection</_Description>
+			<TemplateType>Expansion</TemplateType>
+		</Header>
+		<Variables>
+			<Variable name="col" isIdentifier="true">
+				<Default>col</Default>
+				<_ToolTip>Collection name</_ToolTip>
+				<Function>GetCollections()</Function>
+			</Variable>
+			<Variable name="countorlength" isEditable="false">
+				<Default>Count</Default>
+				<Function>GetLengthProperty("col")</Function>
+			</Variable>
+		</Variables>
+		<Code><![CDATA[$col$[$col$.$countorlength$ - 1]]]></Code>
+	</CodeTemplate>
+	
+	
+	<!-- Surround Templates -->
+	<CodeTemplate version="2.0">
+		<Header>
+			<_Group>Moscrif</_Group>
+			<MimeType>text/moscrif</MimeType>
+			<Shortcut>@region</Shortcut>
+			<_Description>Template for @region</_Description>
+			<TemplateType>SurroundsWith,Expansion</TemplateType>
+		</Header>
+		<Variables>
+			<Variable name="name">
+				<Default>MyRegion</Default>
+				<_ToolTip>Region name</_ToolTip>
+			</Variable>
+		</Variables>
+		
+		<Code><![CDATA[//@region  $name$
+$selected$$end$
+//@endregion]]></Code>
+	</CodeTemplate>
+	
+	<CodeTemplate version="2.0">
+		<Header>
+			<_Group>Moscrif</_Group>
+			<Version>1.0</Version>
+			<MimeType>text/moscrif</MimeType>
+			<Shortcut>#if</Shortcut>
+			<_Description>Template for #if</_Description>
+			<TemplateType>SurroundsWith,Expansion</TemplateType>
+		</Header>
+		<Variables>
+			<Variable name="expression" isIdentifier="true">
+				<Default>true</Default>
+				<_ToolTip>Preprocessor expression to evaluate</_ToolTip>
+			</Variable>
+		</Variables>
+		
+		<Code><![CDATA[#if $expression$
+
+#endif]]></Code>
+	</CodeTemplate>
+
+	<CodeTemplate version="2.0">
+		<Header>
+			<_Group>Moscrif</_Group>
+			<Version>1.0</Version>
+			<MimeType>text/moscrif</MimeType>
+			<Shortcut>checked</Shortcut>
+			<_Description>Template checked block</_Description>
+			<TemplateType>SurroundsWith,Expansion</TemplateType>
+		</Header>
+		<Code><![CDATA[checked
+{
+
+}]]></Code>
+	</CodeTemplate>
+	
+	<CodeTemplate version="2.0">
+		<Header>
+			<_Group>Moscrif</_Group>
+			<Version>1.0</Version>
+			<MimeType>text/moscrif</MimeType>
+			<Shortcut>class</Shortcut>
+			<_Description>Template for class declaration</_Description>
+			<TemplateType>SurroundsWith,Expansion</TemplateType>
+		</Header>
+		<Variables>
+			<Variable name="name" isIdentifier="true">
+				<Default>MyClass</Default>
+				<_ToolTip>Class name</_ToolTip>
+			</Variable>
+		</Variables>
+		<Code><![CDATA[class $name$
+{
+
+}]]></Code>
+	</CodeTemplate>
+	
+	<CodeTemplate version="2.0">
+		<Header>
+			<_Group>Moscrif</_Group>
+			<Version>1.0</Version>
+			<MimeType>text/moscrif</MimeType>
+			<Shortcut>interface</Shortcut>
+			<_Description>Template for an Interface</_Description>
+			<TemplateType>SurroundsWith,Expansion</TemplateType>
+		</Header>
+		<Variables>
+			<Variable name="name" isIdentifier="true">
+				<Default>IMyInterface</Default>
+				<_ToolTip>Interface name</_ToolTip>
+			</Variable>
+		</Variables>
+		<Code><![CDATA[interface $name$ 
+{
+
+}]]></Code>
+	</CodeTemplate>
+	
+	<CodeTemplate version="2.0">
+		<Header>
+			<_Group>Moscrif</_Group>
+			<Version>1.0</Version>
+			<MimeType>text/moscrif</MimeType>
+			<Shortcut>struct</Shortcut>
+			<_Description>Template for a Struct</_Description>
+			<TemplateType>SurroundsWith,Expansion</TemplateType>
+		</Header>
+		<Variables>
+			<Variable name="name" isIdentifier="true">
+				<Default>MyStruct</Default>
+				<_ToolTip>Struct name</_ToolTip>
+			</Variable>
+		</Variables>
+		<Code><![CDATA[struct $name$ 
+{
+
+}]]></Code>
+	</CodeTemplate>
+	
+	<CodeTemplate version="2.0">
+		<Header>
+			<_Group>Moscrif</_Group>
+			<Version>1.0</Version>
+			<MimeType>text/moscrif</MimeType>
+			<Shortcut>enum</Shortcut>
+			<_Description>Template for an Enumeration</_Description>
+			<TemplateType>SurroundsWith,Expansion</TemplateType>
+		</Header>
+		<Variables>
+			<Variable name="name" isIdentifier="true">
+				<Default>MyEnum</Default>
+				<_ToolTip>Enumeration name</_ToolTip>
+			</Variable>
+		</Variables>
+		<Code><![CDATA[enum $name$ 
+{
+
+}]]></Code>
+	</CodeTemplate>
+
+	<CodeTemplate version="2.0">
+		<Header>
+			<_Group>Moscrif</_Group>
+			<Version>1.0</Version>
+			<MimeType>text/moscrif</MimeType>
+			<Shortcut>for</Shortcut>
+			<_Description>Template for 'for' loop</_Description>
+			<TemplateType>SurroundsWith,Expansion</TemplateType>
+		</Header>
+		<Variables>
+			<Variable name="i" isIdentifier="true">
+				<Default>i</Default>
+				<_ToolTip>Index</_ToolTip>
+			</Variable>
+			<Variable name="max">
+				<Default>max</Default>
+				<_ToolTip>Number of iterations</_ToolTip>
+			</Variable>
+		</Variables>
+		<Code><![CDATA[for (int $i$ = 0; $i$ < $max$; $i$++) {
+$selected$$end$
+}]]></Code>
+	</CodeTemplate>
+	
+	<CodeTemplate version="2.0">
+		<Header>
+			<_Group>Moscrif</_Group>
+			<Version>1.0</Version>
+			<MimeType>text/moscrif</MimeType>
+			<Shortcut>forr</Shortcut>
+			<_Description>Template for reverse 'for' loop</_Description>
+			<TemplateType>SurroundsWith,Expansion</TemplateType>
+		</Header>
+		<Variables>
+			<Variable name="i" isIdentifier="true">
+				<Default>i</Default>
+				<_ToolTip>Index</_ToolTip>
+			</Variable>
+			<Variable name="max">
+				<Default>max</Default>
+				<_ToolTip>Number of iterations</_ToolTip>
+			</Variable>
+		</Variables>
+		<Code><![CDATA[for (int $i$ = $max$ - 1; $i$ >= 0; $i$--) {
+$selected$$end$
+}]]></Code>
+	</CodeTemplate>
+
+	<CodeTemplate version="2.0">
+		<Header>
+			<_Group>Moscrif</_Group>
+			<Version>1.0</Version>
+			<MimeType>text/moscrif</MimeType>
+			<Shortcut>while</Shortcut>
+			<_Description>Template for 'while' loop</_Description>
+			<TemplateType>SurroundsWith,Expansion</TemplateType>
+		</Header>
+		<Variables>
+			<Variable name="expression">
+				<Default>true</Default>
+				<_ToolTip>Expression to evaluate</_ToolTip>
+			</Variable>
+		</Variables>
+		<Code><![CDATA[while ($expression$) {
+$selected$$end$
+}]]></Code>
+	</CodeTemplate>
+	
+	<CodeTemplate version="2.0">
+		<Header>
+			<_Group>Moscrif</_Group>
+			<Version>1.0</Version>
+			<MimeType>text/moscrif</MimeType>
+			<Shortcut>itar</Shortcut>
+			<_Description>Template for iterating through a collection</_Description>
+			<TemplateType>SurroundsWith,Expansion</TemplateType>
+		</Header>
+		<Variables>
+			<Variable name="i" isIdentifier="true">
+				<Default>i</Default>
+				<_ToolTip>Index</_ToolTip>
+			</Variable>
+			<Variable name="collection" isIdentifier="true">
+				<Default>collection</Default>
+				<_ToolTip>Collection to iterate through</_ToolTip>
+				<Function>GetCollections()</Function>
+			</Variable>
+			<Variable name="varname" isIdentifier="true">
+				<Default>varname</Default>
+				<_ToolTip>Name of variable.</_ToolTip>
+			</Variable>
+			<Variable name="countorlength" isEditable="false">
+				<Default>Count</Default>
+				<Function>GetLengthProperty("collection")</Function>
+			</Variable>
+			<Variable name="type" isEditable="false">
+				<Default>var</Default>
+				<Function>GetComponentTypeOf("collection")</Function>
+			</Variable>
+		</Variables>
+		<Code><![CDATA[for (int $i$ = 0; $i$ < $collection$.$countorlength$; $i$++) {
+	$type$ $varname$ = $collection$[$i$];
+
+}]]></Code>
+	</CodeTemplate>
+	
+	<CodeTemplate version="2.0">
+		<Header>
+			<_Group>Moscrif</_Group>
+			<Version>1.0</Version>
+			<MimeType>text/moscrif</MimeType>
+			<Shortcut>itarr</Shortcut>
+			<_Description>Template for iterating reverse through a collection</_Description>
+			<TemplateType>SurroundsWith,Expansion</TemplateType>
+		</Header>
+		<Variables>
+			<Variable name="i" isIdentifier="true">
+				<Default>i</Default>
+				<_ToolTip>Index</_ToolTip>
+			</Variable>
+			<Variable name="collection" isIdentifier="true">
+				<Default>collection</Default>
+				<_ToolTip>Collection to iterate through</_ToolTip>
+				<Function>GetCollections()</Function>
+			</Variable>
+			<Variable name="varname" isIdentifier="true">
+				<Default>varname</Default>
+				<_ToolTip>Name of variable.</_ToolTip>
+			</Variable>
+			<Variable name="countorlength" isEditable="false">
+				<Default>Count</Default>
+				<Function>GetLengthProperty("collection")</Function>
+			</Variable>
+			<Variable name="type" isEditable="false">
+				<Default>var</Default>
+				<Function>GetComponentTypeOf("collection")</Function>
+			</Variable>
+		</Variables>
+		<Code><![CDATA[for (int $i$ = $collection$.$countorlength$ - 1; $i$ >= 0 ; $i$--) {
+	$type$ $varname$ = $collection$[$i$];
+	$selected$$end$
+}]]></Code>
+	</CodeTemplate>
+	
+	<CodeTemplate version="2.0">
+		<Header>
+			<_Group>Moscrif</_Group>
+			<Version>1.0</Version>
+			<MimeType>text/moscrif</MimeType>
+			<Shortcut>do</Shortcut>
+			<_Description>Template for 'do...while' loop</_Description>
+			<TemplateType>SurroundsWith,Expansion</TemplateType>
+		</Header>
+		<Variables>
+			<Variable name="expression">
+				<Default>true</Default>
+				<_ToolTip>Expression to evaluate</_ToolTip>
+			</Variable>
+		</Variables>
+		<Code><![CDATA[do {
+	$selected$$end$
+} while ($expression$);]]></Code>
+	</CodeTemplate>
+	
+	<CodeTemplate version="2.0">
+		<Header>
+			<_Group>Moscrif</_Group>
+			<Version>1.0</Version>
+			<MimeType>text/moscrif</MimeType>
+			<Shortcut>else</Shortcut>
+			<_Description>Template for 'else'</_Description>
+			<TemplateType>SurroundsWith,Expansion</TemplateType>
+		</Header>
+		<Code><![CDATA[else {
+	$selected$$end$
+}]]></Code>
+	</CodeTemplate>
+
+	<CodeTemplate version="2.0">
+		<Header>
+			<_Group>Moscrif</_Group>
+			<Version>1.0</Version>
+			<MimeType>text/moscrif</MimeType>
+			<Shortcut>foreach</Shortcut>
+			<_Description>Template for 'foreach' loop</_Description>
+			<TemplateType>SurroundsWith,Expansion</TemplateType>
+		</Header>
+		<Variables>
+			<Variable name="type" isIdentifier="true" isEditable="false">
+				<Default>var</Default>
+				<_ToolTip>The type of objects to iterate through</_ToolTip>
+				<Function>GetComponentTypeOf("collection")</Function>
+			</Variable>
+			<Variable name="id" isIdentifier="true">
+				<Default>item</Default>
+				<_ToolTip>Identifier for the current element</_ToolTip>
+			</Variable>
+			<Variable name="collection">
+				<Default>collection</Default>
+				<_ToolTip>Collection to iterate through</_ToolTip>
+				<Function>GetCollections()</Function>
+			</Variable>
+		</Variables>
+		<Code><![CDATA[foreach ($type$ $id$ in $collection$) {
+	$selected$$end$
+}]]></Code>
+	</CodeTemplate>
+	
+	<CodeTemplate version="2.0">
+		<Header>
+			<_Group>Moscrif</_Group>
+			<Version>1.0</Version>
+			<MimeType>text/moscrif</MimeType>
+			<Shortcut>if</Shortcut>
+			<_Description>Template for 'if' statement</_Description>
+			<TemplateType>SurroundsWith,Expansion</TemplateType>
+		</Header>
+		<Variables>
+			<Variable name="expression">
+				<Default>true</Default>
+				<_ToolTip>Expression to evaluate</_ToolTip>
+			</Variable>
+		</Variables>
+		<Code><![CDATA[if ($expression$) {
+	$selected$$end$
+}]]></Code>
+	</CodeTemplate>
+
+	<CodeTemplate version="2.0">
+		<Header>
+			<_Group>Moscrif</_Group>
+			<Version>1.0</Version>
+			<MimeType>text/moscrif</MimeType>
+			<Shortcut>lock</Shortcut>
+			<_Description>Template for 'lock' statement</_Description>
+			<TemplateType>SurroundsWith,Expansion</TemplateType>
+		</Header>
+		<Variables>
+			<Variable name="expression" isIdentifier="true">
+				<Default>this</Default>
+				<_ToolTip>Object to lock</_ToolTip>
+			</Variable>
+		</Variables>
+		<Code><![CDATA[lock ($expression$) {
+	$selected$$end$
+}]]></Code>
+	</CodeTemplate>
+	
+	<CodeTemplate version="2.0">
+		<Header>
+			<_Group>Moscrif</_Group>
+			<Version>1.0</Version>
+			<MimeType>text/moscrif</MimeType>
+			<Shortcut>namespace</Shortcut>
+			<_Description>Template for namespace</_Description>
+			<TemplateType>SurroundsWith,Expansion</TemplateType>
+		</Header>
+		<Variables>
+			<Variable name="name" isIdentifier="true">
+				<Default>MyNamespace</Default>
+				<_ToolTip>Namespace name</_ToolTip>
+			</Variable>
+		</Variables>
+		<Code><![CDATA[namespace $name$ {
+	$selected$$end$
+}]]></Code>
+	</CodeTemplate>
+	
+	<CodeTemplate version="2.0">
+		<Header>
+			<_Group>Moscrif</_Group>
+			<Version>1.0</Version>
+			<MimeType>text/moscrif</MimeType>
+			<Shortcut>try</Shortcut>
+			<_Description>Template for try...catch</_Description>
+			<TemplateType>SurroundsWith,Expansion</TemplateType>
+		</Header>
+		<Variables>
+			<Variable name="SystemException" isEditable="false">
+				<Default>System.Exception</Default>
+				<Function>GetSimpleTypeName("System.Exception")</Function>
+			</Variable>
+		</Variables>
+		<Code><![CDATA[try {
+	$selected$
+} catch ($SystemException$ ex) {
+	$end$
+}]]></Code>
+	</CodeTemplate>
+	
+	<CodeTemplate version="2.0">
+		<Header>
+			<_Group>Moscrif</_Group>
+			<Version>1.0</Version>
+			<MimeType>text/moscrif</MimeType>
+			<Context>InExpression</Context>
+			<Shortcut>(...)</Shortcut>
+			<_Description>Template for parentheses</_Description>
+			<TemplateType>SurroundsWith</TemplateType>
+		</Header>
+		<Code><![CDATA[($selected$)]]></Code>
+	</CodeTemplate>
+	
+	<CodeTemplate version="2.0">
+		<Header>
+			<_Group>Moscrif</_Group>
+			<Version>1.0</Version>
+			<MimeType>text/moscrif</MimeType>
+			<Shortcut>tryf</Shortcut>
+			<_Description>Template for try...finally</_Description>
+			<TemplateType>SurroundsWith,Expansion</TemplateType>
+		</Header>
+		<Code><![CDATA[try {
+	$selected$
+} finally {
+	$end$
+}]]></Code>
+	</CodeTemplate>
+	
+	<CodeTemplate version="2.0">
+		<Header>
+			<_Group>Moscrif</_Group>
+			<Version>1.0</Version>
+			<MimeType>text/moscrif</MimeType>
+			<Shortcut>unchecked</Shortcut>
+			<_Description>Template for 'unchecked' block</_Description>
+			<TemplateType>SurroundsWith,Expansion</TemplateType>
+		</Header>
+		<Code><![CDATA[unchecked {
+	$selected$$end$
+}]]></Code>
+	</CodeTemplate>
+	
+	<CodeTemplate version="2.0">
+		<Header>
+			<_Group>Moscrif</_Group>
+			<Version>1.0</Version>
+			<MimeType>text/moscrif</MimeType>
+			<Shortcut>unsafe</Shortcut>
+			<_Description>Template for 'unsafe' block</_Description>
+			<TemplateType>Expansion, SurroundsWith</TemplateType>
+		</Header>
+		<Code><![CDATA[unsafe {
+	$selected$ $end$
+}]]></Code>
+	</CodeTemplate>
+
+</CodeTemplates>

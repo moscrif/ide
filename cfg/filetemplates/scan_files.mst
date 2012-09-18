@@ -1,0 +1,23 @@
+﻿type: moscrif source code
+name: Scan system files
+description: Scan for system files in specified directory
+author: Jozef Prídavok, (c) Mothiva, s.r.o. 2010
+param: root				text	System.home()	
+param: mask				text	"*.*"				
+param: skip_folders		bool	true
+################################################################################
+// Date: $now$
+// Author: $username$ on $computername$
+
+function fill(name, flag)
+{
+	if (name == "." || name == "..") return true;
+	$if(skip_folders)$
+	if ((flag & System.IS_DIR) == System.IS_DIR) return true;
+	$endif$
+	stdout << name << "\n";
+	return true;
+}
+
+var proc = fill;
+System.scanFiles($root$ + $mask$, proc);

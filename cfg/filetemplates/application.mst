@@ -1,0 +1,54 @@
+﻿type: moscrif source code
+name: Application
+description: Empty native application skeleton
+author: Jozef Prídavok, (c) Mothiva, s.r.o. 2010
+param: instance				text	app		^[a-zA-Z_][a-zA-Z0-9_]*$
+param: key_events			bool	true
+param: pointer_events		bool	true
+param: draw_events			bool	true
+################################################################################
+// Date: $now$
+// Author: $username$ on $computername$
+
+include "lib://uix/application.ms"
+
+var $instance$ = new Application();
+$instance$.terminate = false;
+
+$if(key_events)$
+$instance$.onKeyPressed = function(keyCode)
+{
+	this.terminate = true;
+}
+
+$instance$.onKeyReleased = function(keyCode)
+{
+	// TODO: add code here
+}
+$endif$
+
+$if(pointer_events)$
+$instance$.onPointerPressed = function(x, y)
+{
+	// TODO: add code here
+}
+
+$instance$.onPointerReleased = function(x, y)
+{
+	// TODO: add code here
+}
+$endif$
+
+$instance$.onProcess = function()
+{
+	return this.terminate ? 0 : 1;
+}
+
+$if(draw_events)$
+$instance$.onDraw = function(g)
+{
+	g.clear(192, 32, 32);
+}
+$endif$
+
+$instance$.run();

@@ -1,0 +1,156 @@
+  
+<SyntaxMode name = "Moscrif" mimeTypes="text/moscrif">
+	
+	<Property name="LineComment">//</Property>
+	<Property name="BlockCommentStart">/*</Property>
+	<Property name="BlockCommentEnd">*/</Property>
+	<Property name="StringQuote">"</Property>
+	<Property name="StringQuote">'</Property>
+	
+	<EolSpan color = "comment" rule="Comment">//</EolSpan>
+	
+	<Span color = "comment" rule="Comment">
+		<Begin>/*</Begin>
+		<End>*/</End>
+	</Span>
+	
+	<Span color = "string" rule = "String" stopateol = "true" escape='\'>
+		<Begin>"</Begin>
+		<End>"</End>
+	</Span>
+
+	<Span color = "string" stopateol = "true" escape='\'>
+		<Begin>&apos;</Begin>
+		<End>&apos;</End>
+	</Span>
+	
+	<Match color = "string">CSharpNumber</Match>
+	
+	<Keywords color = "keyword.access">
+		<Word>this</Word>
+		<Word>super</Word>
+	</Keywords>
+	
+	<Keywords color = "keyword.operator">
+		<Word>new</Word>
+		<Word>instanceof</Word>
+		<Word>typeof</Word>
+		<Word>in</Word>
+		<Word>like</Word>
+	</Keywords>
+	
+	<Keywords color = "keyword.selection">
+		<Word>else</Word>
+		<Word>if</Word>
+		<Word>switch</Word>
+		<Word>case</Word>
+		<Word>default</Word>
+	</Keywords>
+	
+	<Keywords color = "keyword.iteration">
+		<Word>do</Word>
+		<Word>for</Word>
+		<Word>while</Word>
+	</Keywords>
+	
+	<Keywords color = "keyword.jump">
+		<Word>break</Word>
+		<Word>continue</Word>
+		<Word>goto</Word>
+		<Word>return</Word>
+	</Keywords>
+	
+	<Keywords color = "keyword.exceptions">
+		<Word>try</Word>
+		<Word>throw</Word>
+		<Word>catch</Word>
+		<Word>finally</Word>
+	</Keywords>
+	
+	<Keywords color = "constant.language">
+		<Word>true</Word>
+		<Word>false</Word>
+		<Word>null</Word>
+    	<Word>undefined</Word>
+    	<Word>console</Word>
+    	<Word>assert</Word>
+    	<Word>debug</Word>
+    	<Word>self</Word>
+    	<Word>#object</Word>
+    	<Word>#array</Word>
+    	<Word>#string</Word>
+    	<Word>#date</Word>
+    	<Word>#float</Word>
+    	<Word>#integer</Word>
+    	<Word>#function</Word>
+    	<Word>#symbol</Word>
+	</Keywords>
+	
+	<Keywords color = "keyword.type">
+		<Word>var</Word>
+		<Word>const</Word>
+	</Keywords>
+	
+	<Keywords color = "keyword.namespace">
+		<Word>include</Word>
+		<Word>namespace</Word>
+	</Keywords>
+	
+	<Keywords color = "keyword.property">
+		<Word>get</Word>
+		<Word>set</Word>
+	</Keywords>
+		
+	<Keywords color = "keyword.declaration">
+		<Word>class</Word>
+    	<Word>type</Word>
+    	<Word>property</Word>
+    	<Word>function</Word>
+	</Keywords>
+
+	<Keywords color = "keyword.misc">
+    	<Word>@event</Word>
+    	<Word>@property</Word>
+    	<Word>@this</Word>
+    	<Word>@returns</Word>
+    	<Word>Window</Word>
+    	<Word>Wiew</Word>
+    	<Word>StackLayout</Word>
+    	<Word>TextView</Word>
+    	<Word>Paint</Word>
+    	<Word>Canvas</Word>
+    	<Word>Bitmap</Word>
+    	
+    	<Word>Application</Word>
+    	<Word>ListView</Word>
+    	<Word>TileView</Word>
+    	<Word>TextBox</Word>
+	</Keywords>
+
+	<Rule name = "Comment">
+		<Keywords color="comment.keyword.todo" ignorecase="True">
+			<Word>TODO</Word>
+			<Word>FIXME</Word>
+			<Word>HACK</Word>
+			<Word>UNDONE</Word>
+		</Keywords>	
+		<Keywords color="comment.keyword" ignorecase="True">
+			<Word>@author</Word>
+			<Word>@deprecated</Word>
+			<Word>@return</Word>
+			<Word>@exception</Word>
+			<Word>@throws</Word>
+			<Word>@see</Word>
+			<Word>@since</Word>
+			<Word>@serial</Word>
+			<Word>@serialField</Word>
+			<Word>@serialData</Word>
+			<Word>@param</Word>
+			<Word>@version</Word>
+		</Keywords>	
+	</Rule>
+	
+	<Rule name = "String">
+	</Rule>
+	
+</SyntaxMode>

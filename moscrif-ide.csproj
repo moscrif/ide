@@ -1,0 +1,902 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{04CAE56F-3CA4-4844-8D00-952E0C5C5592}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Moscrif.IDE</RootNamespace>
+    <AssemblyName>moscrif-ide-app</AssemblyName>
+    <StartupObject>Moscrif.IDE.MainClass</StartupObject>
+    <ApplicationIcon>resources\ide.ico</ApplicationIcon>
+    <ReleaseVersion>2011.2.0.0</ReleaseVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>False</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <ConsolePause>False</ConsolePause>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>none</DebugType>
+    <Optimize>False</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <ConsolePause>False</ConsolePause>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System">
+    </Reference>
+    <Reference Include="gtk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="gdk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="glib-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="pango-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="atk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="System.Xml">
+    </Reference>
+    <Reference Include="gtk-dotnet, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="System.Data">
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="Mono.TextEditor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>libs\Mono.TextEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73">
+      <HintPath>libs\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime, Version=3.3.0.7239, Culture=neutral, PublicKeyToken=eb42632606e9261f">
+      <HintPath>libs\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.StringTemplate, Version=3.3.0.7239, Culture=neutral, PublicKeyToken=eb42632606e9261f">
+      <HintPath>libs\Antlr3.StringTemplate.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime.Debug, Version=3.3.0.7239, Culture=neutral, PublicKeyToken=eb42632606e9261f">
+      <HintPath>libs\Antlr3.Runtime.Debug.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Data.Sqlite, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
+      <HintPath>libs\Mono.Data.Sqlite.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cairo" />
+    <Reference Include="Mono.Posix" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="gtk-gui\gui.stetic">
+      <LogicalName>gui.stetic</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="resources\moscrif.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="resources\all.ico" />
+    <EmbeddedResource Include="cfg\keybinding.java">
+      <LogicalName>keybinding.java</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="cfg\keybinding.mac">
+      <LogicalName>keybinding.mac</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="cfg\keybinding.visualC">
+      <LogicalName>keybinding.visualC</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="cfg\keybinding.win">
+      <LogicalName>keybinding.win</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="gtk-gui\generated.cs" />
+    <Compile Include="MainWindow.cs" />
+    <Compile Include="Main.cs">
+    </Compile>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="components\DragNotebook.cs" />
+    <Compile Include="_Temp\MyManager.cs" />
+    <Compile Include="StockIconsManager.cs" />
+    <Compile Include="ActionManager.cs" />
+    <Compile Include="actions\AboutAction.cs" />
+    <Compile Include="actions\QuitAction.cs" />
+    <Compile Include="editors\IEditor.cs" />
+    <Compile Include="editors\SourceEditor.cs" />
+    <Compile Include="actions\NewAction.cs" />
+    <Compile Include="actions\OpenAction.cs" />
+    <Compile Include="editors\EditorNotebook.cs" />
+    <Compile Include="controls\CommonAboutDialog.cs" />
+    <Compile Include="controls\MessageDialog.cs" />
+    <Compile Include="actions\SavePageAction.cs" />
+    <Compile Include="actions\SaveAllPageAction.cs" />
+    <Compile Include="components\DebugTextMarker.cs" />
+    <Compile Include="editors\ImageEditor.cs" />
+    <Compile Include="components\ErrorMarker.cs" />
+    <Compile Include="actions\ToggleBookmarkAction.cs" />
+    <Compile Include="actions\NextBookmarkAction.cs" />
+    <Compile Include="actions\PreviousBookmarkAction.cs" />
+    <Compile Include="actions\ClearBookmarksAction.cs" />
+    <Compile Include="editors\SourceEditorActions\BookmarkActions.cs" />
+    <Compile Include="editors\SourceEditorActions\BreakpointActions.cs" />
+    <Compile Include="actions\AddBreakpointAction.cs" />
+    <Compile Include="exec\ProcessService.cs" />
+    <Compile Include="exec\ProcessWrapper.cs" />
+    <Compile Include="exec\IProcessAsyncOperation.cs" />
+    <Compile Include="exec\NullAsyncOperation.cs" />
+    <Compile Include="exec\IAsyncOperation.cs" />
+    <Compile Include="exec\IProcessHostController.cs" />
+    <Compile Include="exec\IProcessHost.cs" />
+    <Compile Include="controls\AboutTabPage.cs" />
+    <Compile Include="controls\VersionInformationTabPage.cs" />
+    <Compile Include="workspace\Project.cs" />
+    <Compile Include="workspace\Workspace.cs" />
+    <Compile Include="workspace\WorkspaceTree.cs" />
+    <Compile Include="actions\CloseAllPageAction.cs" />
+    <Compile Include="actions\ClosePageAction.cs" />
+    <Compile Include="actions\CloseAllButThisAction.cs" />
+    <Compile Include="actions\DeleteFileAction.cs" />
+    <Compile Include="actions\RenameFileAction.cs" />
+    <Compile Include="actions\AddFileAction.cs" />
+    <Compile Include="actions\AddDirectoryAction.cs" />
+    <Compile Include="actions\SetAsStartAction.cs" />
+    <Compile Include="actions\ToggleExcludeAction.cs" />
+    <Compile Include="actions\UndoAction.cs" />
+    <Compile Include="actions\RedoAction.cs" />
+    <Compile Include="controls\FindReplaceControl.cs" />
+    <Compile Include="actions\FindAction.cs" />
+    <Compile Include="actions\FindNextAction.cs" />
+    <Compile Include="actions\FindPreviousAction.cs" />
+    <Compile Include="actions\NewProjectAction.cs" />
+    <Compile Include="workspace\AppFile.cs" />
+    <Compile Include="controls\NewFileDialog.cs" />
+    <Compile Include="actions\NewDirectoryAction.cs" />
+    <Compile Include="controls\EntryDialog.cs" />
+    <Compile Include="actions\UnloadProjectAction.cs" />
+    <Compile Include="controls\ListWidget.cs" />
+    <Compile Include="controls\ListWindow.cs" />
+    <Compile Include="completion\CodeCompletionContext.cs" />
+    <Compile Include="completion\CodeCompletionContextEventArgs.cs" />
+    <Compile Include="completion\CompletionData.cs" />
+    <Compile Include="completion\CompletionDataList.cs" />
+    <Compile Include="completion\CompletionListWindow.cs" />
+    <Compile Include="completion\CompletionWindowManager.cs" />
+    <Compile Include="completion\DisplayFlags.cs" />
+    <Compile Include="completion\ICompletionWidget.cs" />
+    <Compile Include="completion\DeclarationViewWindow.cs" />
+    <Compile Include="components\FixedWidthWrapLabel.cs" />
+    <Compile Include="actions\RunEmulatorAction.cs" />
+    <Compile Include="components\WindowTransparencyDecorator.cs" />
+    <Compile Include="completion\MutableCompletionDataList.cs" />
+    <Compile Include="actions\InsertTemplateAction.cs" />
+    <Compile Include="editors\SourceEditorActions\AutoCompleteActions.cs" />
+    <Compile Include="actions\InsertAutoCompletAction.cs" />
+    <Compile Include="components\TextEdit.cs" />
+    <Compile Include="actions\RunEmulatorNoWindAction.cs" />
+    <Compile Include="actions\RefreshProjectAction.cs" />
+    <Compile Include="editors\DatabaseEditor.cs">
+    </Compile>
+    <Compile Include="editors\DatabaseView\StructureDatabaseView.cs" />
+    <Compile Include="editors\DatabaseView\DataDatabaseView.cs" />
+    <Compile Include="editors\DatabaseView\SqlDatabaseView.cs" />
+    <Compile Include="actions\ClearConsoleAction.cs" />
+    <Compile Include="actions\PublishAction.cs" />
+    <Compile Include="controls\NotebookCheckLabel.cs" />
+    <Compile Include="controls\PublishDialog.cs" />
+    <Compile Include="controls\ApplicationFileControl.cs" />
+    <Compile Include="devices\Skin.cs" />
+    <Compile Include="devices\Includes.cs" />
+    <Compile Include="controls\NewWorkspaceDialog.cs" />
+    <Compile Include="actions\NewWorkspaceAction.cs" />
+    <Compile Include="actions\OpenProjectAction.cs" />
+    <Compile Include="actions\OpenWorkspaceAction.cs" />
+    <Compile Include="settings\PreferencesDialog.cs" />
+    <Compile Include="settings\IOptionsPanel.cs" />
+    <Compile Include="settings\OptionsPanel.cs" />
+    <Compile Include="settings\GlobalOptionsPanel.cs" />
+    <Compile Include="settings\TestOptionsPanel.cs" />
+    <Compile Include="components\FileEntry.cs" />
+    <Compile Include="settings\KeyBindingPanel.cs" />
+    <Compile Include="tool\IniFile.cs" />
+    <Compile Include="tool\Tools.cs" />
+    <Compile Include="tool\Logger.cs" />
+    <Compile Include="completion\templates\CodeTemplateVariable.cs" />
+    <Compile Include="completion\templates\CodeTemplateService.cs" />
+    <Compile Include="completion\templates\CodeTemplate.cs" />
+    <Compile Include="completion\templates\CodeTemplateCompletionData.cs" />
+    <Compile Include="tool\XmlReadHelper.cs" />
+    <Compile Include="tool\FileUtility.cs" />
+    <Compile Include="controls\OpenProjectDialog.cs" />
+    <Compile Include="actions\SaveAsPageAction.cs" />
+    <Compile Include="actions\UniqueSequenceAction.cs" />
+    <Compile Include="controls\UniqueSequenceDialog.cs" />
+    <Compile Include="task\ITask.cs" />
+    <Compile Include="task\RunEmulatorTask.cs" />
+    <Compile Include="actions\GoToLineAction.cs" />
+    <Compile Include="task\TaskList.cs" />
+    <Compile Include="task\TaskServices.cs" />
+    <Compile Include="task\TestTask.cs" />
+    <Compile Include="task\TestCompileTask.cs" />
+    <Compile Include="task\PrecompileTask.cs" />
+    <Compile Include="settings\GlobalEditorPanel.cs" />
+    <Compile Include="controls\NotebookEditorLabel.cs" />
+    <Compile Include="task\TaskMessage.cs" />
+    <Compile Include="task\CompileTask.cs" />
+    <Compile Include="actions\CompileProjectAction.cs" />
+    <Compile Include="settings\project\ProjectConditionsPanel.cs" />
+    <Compile Include="actions\IdePreferencesAction.cs" />
+    <Compile Include="actions\ProjectPreferencesAction.cs" />
+    <Compile Include="actions\ProjectPreferencesPopUpAction.cs" />
+    <Compile Include="actions\FilePreferencesPopUpAction.cs" />
+    <Compile Include="settings\CompilePanel.cs" />
+    <Compile Include="settings\file\FileGeneralPanel.cs" />
+    <Compile Include="settings\file\FileConditionsPanel.cs" />
+    <Compile Include="settings\file\FilePropertisData.cs" />
+    <Compile Include="actions\DirectoryPreferencesPopUpAction.cs" />
+    <Compile Include="settings\dir\DirGeneralPanel.cs" />
+    <Compile Include="settings\dir\DirConditionsPanel.cs" />
+    <Compile Include="editors\WebViewer.cs" />
+    <Compile Include="devices\Device.cs" />
+    <Compile Include="settings\project\DevicePanel.cs" />
+    <Compile Include="settings\project\DevicePropertyData.cs" />
+    <Compile Include="task\PublishTask.cs" />
+    <Compile Include="controls\NotebookLabel.cs" />
+    <Compile Include="task\LogOutput.cs" />
+    <Compile Include="devices\ConditionDevice.cs" />
+    <Compile Include="devices\PublishProperty.cs" />
+    <Compile Include="controls\ProgressDialog.cs" />
+    <Compile Include="controls\LoginDialog.cs" />
+    <Compile Include="components\LoginLogoutControl.cs" />
+    <Compile Include="actions\AddThemeAction.cs" />
+    <Compile Include="actions\ViewFileAction.cs" />
+    <Compile Include="controls\CreateThemeDialog.cs" />
+    <Compile Include="editors\StartPage.cs" />
+    <Compile Include="actions\OpenStartPageAction.cs" />
+    <Compile Include="components\StartEventControl.cs" />
+    <Compile Include="components\LinkButton.cs" />
+    <Compile Include="task\ErrorOutput.cs" />
+    <Compile Include="controls\SqlLite\SqlLiteAddTable.cs" />
+    <Compile Include="controls\SqlLite\fieldTable.cs" />
+    <Compile Include="controls\SqlLite\SqlLiteAddFiled.cs" />
+    <Compile Include="controls\SqlLite\SqlLiteEditTable.cs" />
+    <Compile Include="tool\SqlLiteDal.cs" />
+    <Compile Include="editors\DatabaseView\IDataBaseView.cs" />
+    <Compile Include="controls\NotebookMenuLabel.cs" />
+    <Compile Include="task\ITaskOutput.cs" />
+    <Compile Include="actions\CheckVersionAction.cs" />
+    <Compile Include="task\RunEmulatorConsoleTask.cs" />
+    <Compile Include="workspace\FrameworkTree.cs" />
+    <Compile Include="actions\PasteTextAction.cs" />
+    <Compile Include="actions\CopyTextAction.cs" />
+    <Compile Include="actions\CutTextAction.cs" />
+    <Compile Include="editors\SourceEditorActions\EditAction.cs" />
+    <Compile Include="filetemplates\FileTemplate.cs" />
+    <Compile Include="filetemplates\FileTemplateReader.cs" />
+    <Compile Include="filetemplates\FileTemplateUtilities.cs" />
+    <Compile Include="components\AttributeEntry.cs" />
+    <Compile Include="components\AttributeCheckBox.cs" />
+    <Compile Include="editors\ImageView\ImageCanvas.cs" />
+    <Compile Include="editors\ImageView\ImageHelp.cs" />
+    <Compile Include="controls\LibsManagerDialog.cs" />
+    <Compile Include="actions\PropertyAllAction.cs" />
+    <Compile Include="components\FileMaskEntry.cs" />
+    <Compile Include="components\EntryMenu.cs" />
+    <Compile Include="actions\OpenOutputAction.cs" />
+    <Compile Include="tool\Cryptographer.cs" />
+    <Compile Include="task\SignPublishTask.cs" />
+    <Compile Include="actions\ViewProjectAppAction.cs" />
+    <Compile Include="controls\LicenceExpiredDialog.cs" />
+    <Compile Include="tool\Comparers.cs" />
+    <Compile Include="settings\Settings.cs" />
+    <Compile Include="Iface\Entities\Account.cs" />
+    <Compile Include="Iface\Entities\Condition.cs" />
+    <Compile Include="Iface\Entities\LogicalSystem.cs" />
+    <Compile Include="Iface\Entities\DevicesType.cs" />
+    <Compile Include="Iface\Entities\WebObject.cs" />
+    <Compile Include="Iface\Entities\IgnoreFolder.cs" />
+    <Compile Include="Iface\recent\RecentFileStorage.cs" />
+    <Compile Include="Iface\recent\RecentItem.cs" />
+    <Compile Include="Iface\recent\RecentOpen.cs" />
+    <Compile Include="Iface\LoggUser.cs" />
+    <Compile Include="Iface\Paths.cs" />
+    <Compile Include="Iface\VersionChecker.cs" />
+    <Compile Include="Iface\SignApp.cs" />
+    <Compile Include="Iface\Platform.cs" />
+    <Compile Include="settings\FilteringPanel.cs" />
+    <Compile Include="Iface\Entities\KeyBinding.cs" />
+    <Compile Include="Iface\KeyBindings.cs" />
+    <Compile Include="Iface\Entities\KeyBindingSection.cs" />
+    <Compile Include="controls\MessageDialogUrl.cs" />
+    <Compile Include="editors\ImageView\BarierPoint.cs" />
+    <Compile Include="components\ImageToolsControl.cs" />
+    <Compile Include="settings\ImageEditorPanel.cs" />
+    <Compile Include="SplashScreen.cs" />
+    <Compile Include="components\LinkImageButton.cs" />
+    <Compile Include="actions\GenerateAutoCompleteWords.cs" />
+    <Compile Include="settings\CompletedCache.cs" />
+    <Compile Include="controls\FileExplorer.cs" />
+    <Compile Include="editors\ImageView\BarierPointJavaScriptConverter.cs" />
+    <Compile Include="devices\PublishPropertyJavaScriptConverter.cs" />
+    <Compile Include="devices\IncludesJavaScriptConverter.cs" />
+    <Compile Include="devices\SkinJavaScriptConverter.cs" />
+    <Compile Include="devices\ConditionJavaScriptConverter.cs" />
+    <Compile Include="components\ImageToolBarControl.cs" />
+    <Compile Include="settings\project\ApplicationPanel.cs" />
+    <Compile Include="settings\project\GeneralPanel.cs" />
+    <Compile Include="MacPlatform\ApplicationEvents.cs" />
+    <Compile Include="MacPlatform\IgeMacMenu.cs" />
+    <Compile Include="MacPlatform\Carbon.cs" />
+    <Compile Include="MacPlatform\AppleScript.cs" />
+    <Compile Include="MacPlatform\AppleEvent.cs" />
+    <Compile Include="MacPlatform\CoreFoundation.cs" />
+    <Compile Include="MacPlatform\ComponentManager.cs" />
+    <Compile Include="controls\SettingPlatformDialog.cs" />
+    <Compile Include="actions\SettingPlatformAction.cs" />
+    <Compile Include="Iface\Entities\PlatformResolution.cs" />
+    <Compile Include="devices\DeviceJavaScriptConverter.cs" />
+    <Compile Include="settings\WebCache.cs" />
+    <Compile Include="Iface\Entities\SettingValue.cs" />
+    <Compile Include="settings\EmulatorOptionsPanel.cs" />
+    <Compile Include="settings\ResolutionOptionsPanel.cs" />
+    <Compile Include="controls\ResolutionDialog.cs" />
+    <Compile Include="actions\ShowLeftPaneAction.cs" />
+    <Compile Include="actions\ShowBottomPaneAction.cs" />
+    <Compile Include="actions\ShowRightPaneAction.cs" />
+    <Compile Include="workspace\ProjectUserFile.cs" />
+    <Compile Include="actions\FilePropertyAction.cs" />
+    <Compile Include="actions\ImportZipProjectAction.cs" />
+    <Compile Include="actions\ImportFolderProjectAction.cs" />
+    <Compile Include="actions\GoToDefinitionAction.cs" />
+    <Compile Include="_Temp\ParameterInformationWindow.cs" />
+    <Compile Include="_Temp\ParameterInformationWindowManager.cs" />
+    <Compile Include="components\TooltipWindow.cs" />
+    <Compile Include="completion\ScriptTooltipProvider.cs" />
+    <Compile Include="devices\EmulatorDisplay.cs" />
+    <Compile Include="_Temp\IParameterDataProvider.cs" />
+    <Compile Include="actions\ExportZipprojectAction.cs" />
+    <Compile Include="workspace\WorkspaceUserFile.cs" />
+    <Compile Include="Iface\Entities\FileSetting.cs" />
+    <Compile Include="controls\BookmarkOutput.cs" />
+    <Compile Include="controls\OutputConsole.cs" />
+    <Compile Include="actions\CommentUncommentAction.cs" />
+    <Compile Include="task\TodoTask.cs" />
+    <Compile Include="task\TodoOutput.cs" />
+    <Compile Include="task\FindOutput.cs" />
+    <Compile Include="task\FindReplaceTask.cs" />
+    <Compile Include="Iface\Entities\SearchPattern.cs" />
+    <Compile Include="Iface\Entities\FindResult.cs" />
+    <Compile Include="task\ProcessOutput.cs" />
+    <Compile Include="components\HoverMarker.cs" />
+    <Compile Include="Extensions\TextEditorExtensions.cs" />
+    <Compile Include="components\UsageMarker.cs" />
+    <Compile Include="completion\templates\ExpansionObject.cs" />
+    <Compile Include="controls\PermissionEditor.cs" />
+    <Compile Include="components\PermissionButton.cs" />
+    <Compile Include="Iface\AndroidPermission.cs" />
+    <Compile Include="Iface\Languages.cs" />
+    <Compile Include="tool\IniParser.cs" />
+    <Compile Include="actions\RunEmulatorDebug.cs" />
+    <Compile Include="task\RunEmulatorDebugTask.cs" />
+    <Compile Include="task\LogMonitor.cs" />
+    <Compile Include="task\LogGarbageCollector.cs" />
+    <Compile Include="controls\NewProjectDialog.cs" />
+    <Compile Include="components\SkinThemeControl.cs" />
+    <Compile Include="devices\DeviceJSonFormatter.cs" />
+    <Compile Include="actions\RenameProjectAction.cs" />
+    <Compile Include="components\MenuToolButton.cs" />
+    <Compile Include="completion\templates\CodeTemplateListDataProvider.cs" />
+    <Compile Include="actions\NewProjectWizzardAction.cs" />
+    <Compile Include="actions\ArchiveProjectAction.cs" />
+    <Compile Include="Extensions\StringExtension.cs" />
+    <Compile Include="gtk-gui\MainWindow.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Controls.FindReplaceControl.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Controls.NewFileDialog.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Controls.PublishDialog.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Controls.ApplicationFileControl.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Controls.NewWorkspaceDialog.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Settings.PreferencesDialog.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Settings.GlobalOptionsWidget.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Settings.TestOptionsWidget.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Settings.KeyBindingWidget.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Settings.DevicesOptionsWidget.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Controls.OpenProjectDialog.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Controls.UniqueSequenceDialog.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Settings.GlobalEditorWidget.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Settings.CompileWidget.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Settings.ProjectConditionsWidget.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Settings.ApplicationWidget.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Settings.FileGeneralWidget.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Settings.FileConditionsWidget.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Settings.DirGeneralWidget.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Settings.DirConditionsWidget.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Settings.DeviceWidget.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Controls.ProgressDialog.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Controls.LoginDialog.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Components.LoginLogoutControl.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Controls.CreateThemeDialog.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Components.StartEventControl.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Controls.SqlLite.SqlLiteAddTable.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Controls.SqlLite.SqlLiteAddFiled.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Controls.SqlLite.SqlLiteEditTable.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Controls.LibsManagerDialog.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Controls.LicenceExpiredDialog.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Settings.FilteringWidget.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Settings.ImageEditorWidget.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Settings.GeneralWidget.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Controls.SettingPlatformDialog.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Settings.ResolutionOptionWidget.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Controls.ResolutionDialog.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Controls.PermissionEditor.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Controls.NewProjectDialog.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Components.SkinThemeControl.cs" />
+    <Compile Include="components\NavigationBar.cs" />
+    <Compile Include="actions\OpenOutputPopUpAction.cs" />
+    <Compile Include="actions\ShowProject.cs" />
+    <Compile Include="actions\DeleteProjectAction.cs" />
+    <Compile Include="actions\ShowDirectoryAction.cs" />
+    <Compile Include="components\ToggleButtonCustom.cs" />
+    <Compile Include="components\WarningControl.cs" />
+    <Compile Include="components\FavoriteEntry.cs" />
+    <Compile Include="Iface\ProjectTemplate.cs" />
+    <Compile Include="actions\OpenApiReferenceAction.cs" />
+    <Compile Include="actions\OpenOnlineDocument.cs" />
+    <Compile Include="actions\OpenSubmitSupport.cs" />
+    <Compile Include="actions\OpenOnlineDemos.cs" />
+    <Compile Include="actions\OpenOnlineSamples.cs" />
+    <Compile Include="actions\OpenOnlineApiReferenceAction.cs" />
+    <Compile Include="actions\StopEmulatorAction.cs" />
+    <Compile Include="controls\Wizard\NewProjectWizzard_Old.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Controls.Wizard.NewProjectWizzard_Old.cs" />
+    <Compile Include="controls\Wizard\NewProjectWizzard_New.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Controls.Wizard.NewProjectWizzard_New.cs" />
+    <Compile Include="Iface\SocketServer.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="components\" />
+    <Folder Include="_Temp\" />
+    <Folder Include="actions\" />
+    <Folder Include="controls\" />
+    <Folder Include="editors\" />
+    <Folder Include="cfg\" />
+    <Folder Include="editors\SourceEditorActions\" />
+    <Folder Include="workspace\" />
+    <Folder Include="completion\" />
+    <Folder Include="cfg\templates\" />
+    <Folder Include="libs\" />
+    <Folder Include="editors\DatabaseView\" />
+    <Folder Include="settings\" />
+    <Folder Include="devices\" />
+    <Folder Include="tool\" />
+    <Folder Include="task\" />
+    <Folder Include="settings\project\" />
+    <Folder Include="settings\file\" />
+    <Folder Include="settings\dir\" />
+    <Folder Include="controls\SqlLite\" />
+    <Folder Include="cfg\filetemplates\" />
+    <Folder Include="filetemplates\" />
+    <Folder Include="editors\ImageView\" />
+    <Folder Include="cfg\languages\" />
+    <Folder Include="Iface\" />
+    <Folder Include="MacPlatform\" />
+    <Folder Include="Extensions\" />
+    <Folder Include="controls\Wizard\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cfg\MenuStructure.Xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\mobil.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\moscrif.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\redo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\refresh.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\run.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\save.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\undo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\about.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\stock-close.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\bookmark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="moscrif-ide.exe.config">
+    </None>
+    <None Include="Mono.TextEditor.dll.config" />
+    <None Include="cfg\templates\templates.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="cfg\displays\noskin_hvga.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="cfg\displays\noskin_xga.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="cfg\styles\MoscrifStyle.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="cfg\styles\MoscrifSyntaxMode.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\breakpoint.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\close.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\delete.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\file-database.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\file-html.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\file-image.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\file-ms.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\file-new.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\file-open.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\file-text.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\find.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\folder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\folder-new.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\folder-open.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\preferences.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\project.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\quit.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\rename.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\stock-menu.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\workspace.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\project-new.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\project-unload.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\file-exclude.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\save-all.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\save-as.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\bookmark-clear.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\bookmark-next.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\bookmark-previous.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\project-folder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\publish.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\run-in-console.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\console.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\workspace-tree.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\task.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\compile.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\empty.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\device.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\keyboard-shortcuts.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\project-preferences.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\conditions.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\file-conditions.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\file-properties.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\folder-properties.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\android.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\apple.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\bada.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\symbian.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\windows.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\themes.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\error.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\log.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\home.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="cfg\displays\noskin_qhd.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\background.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\moscrif.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="cfg\displays\noskin_dvga.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="cfg\displays\noskin_vga.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="version.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\libs.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="readmeOsx.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="cfg\filetemplates\application.mst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="cfg\filetemplates\key_events.mst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="cfg\filetemplates\scan_files.mst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="cfg\filetemplates\scriflet.mst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="cfg\filetemplates\adress_book.dbt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="cfg\languages\en.lng">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\stock-add.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\logo-s.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="samples\HelloWorldUI\HelloWorldUI.png" />
+    <None Include="samples\HelloWorldUI\HelloWorldUI.txt" />
+    <None Include="samples\HelloWorldUI\HelloWorldUI.zip" />
+    <None Include="resources\filter.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\barier-add.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\barier-delete.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\barier-show.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\zoom-in.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\zoom-original.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\zoom-out.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\barier-movie.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\barier-delete-all.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\editor-image.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\editor-text.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\go-up.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\drive-harddisk.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\edit-copy.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\edit-cut.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\edit-paste.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\application.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="sqlite3.dll" />
+    <None Include="cfg\displays\noskin_svga.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="cfg\displays\noskin_fwvga.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\folder-properties-16.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\emulator-skin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\workspace-bottom.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\workspace-left.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\workspace-right.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\workspace-top.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="cfg\displays\noskin_wvga.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="_Temp\config.txt" />
+    <None Include="cfg\displays\noskin_wsvga.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="cfg\displays\noskin_vxga.ini" />
+    <None Include="cfg\AndroidPermission.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="cfg\displays\noskin_qxga.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="cfg\completedcache">
+    </None>
+    <None Include="cfg\filetemplates\game.mst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\starSelect.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\starUnselect.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\win32.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\macos.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="cfg\displays\noskin_hd720.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="cfg\displays\noskin_nhd.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="cfg\displays\noskin_qvga.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="cfg\displays\noskin_wqvga.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\socket-green.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\socket-red.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="resources\all.ico">
+      <DeployService-UseProjectRelativePath>True</DeployService-UseProjectRelativePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties>
+        <Policies>
+          <TextStylePolicy EolMarker="Unix" inheritsSet="Mono" inheritsScope="text/plain" scope="text/x-csharp" />
+          <CSharpFormattingPolicy AnonymousMethodBraceStyle="NextLine" PropertyBraceStyle="NextLine" EventBraceStyle="NextLine" IfElseBraceForcement="RemoveBraces" ForBraceForcement="RemoveBraces" ForEachBraceForcement="RemoveBraces" WhileBraceForcement="RemoveBraces" UsingBraceForcement="RemoveBraces" BeforeMethodDeclarationParentheses="False" BeforeMethodCallParentheses="False" BeforeConstructorDeclarationParentheses="False" BeforeDelegateDeclarationParentheses="False" NewParentheses="False" inheritsSet="Mono" inheritsScope="text/x-csharp" scope="text/x-csharp" />
+          <DotNetNamingPolicy DirectoryNamespaceAssociation="Hierarchical" ResourceNamePolicy="FileFormatDefault" />
+        </Policies>
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
+  <ItemGroup>
+    <ProjectReference Include="moscrif-updater\moscrif-updater.csproj">
+      <Project>{B5014F62-056C-49F5-95C7-F931AAF129C2}</Project>
+      <Name>moscrif-updater</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>

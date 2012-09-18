@@ -1,0 +1,86 @@
+<?xml version="1.0" ?> 
+<KeyBindings typeBinding="Eclipse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<sections> 
+		<section name="File">
+ 			<keybindings>
+ 				<keybinding name="Create new file" description="Create new file" action="newfile" key="control+n" />
+				<keybinding name="New workspace" description="Create new workspace" action="newworkspace" key="" />
+				<keybinding name="New Project" description="Create new Project" action="newproject" key="" />
+				<keybinding name="Load Project" description="Load Project" action="loadproject" key="control+shift+O" />
+				<keybinding name="Import Zip Project" description="Import Project" action="importZipProject" key="control+shift+m" />
+				<keybinding name="Import Folder Project" description="Import Project" action="importFolderProject" key="control+shift+d" />					
+				<keybinding name="Open" description="Open Action" action="open" key="control+O" />
+				<keybinding name="Save" description="Save" action="save" key="control+S" />
+				<keybinding name="Save As ..." description="Save As ..." action="saveas" key="" />
+				<keybinding name="Save All" description="Save All" action="saveall" key="control+shift+s" />
+				<keybinding name="Show properties" description="Show properties" action="propertyall" key="Alt+Return" />
+				<keybinding name="Close Page" description="Close Page" action="close" key="control+F4" />
+				<keybinding name="Close All Page" description="Close All Page" action="closeall" key="command+shift+F4" />
+				<keybinding name="Close all but this" description="Close all but this" action="closeallbutthis" key="" />				>
+				<keybinding name="Quit" description="Quit Action" action="quit" key="control+Q" />
+			</keybindings>  
+		</section>
+	 	<section name="Edit">
+	 		<keybindings>
+				<keybinding name="insertcomplete" description="Insert Complete" action="insertcomplete" key="control+/" />
+				<keybinding name="inserttemplate" description="Insert Template" action="inserttemplate" key="control+T" />
+				<keybinding name="Undo" description="Undo" action="undo" key="control+Z" />
+				<keybinding name="Redo" description="Redo" action="redo" key="control+Y" />
+				<keybinding name="Commnet/Uncomment" description="Commnet/Uncomment" action="commentUncomment" key="control+alt+c" />
+				<keybinding name="Go to line" description="Go to line" action="gotoline" key="control+L" />
+			</keybindings>  
+		</section>
+		<section name="Search">
+			<keybindings>
+		 		<keybinding name="Find" description="Find" action="find" key="control+F" />
+				<keybinding name="Find Next" description="Find Next" action="findnext" key="control+k" />
+				<keybinding name="Find Previous" description="Find Previous" action="findprevious" key="control+shift+k" />
+				<keybinding name="Next Bookmark" description="Go to next bookmark" action="nextBookmark" key="F2" />
+				<keybinding name="Previous Bookmarks" description="Previous Bookmarks" action="previouBookmark" key="shift+F2" />
+				<keybinding name="Toggle Bookmark" description="Toggle Bookmark" action="toggleBookmark" key="" />
+				<keybinding name="Clear Bookmarks" description="Clear Bookmarks" action="clearBookmarks" key="" />
+			</keybindings>  
+		</section>
+		<section name="View">
+			<keybindings>
+		 		<keybinding name="Show Left Pane" description="Show Left Pane" action="showleftpane" key="" />
+				<keybinding name="Show Botton Pane" description="Show Botton Pane" action="showbottonpane" key="" />
+			</keybindings>  
+		</section>		
+	 	<section name="Project">	
+	 		<keybindings>			
+				<keybinding name="Compile project" description="Compile project" action="compileproject" key="control+b" />
+				<keybinding name="Publish project" description="Publish project" action="publish" key="command+shift+b" />
+				<keybinding name="Open Project Output" description="Open Project Output" action="openoutput" key="" />
+				<keybinding name="Project properties" description="Project properties" action="projectpreferences" key="" />				
+			</keybindings>  
+		</section>
+	 	<section name="Emulator">	
+	 		<keybindings>
+				<keybinding name="Run Emulator" description="Run Emulator" action="run" key="control+F11" />
+				<keybinding name="Run Emulator - Console Mode" description="Run Emulator in Console Mode" action="runnowindow" key="control+shift+F11" />
+				<keybinding name="Run Debug" description="Run Debug" action="rundebug" key="control+F5" />
+				<keybinding name="Stop emulator" description="Stop emulator" action="stopemulator" key="" />
+			</keybindings> 
+		</section>
+		<section name="Tool">	
+			<keybindings>
+				<keybinding name="About" description="Show about" action="about" key="" /
+			 	<keybinding name="Ide Preferences" description="Preferences" action="idepreferences" key="" />			
+				<keybinding name="Unicode sequence tool" description="Unicode sequence tool" action="unicodesequence" key="" />
+				<keybinding name="Show Start Page" description="Show Start Page" action="showstartpage" key="" />
+	 		    <keybinding name="Set as start" description="Set file as start file" action="setasstart" key="" />
+	        </keybindings> 
+		</section> 
+		<section name="Help">	
+			<keybindings>
+			 	<keybinding name="Offline API reference" description="Offline API reference" action="apireference" key="F1" />			
+				<keybinding name="Online API reference" description="Online API reference" action="onlineapireference" key="" />
+				<keybinding name="Online Documentation" description="Online Documentation" action="onlinedocumentation" key="" />
+	 		    <keybinding name="Submit Support Issue" description="Submit Support Issue" action="submitsupport" key="" />
+				<keybinding name="Online Demos" description="Online Demos" action="onlinedemos" key="" />	 		    
+				<keybinding name="Online Samples" description="Online Samples" action="onlinesamples" key="" />				
+	        </keybindings>        
+		</section>
+	</sections>
+</KeyBindings>
