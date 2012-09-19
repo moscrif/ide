@@ -31,8 +31,6 @@ namespace Moscrif.IDE.Controls
 			// Widget Moscrif.IDE.Controls.LoginDialog
 			this.Name = "Moscrif.IDE.Controls.LoginDialog";
 			this.WindowPosition = ((global::Gtk.WindowPosition)(3));
-			this.Resizable = false;
-			this.AllowGrow = false;
 			// Internal child Moscrif.IDE.Controls.LoginDialog.VBox
 			global::Gtk.VBox w1 = this.VBox;
 			w1.Name = "dialog1_VBox";
@@ -226,6 +224,7 @@ namespace Moscrif.IDE.Controls
 			w1.Add (this.notebook1);
 			global::Gtk.Box.BoxChild w17 = ((global::Gtk.Box.BoxChild)(w1 [this.notebook1]));
 			w17.Position = 0;
+			w17.Expand = false;
 			w17.Fill = false;
 			w17.Padding = ((uint)(5));
 			// Internal child Moscrif.IDE.Controls.LoginDialog.ActionArea
@@ -261,7 +260,7 @@ namespace Moscrif.IDE.Controls
 				this.Child.ShowAll ();
 			}
 			this.DefaultWidth = 330;
-			this.DefaultHeight = 236;
+			this.DefaultHeight = 244;
 			this.Show ();
 			this.notebook1.SwitchPage += new global::Gtk.SwitchPageHandler (this.OnNotebook1SwitchPage);
 			this.entrPassword.KeyReleaseEvent += new global::Gtk.KeyReleaseEventHandler (this.OnEntrPasswordKeyReleaseEvent);

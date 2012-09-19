@@ -107,8 +107,10 @@ namespace Moscrif.IDE.Controls.Wizard
 				Gtk.TreePath[] selRow = ivSelectTyp.SelectedItems;
 				if(selRow.Length<1){
 					lblHint.Text = " ";
+					btnNext.Sensitive = false;
 					return;
 				}
+				btnNext.Sensitive = true;
 
 				Gtk.TreePath tp = selRow[0];
 				TreeIter ti = new TreeIter();

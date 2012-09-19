@@ -160,13 +160,13 @@
 		<menuitem name="showfolderpopup" action="showfolderpopup" />		
 		<menuitem name="refreshproject"  action="refreshproject" />		
 		<separator name="sep9" />
-		<menu name="addFileSubmenu" action="addFileSubmenu">
+		<!--<menu name="addFileSubmenu" action="addFileSubmenu">-->
 			<menuitem name="newfile"  action="newfile" />
 			<menuitem name="newdirectory"  action="newdirectory" />
 			<separator name="sep11" />
 			<menuitem name="addfile"  action="addfile" />
 			<menuitem name="adddirectory"  action="adddirectory" />	   		
-   		</menu>	
+   		<!--</menu>	-->
 		<separator name="sep11" />			
     	<menuitem name="delete" action="deletefile" />	    	
     	<menuitem name="rename" action="renamefile" />	
@@ -193,13 +193,13 @@
 		<menuitem name="unloadproject"  action="unloadproject" />
 		<menuitem name="exportZipProject"  action="exportZipProject" />
 		<menuitem name="archiveProject"  action="archiveProject" />		
-		<menu name="addFileSubmenu" action="addFileSubmenu">
+		<!--<menu name="addFileSubmenu" action="addFileSubmenu">-->
 			<menuitem name="newfile"  action="newfile" />
 			<menuitem name="newdirectory"  action="newdirectory" />
 			<separator name="sep11" />
 			<menuitem name="addfile"  action="addfile" />
 			<menuitem name="adddirectory"  action="adddirectory" />	   		
-   		</menu>		 
+   		<!--</menu>		 -->
 		<menuitem name="deleteproject"  action="deleteproject" />      		
 		<menuitem name="renameproject"  action="renameproject" />   			
 		<separator name="sep9" />

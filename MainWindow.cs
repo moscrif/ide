@@ -22,23 +22,6 @@ using System.Security.Principal;
 using System.Threading;
 using System.Net;
 using System.Net.Sockets;
-//TODO !!! NEZABUDNY vratit spet //VRATIT SPET
-
-// TODO: Kartu Compilation rozdel na run , publish a compilation
-// TODO: Relativne cesty do nastavenia devicov. uprav cesty v device property tak aby boly aj ./ (relativne)
-// message do dialogu zovrazit pri publishe zobraz errory, v karte error zobrazuj vssetky chyby
-// TODO: Color Dialog
-// TODO: skontroluj generovanie ignoreFolder, a logical systemu
-// TODO: Publish resolution sprav na specific
-// TODO: mazanie starych tempov pri starte - vo vlakne
-// TODO: Zvetsovanie obrazku po pixeloch (ako vo photoshope) nieco ako Bilinear
-// TODO : AutoFormating
-
-// MAC
-// nech sa emulator po zapnuty prepne do popredia
-//TODO : Menu tool v obrazkoch - problem su tie kocky na pozady
-// TODO : Klavesove skratky -- pytat si od oxyho zoznam skratiek
-// TODO : Control v mac menu za nahrady za command, a command zase zmyzne.
 
 public partial class MainWindow : Gtk.Window
 {

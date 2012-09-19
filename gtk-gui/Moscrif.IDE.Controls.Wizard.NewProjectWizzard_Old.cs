@@ -51,10 +51,10 @@ namespace Moscrif.IDE.Controls.Wizard
 		protected virtual void Build ()
 		{
 			global::Stetic.Gui.Initialize (this);
-			// Widget Moscrif.IDE.Controls.Wizard.NewProjectWizzard
-			this.Name = "Moscrif.IDE.Controls.Wizard.NewProjectWizzard";
+			// Widget Moscrif.IDE.Controls.Wizard.NewProjectWizzard_Old
+			this.Name = "Moscrif.IDE.Controls.Wizard.NewProjectWizzard_Old";
 			this.WindowPosition = ((global::Gtk.WindowPosition)(4));
-			// Internal child Moscrif.IDE.Controls.Wizard.NewProjectWizzard.VBox
+			// Internal child Moscrif.IDE.Controls.Wizard.NewProjectWizzard_Old.VBox
 			global::Gtk.VBox w1 = this.VBox;
 			w1.Name = "dialog1_VBox";
 			w1.BorderWidth = ((uint)(2));
@@ -139,10 +139,7 @@ namespace Moscrif.IDE.Controls.Wizard
 			w6.XPadding = ((uint)(5));
 			w6.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
-			this.feRoot = new global::Moscrif.IDE.Components.FileEntry ();
-			this.feRoot.Name = "feRoot";
-			this.feRoot.IsFolder = true;
-			this.feRoot.BrowserTitle = "Root Directory";
+			this.feRoot = null;
 			this.table1.Add (this.feRoot);
 			global::Gtk.Table.TableChild w7 = ((global::Gtk.Table.TableChild)(this.table1 [this.feRoot]));
 			w7.TopAttach = ((uint)(1));
@@ -311,9 +308,7 @@ namespace Moscrif.IDE.Controls.Wizard
 			this.vbox3 = new global::Gtk.VBox ();
 			this.vbox3.Name = "vbox3";
 			// Container child vbox3.Gtk.Box+BoxChild
-			this.skinThemeControl = new global::Moscrif.IDE.Components.SkinThemeControl ();
-			this.skinThemeControl.Events = ((global::Gdk.EventMask)(256));
-			this.skinThemeControl.Name = "skinThemeControl";
+			this.skinThemeControl = null;
 			this.vbox3.Add (this.skinThemeControl);
 			global::Gtk.Box.BoxChild w22 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.skinThemeControl]));
 			w22.Position = 0;
@@ -426,7 +421,7 @@ namespace Moscrif.IDE.Controls.Wizard
 			w1.Add (this.hbPage);
 			global::Gtk.Box.BoxChild w35 = ((global::Gtk.Box.BoxChild)(w1 [this.hbPage]));
 			w35.Position = 0;
-			// Internal child Moscrif.IDE.Controls.Wizard.NewProjectWizzard.ActionArea
+			// Internal child Moscrif.IDE.Controls.Wizard.NewProjectWizzard_Old.ActionArea
 			global::Gtk.HButtonBox w36 = this.ActionArea;
 			w36.Name = "dialog1_ActionArea";
 			w36.Spacing = 10;

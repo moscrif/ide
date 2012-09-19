@@ -21,9 +21,7 @@ namespace Moscrif.IDE.Settings
 			this.vbox2 = new global::Gtk.VBox ();
 			this.vbox2.Name = "vbox2";
 			// Container child vbox2.Gtk.Box+BoxChild
-			this.skinThemeControl = new global::Moscrif.IDE.Components.SkinThemeControl ();
-			this.skinThemeControl.Events = ((global::Gdk.EventMask)(256));
-			this.skinThemeControl.Name = "skinThemeControl";
+			this.skinThemeControl = null;
 			this.vbox2.Add (this.skinThemeControl);
 			global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.skinThemeControl]));
 			w1.Position = 0;
