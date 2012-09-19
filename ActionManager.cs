@@ -311,7 +311,7 @@ namespace Moscrif.IDE
 			action.Activated += delegate(object sender, EventArgs e) {
 				Workspace.Workspace workspace = Workspace.Workspace.OpenWorkspace(fileName);
 				if (workspace != null)
-					MainClass.MainWindow.ReloadWorkspace(workspace,false,true);
+						MainClass.MainWindow.ReloadWorkspace(workspace,true,true);
 			};
 			dynGroupAll.Add(action);
 			ui.AddUi(mergeIdAll, "/menubar/FileAction/RecentAll", name, name, UIManagerItemType.Menuitem, false);
@@ -400,7 +400,7 @@ namespace Moscrif.IDE
 			mi.Activated+= delegate(object sender, EventArgs e) {
 				Workspace.Workspace workspace = Workspace.Workspace.OpenWorkspace(fileName);
 				if (workspace != null)
-					MainClass.MainWindow.ReloadWorkspace(workspace,false,true);
+					MainClass.MainWindow.ReloadWorkspace(workspace,true,true);
 			};
 			i++;
 			subMenu.Add(mi);
