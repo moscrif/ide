@@ -15,7 +15,7 @@ namespace Moscrif.IDE.Settings
 		List<SettingPanel> list;
 		private TypPreferences typPreferences;
 		private object inicialize = null;
-
+		 
 		public PreferencesDialog(TypPreferences typ,object inicialize,string title)
 		{
 			this.Build();

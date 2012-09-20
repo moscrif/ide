@@ -61,7 +61,10 @@ namespace Moscrif.IDE.Controls
 			w2.XPadding = ((uint)(5));
 			w2.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table2b.Gtk.Table+TableChild
-			this.feRoot = null;
+			this.feRoot = new global::Moscrif.IDE.Components.FileEntry ();
+			this.feRoot.Name = "feRoot";
+			this.feRoot.IsFolder = true;
+			this.feRoot.BrowserTitle = "Root Directory";
 			this.table2b.Add (this.feRoot);
 			global::Gtk.Table.TableChild w3 = ((global::Gtk.Table.TableChild)(this.table2b [this.feRoot]));
 			w3.TopAttach = ((uint)(1));
@@ -200,7 +203,9 @@ namespace Moscrif.IDE.Controls
 			w14.Expand = false;
 			w14.Fill = false;
 			// Container child vbox3.Gtk.Box+BoxChild
-			this.skinthemecontrol1 = null;
+			this.skinthemecontrol1 = new global::Moscrif.IDE.Components.SkinThemeControl ();
+			this.skinthemecontrol1.Events = ((global::Gdk.EventMask)(256));
+			this.skinthemecontrol1.Name = "skinthemecontrol1";
 			this.vbox3.Add (this.skinthemecontrol1);
 			global::Gtk.Box.BoxChild w15 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.skinthemecontrol1]));
 			w15.Position = 1;

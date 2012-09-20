@@ -7,7 +7,6 @@ using System.Runtime.Serialization;
 
 namespace Moscrif.IDE.Editors.ImageView
 {
-	//[JsonObject(MemberSerialization.OptIn)]
 	public class BarierPoint
 	{
 		int x, y, z;
@@ -22,7 +21,6 @@ namespace Moscrif.IDE.Editors.ImageView
 			this.y = y;
 		}
 
-		//[JsonProperty(PropertyName = "X" ) ]
 		public int X
 		{
 			get { return x; }
@@ -30,7 +28,6 @@ namespace Moscrif.IDE.Editors.ImageView
 		}
 
 
-		//[JsonProperty(PropertyName = "Y" ) ]
 		public int Y
 		{
 			get { return y; }
@@ -77,7 +74,7 @@ namespace Moscrif.IDE.Editors.ImageView
 			return lastPoint;
 		}
 
-		public static int ClosestLine(BarierPoint p, IList<BarierPoint> points )//, out BarierPoint a, out BarierPoint b)
+		public static int ClosestLine(BarierPoint p, IList<BarierPoint> points )
 		{
 			double shortestDistance = Double.PositiveInfinity;
 			int indexOfPoint = -1;

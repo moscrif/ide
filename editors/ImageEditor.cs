@@ -46,7 +46,6 @@ namespace Moscrif.IDE.Editors
 					}
 					if(!string.IsNullOrEmpty(barierFile)){
 						//listPoint =  JsonConvert.DeserializeObject<List<BarierPoint>>(barierFile);
-
 						System.Web.Script.Serialization.JavaScriptSerializer jss= new System.Web.Script.Serialization.JavaScriptSerializer();
 						jss.RegisterConverters(new[]{new BarierPointJavaScriptConverter()} );
 						listPoint = jss.Deserialize<List<BarierPoint>>(barierFile);
@@ -61,7 +60,7 @@ namespace Moscrif.IDE.Editors
 
 			editorAction = new Gtk.ActionGroup("imageeditor");
 
-			ic = new ImageCanvas(filePath,listPoint);
+			//ic = new ImageCanvas(filePath,listPoint);
 			ic = new ImageCanvas(filePath,listPoint) {
 				Name = "canvas",
 				CanDefault = true,
@@ -165,13 +164,14 @@ namespace Moscrif.IDE.Editors
 				if(itc.ToolState == ImageToolBarControl.ToolStateEnum.addpoint){
 					ic.AddPoint((int)args.Event.X,(int)args.Event.Y,offset);
 					OnModifiedChanged(true);
+				
 				} else if(itc.ToolState == ImageToolBarControl.ToolStateEnum.deletepoint){
 					ic.DeletePoint((int)args.Event.X,(int)args.Event.Y,offset);
 					OnModifiedChanged(true);
+				
 				} else if(itc.ToolState == ImageToolBarControl.ToolStateEnum.moviepoint){
 
 					ic.StartMovingPoint((int)args.Event.X,(int)args.Event.Y,offset);
-
 					OnModifiedChanged(true);
 
 				} else if(itc.ToolState == ImageToolBarControl.ToolStateEnum.editpoint){
@@ -228,8 +228,11 @@ namespace Moscrif.IDE.Editors
 
 				oSerializer.RegisterConverters(new[]{new BarierPointJavaScriptConverter()} );
 
-				string sJSON = oSerializer.Serialize(ic.ListPoint);
-				json = sJSON;
+				string sJSON = oSerializer.Serialize(ic.ShapeListPoint);
+				sJSON = sJSON.Replace("\"x\"","x");
+				sJSON = sJSON.Replace("\"y\"","y");
+				json  = sJSON;
+
 				using (StreamWriter file = new StreamWriter(fileBarierName)) {
 					file.Write(json);
 

@@ -5224,7 +5224,7 @@ All Open Project</property>
           <widget class="Gtk.Notebook" id="notebook1">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
-            <property name="CurrentPage">1</property>
+            <property name="CurrentPage">0</property>
             <signal name="SwitchPage" handler="OnNotebook1SwitchPage" />
             <child>
               <widget class="Gtk.Table" id="table1">
@@ -8307,7 +8307,7 @@ All Open Project</property>
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Dialog" id="Moscrif.IDE.Controls.ResolutionDialog" design-size="240 233">
+  <widget class="Gtk.Dialog" id="Moscrif.IDE.Controls.ResolutionDialog" design-size="240 226">
     <property name="MemberName" />
     <property name="WindowPosition">Center</property>
     <property name="Buttons">2</property>

@@ -16,13 +16,13 @@ namespace Moscrif.IDE.Editors.ImageView
 {
 	public class ImageCanvas : DrawingArea
 	{
-		public ImageCanvas(string fileName, List<BarierPoint> listPoint)
+		public ImageCanvas(string fileName, List<BarierPoint> shapeListPoint)
 		{
 			this.fileName = fileName;
-			if (listPoint != null)
-				this.listPoint = listPoint;
+			if (shapeListPoint != null)
+				this.shapeListPoint = shapeListPoint;
 			else
-				listPoint = new List<BarierPoint>();
+				shapeListPoint = new List<BarierPoint>();
 
 			if(MainClass.Settings.ImageEditors == null){
 				MainClass.Settings.ImageEditors =  new Settings.Settings.ImageEditorSetting();
@@ -57,6 +57,7 @@ namespace Moscrif.IDE.Editors.ImageView
 		private string fileName;
 
 		List<BarierPoint> listPoint;
+		List<BarierPoint> shapeListPoint;
 
 		int width, height;
 
@@ -72,7 +73,23 @@ namespace Moscrif.IDE.Editors.ImageView
 
 		public List<BarierPoint> ListPoint
 		{
-			get { return this.listPoint; }
+			get { 
+				return this.listPoint;
+			}
+		}
+
+		public List<BarierPoint> ShapeListPoint
+		{
+			get { 
+				List<BarierPoint> updateList = new List<BarierPoint>();
+				foreach(BarierPoint bp in this.listPoint){
+					BarierPoint updateBp = new BarierPoint();
+					updateBp.X = bp.X -(1/HeightImage);
+					updateBp.Y = -bp.Y +(1/WidthImage);//(bp.Y -(1/WidthImage))*-1
+					updateList.Add(updateBp);
+				}
+				return updateList; 
+			}
 		}
 
 		public void RefreshSetting(){
@@ -121,6 +138,20 @@ namespace Moscrif.IDE.Editors.ImageView
 			bg = bg.ApplyEmbeddedOrientation();
 			this.HeightImage = bg.Height;
 			this.WidthImage= bg.Width;
+			if ( this.listPoint == null ){
+				this.listPoint = new List<BarierPoint>();
+
+				if( this.shapeListPoint != null ){
+
+					foreach(BarierPoint bp in this.shapeListPoint){
+						BarierPoint updateBp = new BarierPoint();
+						updateBp.X = bp.X +(1/HeightImage);
+						updateBp.Y = -bp.Y +(1/WidthImage);
+						listPoint.Add(updateBp);
+					}
+				}
+			}
+
 
 			//Size imagesize = new Size (bg.Width, bg.Height);
 			
@@ -210,8 +241,6 @@ namespace Moscrif.IDE.Editors.ImageView
 			OvalPath (cr_overlay, xc, yc, radius, radius);
 			cr_overlay.Fill ();
 
-			// Draw 3 circles to the punch surface, then cut
-			// that out of the main circle in the overlay
 			using (Context cr_tmp = new Context (punch))
 				Draw3Circles (cr_tmp, xc, yc, radius, 1.0);
 
@@ -219,9 +248,6 @@ namespace Moscrif.IDE.Editors.ImageView
 			cr_overlay.SetSourceSurface (punch, 0, 0);
 			cr_overlay.Paint ();
 
-			// Now draw the 3 circles in a subgroup again
-			// at half intensity, and use OperatorAdd to join up
-			// without seams.
 			using (Context cr_circles = new Context (circles)) {
 				cr_circles.Operator = Operator.Over;
 				Draw3Circles (cr_circles, xc, yc, radius, 0.5);
@@ -268,18 +294,17 @@ namespace Moscrif.IDE.Editors.ImageView
 							Cairo.Color clrPoint;
 
 							if (actualPoint.Equals(movingPoint))
-								clrPoint =colorSelectPoint;// new Cairo.Color(1.0, 0.1, 0.0, 0.5);//;
+								clrPoint =colorSelectPoint;
 							else
-								clrPoint = colorPoint;//new Cairo.Color(0.0, 0.1, 1.0, 0.5);//;//
+								clrPoint = colorPoint;
 
 							cr_addSurface.Color = clrPoint;
 							OvalPath(cr_addSurface, actualPoint.X * scaling, actualPoint.Y * scaling, pointWidth, pointWidth);
 							cr_addSurface.Fill();
 							
-							cr_addSurface.Color = colorLine;//new Cairo.Color(0.0, 0.1, 1.0, 0.5);//
+							cr_addSurface.Color = colorLine;
 							LinePath(cr_addSurface, actualPoint.X * scaling, actualPoint.Y * scaling, nearstBP.X * scaling, nearstBP.Y * scaling);
 							cr_addSurface.Fill();
-
 						}
 
 					cr_overlay.Operator = Operator.Add;
@@ -293,9 +318,6 @@ namespace Moscrif.IDE.Editors.ImageView
 			
 			cr.Paint();
 
-			//overlay.Destroy ();
-			//punch.Destroy ();
-			//circles.Destroy ();
 			}
 
 			addSurface.Destroy();
@@ -365,8 +387,8 @@ namespace Moscrif.IDE.Editors.ImageView
 			if (y > drawOffsetY + height)
 				return false;
 			
-			x = (int)((x / scaling) - 			/* + offset.X*/(drawOffsetX / scaling));
-			y = (int)((y / scaling) - 			/*+ offset.Y*/(drawOffsetY / scaling));
+			x = (int)((x / scaling) - /* + offset.X*/(drawOffsetX / scaling));
+			y = (int)((y / scaling) - /*+ offset.Y*/(drawOffsetY / scaling));
 			
 			return true;
 		}
@@ -436,8 +458,6 @@ namespace Moscrif.IDE.Editors.ImageView
 
 		public void AddPoint(int x, int y, Cairo.PointD offset)
 		{
-			
-			//Console.WriteLine("x2,Y2->>{0},{1}",x,y);
 
 			if (!ConvertPointToCanvasPoint(offset, ref x, ref y))
 				return;
@@ -449,14 +469,16 @@ namespace Moscrif.IDE.Editors.ImageView
 
 			int indx =  BarierPoint.ClosestLine(bp,listPoint);
 
+			if(listPoint.Count >8){
+
+			}
+
 			if((indx >listPoint.Count-1) || (indx<0)){
 				listPoint.Add(bp);
 			} else {
 				listPoint.Insert(indx,bp);
 			}
-
-
-			//listPoint.Add(new BarierPoint(x, y));
+		
 			GdkWindow.InvalidateRect(new Gdk.Rectangle(drawOffsetX, drawOffsetY, width, height), false);
 		}
 

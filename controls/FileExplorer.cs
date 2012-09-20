@@ -23,7 +23,6 @@ namespace Moscrif.IDE.Controls
 		ListStore store;
 		ToolButton upButton;
 		ToolButton refreshButton;
-		//Label lbl;
 		NavigationBar navigBar;
 		IconView iconView;
 
@@ -33,12 +32,6 @@ namespace Moscrif.IDE.Controls
 
 		public FileExplorer()
 		{
-			//VBox vbox = new VBox (false, 0);
-			//Add (vbox);
-			/*lbl = new Label("");
-			lbl.Xalign = 0F;
-			lbl.Yalign = 0.5F;
-			lbl.Selectable = true;*/
 			navigBar = new NavigationBar(NavigationBar.NavigationType.favorites);
 
 			navigBar.OnChangePath+= NavigateBarChange;
@@ -55,19 +48,11 @@ namespace Moscrif.IDE.Controls
 			};
 			toolbar.Insert (refreshButton, -1);
 
-
-			//go-up.png
 			upButton = new ToolButton  ("go-up.png");//Stock.GoUp
 			upButton.Sensitive = false;
 			upButton.Label ="Up";
 			upButton.BorderWidth = 1;
 			toolbar.Insert (upButton, -1);
-
-			/*ToolButton homeButton = new ToolButton ("home.png");//Stock.Home);
-			homeButton.IsImportant = true;
-			homeButton.Label = "Home";
-			homeButton.BorderWidth = 1;
-			toolbar.Insert (homeButton, -1);*/
 
 			Gtk.Menu menu = new Gtk.Menu ();
 			MenuItem mi = new MenuItem ("Workspace");
@@ -158,8 +143,6 @@ namespace Moscrif.IDE.Controls
 			iconView.Orientation = Orientation.Horizontal;
 
 			upButton.Clicked += new EventHandler (OnUpClicked);
-			//homeButton.Clicked += new EventHandler (OnHomeClicked);
-			//workspaceButton.Clicked += new EventHandler (OnWorkspaceClicked);
 
 			iconView.TextColumn = COL_DISPLAY_NAME;
 			iconView.PixbufColumn = COL_PIXBUF;
@@ -170,7 +153,6 @@ namespace Moscrif.IDE.Controls
 			iconView.Margin=-5;
 
 			iconView.ItemActivated += new ItemActivatedHandler (OnItemActivated);
-			//FillStore (true);
 
 			sw.Add (iconView);
 
@@ -185,7 +167,7 @@ namespace Moscrif.IDE.Controls
 				if(tp.Equals(TreeIter.Zero))return;
 
 				string name = store.GetValue(ti, 1).ToString();
-				if(name == "..."){
+				if(name == ".."){
 					selectedItem = null;
 				} else {
 					selectedItem = store.GetValue(ti, 0).ToString();
@@ -193,7 +175,6 @@ namespace Moscrif.IDE.Controls
 				}
 			};
 			this.PackEnd (navigBar, false, false, 0);
-			//this.PackEnd (lbl, false, false, 0);
 		}
 
 		[GLib.ConnectBefore]
@@ -220,7 +201,7 @@ namespace Moscrif.IDE.Controls
 
 					isDir = (bool)store.GetValue(ti, 3);
 
-					if(name == "..."){ // Up select
+					if(name == ".."){ // Up select
 						selectedItem = null;
 						this.popupMenu =GenerateMenu(false);
 					} else {
@@ -332,7 +313,6 @@ namespace Moscrif.IDE.Controls
 			Gtk.FileChooserDialog fc = new Gtk.FileChooserDialog( MainClass.Languages.Translate("chose_file_to_copy"), null, FileChooserAction.Open, "Cancel", ResponseType.Cancel, "Open", ResponseType.Accept);
 
 			if (fc.Run() == (int)ResponseType.Accept) {
-				//MainClass.MainWindow.AddFile(fc.Filename);
 				string filename = System.IO.Path.GetFileName(fc.Filename);
 				string newFile = "";
 
@@ -383,7 +363,7 @@ namespace Moscrif.IDE.Controls
 
 			int result = ed.Run();
 
-			if (result == (int)ResponseType.Ok) { // Rename Directory
+			if (result == (int)ResponseType.Ok) { 
 				string newName = ed.TextEntry;
 				string newPath ="";
 				string msg = FileUtility.RenameItem(selectedItem,isDir, newName,out newPath );
@@ -440,17 +420,13 @@ namespace Moscrif.IDE.Controls
 		Gdk.Pixbuf GetIcon (string name)
 		{
 			return MainClass.Tools.GetIconFromStock(name,IconSize.SmallToolbar);
-			//return Gtk.IconTheme.Default.LoadIcon (name, 16, (IconLookupFlags) 0);
 		}
 
 		ListStore CreateStore ()
 		{
 			// path, name, pixbuf, is_dir
 			ListStore store = new ListStore (typeof (string), typeof (string), typeof (Gdk.Pixbuf), typeof (bool));
-			// Set sort column and function
 			store.DefaultSortFunc = new TreeIterCompareFunc (SortFunc);
-			//store.SetSortColumnId (COL_DISPLAY_NAME, SortType.Ascending);
-
 			return store;
 		}
 
@@ -471,11 +447,9 @@ namespace Moscrif.IDE.Controls
 		{
 			int lngText = 1;
 			string maxLng =" ";
-			// first clear the store
 			store.Clear ();
 			DirectoryInfo[] directoryInfo;
 
-			// Now go through the directory and extract all the file information
 			if (!parent.Exists)
 				return;
 
@@ -485,7 +459,6 @@ namespace Moscrif.IDE.Controls
 				return;
 			}
 
-			//lbl.LabelProp = parent.FullName;
 			navigBar.SetPath(parent.FullName);
 
 			if((MainClass.Workspace!=null) && savePath)
@@ -493,7 +466,7 @@ namespace Moscrif.IDE.Controls
 
 
 			if( (parent.Parent!=null) && (parent.FullName != "/") ) {
-				store.AppendValues (parent.Parent.FullName, "...", upIcon, true);
+				store.AppendValues (parent.Parent.FullName, "..", upIcon, true);
 			}
 
 			foreach (DirectoryInfo di in directoryInfo)
@@ -518,28 +491,6 @@ namespace Moscrif.IDE.Controls
 				}
 			}
 			iconView.ItemWidth =250;
-			/*Pango.FontDescription fd = iconView.Style.FontDescription;
-
-			Cairo.ImageSurface surface = new Cairo.ImageSurface(Cairo.Format.RGB24, 120, 120);
-			Cairo.Context cr = new Cairo.Context(surface);
-			cr.SelectFontFace(fd.Family,Cairo.FontSlant.Normal,PangoToCairoWeight(fd.Weight));
-
-			int size = (int)(fd.Size / Pango.Scale.PangoScale);
-			Console.WriteLine("fd.Size->{0}",size);
-
-			cr.SetFontSize((double)size);
-			Cairo.TextExtents te =cr.TextExtents(maxLng);
-
-
-			Console.WriteLine("lbl.WidthChars->{0}",lbl.WidthChars);
-			Console.WriteLine("lbl.WidthRequest->{0}",lbl.WidthRequest);
-			Console.WriteLine("te.Width-{0}->{1}",maxLng,te.Width);
-			//int lngPx =lngText*iconView.Style.FontDescription.
-
-			iconView.ItemWidth = (int)te.Width+60;
-			Console.WriteLine("iconView.ItemWidth->{0}",iconView.ItemWidth);
-
-			surface.Destroy();*/
 
 		}
 
@@ -550,7 +501,6 @@ namespace Moscrif.IDE.Controls
 
 		int SortFunc (TreeModel model, TreeIter a, TreeIter b)
 		{
-			// sorts folders before files
 			bool a_is_dir = (bool) model.GetValue (a, COL_IS_DIRECTORY);
 			bool b_is_dir = (bool) model.GetValue (b, COL_IS_DIRECTORY);
 			string a_name = (string) model.GetValue (a, COL_DISPLAY_NAME);
@@ -674,7 +624,7 @@ namespace Moscrif.IDE.Controls
 				OpenFile(path);
 				return;
 			}
-			// Replace parent with path and re-fill the model
+
 			DirectoryInfo di = new DirectoryInfo (path);
 			try {
 				di.GetDirectories ();

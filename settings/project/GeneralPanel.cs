@@ -20,7 +20,7 @@ namespace Moscrif.IDE.Settings
 		{
 			return widget = new GeneralWidget(project,ParentDialog);
 		}
-
+		  
 		public override void ShowPanel()
 		{
 			widget.ReloadPanel();

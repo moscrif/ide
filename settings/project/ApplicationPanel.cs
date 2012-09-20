@@ -17,7 +17,7 @@ namespace Moscrif.IDE.Settings
 		public override Widget CreatePanelWidget()
 		{
 			return widget = new ApplicationWidget(project,ParentDialog);
-		}
+		} 
 
 		public override void ApplyChanges()
 		{

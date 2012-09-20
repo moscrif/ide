@@ -23,7 +23,7 @@ namespace Moscrif.IDE.Settings
 		{
 			widget.Store();
 		}
-
+		  
 		public override void ShowPanel()
 		{
 

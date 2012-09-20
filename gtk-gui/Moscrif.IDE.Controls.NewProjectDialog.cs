@@ -60,7 +60,9 @@ namespace Moscrif.IDE.Controls
 			w4.Expand = false;
 			w4.Fill = false;
 			// Container child vbox2.Gtk.Box+BoxChild
-			this.skinthemecontrol1 = null;
+			this.skinthemecontrol1 = new global::Moscrif.IDE.Components.SkinThemeControl ();
+			this.skinthemecontrol1.Events = ((global::Gdk.EventMask)(256));
+			this.skinthemecontrol1.Name = "skinthemecontrol1";
 			this.vbox2.Add (this.skinthemecontrol1);
 			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.skinthemecontrol1]));
 			w5.Position = 1;
