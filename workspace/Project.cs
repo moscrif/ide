@@ -47,12 +47,21 @@ namespace Moscrif.IDE.Workspace
 		public const string KEY_CODESIGNINGIDENTITY = "codeSigningIdentity";
 		public const string KEY_SUPPORTEDDEVICES = "supportedDevices";
 
-		public const string KEY_ICON3GS = "icon3gs";
+		/*public const string KEY_ICON3GS = "icon3gs";
 		public const string KEY_ICON4 = "icon4+";
 		public const string KEY_ICONPAD = "iconTablet";
 		public const string KEY_SPLASH3GS = "splash3gs";
 		public const string KEY_SPLASH4 = "splash4+";
-		public const string KEY_SPLASHPAD = "splashTablet";
+		public const string KEY_SPLASHPAD = "splashTablet";*/
+
+		public const string KEY_IP4ICON = "iPhone4-icon";
+		public const string KEY_IP4SPLASH = "iPhone4-splash";
+		public const string KEY_IP5ICON = "iPhone5-icon";
+		public const string KEY_IP5SPLASH = "iPhone5-splash";
+		public const string KEY_IPADICON = "iPad-icon";
+		public const string KEY_IPADSPLASH = "iPad-splash";
+		public const string KEY_INEWPADICON = "newiPad-icon";
+		public const string KEY_INEWPADSPLASH = "newiPad-splash";
 
 		public const string KEY_BUNDLEIDENTIFIER = "bundleIdentifier";
 		public const string KEY_PERMISSION = "permission";
@@ -363,86 +372,95 @@ namespace Moscrif.IDE.Workspace
 			List<PublishProperty> list = new List<PublishProperty>();
 
 			if(deviceTyp == (int)DeviceType.Android_1_6){
-					list = new List<PublishProperty>();
-					list.Add(new PublishProperty(KEY_ICON));
-					list.Add(new PublishProperty(KEY_SPLASH));
-					list.Add(new PublishProperty(KEY_BUNDLEIDENTIFIER));
-					list.Add(new PublishProperty(KEY_ALIAS));
-					list.Add(new PublishProperty(KEY_KEYSTORE));
-					list.Add(new PublishProperty(KEY_KEYPASSWORD));
-					list.Add(new PublishProperty(KEY_STOREPASSWORD));
-					list.Add(new PublishProperty(KEY_SUPPORTEDDEVICES));
-					list.Add(new PublishProperty(KEY_PERMISSION));
+				list = new List<PublishProperty>();
+				list.Add(new PublishProperty(KEY_ICON));
+				list.Add(new PublishProperty(KEY_SPLASH));
+				list.Add(new PublishProperty(KEY_BUNDLEIDENTIFIER));
+				list.Add(new PublishProperty(KEY_ALIAS));
+				list.Add(new PublishProperty(KEY_KEYSTORE));
+				list.Add(new PublishProperty(KEY_KEYPASSWORD));
+				list.Add(new PublishProperty(KEY_STOREPASSWORD));
+				list.Add(new PublishProperty(KEY_SUPPORTEDDEVICES));
+				list.Add(new PublishProperty(KEY_PERMISSION));
 
 			}
 			if(deviceTyp == (int)DeviceType.Android_2_2){
-					list = new List<PublishProperty>();
-					list.Add(new PublishProperty(KEY_ICON));
-					list.Add(new PublishProperty(KEY_SPLASH));
-					list.Add(new PublishProperty(KEY_BUNDLEIDENTIFIER));
-					list.Add(new PublishProperty(KEY_ALIAS));
-					list.Add(new PublishProperty(KEY_KEYSTORE));
-					list.Add(new PublishProperty(KEY_KEYPASSWORD));
-					list.Add(new PublishProperty(KEY_STOREPASSWORD));
-					list.Add(new PublishProperty(KEY_SUPPORTEDDEVICES));
-					list.Add(new PublishProperty(KEY_INSTALLOCATION));
-					list.Add(new PublishProperty(KEY_PERMISSION));
+				list = new List<PublishProperty>();
+				list.Add(new PublishProperty(KEY_ICON));
+				list.Add(new PublishProperty(KEY_SPLASH));
+				list.Add(new PublishProperty(KEY_BUNDLEIDENTIFIER));
+				list.Add(new PublishProperty(KEY_ALIAS));
+				list.Add(new PublishProperty(KEY_KEYSTORE));
+				list.Add(new PublishProperty(KEY_KEYPASSWORD));
+				list.Add(new PublishProperty(KEY_STOREPASSWORD));
+				list.Add(new PublishProperty(KEY_SUPPORTEDDEVICES));
+				list.Add(new PublishProperty(KEY_INSTALLOCATION));
+				list.Add(new PublishProperty(KEY_PERMISSION));
 			}
 			
 			if((deviceTyp == (int)DeviceType.Bada_1_0) || (deviceTyp == (int)DeviceType.Bada_1_1) || (deviceTyp == (int)DeviceType.Bada_1_2)
 			   || (deviceTyp == (int)DeviceType.Bada_2_0) ){
-					list = new List<PublishProperty>();
-					list.Add(new PublishProperty(KEY_ICON));
-					list.Add(new PublishProperty(KEY_SPLASH));
-					/*dpd.Device.PublishPropertisMask.Add(new PublishProperty(KEY_ICON_BADA1));
-						dpd.Device.PublishPropertisMask.Add(new PublishProperty(KEY_SPLASH_BADA1));
-						dpd.Device.PublishPropertisMask.Add(new PublishProperty(KEY_ICON_BADA2));
-						dpd.Device.PublishPropertisMask.Add(new PublishProperty(KEY_SPLASH_BADA2));*/
-					/*
-						 TOTO len pre badu 1.2 - ked bude
-						dpd.Device.PublishPropertisMask.Add(new PublishProperty(KEY_ICON_BADA1));
-						dpd.Device.PublishPropertisMask.Add(new PublishProperty(KEY_SPLASH_BADA1));*/
-					list.Add(new PublishProperty(KEY_MANIFEST));
+				list = new List<PublishProperty>();
+				list.Add(new PublishProperty(KEY_ICON));
+				list.Add(new PublishProperty(KEY_SPLASH));
+				/*dpd.Device.PublishPropertisMask.Add(new PublishProperty(KEY_ICON_BADA1));
+					dpd.Device.PublishPropertisMask.Add(new PublishProperty(KEY_SPLASH_BADA1));
+					dpd.Device.PublishPropertisMask.Add(new PublishProperty(KEY_ICON_BADA2));
+					dpd.Device.PublishPropertisMask.Add(new PublishProperty(KEY_SPLASH_BADA2));*/
+				/*
+					 TOTO len pre badu 1.2 - ked bude
+					dpd.Device.PublishPropertisMask.Add(new PublishProperty(KEY_ICON_BADA1));
+					dpd.Device.PublishPropertisMask.Add(new PublishProperty(KEY_SPLASH_BADA1));*/
+				list.Add(new PublishProperty(KEY_MANIFEST));
 			}
 			
 			if(deviceTyp == (int)DeviceType.Symbian_9_4){
-					list = new List<PublishProperty>();
-					list.Add(new PublishProperty(KEY_ICON));
-					list.Add(new PublishProperty(KEY_SPLASH));
-					list.Add(new PublishProperty(KEY_APPLICATIONID));
-					list.Add(new PublishProperty(KEY_CERTIFICATE));
-					list.Add(new PublishProperty(KEY_KEY));
-					list.Add(new PublishProperty(KEY_PASSWORD));
+				list = new List<PublishProperty>();
+				list.Add(new PublishProperty(KEY_ICON));
+				list.Add(new PublishProperty(KEY_SPLASH));
+				list.Add(new PublishProperty(KEY_APPLICATIONID));
+				list.Add(new PublishProperty(KEY_CERTIFICATE));
+				list.Add(new PublishProperty(KEY_KEY));
+				list.Add(new PublishProperty(KEY_PASSWORD));
 			}
 			
 			if(deviceTyp == (int)DeviceType.iOS_5_0){
-					list = new List<PublishProperty>();
-					list.Add(new PublishProperty(KEY_ICON));
-					list.Add(new PublishProperty(KEY_SPLASH));
-					list.Add(new PublishProperty(KEY_CODESIGNINGIDENTITY));
-					list.Add(new PublishProperty(KEY_SUPPORTEDDEVICES));
-					list.Add(new PublishProperty(KEY_ICON3GS));
-					list.Add(new PublishProperty(KEY_ICON4));
-					list.Add(new PublishProperty(KEY_ICONPAD));
-					list.Add(new PublishProperty(KEY_SPLASH3GS));
-					list.Add(new PublishProperty(KEY_SPLASH4));
-					list.Add(new PublishProperty(KEY_SPLASHPAD));
+				list = new List<PublishProperty>();
+				list.Add(new PublishProperty(KEY_ICON));
+				list.Add(new PublishProperty(KEY_SPLASH));
+				list.Add(new PublishProperty(KEY_CODESIGNINGIDENTITY));
+				list.Add(new PublishProperty(KEY_SUPPORTEDDEVICES));
+				
+				list.Add(new PublishProperty(KEY_IP4ICON));
+				list.Add(new PublishProperty(KEY_IP4SPLASH ));
+				list.Add(new PublishProperty(KEY_IP5ICON ));
+				list.Add(new PublishProperty(KEY_IP5SPLASH ));
+				list.Add(new PublishProperty(KEY_IPADICON ));
+				list.Add(new PublishProperty(KEY_IPADSPLASH ));
+				list.Add(new PublishProperty(KEY_INEWPADICON ));
+				list.Add(new PublishProperty(KEY_INEWPADSPLASH ));
+				/*list.Add(new PublishProperty(KEY_ICON3GS));
+				list.Add(new PublishProperty(KEY_ICON4));
+				list.Add(new PublishProperty(KEY_ICONPAD));
+				list.Add(new PublishProperty(KEY_SPLASH3GS));
+				list.Add(new PublishProperty(KEY_SPLASH4));
+				list.Add(new PublishProperty(KEY_SPLASHPAD));*/
 			}
 
 			if(deviceTyp == (int)DeviceType.WindowsMobile_5 || (deviceTyp == (int)DeviceType.WindowsMobile_6) || (deviceTyp == (int)DeviceType.PocketPC_2003SE)){
-					list = new List<PublishProperty>();
-					list.Add(new PublishProperty(KEY_ICON));
-					list.Add(new PublishProperty(KEY_SPLASH));
+				list = new List<PublishProperty>();
+				list.Add(new PublishProperty(KEY_ICON));
+				list.Add(new PublishProperty(KEY_SPLASH));
 			}
 			if(deviceTyp == (int)DeviceType.Windows){
-					list = new List<PublishProperty>();
-					list.Add(new PublishProperty(KEY_ICON));
-					list.Add(new PublishProperty(KEY_SPLASH));
+				list = new List<PublishProperty>();
+				list.Add(new PublishProperty(KEY_ICON));
+				list.Add(new PublishProperty(KEY_SPLASH));
 			}
 			if(deviceTyp == (int)DeviceType.MacOs){
-					list = new List<PublishProperty>();
-					list.Add(new PublishProperty(KEY_ICON));
-					list.Add(new PublishProperty(KEY_SPLASH));
+				list = new List<PublishProperty>();
+				list.Add(new PublishProperty(KEY_ICON));
+				list.Add(new PublishProperty(KEY_SPLASH));
 			}
 			return list;
 		}

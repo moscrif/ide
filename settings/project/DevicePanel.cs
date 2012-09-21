@@ -435,38 +435,62 @@ namespace Moscrif.IDE.Settings
 					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_BUNDLEIDENTIFIER));
 				GenerateBundleEntry(ref table1,Project.KEY_BUNDLEIDENTIFIER,MainClass.Languages.Translate("bundleIdentifier"),pp.PublishValue,3);
 
+				Gtk.Expander expanderAndr16 = new Expander("Android signing");
+
+				/*expanderAndr16.BorderWidth = 5;
+				expanderAndr16.ModifyBg(StateType.Normal,new Gdk.Color(255,0,0));
+				expanderAndr16.LabelWidget.ModifyBg(StateType.Normal,new Gdk.Color(255,0,0));*/
+
+				Table tblAndr16 = new Table(4,2,false);
+				tblAndr16.RowSpacing = 3;
+				Console.WriteLine("1 -->>"+expanderAndr16.Allocation.Width);
+				tblAndr16.WidthRequest = expanderAndr16.Allocation.Width;
+				//tblAndr16.ModifyBg(StateType.Normal,new Gdk.Color(0,255,0));
+
+				expanderAndr16.Add(tblAndr16);
+
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_KEYSTORE);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp = new PublishProperty(Project.KEY_KEYSTORE));
-				GenerateFileMaskEntry(ref table1,Project.KEY_KEYSTORE,MainClass.Languages.Translate("keystore"),pp.PublishValue,4);
+				GenerateFileMaskEntry(ref tblAndr16,Project.KEY_KEYSTORE,MainClass.Languages.Translate("keystore"),pp.PublishValue,0);
 
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_STOREPASSWORD);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp = new PublishProperty(Project.KEY_STOREPASSWORD));
-				GenerateEntry(ref table1,Project.KEY_STOREPASSWORD,MainClass.Languages.Translate("storepassword"),pp.PublishValue,5);
+				GenerateEntry(ref tblAndr16,Project.KEY_STOREPASSWORD,MainClass.Languages.Translate("storepassword"),pp.PublishValue,1);
 				//
 
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_ALIAS);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp = new PublishProperty(Project.KEY_ALIAS));
-				GenerateEntry(ref table1,Project.KEY_ALIAS,MainClass.Languages.Translate("alias"),pp.PublishValue,6);
+				GenerateEntry(ref tblAndr16,Project.KEY_ALIAS,MainClass.Languages.Translate("alias"),pp.PublishValue,2);
 				//
 
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_KEYPASSWORD);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp = new PublishProperty(Project.KEY_KEYPASSWORD));
-				GenerateEntry(ref table1,Project.KEY_KEYPASSWORD,MainClass.Languages.Translate("keypassword"),pp.PublishValue,7);
+				GenerateEntry(ref tblAndr16,Project.KEY_KEYPASSWORD,MainClass.Languages.Translate("keypassword"),pp.PublishValue,3);
 				//
+				table1.Attach(expanderAndr16,0,2,6,7,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Shrink,0,0);
+				expanderAndr16.ShowAll();
+
+				Console.WriteLine("2 -->>"+expanderAndr16.Allocation.Width);
 
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_SUPPORTEDDEVICES);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp = new PublishProperty(Project.KEY_SUPPORTEDDEVICES));
-				GenerateComboBox(ref table1,Project.KEY_SUPPORTEDDEVICES,MainClass.Languages.Translate("supportedDevices"),pp.PublishValue,8,MainClass.Settings.AndroidSupportedDevices);
+				GenerateComboBox(ref table1,Project.KEY_SUPPORTEDDEVICES,MainClass.Languages.Translate("supportedDevices"),pp.PublishValue,5,MainClass.Settings.AndroidSupportedDevices);
 
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_PERMISSION);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp = new PublishProperty(Project.KEY_PERMISSION));
-				GeneratePermissionEditor(ref table1,Project.KEY_PERMISSION,MainClass.Languages.Translate("permisions"),pp.PublishValue,9);
+				GeneratePermissionEditor(ref table1,Project.KEY_PERMISSION,MainClass.Languages.Translate("permisions"),pp.PublishValue,6);
+
+				table1.ShowAll();
+				/*int x, y, w, h, d = 0;
+				expanderAndr16.ParentWindow.GetGeometry(out x, out y, out w, out h, out d);
+				Console.WriteLine("w ->>"+w);
+				tblAndr16.WidthRequest = w;*/
 
 				break;
 				}
@@ -653,37 +677,81 @@ namespace Moscrif.IDE.Settings
 					dpd.Device.PublishPropertisMask.Add(pp = new PublishProperty(Project.KEY_SUPPORTEDDEVICES));
 				GenerateComboBox(ref table1,Project.KEY_SUPPORTEDDEVICES,MainClass.Languages.Translate("supportedDevices"),pp.PublishValue,3,MainClass.Settings.OSSupportedDevices);
 
-				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_ICON3GS);
+				// iPhone4
+				Gtk.Expander expanderiPh4 = new Expander("iPhone 4(S)");
+				Table tbliPh4 = new Table(2,2,false);	
+				tbliPh4.RowSpacing = 3;
+				expanderiPh4.Add(tbliPh4);
+
+				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_IP4ICON);
 				if (pp == null)
-					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_ICON3GS));
-				GenerateFileMaskEntry(ref table1,Project.KEY_ICON3GS,MainClass.Languages.Translate("iconIPhone3gS"),pp.PublishValue,4);
+					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_IP4ICON));
+				GenerateFileMaskEntry(ref tbliPh4,Project.KEY_IP4ICON,"iPhone 4 icon : ",pp.PublishValue,0);
 
-				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_ICON4);
+				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_IP4SPLASH);
 				if (pp == null)
-					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_ICON4));
-				GenerateFileMaskEntry(ref table1,Project.KEY_ICON4,MainClass.Languages.Translate("iconIPhone4"),pp.PublishValue,5);
+					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_IP4SPLASH));
+				GenerateFileMaskEntry(ref tbliPh4,Project.KEY_IP4SPLASH,"iPhone 4 splash : ",pp.PublishValue,1);
 
-				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_ICONPAD);
+				table1.Attach(expanderiPh4,0,2,6,7,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Shrink,0,0);
+				expanderiPh4.ShowAll();
+
+				// iPhone5
+				Gtk.Expander expanderiPh5 = new Expander("iPhone 5");
+				Table tbliPh5 = new Table(4,2,false);
+				tbliPh5.RowSpacing = 3;
+				expanderiPh5.Add(tbliPh5);
+				
+				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_IP5ICON);
 				if (pp == null)
-					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_ICONPAD));
-				GenerateFileMaskEntry(ref table1,Project.KEY_ICONPAD,MainClass.Languages.Translate("iconIPad"),pp.PublishValue,6);
-
-				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_SPLASH3GS);
+					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_IP5ICON));
+				GenerateFileMaskEntry(ref tbliPh5,Project.KEY_IP5ICON,"iPhone 5 icon : ",pp.PublishValue,0);
+				
+				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_IP5SPLASH);
 				if (pp == null)
-					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_SPLASH3GS));
-				GenerateFileMaskEntry(ref table1,Project.KEY_SPLASH3GS,MainClass.Languages.Translate("splashIPhone3gS"),pp.PublishValue,7);
+					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_IP5SPLASH));
+				GenerateFileMaskEntry(ref tbliPh5,Project.KEY_IP5SPLASH,"iPhone 5 splash : ",pp.PublishValue,1);
+				
+				table1.Attach(expanderiPh5,0,2,7,8,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Shrink,0,0);
+				expanderiPh5.ShowAll();
 
-				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_SPLASH4);
+				// iPad2
+				Gtk.Expander expanderiPd2 = new Expander("iPad 2");
+				Table tbliPd2 = new Table(4,2,false);
+				tbliPd2.RowSpacing = 3;
+				expanderiPd2.Add(tbliPd2);
+				
+				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_IPADICON);
 				if (pp == null)
-					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_SPLASH4));
-				GenerateFileMaskEntry(ref table1,Project.KEY_SPLASH4,MainClass.Languages.Translate("splashIPhone4"),pp.PublishValue,8);
-
-				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_SPLASHPAD);
+					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_IPADICON));
+				GenerateFileMaskEntry(ref tbliPd2,Project.KEY_IPADICON,"iPad 2 icon : ",pp.PublishValue,0);
+				
+				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_IPADSPLASH);
 				if (pp == null)
-					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_SPLASHPAD));
-				GenerateFileMaskEntry(ref table1,Project.KEY_SPLASHPAD,MainClass.Languages.Translate("splashIPad"),pp.PublishValue,9);
+					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_IPADSPLASH));
+				GenerateFileMaskEntry(ref tbliPd2,Project.KEY_IPADSPLASH,"iPad 2 splash : ",pp.PublishValue,1);
+				
+				table1.Attach(expanderiPd2,0,2,8,9,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Shrink,0,0);
+				expanderiPh5.ShowAll();
 
-
+				// new iPad
+				Gtk.Expander expanderNewiPd = new Expander("the new iPad");
+				Table tbliNewPd = new Table(4,2,false);	
+				tbliNewPd.RowSpacing = 3;
+				expanderNewiPd.Add(tbliNewPd);
+				
+				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_INEWPADICON);
+				if (pp == null)
+					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_INEWPADICON));
+				GenerateFileMaskEntry(ref tbliNewPd,Project.KEY_INEWPADICON,"new iPad icon : ",pp.PublishValue,0);
+				
+				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_INEWPADSPLASH);
+				if (pp == null)
+					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_INEWPADSPLASH));
+				GenerateFileMaskEntry(ref tbliNewPd,Project.KEY_INEWPADSPLASH,"new iPad splash : ",pp.PublishValue,1);
+				
+				table1.Attach(expanderNewiPd,0,2,9,10,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Shrink,0,0);
+				expanderiPh5.ShowAll();
 
 				break;
 			}
@@ -1127,11 +1195,17 @@ namespace Moscrif.IDE.Settings
 			}
 		}
 		*/
-		public void Store()
-		{
-			Widget[] widgets = table1.Children;
-			foreach (Widget w in widgets ){
-				//Console.WriteLine(w.Name);
+
+
+		public void StoreTable(Gtk.Container parent){
+
+			foreach (Widget w in parent.Children ){
+				Console.WriteLine(w.Name);
+				if (w is Gtk.Container) {
+					Gtk.Container container = w as Gtk.Container; 
+					StoreTable(container);
+				}
+
 				switch (w.Name)
 				{
 					case Project.KEY_SPLASH:
@@ -1139,20 +1213,28 @@ namespace Moscrif.IDE.Settings
 					case Project.KEY_SPLASH_BADA2:
 					case Project.KEY_SPLASH_BADA3:
 					case Project.KEY_MANIFEST:
-   					case Project.KEY_APPLICATIONFILE:
+					case Project.KEY_APPLICATIONFILE:
 					case Project.KEY_ICON:
 					case Project.KEY_ICON_BADA1 :
 					case Project.KEY_ICON_BADA2 :
 					case Project.KEY_ICON_BADA3 :
 					case Project.KEY_CERTIFICATE:
-   					case Project.KEY_KEYSTORE:
-   					case Project.KEY_KEY:
-					case Project.KEY_ICON3GS:
+					case Project.KEY_KEYSTORE:
+					case Project.KEY_KEY:
+					case Project.KEY_IP4ICON :
+					case Project.KEY_IP4SPLASH  :
+					case Project.KEY_IP5ICON  :
+					case Project.KEY_IP5SPLASH  :
+					case Project.KEY_IPADICON  :
+					case Project.KEY_IPADSPLASH  :
+					case Project.KEY_INEWPADICON  :
+					case Project.KEY_INEWPADSPLASH   :
+					/*case Project.KEY_ICON3GS:
 					case Project.KEY_ICON4:
 					case Project.KEY_ICONPAD:
 					case Project.KEY_SPLASH3GS:
 					case Project.KEY_SPLASH4:
-					case Project.KEY_SPLASHPAD:
+					case Project.KEY_SPLASHPAD:*/
 					{
 						string file = (w as FileMaskEntry).Path;
 						PublishProperty pp = FindPublishProperty(dpd.Device.PublishPropertisMask,w.Name);//dpd.Device.PublishPropertis.Find(x=>x.PublishName == Project.KEY_ICON);//
@@ -1163,23 +1245,23 @@ namespace Moscrif.IDE.Settings
 						pp.PublishValue = file;
 						break;
 					}
-					/*case Project.KEY_SPLASH:
-					case Project.KEY_MANIFEST:
-   					case Project.KEY_APPLICATIONFILE:
-					case Project.KEY_ICON:{
-						string file = (w as FileEntry).Path;
-						PublishProperty pp = FindPublishProperty(dpd.Device.PublishPropertisMask,w.Name);//dpd.Device.PublishPropertis.Find(x=>x.PublishName == Project.KEY_ICON);//
-						if (pp == null){
-							pp = new PublishProperty(w.Name);
-							dpd.Device.PublishPropertisMask.Add(pp);
-						}
-						pp.PublishValue = file;
-						break;
-					}*/
+						/*case Project.KEY_SPLASH:
+						case Project.KEY_MANIFEST:
+	   					case Project.KEY_APPLICATIONFILE:
+						case Project.KEY_ICON:{
+							string file = (w as FileEntry).Path;
+							PublishProperty pp = FindPublishProperty(dpd.Device.PublishPropertisMask,w.Name);//dpd.Device.PublishPropertis.Find(x=>x.PublishName == Project.KEY_ICON);//
+							if (pp == null){
+								pp = new PublishProperty(w.Name);
+								dpd.Device.PublishPropertisMask.Add(pp);
+							}
+							pp.PublishValue = file;
+							break;
+						}*/
 					case Project.KEY_PASSWORD:
-   					case Project.KEY_STOREPASSWORD:
-   					case Project.KEY_ALIAS:
-   					case Project.KEY_KEYPASSWORD:
+					case Project.KEY_STOREPASSWORD:
+					case Project.KEY_ALIAS:
+					case Project.KEY_KEYPASSWORD:
 					{
 						string text = (w as Entry).Text;
 						PublishProperty pp = FindPublishProperty(dpd.Device.PublishPropertisMask,w.Name);
@@ -1188,10 +1270,10 @@ namespace Moscrif.IDE.Settings
 							dpd.Device.PublishPropertisMask.Add(pp);
 						}
 						pp.PublishValue = text;
-					break;
+						break;
 					}
-
-   					case Project.KEY_PERMISSION:
+						
+					case Project.KEY_PERMISSION:
 					{
 						string text = (w as PermissionButton).Permission;
 						PublishProperty pp = FindPublishProperty(dpd.Device.PublishPropertisMask,w.Name);
@@ -1200,7 +1282,7 @@ namespace Moscrif.IDE.Settings
 							dpd.Device.PublishPropertisMask.Add(pp);
 						}
 						pp.PublishValue = text;
-					break;
+						break;
 					}
 					case Project.KEY_BUNDLEIDENTIFIER:{
 						string text = (w as Entry).Text;
@@ -1212,7 +1294,7 @@ namespace Moscrif.IDE.Settings
 						string txt = MainClass.Tools.RemoveDiacritics(text);
 						txt = Regex.Replace(txt, @"[^A-Za-z\.]", "");
 						pp.PublishValue = txt;
-					break;
+						break;
 					}
 					case Project.KEY_INSTALLOCATION:
 					case Project.KEY_SUPPORTEDDEVICES:
@@ -1224,18 +1306,18 @@ namespace Moscrif.IDE.Settings
 							pp = new PublishProperty(w.Name);
 							dpd.Device.PublishPropertisMask.Add(pp);
 						};
-
+						
 						TreeIter ti = new TreeIter();
-
+						
 						if( !(w as ComboBox).GetActiveIter(out ti) ) {
 							pp.PublishValue = "";
 							break;//return;
 						}
-
+						
 						string text = (w as ComboBox).Model.GetValue(ti,1).ToString();
-
+						
 						pp.PublishValue = text;
-					break;
+						break;
 					}
 					case Project.KEY_APPLICATIONID:{
 						string text = (w as EntryMenu).LabelText;
@@ -1245,12 +1327,15 @@ namespace Moscrif.IDE.Settings
 							dpd.Device.PublishPropertisMask.Add(pp);
 						}
 						pp.PublishValue = text;
-					break;
+						break;
 					}
 				}
 			}
+		}
 
-
+		public void Store()
+		{
+			StoreTable(table1);
 
 			/*Gtk.TreeIter iterSkin;
 			string skinName = string.Empty;

@@ -140,9 +140,7 @@ namespace Moscrif.IDE.Editors.ImageView
 			this.WidthImage= bg.Width;
 			if ( this.listPoint == null ){
 				this.listPoint = new List<BarierPoint>();
-
 				if( this.shapeListPoint != null ){
-
 					foreach(BarierPoint bp in this.shapeListPoint){
 						BarierPoint updateBp = new BarierPoint();
 						updateBp.X = bp.X +(1/HeightImage);

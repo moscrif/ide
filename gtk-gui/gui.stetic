@@ -1410,7 +1410,7 @@ All Open Project</property>
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Dialog" id="Moscrif.IDE.Controls.NewWorkspaceDialog" design-size="447 296">
+  <widget class="Gtk.Dialog" id="Moscrif.IDE.Controls.NewWorkspaceDialog" design-size="447 316">
     <property name="MemberName" />
     <property name="Title" translatable="yes">New Workspace</property>
     <property name="WindowPosition">CenterOnParent</property>
@@ -1615,7 +1615,7 @@ All Open Project</property>
                   </widget>
                 </child>
                 <child>
-                  <widget class="Gtk.Label" id="GtkLabel2">
+                  <widget class="Gtk.Label" id="GtkLabel5">
                     <property name="MemberName" />
                     <property name="LabelProp" translatable="yes">Detail</property>
                     <property name="UseUnderline">True</property>
@@ -8337,7 +8337,7 @@ All Open Project</property>
                 <property name="LeftAttach">1</property>
                 <property name="RightAttach">2</property>
                 <property name="YPadding">3</property>
-                <property name="AutoSize">True</property>
+                <property name="AutoSize">False</property>
                 <property name="XOptions">Fill</property>
                 <property name="YOptions">Fill</property>
                 <property name="XExpand">False</property>

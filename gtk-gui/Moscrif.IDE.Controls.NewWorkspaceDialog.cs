@@ -15,7 +15,7 @@ namespace Moscrif.IDE.Controls
 		private global::Gtk.CheckButton cbCopyLibs;
 		private global::Gtk.CheckButton cbSubFolder;
 		private global::Gtk.Label label4;
-		private global::Gtk.Label GtkLabel2;
+		private global::Gtk.Label GtkLabel5;
 		private global::Gtk.Frame trmProject;
 		private global::Gtk.Alignment GtkAlignment1;
 		private global::Gtk.VBox vbox3;
@@ -149,11 +149,11 @@ namespace Moscrif.IDE.Controls
 			w9.XOptions = ((global::Gtk.AttachOptions)(4));
 			w9.YOptions = ((global::Gtk.AttachOptions)(4));
 			this.expander1.Add (this.table2);
-			this.GtkLabel2 = new global::Gtk.Label ();
-			this.GtkLabel2.Name = "GtkLabel2";
-			this.GtkLabel2.LabelProp = global::Mono.Unix.Catalog.GetString ("Detail");
-			this.GtkLabel2.UseUnderline = true;
-			this.expander1.LabelWidget = this.GtkLabel2;
+			this.GtkLabel5 = new global::Gtk.Label ();
+			this.GtkLabel5.Name = "GtkLabel5";
+			this.GtkLabel5.LabelProp = global::Mono.Unix.Catalog.GetString ("Detail");
+			this.GtkLabel5.UseUnderline = true;
+			this.expander1.LabelWidget = this.GtkLabel5;
 			this.vbox2.Add (this.expander1);
 			global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.expander1]));
 			w11.Position = 1;
@@ -259,7 +259,7 @@ namespace Moscrif.IDE.Controls
 				this.Child.ShowAll ();
 			}
 			this.DefaultWidth = 447;
-			this.DefaultHeight = 296;
+			this.DefaultHeight = 316;
 			this.vbox3.Hide ();
 			this.trmProject.Hide ();
 			this.Show ();
