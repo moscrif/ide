@@ -73,15 +73,11 @@ namespace Moscrif.IDE.Controls
 									mdEror.ShowDialog();
 									return ;
 								}
-								//Console.WriteLine("CreateLinks");
-								//Console.WriteLine("frameworkLibPath -. {0}",frameworkLibPath);
 								break;
 							    case -2://"Copy"
 								string fullLibDir = System.IO.Path.Combine(MainClass.Workspace.RootDirectory,libSelect);
 								MainClass.Tools.CopyDirectory(frameworkLibPath,fullLibDir, true, true);
 								state = MainClass.Languages.Translate("copied");
-								//Console.WriteLine("frameworkLibPath -. {0}",frameworkLibPath);
-								//Console.WriteLine("CopyDirectory");
 							        break;
 							    default: //"Cancel"
 							        break;
@@ -92,9 +88,6 @@ namespace Moscrif.IDE.Controls
 					}
 					//LoadLibs();
 					libstListStore.SetValue(iter,2,!old);
-					//Console.WriteLine("resultAction 2->{0}",resultAction);
-					//Console.WriteLine("state 2->{0}",state);
-					//if(resultAction == -1){ // nastavime stav na linked ak su linky
 					libstListStore.SetValue(iter,1,state);
 					//}
 				}
@@ -133,6 +126,7 @@ namespace Moscrif.IDE.Controls
 					missing = false;
 					state = MainClass.Languages.Translate("copied");
 					if ((libsDirectory.Attributes & FileAttributes.ReparsePoint) == FileAttributes.ReparsePoint){// links
+						//Console.WriteLine(System.IO.Path.GetFullPath(libsDirectory.FullName));
 						state = MainClass.Languages.Translate("linked");
 					}
 				}
@@ -146,6 +140,7 @@ namespace Moscrif.IDE.Controls
 				Gtk.TreeIter ti = libstListStore.AppendValues(lib, state,isSelect,missing,framneworkLibPath);
 			}
 		}
+
 
 		public string LibsString{
 			get{

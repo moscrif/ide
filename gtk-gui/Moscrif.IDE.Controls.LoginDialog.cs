@@ -4,6 +4,7 @@ namespace Moscrif.IDE.Controls
 {
 	public partial class LoginDialog
 	{
+		private global::Gtk.VBox vbox2;
 		private global::Gtk.Notebook notebook1;
 		private global::Gtk.Table table1;
 		private global::Gtk.Entry entrLogin;
@@ -29,19 +30,26 @@ namespace Moscrif.IDE.Controls
 		{
 			global::Stetic.Gui.Initialize (this);
 			// Widget Moscrif.IDE.Controls.LoginDialog
+			this.HeightRequest = 250;
 			this.Name = "Moscrif.IDE.Controls.LoginDialog";
 			this.WindowPosition = ((global::Gtk.WindowPosition)(3));
+			this.Resizable = false;
+			this.AllowGrow = false;
 			// Internal child Moscrif.IDE.Controls.LoginDialog.VBox
 			global::Gtk.VBox w1 = this.VBox;
 			w1.Name = "dialog1_VBox";
 			w1.BorderWidth = ((uint)(2));
 			// Container child dialog1_VBox.Gtk.Box+BoxChild
+			this.vbox2 = new global::Gtk.VBox ();
+			this.vbox2.Name = "vbox2";
+			this.vbox2.Spacing = 6;
+			// Container child vbox2.Gtk.Box+BoxChild
 			this.notebook1 = new global::Gtk.Notebook ();
 			this.notebook1.CanFocus = true;
 			this.notebook1.Name = "notebook1";
-			this.notebook1.CurrentPage = 0;
+			this.notebook1.CurrentPage = 1;
 			// Container child notebook1.Gtk.Notebook+NotebookChild
-			this.table1 = new global::Gtk.Table (((uint)(3)), ((uint)(2)), false);
+			this.table1 = new global::Gtk.Table (((uint)(4)), ((uint)(2)), false);
 			this.table1.Name = "table1";
 			this.table1.RowSpacing = ((uint)(6));
 			this.table1.ColumnSpacing = ((uint)(6));
@@ -87,6 +95,7 @@ namespace Moscrif.IDE.Controls
 			w4.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
 			this.label2 = new global::Gtk.Label ();
+			this.label2.WidthRequest = 80;
 			this.label2.Name = "label2";
 			this.label2.Xalign = 1F;
 			this.label2.LabelProp = global::Mono.Unix.Catalog.GetString ("Login :");
@@ -96,6 +105,7 @@ namespace Moscrif.IDE.Controls
 			w5.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
 			this.label3 = new global::Gtk.Label ();
+			this.label3.WidthRequest = 80;
 			this.label3.Name = "label3";
 			this.label3.Xalign = 1F;
 			this.label3.LabelProp = global::Mono.Unix.Catalog.GetString ("Password :");
@@ -106,6 +116,9 @@ namespace Moscrif.IDE.Controls
 			w6.XOptions = ((global::Gtk.AttachOptions)(4));
 			w6.YOptions = ((global::Gtk.AttachOptions)(4));
 			this.notebook1.Add (this.table1);
+			global::Gtk.Notebook.NotebookChild w7 = ((global::Gtk.Notebook.NotebookChild)(this.notebook1 [this.table1]));
+			w7.TabExpand = true;
+			w7.TabFill = false;
 			// Notebook tab
 			this.label1 = new global::Gtk.Label ();
 			this.label1.Name = "label1";
@@ -172,9 +185,10 @@ namespace Moscrif.IDE.Controls
 			w11.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table2.Gtk.Table+TableChild
 			this.label4 = new global::Gtk.Label ();
+			this.label4.WidthRequest = 80;
 			this.label4.Name = "label4";
 			this.label4.Xalign = 1F;
-			this.label4.LabelProp = global::Mono.Unix.Catalog.GetString ("Check Password :");
+			this.label4.LabelProp = global::Mono.Unix.Catalog.GetString ("Password  2 :");
 			this.table2.Add (this.label4);
 			global::Gtk.Table.TableChild w12 = ((global::Gtk.Table.TableChild)(this.table2 [this.label4]));
 			w12.TopAttach = ((uint)(2));
@@ -183,9 +197,10 @@ namespace Moscrif.IDE.Controls
 			w12.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table2.Gtk.Table+TableChild
 			this.label5 = new global::Gtk.Label ();
+			this.label5.WidthRequest = 80;
 			this.label5.Name = "label5";
 			this.label5.Xalign = 1F;
-			this.label5.LabelProp = global::Mono.Unix.Catalog.GetString ("Password :");
+			this.label5.LabelProp = global::Mono.Unix.Catalog.GetString ("Password 1 :");
 			this.table2.Add (this.label5);
 			global::Gtk.Table.TableChild w13 = ((global::Gtk.Table.TableChild)(this.table2 [this.label5]));
 			w13.TopAttach = ((uint)(1));
@@ -194,6 +209,7 @@ namespace Moscrif.IDE.Controls
 			w13.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table2.Gtk.Table+TableChild
 			this.label6 = new global::Gtk.Label ();
+			this.label6.WidthRequest = 80;
 			this.label6.Name = "label6";
 			this.label6.Xalign = 1F;
 			this.label6.LabelProp = global::Mono.Unix.Catalog.GetString ("Login :");
@@ -203,6 +219,7 @@ namespace Moscrif.IDE.Controls
 			w14.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table2.Gtk.Table+TableChild
 			this.lbl = new global::Gtk.Label ();
+			this.lbl.WidthRequest = 80;
 			this.lbl.Name = "lbl";
 			this.lbl.Xalign = 1F;
 			this.lbl.LabelProp = global::Mono.Unix.Catalog.GetString ("Email :");
@@ -215,24 +232,26 @@ namespace Moscrif.IDE.Controls
 			this.notebook1.Add (this.table2);
 			global::Gtk.Notebook.NotebookChild w16 = ((global::Gtk.Notebook.NotebookChild)(this.notebook1 [this.table2]));
 			w16.Position = 1;
+			w16.TabExpand = true;
 			// Notebook tab
 			this.lblRegister = new global::Gtk.Label ();
 			this.lblRegister.Name = "lblRegister";
 			this.lblRegister.LabelProp = global::Mono.Unix.Catalog.GetString ("Register");
 			this.notebook1.SetTabLabel (this.table2, this.lblRegister);
 			this.lblRegister.ShowAll ();
-			w1.Add (this.notebook1);
-			global::Gtk.Box.BoxChild w17 = ((global::Gtk.Box.BoxChild)(w1 [this.notebook1]));
+			this.vbox2.Add (this.notebook1);
+			global::Gtk.Box.BoxChild w17 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.notebook1]));
 			w17.Position = 0;
-			w17.Expand = false;
-			w17.Fill = false;
-			w17.Padding = ((uint)(5));
+			w1.Add (this.vbox2);
+			global::Gtk.Box.BoxChild w18 = ((global::Gtk.Box.BoxChild)(w1 [this.vbox2]));
+			w18.Position = 0;
+			w18.Padding = ((uint)(5));
 			// Internal child Moscrif.IDE.Controls.LoginDialog.ActionArea
-			global::Gtk.HButtonBox w18 = this.ActionArea;
-			w18.Name = "dialog1_ActionArea";
-			w18.Spacing = 10;
-			w18.BorderWidth = ((uint)(5));
-			w18.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
+			global::Gtk.HButtonBox w19 = this.ActionArea;
+			w19.Name = "dialog1_ActionArea";
+			w19.Spacing = 10;
+			w19.BorderWidth = ((uint)(5));
+			w19.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
 			this.buttonCancel = new global::Gtk.Button ();
 			this.buttonCancel.CanDefault = true;
@@ -242,9 +261,9 @@ namespace Moscrif.IDE.Controls
 			this.buttonCancel.UseUnderline = true;
 			this.buttonCancel.Label = "gtk-cancel";
 			this.AddActionWidget (this.buttonCancel, -6);
-			global::Gtk.ButtonBox.ButtonBoxChild w19 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w18 [this.buttonCancel]));
-			w19.Expand = false;
-			w19.Fill = false;
+			global::Gtk.ButtonBox.ButtonBoxChild w20 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w19 [this.buttonCancel]));
+			w20.Expand = false;
+			w20.Fill = false;
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
 			this.btnInfo = new global::Gtk.Button ();
 			this.btnInfo.CanFocus = true;
@@ -252,15 +271,15 @@ namespace Moscrif.IDE.Controls
 			this.btnInfo.UseUnderline = true;
 			this.btnInfo.Label = global::Mono.Unix.Catalog.GetString ("----");
 			this.AddActionWidget (this.btnInfo, 0);
-			global::Gtk.ButtonBox.ButtonBoxChild w20 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w18 [this.btnInfo]));
-			w20.Position = 1;
-			w20.Expand = false;
-			w20.Fill = false;
+			global::Gtk.ButtonBox.ButtonBoxChild w21 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w19 [this.btnInfo]));
+			w21.Position = 1;
+			w21.Expand = false;
+			w21.Fill = false;
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
 			this.DefaultWidth = 330;
-			this.DefaultHeight = 244;
+			this.DefaultHeight = 250;
 			this.Show ();
 			this.notebook1.SwitchPage += new global::Gtk.SwitchPageHandler (this.OnNotebook1SwitchPage);
 			this.entrPassword.KeyReleaseEvent += new global::Gtk.KeyReleaseEventHandler (this.OnEntrPasswordKeyReleaseEvent);

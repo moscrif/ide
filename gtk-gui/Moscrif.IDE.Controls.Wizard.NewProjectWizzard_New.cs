@@ -141,7 +141,9 @@ namespace Moscrif.IDE.Controls.Wizard
 			w8.RightAttach = ((uint)(2));
 			w8.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table2.Gtk.Table+TableChild
-			this.feLocation = null;
+			this.feLocation = new global::Moscrif.IDE.Components.FileEntry ();
+			this.feLocation.Name = "feLocation";
+			this.feLocation.IsFolder = true;
 			this.table2.Add (this.feLocation);
 			global::Gtk.Table.TableChild w9 = ((global::Gtk.Table.TableChild)(this.table2 [this.feLocation]));
 			w9.TopAttach = ((uint)(2));

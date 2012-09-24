@@ -226,7 +226,8 @@ namespace Moscrif.IDE.Controls.Wizard
 						}
 					}
 				}
-			}; 
+			};
+			btnBack.Sensitive = false;
 		}
 
 		private DirectoryInfo[] GetDirectory(string parentDirectory){

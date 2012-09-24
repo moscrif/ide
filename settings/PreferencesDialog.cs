@@ -19,6 +19,14 @@ namespace Moscrif.IDE.Settings
 		public PreferencesDialog(TypPreferences typ,object inicialize,string title)
 		{
 			this.Build();
+
+			//this.Resizable = true;
+
+			/*this.DefaultWidth =  650;
+			this.DefaultHeight = 500;*/
+			/*this.WidthRequest =  650;
+			this.HeightRequest = 500;*/
+			
 			this.TransientFor = MainClass.MainWindow;
 			this.Title = title;
 
@@ -31,6 +39,7 @@ namespace Moscrif.IDE.Settings
 		public PreferencesDialog(TypPreferences typ,string title)
 		{
 			this.Build();
+			//this.Resizable = false;
 			this.TransientFor = MainClass.MainWindow;
 			this.Title = title;
 

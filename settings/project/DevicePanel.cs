@@ -154,6 +154,9 @@ namespace Moscrif.IDE.Settings
 			lblApp.Xalign = 1;
 			lblApp.Yalign = 0.5F;
 			lblApp.WidthRequest = 105;
+			if(table.Name != "table1")
+				lblApp.WidthRequest = 114;
+
 			FileMaskEntry fmEntry = new FileMaskEntry(MainClass.Settings.ProjectMaskDirectory,dpd.Project,parentWindow);
 			fmEntry.Name = name;
 			fmEntry.IsFolder = false;
@@ -170,7 +173,7 @@ namespace Moscrif.IDE.Settings
 			}
 
 			table.Attach(lblApp,0,1,(uint)(xPos-1),(uint)xPos,AttachOptions.Fill,AttachOptions.Shrink,0,0);
-			table.Attach(fmEntry,1,2,(uint)(xPos-1),(uint)xPos,AttachOptions.Fill,AttachOptions.Expand,0,0);
+			table.Attach(fmEntry,1,2,(uint)(xPos-1),(uint)xPos,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Expand,0,0);
 		}
 
 		private void GenerateEntry(ref Table table, string name, string label, string val,int xPos){
@@ -179,12 +182,15 @@ namespace Moscrif.IDE.Settings
 			lblApp.Xalign = 1;
 			lblApp.Yalign = 0.5F;
 			lblApp.WidthRequest = 105;
+			if(table.Name != "table1")
+				lblApp.WidthRequest = 114;
+
 			Entry application = new Entry();
 			application.Name = name;
 			if (!String.IsNullOrEmpty(val))
 				application.Text = val;
 			table.Attach(lblApp,0,1,(uint)(xPos-1),(uint)xPos,AttachOptions.Fill,AttachOptions.Shrink,0,0);
-			table.Attach(application,1,2,(uint)(xPos-1),(uint)xPos,AttachOptions.Fill,AttachOptions.Expand,0,0);
+			table.Attach(application,1,2,(uint)(xPos-1),(uint)xPos,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Expand,0,0);
 		}
 
 
@@ -194,6 +200,9 @@ namespace Moscrif.IDE.Settings
 			lblApp.Xalign = 1;
 			lblApp.Yalign = 0.5F;
 			lblApp.WidthRequest = 105;
+			if(table.Name != "table1")
+				lblApp.WidthRequest = 114;
+
 			Entry application = new Entry();
 			application.Name = name;
 
@@ -222,7 +231,7 @@ namespace Moscrif.IDE.Settings
 			};
 
 			table.Attach(lblApp,0,1,(uint)(xPos-1),(uint)xPos,AttachOptions.Fill,AttachOptions.Shrink,0,0);
-			table.Attach(application,1,2,(uint)(xPos-1),(uint)xPos,AttachOptions.Fill,AttachOptions.Expand,0,0);
+			table.Attach(application,1,2,(uint)(xPos-1),(uint)xPos,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Expand,0,0);
 		}
 
 		private void GenerateComboBox(ref Table table, string name, string label, string selectVal,int xPos,List<SettingValue> list){
@@ -231,6 +240,9 @@ namespace Moscrif.IDE.Settings
 			lblApp.Xalign = 1;
 			lblApp.Yalign = 0.5F;
 			lblApp.WidthRequest = 105;
+			if(table.Name != "table1")
+				lblApp.WidthRequest = 114;
+
 			CellRendererText textRenderer = new CellRendererText();
 
 			ComboBox cbe = new ComboBox();//(val);
@@ -257,7 +269,7 @@ namespace Moscrif.IDE.Settings
 
 
 			table.Attach(lblApp,0,1,(uint)(xPos-1),(uint)xPos,AttachOptions.Fill,AttachOptions.Shrink,0,0);
-			table.Attach(cbe,1,2,(uint)(xPos-1),(uint)xPos,AttachOptions.Fill,AttachOptions.Expand,0,0);
+			table.Attach(cbe,1,2,(uint)(xPos-1),(uint)xPos,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Expand,0,0);
 		}
 
 		private void GenerateComboBoxSigning(ref Table table, string name, string label, string selectVal,int xPos,List<SettingValue> list){
@@ -266,6 +278,9 @@ namespace Moscrif.IDE.Settings
 			lblApp.Xalign = 1;
 			lblApp.Yalign = 0.5F;
 			lblApp.WidthRequest = 105;
+			if(table.Name != "table1")
+				lblApp.WidthRequest = 114;
+
 			CellRendererText textRenderer = new CellRendererText();
 
 			ComboBox cbe = new ComboBox();//(val);
@@ -306,7 +321,7 @@ namespace Moscrif.IDE.Settings
 			}
 
 			table.Attach(lblApp,0,1,(uint)(xPos-1),(uint)xPos,AttachOptions.Fill,AttachOptions.Shrink,0,0);
-			table.Attach(cbe,1,2,(uint)(xPos-1),(uint)xPos,AttachOptions.Fill,AttachOptions.Expand,0,0);
+			table.Attach(cbe,1,2,(uint)(xPos-1),(uint)xPos,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Expand,0,0);
 		}
 
 		private void GenerateEntryWithMenu(ref Table table, string name, string label, string val,int xPos){
@@ -315,6 +330,9 @@ namespace Moscrif.IDE.Settings
 			lblApp.Xalign = 1;
 			lblApp.Yalign = 0.5F;
 			lblApp.WidthRequest = 105;
+			if(table.Name != "table1")
+				lblApp.WidthRequest = 114;
+
 			if (String.IsNullOrEmpty(val))
 				val = "";
 
@@ -323,7 +341,7 @@ namespace Moscrif.IDE.Settings
 			application.Name = name;
 
 			table.Attach(lblApp,0,1,(uint)(xPos-1),(uint)xPos,AttachOptions.Fill,AttachOptions.Shrink,0,0);
-			table.Attach(application,1,2,(uint)(xPos-1),(uint)xPos,AttachOptions.Fill,AttachOptions.Expand,0,0);
+			table.Attach(application,1,2,(uint)(xPos-1),(uint)xPos,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Expand,0,0);
 		}
 
 
@@ -333,15 +351,21 @@ namespace Moscrif.IDE.Settings
 			lblApp.Xalign = 1;
 			lblApp.Yalign = 0.5F;
 			lblApp.WidthRequest = 105;
+			if(table.Name != "table1")
+				lblApp.WidthRequest = 114;
 
 			PermissionButton button = new PermissionButton(selectVal,parentWindow);
 			button.Name = name;
 			button.Label = MainClass.Languages.Translate("permisions_edit");
 			button.Permission = selectVal;
 			button.HeightRequest = 24;
+			button.WidthRequest = 95;
+
+			HBox hb = new  HBox();
+			hb.PackStart(button,false,false,0);
 
 			table.Attach(lblApp,0,1,(uint)(xPos-1),(uint)xPos,AttachOptions.Fill,AttachOptions.Shrink,0,0);
-			table.Attach(button,1,2,(uint)(xPos-1),(uint)xPos,AttachOptions.Fill,AttachOptions.Expand,0,0);
+			table.Attach(hb,1,2,(uint)(xPos-1),(uint)xPos,AttachOptions.Fill,AttachOptions.Expand,0,0);
 		}
 
 		public void GetIdentify ()
@@ -399,12 +423,16 @@ namespace Moscrif.IDE.Settings
 			validDevice = false;
 		}
 		 */
+
 		List<SettingValue> securityIOs = new List<SettingValue>();
 		public DeviceWidget(DevicePropertyData dpd,Gtk.Window parent)
 		{
 			parentWindow = parent;
 			this.dpd = dpd;
 			this.Build();
+
+			/*this.WidthRequest = 650;
+			this.HeightRequest = 500;*/
 
 			if(dpd.Device.Devicetype == DeviceType.iOS_5_0)
 				GetIdentify();
@@ -437,44 +465,35 @@ namespace Moscrif.IDE.Settings
 
 				Gtk.Expander expanderAndr16 = new Expander("Android signing");
 
-				/*expanderAndr16.BorderWidth = 5;
-				expanderAndr16.ModifyBg(StateType.Normal,new Gdk.Color(255,0,0));
-				expanderAndr16.LabelWidget.ModifyBg(StateType.Normal,new Gdk.Color(255,0,0));*/
-
 				Table tblAndr16 = new Table(4,2,false);
 				tblAndr16.RowSpacing = 3;
-				Console.WriteLine("1 -->>"+expanderAndr16.Allocation.Width);
-				tblAndr16.WidthRequest = expanderAndr16.Allocation.Width;
-				//tblAndr16.ModifyBg(StateType.Normal,new Gdk.Color(0,255,0));
 
 				expanderAndr16.Add(tblAndr16);
 
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_KEYSTORE);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp = new PublishProperty(Project.KEY_KEYSTORE));
-				GenerateFileMaskEntry(ref tblAndr16,Project.KEY_KEYSTORE,MainClass.Languages.Translate("keystore"),pp.PublishValue,0);
+				GenerateFileMaskEntry(ref tblAndr16,Project.KEY_KEYSTORE,MainClass.Languages.Translate("keystore")+" ",pp.PublishValue,0);
 
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_STOREPASSWORD);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp = new PublishProperty(Project.KEY_STOREPASSWORD));
-				GenerateEntry(ref tblAndr16,Project.KEY_STOREPASSWORD,MainClass.Languages.Translate("storepassword"),pp.PublishValue,1);
+				GenerateEntry(ref tblAndr16,Project.KEY_STOREPASSWORD,MainClass.Languages.Translate("storepassword")+" ",pp.PublishValue,1);
 				//
 
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_ALIAS);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp = new PublishProperty(Project.KEY_ALIAS));
-				GenerateEntry(ref tblAndr16,Project.KEY_ALIAS,MainClass.Languages.Translate("alias"),pp.PublishValue,2);
+				GenerateEntry(ref tblAndr16,Project.KEY_ALIAS,MainClass.Languages.Translate("alias")+" ",pp.PublishValue,2);
 				//
 
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_KEYPASSWORD);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp = new PublishProperty(Project.KEY_KEYPASSWORD));
-				GenerateEntry(ref tblAndr16,Project.KEY_KEYPASSWORD,MainClass.Languages.Translate("keypassword"),pp.PublishValue,3);
+				GenerateEntry(ref tblAndr16,Project.KEY_KEYPASSWORD,MainClass.Languages.Translate("keypassword")+" ",pp.PublishValue,3);
 				//
 				table1.Attach(expanderAndr16,0,2,6,7,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Shrink,0,0);
 				expanderAndr16.ShowAll();
-
-				Console.WriteLine("2 -->>"+expanderAndr16.Allocation.Width);
 
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_SUPPORTEDDEVICES);
 				if (pp == null)
@@ -485,12 +504,6 @@ namespace Moscrif.IDE.Settings
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp = new PublishProperty(Project.KEY_PERMISSION));
 				GeneratePermissionEditor(ref table1,Project.KEY_PERMISSION,MainClass.Languages.Translate("permisions"),pp.PublishValue,6);
-
-				table1.ShowAll();
-				/*int x, y, w, h, d = 0;
-				expanderAndr16.ParentWindow.GetGeometry(out x, out y, out w, out h, out d);
-				Console.WriteLine("w ->>"+w);
-				tblAndr16.WidthRequest = w;*/
 
 				break;
 				}
@@ -517,43 +530,53 @@ namespace Moscrif.IDE.Settings
 					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_BUNDLEIDENTIFIER));
 				GenerateBundleEntry(ref table1,Project.KEY_BUNDLEIDENTIFIER,MainClass.Languages.Translate("bundleIdentifier"),pp.PublishValue,3);
 
+				Gtk.Expander expanderAndr22 = new Expander("Android signing");
+				
+				Table tblAndr22 = new Table(4,2,false);
+				tblAndr22.RowSpacing = 3;
+				
+				expanderAndr22.Add(tblAndr22);
+
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_KEYSTORE);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp = new PublishProperty(Project.KEY_KEYSTORE));
-				GenerateFileMaskEntry(ref table1,Project.KEY_KEYSTORE,MainClass.Languages.Translate("keystore"),pp.PublishValue,4);
+				GenerateFileMaskEntry(ref tblAndr22,Project.KEY_KEYSTORE,MainClass.Languages.Translate("keystore")+" ",pp.PublishValue,0);
 
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_STOREPASSWORD);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp = new PublishProperty(Project.KEY_STOREPASSWORD));
-				GenerateEntry(ref table1,Project.KEY_STOREPASSWORD,MainClass.Languages.Translate("storepassword"),pp.PublishValue,5);
+				GenerateEntry(ref tblAndr22,Project.KEY_STOREPASSWORD,MainClass.Languages.Translate("storepassword")+" ",pp.PublishValue,1);
 				//
 
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_ALIAS);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp = new PublishProperty(Project.KEY_ALIAS));
-				GenerateEntry(ref table1,Project.KEY_ALIAS,MainClass.Languages.Translate("alias"),pp.PublishValue,6);
+				GenerateEntry(ref tblAndr22,Project.KEY_ALIAS,MainClass.Languages.Translate("alias")+" ",pp.PublishValue,2);
 				//
 
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_KEYPASSWORD);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp = new PublishProperty(Project.KEY_KEYPASSWORD));
-				GenerateEntry(ref table1,Project.KEY_KEYPASSWORD,MainClass.Languages.Translate("keypassword"),pp.PublishValue,7);
+				GenerateEntry(ref tblAndr22,Project.KEY_KEYPASSWORD,MainClass.Languages.Translate("keypassword")+" ",pp.PublishValue,3);
+
+				table1.Attach(expanderAndr22,0,2,6,7,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Shrink,0,0);
+				expanderAndr22.ShowAll();
 
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_SUPPORTEDDEVICES);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp = new PublishProperty(Project.KEY_SUPPORTEDDEVICES));
-				GenerateComboBox(ref table1,Project.KEY_SUPPORTEDDEVICES,MainClass.Languages.Translate("supportedDevices"),pp.PublishValue,8,MainClass.Settings.AndroidSupportedDevices);
+				GenerateComboBox(ref table1,Project.KEY_SUPPORTEDDEVICES,MainClass.Languages.Translate("supportedDevices"),pp.PublishValue,5,MainClass.Settings.AndroidSupportedDevices);
 
 
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_INSTALLOCATION);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp = new PublishProperty(Project.KEY_INSTALLOCATION));
-				GenerateComboBox(ref table1,Project.KEY_INSTALLOCATION,MainClass.Languages.Translate("installLocation"),pp.PublishValue,9,MainClass.Settings.InstallLocations);
+				GenerateComboBox(ref table1,Project.KEY_INSTALLOCATION,MainClass.Languages.Translate("installLocation"),pp.PublishValue,6,MainClass.Settings.InstallLocations);
 
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_PERMISSION);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp = new PublishProperty(Project.KEY_PERMISSION));
-				GeneratePermissionEditor(ref table1,Project.KEY_PERMISSION,MainClass.Languages.Translate("permisions"),pp.PublishValue,10);
+				GeneratePermissionEditor(ref table1,Project.KEY_PERMISSION,MainClass.Languages.Translate("permisions"),pp.PublishValue,7);
 
 				break;
 				}
