@@ -7,6 +7,10 @@ using Moscrif.IDE.Iface.Entities;
 using System.Security.Cryptography;
 using System.Reflection;
 using Moscrif.IDE.Tool;
+using System.IO;
+using System.Timers;
+using System.Threading;
+using Moscrif.IDE.Settings;
 
 namespace Moscrif.IDE.Iface
 {
@@ -18,8 +22,9 @@ namespace Moscrif.IDE.Iface
 
 		string redgisterUrl = MainClass.Settings.checkVersion ;
 		string pingUrl = MainClass.Settings.pingUrl ;
+		string loggUrl = MainClass.Settings.loggUrl ;
 		string loginUrl = MainClass.Settings.loginUrl ;
-		const string SALT = "qA1c!.x;$";
+		string SALT = Security.SALT;
 
 		public void Register(string email,string login,string password,LoginYesTaskHandler loggYesTask,LoginNoTaskHandler loggNoTask){
 			string URL = redgisterUrl;
@@ -30,12 +35,12 @@ namespace Moscrif.IDE.Iface
 
 
 				if (e.Cancelled){
-					if(loggNoTask!= null) loggNoTask(null,"Register to failed.");
+					if(loggNoTask!= null) loggNoTask(null,"Register failed.");
 					return;
 				}
 
 				if (e.Error != null){
-					if(loggNoTask!= null) loggNoTask(null,"Register to failed.");
+					if(loggNoTask!= null) loggNoTask(null,"Register failed.");
 					return;
 				}
 				string result = e.Result;
@@ -46,7 +51,7 @@ namespace Moscrif.IDE.Iface
 					if(loggYesTask!= null) loggYesTask(null,ac);
 					
 				} else {
-					if(loggNoTask!= null) loggNoTask(null,"Login to failed.");
+					if(loggNoTask!= null) loggNoTask(null,"Login failed.");
 					return;
 				}
 
@@ -95,14 +100,13 @@ namespace Moscrif.IDE.Iface
 		    statusDescription = null;
 		    return 0;
 		}
-	
-		
+			
 		public void CheckLogin(string name, string password,LoginYesTaskHandler loggYesTask,LoginNoTaskHandler loggNoTask){
       			string URL = loginUrl;
-
+			Console.WriteLine(URL);
 			WebClient client = new WebClient();
 
-			string data = String.Format("{0}\n{1}\n{2}\n{3}",name,GetMd5Sum(password+SALT),Environment.MachineName,Environment.UserName);
+			string data = String.Format("{0}\n{1}",name,GetMd5Sum(password+SALT)); //\n{2}\n{3}",name,GetMd5Sum(password+SALT),Environment.MachineName,Environment.UserName);
 			try{
 				string result =  client.UploadString(new Uri(URL),data);
 				Account ac = CreateAccount(result);
@@ -121,8 +125,7 @@ namespace Moscrif.IDE.Iface
 				return;
 			}
 
-		}		
-		
+		}	
 		public void CheckLoginII(string name, string password,LoginYesTaskHandler loggYesTask,LoginNoTaskHandler loggNoTask){
       			string URL = loginUrl;
 
@@ -151,7 +154,6 @@ namespace Moscrif.IDE.Iface
 			};
 
 			client.UploadStringAsync(new Uri(URL),data);
-
 		}
 		
 		private Account CreateAccount(string response){

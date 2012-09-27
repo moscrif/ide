@@ -11,6 +11,7 @@ using Moscrif.IDE.Controls;
 using Moscrif.IDE.Iface.Entities;
 using System.Threading;
 using System.Diagnostics;
+using Moscrif.IDE.Iface;
 
 namespace Moscrif.IDE.Workspace
 {
@@ -481,6 +482,10 @@ namespace Moscrif.IDE.Workspace
 					SaveProject(p);
 					Projects.Add(p);
 					ProjectsFile.Add(GetRelativePath(filename));
+
+					LoggingInfo log = new LoggingInfo();
+					log.LoggWebThread(LoggingInfo.ActionId.IDENewProject,p.ProjectName);
+
 					return p;
 				} else {
 					throw new Exception(MainClass.Languages.Translate("project_is_exist",filename));

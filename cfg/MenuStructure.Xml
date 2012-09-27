@@ -110,6 +110,8 @@
 	    	<menuitem name="About" action="about" />
 	    	<menuitem name="apireference" action="apireference" />
 	    	<separator name="sep7" />	
+	    	
+	    	<menuitem name="sendfeedback" action="sendfeedback" />	
 	    	<menuitem name="onlineapireference" action="onlineapireference" />	    	
 	    	<menuitem name="onlinedocumentation" action="onlinedocumentation" />
 	    	<menuitem name="submitsupport" action="submitsupport" />

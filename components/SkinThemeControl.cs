@@ -16,7 +16,6 @@ namespace  Moscrif.IDE.Components
 	[System.ComponentModel.ToolboxItem(true)]
 	public partial class SkinThemeControl : Gtk.Bin
 	{
-
 		Gtk.ListStore skinListStore = new Gtk.ListStore(typeof(string), typeof(string));
 		Gtk.ListStore themeListStore = new Gtk.ListStore(typeof(string), typeof(string));
 

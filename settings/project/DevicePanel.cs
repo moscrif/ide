@@ -18,7 +18,7 @@ namespace Moscrif.IDE.Settings
 		//Project project ;
 		DevicePropertyData dpd;
 		private string label;
-		private string ico;
+		private string ico; 
 
 		public override Widget CreatePanelWidget()
 		{

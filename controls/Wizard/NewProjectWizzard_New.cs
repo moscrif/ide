@@ -15,7 +15,7 @@ namespace Moscrif.IDE.Controls.Wizard
 {
 	public partial class NewProjectWizzard_New : Gtk.Dialog
 	{
-		const int COL_DISPLAY_NAME = 0;
+		const int COL_DISPLAY_NAME = 0; 
 		const int COL_DISPLAY_TEXT = 1;
 		const int COL_PIXBUF = 2;
 		const int COL_IS_DIRECTORY = 3;
@@ -619,6 +619,9 @@ namespace Moscrif.IDE.Controls.Wizard
 				MainClass.Tools.CopyDirectory(projectDir,newPrjDir,true,true);
 				prj = MainClass.Workspace.OpenProject(newMsp,false,true); //Project.OpenProject(newMsp,false,true);
 
+				LoggingInfo log = new LoggingInfo();
+				log.LoggWebThread(LoggingInfo.ActionId.IDENewProject,prj.ProjectName);
+			
 			} catch {
 				UpdateMessage(ti,1,MainClass.Languages.Translate("error_creating_project"));
 				return null;

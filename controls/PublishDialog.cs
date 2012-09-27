@@ -249,9 +249,9 @@ namespace Moscrif.IDE.Controls
 							break;}
 					case (int)DeviceType.iOS_5_0:{
 							ico = "apple.png";
-							//if(!MainClass.Platform.IsMac){
+							if(!MainClass.Platform.IsMac){
 								iOsNoMac = true;					
-							//}
+							}
 
 							break;
 			
@@ -623,6 +623,9 @@ namespace Moscrif.IDE.Controls
 
 
 		private void RunPublishTask(List<CombinePublish> list){
+
+			LoggingInfo log = new LoggingInfo();
+			log.LoggWebThread(LoggingInfo.ActionId.IDEEnd,project.ProjectName);
 
 			if(!MainClass.Workspace.SignApp){
 

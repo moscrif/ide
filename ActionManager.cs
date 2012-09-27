@@ -168,6 +168,7 @@ namespace Moscrif.IDE
 			main_window_actions.Add(new OpenOutputPopUpAction(), "");
 			main_window_actions.Add(new ShowProject(), "");
 
+			main_window_actions.Add(new SendFeedbackAction(), "");
 			main_window_actions.Add(new OpenApiReferenceAction(), "");
 			main_window_actions.Add(new OpenOnlineApiReferenceAction(), "");
 			main_window_actions.Add(new OpenOnlineDocument(), "");
@@ -737,6 +738,7 @@ namespace Moscrif.IDE
 
 	void OnTest(object obj, EventArgs args)
 	{
+			throw new NotImplementedException();
 
 		NewProjectWizzard_New npw = new NewProjectWizzard_New();
 		int result = npw.Run();

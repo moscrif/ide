@@ -13,6 +13,7 @@ using Moscrif.IDE.Iface.Entities;
 using MessageDialogs = Moscrif.IDE.Controls.MessageDialog;
 using Mono.Unix;
 using System.Threading;
+using System.Text;
 
 namespace Moscrif.IDE
 {
@@ -26,11 +27,15 @@ namespace Moscrif.IDE
 
 			Logger.Log(Languages.Translate("start_app"));
 			Application.Init();
-			//Logger.Log("1");
+
 			ExceptionManager.UnhandledException += delegate(UnhandledExceptionArgs argsum)
 			{
+				StringBuilder sb = new StringBuilder(); 
+
 				Exception ex = (Exception)argsum.ExceptionObject;
-				
+
+				sb.AppendLine(ex.Message);
+				sb.AppendLine(ex.StackTrace);
 				Logger.Error(ex.Message);
 				Logger.Error(ex.StackTrace);
 				Console.WriteLine(ex.Message);
@@ -43,35 +48,38 @@ namespace Moscrif.IDE
 					Console.WriteLine(ex.InnerException.Message);
 					Console.WriteLine(ex.InnerException.StackTrace);
 					Console.WriteLine(ex.InnerException.Source);
+					sb.AppendLine(ex.InnerException.Message);
+					sb.AppendLine(ex.InnerException.StackTrace);
+					sb.AppendLine(ex.InnerException.Source);
 				}
+
+				ErrorDialog ed= new ErrorDialog();
+				ed.ErrorMessage = sb.ToString();
+				ed.Run();
+				ed.Destroy();
+
 				argsum.ExitApplication = true;
 			};
 			Gdk.Global.InitCheck(ref args);
 
-			//SplashScreenForm splash = new SplashScreenForm();
-			//splash.Show();
 			mainWindow = new MainWindow(args);
 
 			MainWindow.Show();
 
-			//MainWindow win = MainWindow;
-			//if ((MainClass.Settings == null) ||(MainClass.Settings.BackgroundColor == null)){
-			/*if(!File.Exists(MainClass.Settings.FilePath)){
-				SettingPlatformDialog spd = new SettingPlatformDialog(true);
-				 spd.Run();
-				spd.Destroy();
-			}*/
-			//splash.Destroy();
-
-			//win.Show();
-
-			//splash.Hide();
+			if((MainClass.Settings.Account == null) || (String.IsNullOrEmpty(MainClass.Settings.Account.Token))){
+				LoginDialog ld = new LoginDialog(null);
+				ld.Run();
+				ld.Destroy();
+			} else {
+				LoggingInfo log = new LoggingInfo();
+				log.LoggWebThread(LoggingInfo.ActionId.IDEStart);
+			}
 			if (!String.IsNullOrEmpty(Paths.TempDir))
 			{
 				Application.Run();
 			}
 
-			Logger.Log("END Application");
+
 		}
 
 		static ProcessService processService = null;

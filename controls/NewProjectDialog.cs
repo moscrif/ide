@@ -15,7 +15,7 @@ namespace Moscrif.IDE.Controls
 	public partial class NewProjectDialog : Gtk.Dialog
 	{
 
-		public NewProjectDialog()
+		public NewProjectDialog() 
 		{
 			this.TransientFor = MainClass.MainWindow;			
 			this.Build();

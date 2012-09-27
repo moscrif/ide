@@ -13,7 +13,7 @@ namespace Moscrif.IDE.Settings
 {
 	internal class ImageEditorPanel : OptionsPanel
 	{
-		ImageEditorWidget widget;
+		ImageEditorWidget widget;  
 
 		public override Widget CreatePanelWidget ()
 		{

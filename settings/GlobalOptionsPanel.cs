@@ -11,11 +11,11 @@ namespace Moscrif.IDE.Settings
 {
 	internal class GlobalOptionsPanel : OptionsPanel
 	{
-		GlobalOptionsWidget widget;
+		GlobalOptionsWidget2 widget;
 
 		public override Widget CreatePanelWidget ()
 		{
-			return widget = new  GlobalOptionsWidget (ParentDialog);
+			return widget = new  GlobalOptionsWidget2 (ParentDialog);
 		}
 
 		public override void ApplyChanges ()
@@ -47,7 +47,7 @@ namespace Moscrif.IDE.Settings
 	}
 
 
-	internal partial class  GlobalOptionsWidget : Gtk.Bin
+	internal partial class  GlobalOptionsWidget2 : Gtk.Bin
 	{
 		ListStore storeIF = new ListStore(typeof(string),typeof(bool),typeof(bool), typeof(IgnoreFolder));
 		private List<IgnoreFolder> ignoreFiles;
@@ -58,7 +58,7 @@ namespace Moscrif.IDE.Settings
 		FavoriteEntry fePublishTool ;
 		FavoriteEntry feEmulator ;
 
-		public GlobalOptionsWidget(Gtk.Window parent)
+		public GlobalOptionsWidget2(Gtk.Window parent)
 		{
 			parentWindow = parent;
 

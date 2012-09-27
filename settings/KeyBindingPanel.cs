@@ -14,7 +14,7 @@ namespace  Moscrif.IDE.Settings
 	internal class KeyBindingPanel : OptionsPanel
 	{
 		KeyBindingWidget widget;
-
+		  
 		public override Widget CreatePanelWidget ()
 		{
 			return widget = new  KeyBindingWidget (ParentDialog);

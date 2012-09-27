@@ -199,7 +199,6 @@
     <Compile Include="settings\IOptionsPanel.cs" />
     <Compile Include="settings\OptionsPanel.cs" />
     <Compile Include="settings\GlobalOptionsPanel.cs" />
-    <Compile Include="settings\TestOptionsPanel.cs" />
     <Compile Include="components\FileEntry.cs" />
     <Compile Include="settings\KeyBindingPanel.cs" />
     <Compile Include="tool\IniFile.cs" />
@@ -409,6 +408,11 @@
     <Compile Include="controls\Wizard\NewProjectWizzard_Old.cs" />
     <Compile Include="controls\Wizard\NewProjectWizzard_New.cs" />
     <Compile Include="Iface\SocketServer.cs" />
+    <Compile Include="controls\ErrorDialog.cs" />
+    <Compile Include="Iface\LoggingInfo.cs" />
+    <Compile Include="settings\Security.cs" />
+    <Compile Include="actions\SendFeedbackAction.cs" />
+    <Compile Include="controls\FeedbackDialog.cs" />
     <Compile Include="gtk-gui\MainWindow.cs" />
     <Compile Include="gtk-gui\Moscrif.IDE.Controls.FindReplaceControl.cs" />
     <Compile Include="gtk-gui\Moscrif.IDE.Controls.NewFileDialog.cs" />
@@ -416,8 +420,6 @@
     <Compile Include="gtk-gui\Moscrif.IDE.Controls.ApplicationFileControl.cs" />
     <Compile Include="gtk-gui\Moscrif.IDE.Controls.NewWorkspaceDialog.cs" />
     <Compile Include="gtk-gui\Moscrif.IDE.Settings.PreferencesDialog.cs" />
-    <Compile Include="gtk-gui\Moscrif.IDE.Settings.GlobalOptionsWidget.cs" />
-    <Compile Include="gtk-gui\Moscrif.IDE.Settings.TestOptionsWidget.cs" />
     <Compile Include="gtk-gui\Moscrif.IDE.Settings.KeyBindingWidget.cs" />
     <Compile Include="gtk-gui\Moscrif.IDE.Settings.DevicesOptionsWidget.cs" />
     <Compile Include="gtk-gui\Moscrif.IDE.Controls.OpenProjectDialog.cs" />
@@ -452,6 +454,9 @@
     <Compile Include="gtk-gui\Moscrif.IDE.Components.SkinThemeControl.cs" />
     <Compile Include="gtk-gui\Moscrif.IDE.Controls.Wizard.NewProjectWizzard_Old.cs" />
     <Compile Include="gtk-gui\Moscrif.IDE.Controls.Wizard.NewProjectWizzard_New.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Settings.GlobalOptionsWidget2.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Controls.FeedbackDialog.cs" />
+    <Compile Include="gtk-gui\Moscrif.IDE.Controls.ErrorDialog.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

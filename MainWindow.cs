@@ -22,6 +22,7 @@ using System.Security.Principal;
 using System.Threading;
 using System.Net;
 using System.Net.Sockets;
+using Moscrif.IDE.Iface;
 
 public partial class MainWindow : Gtk.Window
 {
@@ -532,11 +533,17 @@ public partial class MainWindow : Gtk.Window
 		//lblSocket.Text = ip;
 
 
-		Thread filllStartPageThread = new Thread(new ThreadStart(ExecEditorThread));
+		Thread ExecEditorThreads = new Thread(new ThreadStart(ExecEditorThread));
 		//filllStartPageThread.Priority = ThreadPriority.Normal;
-		filllStartPageThread.Name = "ExecEditorThread";
-		filllStartPageThread.IsBackground = true;
-		filllStartPageThread.Start();
+		ExecEditorThreads.Name = "ExecEditorThread";
+		ExecEditorThreads.IsBackground = true;
+		ExecEditorThreads.Start();
+
+		/*if((MainClass.Settings.Account == null) || (String.IsNullOrEmpty(MainClass.Settings.Account.Token))){
+			LoginDialog ld = new LoginDialog(null);
+			ld.Run();
+			ld.Destroy();
+		}*/
 	}
 	
 
@@ -930,7 +937,7 @@ public partial class MainWindow : Gtk.Window
 		//Console.WriteLine(MainClass.Tools.TempPrecompileDir);
 
 		string pathPreCompile = System.IO.Path.Combine(MainClass.Paths.TempPrecompileDir, "moscrif.exe");
-		if(Platform.IsMac){
+		if( MainClass.Platform.IsMac){
 			pathPreCompile = System.IO.Path.Combine(MainClass.Paths.TempPrecompileDir, "moscrif.app");
 		
 			if (!Directory.Exists(pathPreCompile)) {
@@ -1421,6 +1428,9 @@ public partial class MainWindow : Gtk.Window
 			newMsp = System.IO.Path.Combine(MainClass.Workspace.RootDirectory,newMsp);
 			OpenProject(newMsp,true);
 		}
+		LoggingInfo log = new LoggingInfo();
+		log.LoggWebThread(LoggingInfo.ActionId.IDEImportProject,appFile.Name);
+
 		SetActualProject(newApp);
 		WorkspaceTree.SetSelectedFile(newApp);
 	}
@@ -2330,6 +2340,9 @@ public partial class MainWindow : Gtk.Window
 
 	public bool InicializeQuit(){
 
+		LoggingInfo log = new LoggingInfo();
+		log.LoggWebThread(LoggingInfo.ActionId.IDEEnd);
+
 		if( !CloseActualWorkspace()){
 			return false;
 		}
@@ -2366,7 +2379,6 @@ public partial class MainWindow : Gtk.Window
 		Application.Quit();
 		a.RetVal = true;
 	}
-
 
 	protected void OnBtnSocketServerClicked (object sender, EventArgs e)
 	{	if(String.IsNullOrEmpty(cbIpAdress.ActiveText)) return;

@@ -18,7 +18,7 @@ namespace Moscrif.IDE.Settings
 		 
 		public PreferencesDialog(TypPreferences typ,object inicialize,string title)
 		{
-			this.Build();
+			this.Build(); 
 
 			//this.Resizable = true;
 

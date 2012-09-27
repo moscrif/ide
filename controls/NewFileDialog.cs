@@ -15,7 +15,7 @@ namespace Moscrif.IDE.Controls
 		public NewFileDialog()
 		{
 			this.TransientFor = MainClass.MainWindow;
-			this.Build();
+			this.Build(); 
 
 
 			//tblMain.Visible = false;

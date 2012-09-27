@@ -188,7 +188,7 @@ namespace Moscrif.IDE.Controls
 			this.label4.WidthRequest = 80;
 			this.label4.Name = "label4";
 			this.label4.Xalign = 1F;
-			this.label4.LabelProp = global::Mono.Unix.Catalog.GetString ("Password  2 :");
+			this.label4.LabelProp = global::Mono.Unix.Catalog.GetString ("Password 2 :");
 			this.table2.Add (this.label4);
 			global::Gtk.Table.TableChild w12 = ((global::Gtk.Table.TableChild)(this.table2 [this.label4]));
 			w12.TopAttach = ((uint)(2));
@@ -270,7 +270,7 @@ namespace Moscrif.IDE.Controls
 			this.btnInfo.Name = "btnInfo";
 			this.btnInfo.UseUnderline = true;
 			this.btnInfo.Label = global::Mono.Unix.Catalog.GetString ("----");
-			this.AddActionWidget (this.btnInfo, 0);
+			w19.Add (this.btnInfo);
 			global::Gtk.ButtonBox.ButtonBoxChild w21 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w19 [this.btnInfo]));
 			w21.Position = 1;
 			w21.Expand = false;

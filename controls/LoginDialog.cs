@@ -18,13 +18,13 @@ namespace Moscrif.IDE.Controls
 		{
 			if (String.IsNullOrEmpty(entrLogin.Text)){
 				MessageDialogs md =
-					new MessageDialogs(MessageDialogs.DialogButtonType.Ok, MainClass.Languages.Translate("login_is_required"), "", Gtk.MessageType.Error);
+					new MessageDialogs(MessageDialogs.DialogButtonType.Ok, MainClass.Languages.Translate("login_is_required"), "", Gtk.MessageType.Error,this);
 				md.ShowDialog();
 				return;
 			}
 			if (String.IsNullOrEmpty(entrPassword.Text)){
 				MessageDialogs md =
-					new MessageDialogs(MessageDialogs.DialogButtonType.Ok, MainClass.Languages.Translate("password_is_required"), "", Gtk.MessageType.Error);
+					new MessageDialogs(MessageDialogs.DialogButtonType.Ok, MainClass.Languages.Translate("password_is_required"), "", Gtk.MessageType.Error,this);
 				md.ShowDialog();
 				return;
 			}
@@ -70,26 +70,26 @@ namespace Moscrif.IDE.Controls
 
 			if (String.IsNullOrEmpty(entrLoginR.Text)){
 				MessageDialogs md =
-					new MessageDialogs(MessageDialogs.DialogButtonType.Ok, MainClass.Languages.Translate("login_is_required"), "", Gtk.MessageType.Error);
+					new MessageDialogs(MessageDialogs.DialogButtonType.Ok, MainClass.Languages.Translate("login_is_required"), "", Gtk.MessageType.Error,this);
 				md.ShowDialog();
 				return;
 			}
 			if (String.IsNullOrEmpty(entrPasswordR1.Text)){
 				MessageDialogs md =
-					new MessageDialogs(MessageDialogs.DialogButtonType.Ok, MainClass.Languages.Translate("password_is_required"), "", Gtk.MessageType.Error);
+					new MessageDialogs(MessageDialogs.DialogButtonType.Ok, MainClass.Languages.Translate("password_is_required"), "", Gtk.MessageType.Error,this);
 				md.ShowDialog();
 				return;
 			}
 			if(entrPasswordR1.Text != entrPasswordR2.Text){
 				MessageDialogs md =
-					new MessageDialogs(MessageDialogs.DialogButtonType.Ok, MainClass.Languages.Translate("password_dont_match"), "", Gtk.MessageType.Error);
+					new MessageDialogs(MessageDialogs.DialogButtonType.Ok, MainClass.Languages.Translate("password_dont_match"), "", Gtk.MessageType.Error,this);
 				md.ShowDialog();
 				return;
 			}
 
 			if(!CheckEmail(entrEmailR.Text)){
 				MessageDialogs md =
-					new MessageDialogs(MessageDialogs.DialogButtonType.Ok, MainClass.Languages.Translate("email_address_invalid"), "", Gtk.MessageType.Error);
+					new MessageDialogs(MessageDialogs.DialogButtonType.Ok, MainClass.Languages.Translate("email_address_invalid"), "", Gtk.MessageType.Error,this);
 				md.ShowDialog();
 				return;
 			}

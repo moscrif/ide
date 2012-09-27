@@ -17,6 +17,11 @@ task=Task
 process = Process
 errors=Errors
 error = Error
+error_error = Can't  send error.
+error_feedback = Can't  send feedback.
+
+feedback_send =Your Feedback has been send. Thanks.
+
 logs=Logs
 garbage_collector=Garbage Collector ({0})
 monitor=Monitor
@@ -507,6 +512,7 @@ menu_open_online_documen = Online Documentation
 menu_submit_support = Submit Support Issue
 menu_open_online_demos = Online Demos
 menu_open_online_samples = Online Samples
+menu_send_feedback = Send Feedback
 
 menu_goto_definition = _Go to definition
 menu_title_goto_definition = Go to definition

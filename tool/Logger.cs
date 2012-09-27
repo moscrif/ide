@@ -47,6 +47,11 @@ namespace Moscrif.IDE.Tool
 			console = new ConsoleLogger ();
 		}
 
+		public void Close(){
+			log.Close();
+			log.Dispose();
+		}
+
 		~FileLogger ()
 		{
 			//if (log != null)
@@ -89,6 +94,10 @@ namespace Moscrif.IDE.Tool
 		static ILogger log_dev = new FileLogger ();
 
 		static bool muted = false;
+
+		public static void Close(){
+			(log_dev as FileLogger).Close();
+		}
 
 		public static Level LogLevel
 		{

@@ -78,39 +78,78 @@ namespace  Moscrif.IDE.Settings
 
 		[XmlAttribute("workspaceCount")]
 		public int WorkspaceCount = 1;
-
+		/*
+#if DEBUG 
 		//[XmlElement("signUrl")]
 		[XmlIgnore]
-		public String signUrl = "http://moscrif.com/ide/signApp.ashx?t={0}&a={1}";
+		public String signUrl = "http://rc.moscrif.com/ide/signApp.ashx?t={0}&a={1}";
 
 		//[XmlElement("checkVersion")]
 		[XmlIgnore]
-		public String checkVersion = "http://moscrif.com/ide/signApp.ashx?v={0}";
+		public String checkVersion = "http://rc.moscrif.com/ide/signApp.ashx?v={0}";
 
 		//[XmlElement("checkVersionLog")]
 		[XmlIgnore]
-		public String checkVersionLog = "http://moscrif.com/ide/signApp.ashx?v={0}&t={1}";
+		public String checkVersionLog = "http://rc.moscrif.com/ide/signApp.ashx?v={0}&t={1}";
 
 		//[[XmlElement("getVersion")]
 		[XmlIgnore]
-		public String getVersion = "http://moscrif.com/ide/getVersion.ashx?v={0}";
+		public String getVersion = "http://rc.moscrif.com/ide/getVersion.ashx?v={0}";
 
 		//[[XmlElement("getVersionLog")]
 		[XmlIgnore]
-		public String getVersionLog = "http://moscrif.com/ide/getVersion.ashx?v={0}&t={1}";
+		public String getVersionLog = "http://rc.moscrif.com/ide/getVersion.ashx?v={0}&t={1}";
 
 		//[[XmlElement("redgisterUrl")]
 		[XmlIgnore]
-		public String redgisterUrl = "http://moscrif.com/ide/registerLogin.ashx";
+		public String redgisterUrl = "http://rc.moscrif.com/ide/registerLogin.ashx";
 
+		//[[XmlElement("pingUrl")]
+		[XmlIgnore]
+		public String pingUrl = "http://rc.moscrif.com/ide/ping.ashx";
+
+		[XmlIgnore]
+		public String loggUrl = "http://rc.moscrif.com/ide/analytics.ashx";
+
+		//[XmlElement("loginUrl")]
+		[XmlIgnore]
+		public String loginUrl = "http://rc.moscrif.com/ide/checkLogin.ashx"; 
+#else */
+		//[XmlElement("signUrl")]
+		[XmlIgnore]
+		public String signUrl = "http://moscrif.com/ide/signApp.ashx?t={0}&a={1}";
+		
+		//[XmlElement("checkVersion")]
+		[XmlIgnore]
+		public String checkVersion = "http://moscrif.com/ide/signApp.ashx?v={0}";
+		
+		//[XmlElement("checkVersionLog")]
+		[XmlIgnore]
+		public String checkVersionLog = "http://moscrif.com/ide/signApp.ashx?v={0}&t={1}";
+		
+		//[[XmlElement("getVersion")]
+		[XmlIgnore]
+		public String getVersion = "http://moscrif.com/ide/getVersion.ashx?v={0}";
+		
+		//[[XmlElement("getVersionLog")]
+		[XmlIgnore]
+		public String getVersionLog = "http://moscrif.com/ide/getVersion.ashx?v={0}&t={1}";
+		
+		//[[XmlElement("redgisterUrl")]
+		[XmlIgnore]
+		public String redgisterUrl = "http://moscrif.com/ide/registerLogin.ashx";
+		
 		//[[XmlElement("pingUrl")]
 		[XmlIgnore]
 		public String pingUrl = "http://moscrif.com/ide/ping.ashx";
 
+		[XmlIgnore]
+		public String loggUrl = "http://moscrif.com/ide/analytics.ashx";
+
 		//[XmlElement("loginUrl")]
 		[XmlIgnore]
-		public String loginUrl = "http://moscrif.com/ide/checkLogin.ashx";
-
+		public String loginUrl = "http://moscrif.com/ide/checkLogin.ashx"; 
+//#endif
 
 		[XmlElement("backgroundColor")]
 		public BackgroundColors BackgroundColor = null;

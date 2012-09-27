@@ -13,7 +13,7 @@ namespace Moscrif.IDE.Settings
 	{
 		ApplicationWidget widget;
 		Project project ;
-
+		 
 		public override Widget CreatePanelWidget()
 		{
 			return widget = new ApplicationWidget(project,ParentDialog);
