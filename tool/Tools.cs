@@ -178,7 +178,7 @@ namespace Moscrif.IDE.Tool
 			try {
 				using (StreamWriter file = new StreamWriter(path)) {
 					file.WriteLine("#!/bin/bash"); ///bin/bash    //sh
-					file.WriteLine("echo It worked!");
+					//file.WriteLine("echo It worked!");
 					foreach (string Element in Files) {
 						string destPath = System.IO.Path.Combine(Dst, Path.GetFileName(Element));
 						if (Directory.Exists(Element)) {

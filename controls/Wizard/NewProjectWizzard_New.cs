@@ -166,7 +166,6 @@ namespace Moscrif.IDE.Controls.Wizard
 				storeWorkspace.AppendValues (name,MainClass.Workspace.FilePath);
 				currentWorkspace = MainClass.Workspace.FilePath;
 			}
-
 			IList<RecentFile> lRecentProjects = MainClass.Settings.RecentFiles.GetWorkspace();
 
 			foreach(RecentFile rf in lRecentProjects){
@@ -178,13 +177,18 @@ namespace Moscrif.IDE.Controls.Wizard
 				}
 			}
 
-			feLocation.DefaultPath = MainClass.Paths.WorkDir;
+			if(!String.IsNullOrEmpty(currentWorkspace)){
+				cbeWorkspace.Active =0;
+			} else {
+				feLocation.DefaultPath = MainClass.Paths.WorkDir;
+				worksDefaultName = "Workspace"+MainClass.Settings.WorkspaceCount.ToString();
+				storeWorkspace.AppendValues(worksDefaultName,MainClass.Paths.WorkDir);
+				cbeWorkspace.Active =-1;
+			}
 			prjDefaultName = "Project"+MainClass.Settings.ProjectCount.ToString();
-			worksDefaultName = "Workspace"+MainClass.Settings.WorkspaceCount.ToString();
-
 			entrProjectName.Text = prjDefaultName;
-			cbeWorkspace.Entry.Text = worksDefaultName;
-			cbeWorkspace.Active =-1;
+			/*cbeWorkspace.Entry.Text = worksDefaultName;
+			cbeWorkspace.Active =-1;*/
 
 
 			CellRendererText text3Renderer = new CellRendererText();
