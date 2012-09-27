@@ -21,7 +21,7 @@ namespace Moscrif.IDE.Actions
 		{
 			base.OnActivated();
 
-			NewProjectWizzard_New npw = new NewProjectWizzard_New();
+			NewProjectWizzard_New npw = new NewProjectWizzard_New(null);
 			npw.Run();
 			npw.Destroy();
 		}

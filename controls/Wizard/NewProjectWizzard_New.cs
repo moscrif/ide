@@ -44,14 +44,19 @@ namespace Moscrif.IDE.Controls.Wizard
 		string projectDir = "";
 
 		int page = 0;
-		public NewProjectWizzard_New()
+		public NewProjectWizzard_New(Window parent)
 		{
-			this.Build();
+			if (parent != null)
+				this.TransientFor =parent;
+			else
+				this.TransientFor = MainClass.MainWindow;
+
+			this.Build();		
+
 			this.DefaultHeight = 390 ;
 			this.Title = MainClass.Languages.Translate("moscrif_ide_title_f1");
 			ntbWizzard.ShowTabs = false;
 
-			this.TransientFor = MainClass.MainWindow;
 			Pango.FontDescription customFont = lblNewProject.Style.FontDescription.Copy();//  Pango.FontDescription.FromString(MainClass.Settings.ConsoleTaskFont);
 			customFont.Size = 24;
 			customFont.Weight = Pango.Weight.Bold;

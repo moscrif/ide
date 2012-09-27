@@ -1,0 +1,360 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" includeAllResolution="false" applicationType="application" projectOutput="$(workspace_dir)\output" facebookAppID="" projectArtefact="$application$_$(Platform)_$(Resolution)" appFile=".\$application$.app">
+  <conditionDefines />
+  <NewSkin>true</NewSkin>
+  <fileProperties>
+    <property path=".\Minesweeper\exp" isDirectory="true" excluded="false">
+      <conditions>
+        <condition id="-2" rule="-1" />
+      </conditions>
+    </property>
+    <property path=".\Minesweeper\exp\exp_01.png" isDirectory="false" excluded="false">
+      <conditions>
+        <condition id="-2" rule="-1" />
+      </conditions>
+    </property>
+    <property path=".\Minesweeper\exp\exp_02.png" isDirectory="false" excluded="false">
+      <conditions>
+        <condition id="-2" rule="-1" />
+      </conditions>
+    </property>
+    <property path=".\Minesweeper\exp\exp_03.png" isDirectory="false" excluded="false">
+      <conditions>
+        <condition id="-2" rule="-1" />
+      </conditions>
+    </property>
+    <property path=".\Minesweeper\exp\exp_04.png" isDirectory="false" excluded="false">
+      <conditions>
+        <condition id="-2" rule="-1" />
+      </conditions>
+    </property>
+    <property path=".\Minesweeper\exp\exp_05.png" isDirectory="false" excluded="false">
+      <conditions>
+        <condition id="-2" rule="-1" />
+      </conditions>
+    </property>
+    <property path=".\Minesweeper\exp\exp_06.png" isDirectory="false" excluded="false">
+      <conditions>
+        <condition id="-2" rule="-1" />
+      </conditions>
+    </property>
+    <property path=".\Minesweeper\exp\exp_07.png" isDirectory="false" excluded="false">
+      <conditions>
+        <condition id="-2" rule="-1" />
+      </conditions>
+    </property>
+    <property path=".\Minesweeper\exp\exp_08.png" isDirectory="false" excluded="false">
+      <conditions>
+        <condition id="-2" rule="-1" />
+      </conditions>
+    </property>
+    <property path=".\Minesweeper\exp\exp_09.png" isDirectory="false" excluded="false">
+      <conditions>
+        <condition id="-2" rule="-1" />
+      </conditions>
+    </property>
+    <property path=".\Minesweeper\exp\exp_10.png" isDirectory="false" excluded="false">
+      <conditions>
+        <condition id="-2" rule="-1" />
+      </conditions>
+    </property>
+    <property path=".\Minesweeper\exp\exp_11.png" isDirectory="false" excluded="false">
+      <conditions>
+        <condition id="-2" rule="-1" />
+      </conditions>
+    </property>
+    <property path=".\Minesweeper\exp\exp_12.png" isDirectory="false" excluded="false">
+      <conditions>
+        <condition id="-2" rule="-1" />
+      </conditions>
+    </property>
+    <property path=".\Minesweeper\exp\exp_13.png" isDirectory="false" excluded="false">
+      <conditions>
+        <condition id="-2" rule="-1" />
+      </conditions>
+    </property>
+    <property path=".\Minesweeper\exp\exp_14.png" isDirectory="false" excluded="false">
+      <conditions>
+        <condition id="-2" rule="-1" />
+      </conditions>
+    </property>
+    <property path=".\Minesweeper\exp\exp_15.png" isDirectory="false" excluded="false">
+      <conditions>
+        <condition id="-2" rule="-1" />
+      </conditions>
+    </property>
+    <property path=".\Minesweeper\exp\exp_16.png" isDirectory="false" excluded="false">
+      <conditions>
+        <condition id="-2" rule="-1" />
+      </conditions>
+    </property>
+    <property path=".\Minesweeper\exp\exp_17.png" isDirectory="false" excluded="false">
+      <conditions>
+        <condition id="-2" rule="-1" />
+      </conditions>
+    </property>
+    <property path=".\Minesweeper\exp\exp_18.png" isDirectory="false" excluded="false">
+      <conditions>
+        <condition id="-2" rule="-1" />
+      </conditions>
+    </property>
+    <property path=".\Minesweeper\exp\exp_19.png" isDirectory="false" excluded="false">
+      <conditions>
+        <condition id="-2" rule="-1" />
+      </conditions>
+    </property>
+    <property path=".\Minesweeper\exp\exp_20.png" isDirectory="false" excluded="false">
+      <conditions>
+        <condition id="-2" rule="-1" />
+      </conditions>
+    </property>
+    <property path=".\Minesweeper\exp\exp_21.png" isDirectory="false" excluded="false">
+      <conditions>
+        <condition id="-2" rule="-1" />
+      </conditions>
+    </property>
+    <property path=".\Minesweeper\exp\exp_22.png" isDirectory="false" excluded="false">
+      <conditions>
+        <condition id="-2" rule="-1" />
+      </conditions>
+    </property>
+    <property path=".\Minesweeper\exp\exp_23.png" isDirectory="false" excluded="false">
+      <conditions>
+        <condition id="-2" rule="-1" />
+      </conditions>
+    </property>
+    <property path=".\Minesweeper\exp\exp_24.png" isDirectory="false" excluded="false">
+      <conditions>
+        <condition id="-2" rule="-1" />
+      </conditions>
+    </property>
+    <property path=".\Minesweeper\exp\exp_25.png" isDirectory="false" excluded="false">
+      <conditions>
+        <condition id="-2" rule="-1" />
+      </conditions>
+    </property>
+    <property path=".\Minesweeper\exp\exp_26.png" isDirectory="false" excluded="false">
+      <conditions>
+        <condition id="-2" rule="-1" />
+      </conditions>
+    </property>
+    <property path=".\Minesweeper\exp\exp_27.png" isDirectory="false" excluded="false">
+      <conditions>
+        <condition id="-2" rule="-1" />
+      </conditions>
+    </property>
+    <property path=".\Minesweeper\exp\exp_28.png" isDirectory="false" excluded="false">
+      <conditions>
+        <condition id="-2" rule="-1" />
+      </conditions>
+    </property>
+    <property path=".\Minesweeper\exp\exp_29.png" isDirectory="false" excluded="false">
+      <conditions>
+        <condition id="-2" rule="-1" />
+      </conditions>
+    </property>
+    <property path=".\Minesweeper\exp\exp_30.png" isDirectory="false" excluded="false">
+      <conditions>
+        <condition id="-2" rule="-1" />
+      </conditions>
+    </property>
+    <property path=".\Minesweeper\exp\exp_31.png" isDirectory="false" excluded="false">
+      <conditions>
+        <condition id="-2" rule="-1" />
+      </conditions>
+    </property>
+    <property path=".\Minesweeper\exp\exp_32.png" isDirectory="false" excluded="false">
+      <conditions>
+        <condition id="-2" rule="-1" />
+      </conditions>
+    </property>
+    <property path=".\Minesweeper\exp\exp_33.png" isDirectory="false" excluded="false">
+      <conditions>
+        <condition id="-2" rule="-1" />
+      </conditions>
+    </property>
+    <property path=".\Minesweeper\exp\exp_34.png" isDirectory="false" excluded="false">
+      <conditions>
+        <condition id="-2" rule="-1" />
+      </conditions>
+    </property>
+    <property path=".\Minesweeper\exp\exp_35.png" isDirectory="false" excluded="false">
+      <conditions>
+        <condition id="-2" rule="-1" />
+      </conditions>
+    </property>
+    <property path=".\Minesweeper\exp\exp_36.png" isDirectory="false" excluded="false">
+      <conditions>
+        <condition id="-2" rule="-1" />
+      </conditions>
+    </property>
+    <property path=".\Minesweeper\exp\exp_37.png" isDirectory="false" excluded="false">
+      <conditions>
+        <condition id="-2" rule="-1" />
+      </conditions>
+    </property>
+    <property path=".\Minesweeper\exp\exp_38.png" isDirectory="false" excluded="false">
+      <conditions>
+        <condition id="-2" rule="-1" />
+      </conditions>
+    </property>
+    <property path=".\Minesweeper\mineCell.ms" isDirectory="false" excluded="false">
+      <conditions />
+    </property>
+    <property path=".\Minesweeper\main.ms" isDirectory="false" excluded="false">
+      <conditions />
+    </property>
+    <property path=".\Minesweeper\myMenu.ms" isDirectory="false" excluded="false">
+      <conditions />
+    </property>
+  </fileProperties>
+  <devices>
+    <device targetPlatform="100">
+      <publishProperties>
+        <property name="icon" value="$(project_dir)\platform\Android\icon_96.png" />
+        <property name="splash" value="" />
+        <property name="alias" value="" />
+        <property name="keystore" value="" />
+        <property name="keypassword" value="" />
+        <property name="storepassword" value="" />
+        <property name="supportedDevices" value="universal" />
+        <property name="permission" value="" />
+      </publishProperties>
+      <includes>
+        <fonts>
+          <string>$application$/36daysagoBRK.ttf</string>
+        </fonts>
+        <skin name="" theme="" />
+      </includes>
+    </device>
+    <device targetPlatform="150">
+      <publishProperties>
+        <property name="icon" value="$(project_dir)\platform\Android\icon_96.png" />
+        <property name="splash" value="" />
+        <property name="alias" value="" />
+        <property name="keystore" value="" />
+        <property name="keypassword" value="" />
+        <property name="storepassword" value="" />
+        <property name="installLocation" value="preferExternal" />
+        <property name="supportedDevices" value="universal" />
+        <property name="permission" value="" />
+      </publishProperties>
+      <includes>
+        <fonts>
+          <string>$application$/36daysagoBRK.ttf</string>
+        </fonts>
+        <skin name="" theme="" />
+      </includes>
+    </device>
+    <device targetPlatform="450">
+      <publishProperties>
+        <property name="icon" value="" />
+        <property name="splash" value="" />
+        <property name="applicationId" value="" />
+        <property name="certificate" value="" />
+        <property name="key" value="" />
+        <property name="password" value="" />
+      </publishProperties>
+      <includes>
+        <fonts />
+        <skin name="" theme="" />
+      </includes>
+    </device>
+    <device targetPlatform="200">
+      <publishProperties>
+        <property name="icon" value="" />
+        <property name="splash" value="" />
+        <property name="manifest" value="" />
+        <property name="icon1" value="$(project_dir)\platform\Bada\icon_48.png" />
+        <property name="splash1" value="" />
+        <property name="icon2" value="$(project_dir)\platform\Bada\icon_48.png" />
+        <property name="splash2" value="" />
+      </publishProperties>
+      <includes>
+        <fonts>
+          <string>$application$\36daysagoBRK.ttf</string>
+          <string>UbuntuMono-RI.ttf</string>
+          <string>UbuntuMono-R.ttf</string>
+        </fonts>
+        <skin name="" theme="" />
+      </includes>
+    </device>
+    <device targetPlatform="520">
+      <publishProperties>
+        <property name="icon" value="" />
+        <property name="splash" value="" />
+      </publishProperties>
+      <includes>
+        <fonts>
+          <string>36daysagoBRK.ttf</string>
+        </fonts>
+        <skin name="" theme="" />
+      </includes>
+    </device>
+    <device targetPlatform="300">
+      <publishProperties>
+        <property name="icon" value="" />
+        <property name="splash" value="" />
+        <property name="codeSigningIdentity" value="" />
+        <property name="supportedDevices" value="universal" />
+        <property name="icon3gs" value="$(project_dir)/Platform/iOS/icon_72.png" />
+        <property name="icon4+" value="$(project_dir)/Platform/iOS/icon_114.png" />
+        <property name="iconTablet" value="$(project_dir)/Platform/iOS/icon_72.png" />
+        <property name="splash3gs" value="" />
+        <property name="splash4+" value="" />
+        <property name="splashTablet" value="" />
+        <property name="bundleIdentifier" value="com.mothiva.$application$" />
+      </publishProperties>
+      <includes>
+        <fonts>
+          <string>$application$/36daysagoBRK.ttf</string>
+        </fonts>
+        <skin name="" theme="" />
+      </includes>
+    </device>
+    <device targetPlatform="201">
+      <publishProperties>
+        <property name="icon" value="" />
+        <property name="splash" value="" />
+        <property name="manifest" value="" />
+      </publishProperties>
+      <includes>
+        <fonts>
+          <string>$application$\36daysagoBRK.ttf</string>
+        </fonts>
+        <skin name="" theme="" />
+      </includes>
+    </device>
+    <device targetPlatform="203">
+      <publishProperties>
+        <property name="icon" value="" />
+        <property name="splash" value="" />
+        <property name="manifest" value="" />
+      </publishProperties>
+      <includes>
+        <fonts />
+        <skin name="" theme="" />
+      </includes>
+    </device>
+    <device targetPlatform="600">
+      <publishProperties>
+        <property name="icon" value="" />
+        <property name="splash" value="" />
+      </publishProperties>
+      <includes>
+        <fonts />
+        <skin name="" theme="" />
+      </includes>
+    </device>
+    <device targetPlatform="700">
+      <publishProperties>
+        <property name="icon" value="" />
+        <property name="splash" value="" />
+      </publishProperties>
+      <includes>
+        <fonts />
+        <skin name="" theme="" />
+      </includes>
+    </device>
+  </devices>
+</Project>

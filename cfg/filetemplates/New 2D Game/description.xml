@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<ProjectTemplate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" description="Create 2D game.">
+  <libs>
+      <lib value="box2d" display="Use Box2d" />
+      <lib value="sensors" display="Use Sensors" />
+      <lib value="media" display="Use Media (Sound and Music)" />
+      <lib value="web" display="Use Web" />
+      <lib value="sqlite" display="Use SQlite database" />
+      <lib value="crypto" display="Use Crypto Api" />
+      <lib value="uix" display="Use User interface" />
+  </libs>
+</ProjectTemplate>

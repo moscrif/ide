@@ -740,7 +740,7 @@ namespace Moscrif.IDE
 	{
 			throw new NotImplementedException();
 
-		NewProjectWizzard_New npw = new NewProjectWizzard_New();
+		NewProjectWizzard_New npw = new NewProjectWizzard_New(null);
 		int result = npw.Run();
 		if (result == (int)ResponseType.Ok) {
 
