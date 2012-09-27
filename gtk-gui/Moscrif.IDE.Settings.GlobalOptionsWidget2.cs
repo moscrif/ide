@@ -7,11 +7,11 @@ namespace Moscrif.IDE.Settings
 		private global::Gtk.VBox vbox3;
 		private global::Gtk.Table table1;
 		private global::Gtk.ColorButton cbBackground;
-		private global::Gtk.FontButton fontbutton1;
 		private global::Gtk.CheckButton chbAutoselectProject;
 		private global::Gtk.CheckButton chbOpenLastOpenedW;
 		private global::Gtk.CheckButton chbShowDebugDevic;
 		private global::Gtk.CheckButton chbShowUnsupportDevic;
+		private global::Gtk.FontButton fontbutton1;
 		private global::Gtk.Label label1;
 		private global::Gtk.Label label2;
 		private global::Gtk.Label label3;
@@ -59,22 +59,6 @@ namespace Moscrif.IDE.Settings
 			w1.XOptions = ((global::Gtk.AttachOptions)(4));
 			w1.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
-			this.fontbutton1 = new global::Gtk.FontButton ();
-			this.fontbutton1.CanFocus = true;
-			this.fontbutton1.Name = "fontbutton1";
-			this.fontbutton1.FontName = "Monospace 10";
-			this.fontbutton1.ShowStyle = false;
-			this.fontbutton1.UseFont = true;
-			this.fontbutton1.UseSize = true;
-			this.table1.Add (this.fontbutton1);
-			global::Gtk.Table.TableChild w2 = ((global::Gtk.Table.TableChild)(this.table1 [this.fontbutton1]));
-			w2.TopAttach = ((uint)(8));
-			w2.BottomAttach = ((uint)(9));
-			w2.LeftAttach = ((uint)(1));
-			w2.RightAttach = ((uint)(2));
-			w2.XOptions = ((global::Gtk.AttachOptions)(4));
-			w2.YOptions = ((global::Gtk.AttachOptions)(4));
-			// Container child table1.Gtk.Table+TableChild
 			this.chbAutoselectProject = new global::Gtk.CheckButton ();
 			this.chbAutoselectProject.CanFocus = true;
 			this.chbAutoselectProject.Name = "chbAutoselectProject";
@@ -82,13 +66,13 @@ namespace Moscrif.IDE.Settings
 			this.chbAutoselectProject.DrawIndicator = true;
 			this.chbAutoselectProject.UseUnderline = true;
 			this.table1.Add (this.chbAutoselectProject);
-			global::Gtk.Table.TableChild w3 = ((global::Gtk.Table.TableChild)(this.table1 [this.chbAutoselectProject]));
-			w3.TopAttach = ((uint)(4));
-			w3.BottomAttach = ((uint)(5));
-			w3.LeftAttach = ((uint)(1));
-			w3.RightAttach = ((uint)(2));
-			w3.XOptions = ((global::Gtk.AttachOptions)(4));
-			w3.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w2 = ((global::Gtk.Table.TableChild)(this.table1 [this.chbAutoselectProject]));
+			w2.TopAttach = ((uint)(4));
+			w2.BottomAttach = ((uint)(5));
+			w2.LeftAttach = ((uint)(1));
+			w2.RightAttach = ((uint)(2));
+			w2.XOptions = ((global::Gtk.AttachOptions)(4));
+			w2.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
 			this.chbOpenLastOpenedW = new global::Gtk.CheckButton ();
 			this.chbOpenLastOpenedW.CanFocus = true;
@@ -97,13 +81,13 @@ namespace Moscrif.IDE.Settings
 			this.chbOpenLastOpenedW.DrawIndicator = true;
 			this.chbOpenLastOpenedW.UseUnderline = true;
 			this.table1.Add (this.chbOpenLastOpenedW);
-			global::Gtk.Table.TableChild w4 = ((global::Gtk.Table.TableChild)(this.table1 [this.chbOpenLastOpenedW]));
-			w4.TopAttach = ((uint)(5));
-			w4.BottomAttach = ((uint)(6));
-			w4.LeftAttach = ((uint)(1));
-			w4.RightAttach = ((uint)(2));
-			w4.XOptions = ((global::Gtk.AttachOptions)(4));
-			w4.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w3 = ((global::Gtk.Table.TableChild)(this.table1 [this.chbOpenLastOpenedW]));
+			w3.TopAttach = ((uint)(5));
+			w3.BottomAttach = ((uint)(6));
+			w3.LeftAttach = ((uint)(1));
+			w3.RightAttach = ((uint)(2));
+			w3.XOptions = ((global::Gtk.AttachOptions)(4));
+			w3.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
 			this.chbShowDebugDevic = new global::Gtk.CheckButton ();
 			this.chbShowDebugDevic.CanFocus = true;
@@ -112,13 +96,13 @@ namespace Moscrif.IDE.Settings
 			this.chbShowDebugDevic.DrawIndicator = true;
 			this.chbShowDebugDevic.UseUnderline = true;
 			this.table1.Add (this.chbShowDebugDevic);
-			global::Gtk.Table.TableChild w5 = ((global::Gtk.Table.TableChild)(this.table1 [this.chbShowDebugDevic]));
-			w5.TopAttach = ((uint)(7));
-			w5.BottomAttach = ((uint)(8));
-			w5.LeftAttach = ((uint)(1));
-			w5.RightAttach = ((uint)(2));
-			w5.XOptions = ((global::Gtk.AttachOptions)(4));
-			w5.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w4 = ((global::Gtk.Table.TableChild)(this.table1 [this.chbShowDebugDevic]));
+			w4.TopAttach = ((uint)(7));
+			w4.BottomAttach = ((uint)(8));
+			w4.LeftAttach = ((uint)(1));
+			w4.RightAttach = ((uint)(2));
+			w4.XOptions = ((global::Gtk.AttachOptions)(4));
+			w4.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
 			this.chbShowUnsupportDevic = new global::Gtk.CheckButton ();
 			this.chbShowUnsupportDevic.CanFocus = true;
@@ -127,9 +111,25 @@ namespace Moscrif.IDE.Settings
 			this.chbShowUnsupportDevic.DrawIndicator = true;
 			this.chbShowUnsupportDevic.UseUnderline = true;
 			this.table1.Add (this.chbShowUnsupportDevic);
-			global::Gtk.Table.TableChild w6 = ((global::Gtk.Table.TableChild)(this.table1 [this.chbShowUnsupportDevic]));
-			w6.TopAttach = ((uint)(6));
-			w6.BottomAttach = ((uint)(7));
+			global::Gtk.Table.TableChild w5 = ((global::Gtk.Table.TableChild)(this.table1 [this.chbShowUnsupportDevic]));
+			w5.TopAttach = ((uint)(6));
+			w5.BottomAttach = ((uint)(7));
+			w5.LeftAttach = ((uint)(1));
+			w5.RightAttach = ((uint)(2));
+			w5.XOptions = ((global::Gtk.AttachOptions)(4));
+			w5.YOptions = ((global::Gtk.AttachOptions)(4));
+			// Container child table1.Gtk.Table+TableChild
+			this.fontbutton1 = new global::Gtk.FontButton ();
+			this.fontbutton1.CanFocus = true;
+			this.fontbutton1.Name = "fontbutton1";
+			this.fontbutton1.FontName = "Monospace 10";
+			this.fontbutton1.ShowStyle = false;
+			this.fontbutton1.UseFont = true;
+			this.fontbutton1.UseSize = true;
+			this.table1.Add (this.fontbutton1);
+			global::Gtk.Table.TableChild w6 = ((global::Gtk.Table.TableChild)(this.table1 [this.fontbutton1]));
+			w6.TopAttach = ((uint)(8));
+			w6.BottomAttach = ((uint)(9));
 			w6.LeftAttach = ((uint)(1));
 			w6.RightAttach = ((uint)(2));
 			w6.XOptions = ((global::Gtk.AttachOptions)(4));

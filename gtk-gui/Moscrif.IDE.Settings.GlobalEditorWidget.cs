@@ -5,7 +5,6 @@ namespace Moscrif.IDE.Settings
 	public partial class GlobalEditorWidget
 	{
 		private global::Gtk.Table table1;
-		private global::Gtk.FontButton fontbutton1;
 		private global::Gtk.CheckButton chbAgressivelyTriggerCL;
 		private global::Gtk.CheckButton chbEnableAnimations;
 		private global::Gtk.CheckButton chbShowEolMarker;
@@ -14,6 +13,7 @@ namespace Moscrif.IDE.Settings
 		private global::Gtk.CheckButton chbShowSpaces;
 		private global::Gtk.CheckButton chbShowTabs;
 		private global::Gtk.CheckButton chbTabsToSpace;
+		private global::Gtk.FontButton fontbutton1;
 		private global::Gtk.Label label1;
 		private global::Gtk.Label label2;
 		private global::Gtk.Label label3;
@@ -32,22 +32,6 @@ namespace Moscrif.IDE.Settings
 			this.table1.RowSpacing = ((uint)(6));
 			this.table1.ColumnSpacing = ((uint)(6));
 			// Container child table1.Gtk.Table+TableChild
-			this.fontbutton1 = new global::Gtk.FontButton ();
-			this.fontbutton1.CanFocus = true;
-			this.fontbutton1.Name = "fontbutton1";
-			this.fontbutton1.FontName = "Monospace 10";
-			this.fontbutton1.ShowStyle = false;
-			this.fontbutton1.UseFont = true;
-			this.fontbutton1.UseSize = true;
-			this.table1.Add (this.fontbutton1);
-			global::Gtk.Table.TableChild w1 = ((global::Gtk.Table.TableChild)(this.table1 [this.fontbutton1]));
-			w1.TopAttach = ((uint)(1));
-			w1.BottomAttach = ((uint)(2));
-			w1.LeftAttach = ((uint)(1));
-			w1.RightAttach = ((uint)(2));
-			w1.XOptions = ((global::Gtk.AttachOptions)(4));
-			w1.YOptions = ((global::Gtk.AttachOptions)(4));
-			// Container child table1.Gtk.Table+TableChild
 			this.chbAgressivelyTriggerCL = new global::Gtk.CheckButton ();
 			this.chbAgressivelyTriggerCL.CanFocus = true;
 			this.chbAgressivelyTriggerCL.Name = "chbAgressivelyTriggerCL";
@@ -55,11 +39,11 @@ namespace Moscrif.IDE.Settings
 			this.chbAgressivelyTriggerCL.DrawIndicator = true;
 			this.chbAgressivelyTriggerCL.UseUnderline = true;
 			this.table1.Add (this.chbAgressivelyTriggerCL);
-			global::Gtk.Table.TableChild w2 = ((global::Gtk.Table.TableChild)(this.table1 [this.chbAgressivelyTriggerCL]));
-			w2.LeftAttach = ((uint)(1));
-			w2.RightAttach = ((uint)(2));
-			w2.XOptions = ((global::Gtk.AttachOptions)(4));
-			w2.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w1 = ((global::Gtk.Table.TableChild)(this.table1 [this.chbAgressivelyTriggerCL]));
+			w1.LeftAttach = ((uint)(1));
+			w1.RightAttach = ((uint)(2));
+			w1.XOptions = ((global::Gtk.AttachOptions)(4));
+			w1.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
 			this.chbEnableAnimations = new global::Gtk.CheckButton ();
 			this.chbEnableAnimations.CanFocus = true;
@@ -68,13 +52,13 @@ namespace Moscrif.IDE.Settings
 			this.chbEnableAnimations.DrawIndicator = true;
 			this.chbEnableAnimations.UseUnderline = true;
 			this.table1.Add (this.chbEnableAnimations);
-			global::Gtk.Table.TableChild w3 = ((global::Gtk.Table.TableChild)(this.table1 [this.chbEnableAnimations]));
-			w3.TopAttach = ((uint)(5));
-			w3.BottomAttach = ((uint)(6));
-			w3.LeftAttach = ((uint)(1));
-			w3.RightAttach = ((uint)(2));
-			w3.XOptions = ((global::Gtk.AttachOptions)(4));
-			w3.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w2 = ((global::Gtk.Table.TableChild)(this.table1 [this.chbEnableAnimations]));
+			w2.TopAttach = ((uint)(5));
+			w2.BottomAttach = ((uint)(6));
+			w2.LeftAttach = ((uint)(1));
+			w2.RightAttach = ((uint)(2));
+			w2.XOptions = ((global::Gtk.AttachOptions)(4));
+			w2.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
 			this.chbShowEolMarker = new global::Gtk.CheckButton ();
 			this.chbShowEolMarker.CanFocus = true;
@@ -83,12 +67,12 @@ namespace Moscrif.IDE.Settings
 			this.chbShowEolMarker.DrawIndicator = true;
 			this.chbShowEolMarker.UseUnderline = true;
 			this.table1.Add (this.chbShowEolMarker);
-			global::Gtk.Table.TableChild w4 = ((global::Gtk.Table.TableChild)(this.table1 [this.chbShowEolMarker]));
-			w4.TopAttach = ((uint)(3));
-			w4.BottomAttach = ((uint)(4));
-			w4.LeftAttach = ((uint)(2));
-			w4.RightAttach = ((uint)(3));
-			w4.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w3 = ((global::Gtk.Table.TableChild)(this.table1 [this.chbShowEolMarker]));
+			w3.TopAttach = ((uint)(3));
+			w3.BottomAttach = ((uint)(4));
+			w3.LeftAttach = ((uint)(2));
+			w3.RightAttach = ((uint)(3));
+			w3.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
 			this.chbShowLineNumber = new global::Gtk.CheckButton ();
 			this.chbShowLineNumber.CanFocus = true;
@@ -97,13 +81,13 @@ namespace Moscrif.IDE.Settings
 			this.chbShowLineNumber.DrawIndicator = true;
 			this.chbShowLineNumber.UseUnderline = true;
 			this.table1.Add (this.chbShowLineNumber);
-			global::Gtk.Table.TableChild w5 = ((global::Gtk.Table.TableChild)(this.table1 [this.chbShowLineNumber]));
-			w5.TopAttach = ((uint)(4));
-			w5.BottomAttach = ((uint)(5));
-			w5.LeftAttach = ((uint)(1));
-			w5.RightAttach = ((uint)(2));
-			w5.XOptions = ((global::Gtk.AttachOptions)(4));
-			w5.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w4 = ((global::Gtk.Table.TableChild)(this.table1 [this.chbShowLineNumber]));
+			w4.TopAttach = ((uint)(4));
+			w4.BottomAttach = ((uint)(5));
+			w4.LeftAttach = ((uint)(1));
+			w4.RightAttach = ((uint)(2));
+			w4.XOptions = ((global::Gtk.AttachOptions)(4));
+			w4.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
 			this.chbShowRuler = new global::Gtk.CheckButton ();
 			this.chbShowRuler.CanFocus = true;
@@ -112,13 +96,13 @@ namespace Moscrif.IDE.Settings
 			this.chbShowRuler.DrawIndicator = true;
 			this.chbShowRuler.UseUnderline = true;
 			this.table1.Add (this.chbShowRuler);
-			global::Gtk.Table.TableChild w6 = ((global::Gtk.Table.TableChild)(this.table1 [this.chbShowRuler]));
-			w6.TopAttach = ((uint)(6));
-			w6.BottomAttach = ((uint)(7));
-			w6.LeftAttach = ((uint)(1));
-			w6.RightAttach = ((uint)(2));
-			w6.XOptions = ((global::Gtk.AttachOptions)(4));
-			w6.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w5 = ((global::Gtk.Table.TableChild)(this.table1 [this.chbShowRuler]));
+			w5.TopAttach = ((uint)(6));
+			w5.BottomAttach = ((uint)(7));
+			w5.LeftAttach = ((uint)(1));
+			w5.RightAttach = ((uint)(2));
+			w5.XOptions = ((global::Gtk.AttachOptions)(4));
+			w5.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
 			this.chbShowSpaces = new global::Gtk.CheckButton ();
 			this.chbShowSpaces.CanFocus = true;
@@ -127,12 +111,12 @@ namespace Moscrif.IDE.Settings
 			this.chbShowSpaces.DrawIndicator = true;
 			this.chbShowSpaces.UseUnderline = true;
 			this.table1.Add (this.chbShowSpaces);
-			global::Gtk.Table.TableChild w7 = ((global::Gtk.Table.TableChild)(this.table1 [this.chbShowSpaces]));
-			w7.TopAttach = ((uint)(5));
-			w7.BottomAttach = ((uint)(6));
-			w7.LeftAttach = ((uint)(2));
-			w7.RightAttach = ((uint)(3));
-			w7.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w6 = ((global::Gtk.Table.TableChild)(this.table1 [this.chbShowSpaces]));
+			w6.TopAttach = ((uint)(5));
+			w6.BottomAttach = ((uint)(6));
+			w6.LeftAttach = ((uint)(2));
+			w6.RightAttach = ((uint)(3));
+			w6.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
 			this.chbShowTabs = new global::Gtk.CheckButton ();
 			this.chbShowTabs.CanFocus = true;
@@ -141,12 +125,12 @@ namespace Moscrif.IDE.Settings
 			this.chbShowTabs.DrawIndicator = true;
 			this.chbShowTabs.UseUnderline = true;
 			this.table1.Add (this.chbShowTabs);
-			global::Gtk.Table.TableChild w8 = ((global::Gtk.Table.TableChild)(this.table1 [this.chbShowTabs]));
-			w8.TopAttach = ((uint)(4));
-			w8.BottomAttach = ((uint)(5));
-			w8.LeftAttach = ((uint)(2));
-			w8.RightAttach = ((uint)(3));
-			w8.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w7 = ((global::Gtk.Table.TableChild)(this.table1 [this.chbShowTabs]));
+			w7.TopAttach = ((uint)(4));
+			w7.BottomAttach = ((uint)(5));
+			w7.LeftAttach = ((uint)(2));
+			w7.RightAttach = ((uint)(3));
+			w7.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
 			this.chbTabsToSpace = new global::Gtk.CheckButton ();
 			this.chbTabsToSpace.CanFocus = true;
@@ -155,9 +139,25 @@ namespace Moscrif.IDE.Settings
 			this.chbTabsToSpace.DrawIndicator = true;
 			this.chbTabsToSpace.UseUnderline = true;
 			this.table1.Add (this.chbTabsToSpace);
-			global::Gtk.Table.TableChild w9 = ((global::Gtk.Table.TableChild)(this.table1 [this.chbTabsToSpace]));
-			w9.TopAttach = ((uint)(3));
-			w9.BottomAttach = ((uint)(4));
+			global::Gtk.Table.TableChild w8 = ((global::Gtk.Table.TableChild)(this.table1 [this.chbTabsToSpace]));
+			w8.TopAttach = ((uint)(3));
+			w8.BottomAttach = ((uint)(4));
+			w8.LeftAttach = ((uint)(1));
+			w8.RightAttach = ((uint)(2));
+			w8.XOptions = ((global::Gtk.AttachOptions)(4));
+			w8.YOptions = ((global::Gtk.AttachOptions)(4));
+			// Container child table1.Gtk.Table+TableChild
+			this.fontbutton1 = new global::Gtk.FontButton ();
+			this.fontbutton1.CanFocus = true;
+			this.fontbutton1.Name = "fontbutton1";
+			this.fontbutton1.FontName = "Monospace 10";
+			this.fontbutton1.ShowStyle = false;
+			this.fontbutton1.UseFont = true;
+			this.fontbutton1.UseSize = true;
+			this.table1.Add (this.fontbutton1);
+			global::Gtk.Table.TableChild w9 = ((global::Gtk.Table.TableChild)(this.table1 [this.fontbutton1]));
+			w9.TopAttach = ((uint)(1));
+			w9.BottomAttach = ((uint)(2));
 			w9.LeftAttach = ((uint)(1));
 			w9.RightAttach = ((uint)(2));
 			w9.XOptions = ((global::Gtk.AttachOptions)(4));
@@ -196,11 +196,11 @@ namespace Moscrif.IDE.Settings
 			w12.XOptions = ((global::Gtk.AttachOptions)(4));
 			w12.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
-			this.spRulerColumn = new global::Gtk.SpinButton (0D, 100D, 1D);
+			this.spRulerColumn = new global::Gtk.SpinButton (0, 100, 1);
 			this.spRulerColumn.CanFocus = true;
 			this.spRulerColumn.Name = "spRulerColumn";
-			this.spRulerColumn.Adjustment.PageIncrement = 1D;
-			this.spRulerColumn.ClimbRate = 1D;
+			this.spRulerColumn.Adjustment.PageIncrement = 1;
+			this.spRulerColumn.ClimbRate = 1;
 			this.spRulerColumn.Numeric = true;
 			this.table1.Add (this.spRulerColumn);
 			global::Gtk.Table.TableChild w13 = ((global::Gtk.Table.TableChild)(this.table1 [this.spRulerColumn]));
@@ -211,11 +211,11 @@ namespace Moscrif.IDE.Settings
 			w13.XOptions = ((global::Gtk.AttachOptions)(4));
 			w13.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
-			this.spTabSpace = new global::Gtk.SpinButton (0D, 20D, 1D);
+			this.spTabSpace = new global::Gtk.SpinButton (0, 20, 1);
 			this.spTabSpace.CanFocus = true;
 			this.spTabSpace.Name = "spTabSpace";
-			this.spTabSpace.Adjustment.PageIncrement = 1D;
-			this.spTabSpace.ClimbRate = 1D;
+			this.spTabSpace.Adjustment.PageIncrement = 1;
+			this.spTabSpace.ClimbRate = 1;
 			this.spTabSpace.Numeric = true;
 			this.table1.Add (this.spTabSpace);
 			global::Gtk.Table.TableChild w14 = ((global::Gtk.Table.TableChild)(this.table1 [this.spTabSpace]));

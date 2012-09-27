@@ -7,9 +7,9 @@ namespace Moscrif.IDE.Controls
 		private global::Gtk.VBox vbox2;
 		private global::Gtk.Notebook notebook1;
 		private global::Gtk.Table table1;
+		private global::Gtk.CheckButton chbRemember;
 		private global::Gtk.Entry entrLogin;
 		private global::Gtk.Entry entrPassword;
-		private global::Gtk.CheckButton chbRemember;
 		private global::Gtk.Label label2;
 		private global::Gtk.Label label3;
 		private global::Gtk.Label label1;
@@ -55,16 +55,30 @@ namespace Moscrif.IDE.Controls
 			this.table1.ColumnSpacing = ((uint)(6));
 			this.table1.BorderWidth = ((uint)(5));
 			// Container child table1.Gtk.Table+TableChild
+			this.chbRemember = new global::Gtk.CheckButton ();
+			this.chbRemember.CanFocus = true;
+			this.chbRemember.Name = "chbRemember";
+			this.chbRemember.Label = global::Mono.Unix.Catalog.GetString ("Remember Me");
+			this.chbRemember.DrawIndicator = true;
+			this.chbRemember.UseUnderline = true;
+			this.table1.Add (this.chbRemember);
+			global::Gtk.Table.TableChild w2 = ((global::Gtk.Table.TableChild)(this.table1 [this.chbRemember]));
+			w2.TopAttach = ((uint)(2));
+			w2.BottomAttach = ((uint)(3));
+			w2.LeftAttach = ((uint)(1));
+			w2.RightAttach = ((uint)(2));
+			w2.YOptions = ((global::Gtk.AttachOptions)(4));
+			// Container child table1.Gtk.Table+TableChild
 			this.entrLogin = new global::Gtk.Entry ();
 			this.entrLogin.CanFocus = true;
 			this.entrLogin.Name = "entrLogin";
 			this.entrLogin.IsEditable = true;
 			this.entrLogin.InvisibleChar = '●';
 			this.table1.Add (this.entrLogin);
-			global::Gtk.Table.TableChild w2 = ((global::Gtk.Table.TableChild)(this.table1 [this.entrLogin]));
-			w2.LeftAttach = ((uint)(1));
-			w2.RightAttach = ((uint)(2));
-			w2.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w3 = ((global::Gtk.Table.TableChild)(this.table1 [this.entrLogin]));
+			w3.LeftAttach = ((uint)(1));
+			w3.RightAttach = ((uint)(2));
+			w3.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
 			this.entrPassword = new global::Gtk.Entry ();
 			this.entrPassword.CanFocus = true;
@@ -73,23 +87,9 @@ namespace Moscrif.IDE.Controls
 			this.entrPassword.Visibility = false;
 			this.entrPassword.InvisibleChar = '●';
 			this.table1.Add (this.entrPassword);
-			global::Gtk.Table.TableChild w3 = ((global::Gtk.Table.TableChild)(this.table1 [this.entrPassword]));
-			w3.TopAttach = ((uint)(1));
-			w3.BottomAttach = ((uint)(2));
-			w3.LeftAttach = ((uint)(1));
-			w3.RightAttach = ((uint)(2));
-			w3.YOptions = ((global::Gtk.AttachOptions)(4));
-			// Container child table1.Gtk.Table+TableChild
-			this.chbRemember = new global::Gtk.CheckButton ();
-			this.chbRemember.CanFocus = true;
-			this.chbRemember.Name = "chbRemember";
-			this.chbRemember.Label = global::Mono.Unix.Catalog.GetString ("Remember Me");
-			this.chbRemember.DrawIndicator = true;
-			this.chbRemember.UseUnderline = true;
-			this.table1.Add (this.chbRemember);
-			global::Gtk.Table.TableChild w4 = ((global::Gtk.Table.TableChild)(this.table1 [this.chbRemember]));
-			w4.TopAttach = ((uint)(2));
-			w4.BottomAttach = ((uint)(3));
+			global::Gtk.Table.TableChild w4 = ((global::Gtk.Table.TableChild)(this.table1 [this.entrPassword]));
+			w4.TopAttach = ((uint)(1));
+			w4.BottomAttach = ((uint)(2));
 			w4.LeftAttach = ((uint)(1));
 			w4.RightAttach = ((uint)(2));
 			w4.YOptions = ((global::Gtk.AttachOptions)(4));

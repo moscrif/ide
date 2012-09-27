@@ -553,7 +553,9 @@ namespace Moscrif.IDE.Controls.Wizard
 
 				Workspace.Workspace workspace = Workspace.Workspace.OpenWorkspace(workspacePath);
 				if (workspace != null){
-					MainClass.MainWindow.ReloadWorkspace(workspace,true,true);
+					if(workspacePath != MainClass.Workspace.FilePath){
+						MainClass.MainWindow.ReloadWorkspace(workspace,true,true);
+					}
 					workspaceOutput = workspace.OutputDirectory;
 					workspaceFile =workspace.FilePath;
 				}

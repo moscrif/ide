@@ -406,7 +406,7 @@ namespace Moscrif.IDE.Controls.Wizard
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
-			this.DefaultWidth = 433;
+			this.DefaultWidth = 436;
 			this.DefaultHeight = 300;
 			this.Show ();
 			this.cbeWorkspace.Changed += new global::System.EventHandler (this.OnCbeWorkspaceChanged);
