@@ -21,9 +21,10 @@ namespace Moscrif.IDE.Controls
 			customFont.Size = 24;
 			customFont.Weight = Pango.Weight.Bold;
 			lblLabel.ModifyFont(customFont);
-			imgError.SetFromStock ("gtk-dialog-error", Gtk.IconSize.Dialog);
+			//imgError.SetFromStock ("gtk-dialog-error", Gtk.IconSize.Dialog);
 			lblStatus.ModifyFont(customFont);
 			lblStatus.LabelProp = "";
+			this.ShowAll();
 		}
 
 		public string LabelText {

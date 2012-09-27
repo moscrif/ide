@@ -59,6 +59,10 @@ namespace Moscrif.IDE.Iface
 
 		[XmlAttribute("description")]
 		public string Description;
+
+		[XmlAttribute("custom")]
+		public string Custom;
+
 		
 		[XmlArrayAttribute("libs")]
 		[XmlArrayItem("lib")]

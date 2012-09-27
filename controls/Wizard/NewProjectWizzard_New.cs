@@ -28,6 +28,7 @@ namespace Moscrif.IDE.Controls.Wizard
 		ListStore storeOrientation;
 
 		ListStore storeOutput;
+		ComboBoxEntry cbeWorkspace;
 
 		string prjDefaultName = "";
 		string worksDefaultName =  "";
@@ -42,6 +43,7 @@ namespace Moscrif.IDE.Controls.Wizard
 		
 		string projectName = "";
 		string projectDir = "";
+		TreePath selectedTypPrj ;
 
 		int page = 0;
 		public NewProjectWizzard_New(Window parent)
@@ -62,7 +64,7 @@ namespace Moscrif.IDE.Controls.Wizard
 			customFont.Weight = Pango.Weight.Bold;
 			lblNewProject.ModifyFont(customFont);
 
-			storeTyp = new ListStore (typeof (string), typeof (string), typeof (Gdk.Pixbuf), typeof (string),typeof(ProjectTemplate));
+			storeTyp = new ListStore (typeof (string), typeof (string), typeof (Gdk.Pixbuf), typeof (string),typeof(ProjectTemplate),typeof (bool));
 			storeOrientation = new ListStore (typeof (string), typeof (string), typeof (Gdk.Pixbuf), typeof (string));
 
 			storeOutput = new ListStore (typeof (string), typeof (string), typeof (Gdk.Pixbuf));
@@ -78,15 +80,16 @@ namespace Moscrif.IDE.Controls.Wizard
 			ivSelectTyp.SelectionMode = SelectionMode.Single;
 			ivSelectTyp.Orientation = Orientation.Horizontal;
 
-			CellRendererText textRenderer = new CellRendererText();
-			textRenderer.Ypad =0;
-			ivSelectTyp.PackEnd(textRenderer,false);
-			ivSelectTyp.SetCellDataFunc(textRenderer, new Gtk.CellLayoutDataFunc(RenderTypProject));
+			CellRendererText rendererSelectTyp = new CellRendererText();
+			rendererSelectTyp.Ypad =0;
+			ivSelectTyp.PackEnd(rendererSelectTyp,false);
+			ivSelectTyp.SetCellDataFunc(rendererSelectTyp, new Gtk.CellLayoutDataFunc(RenderTypProject));
 			ivSelectTyp.PixbufColumn = COL_PIXBUF;
 			ivSelectTyp.TooltipColumn = COL_DISPLAY_TEXT;
+			ivSelectTyp.AddAttribute(rendererSelectTyp, "sensitive", 5);
 
 			Gdk.Pixbuf icon0 = MainClass.Tools.GetIconFromStock("file-new.png",IconSize.LargeToolbar);
-			storeTyp.AppendValues ("New Empty Project", "Create empty application", icon0, "", null);
+			storeTyp.AppendValues ("New Empty Project", "Create empty application", icon0, "", null,true);
 
 			DirectoryInfo[] diTemplates = GetDirectory(MainClass.Paths.FileTemplateDir);
 			foreach (DirectoryInfo di in diTemplates) {
@@ -95,6 +98,8 @@ namespace Moscrif.IDE.Controls.Wizard
 
 				string iconFile = System.IO.Path.Combine(di.FullName,"icon.png");
 				string descFile = System.IO.Path.Combine(di.FullName,"description.xml");
+				if(!File.Exists(iconFile) || !File.Exists(descFile))
+					continue;
 
 				string descr = name;
 				ProjectTemplate pt = null;
@@ -105,8 +110,18 @@ namespace Moscrif.IDE.Controls.Wizard
 						descr = pt.Description;
 				}
 				Gdk.Pixbuf icon = new Gdk.Pixbuf(iconFile);
-				storeTyp.AppendValues (name, descr, icon, di.FullName,pt);
+				DirectoryInfo[] templates = di.GetDirectories();
+				bool sensitive = true;
+
+				if(templates.Length<1)
+					sensitive = false;
+				else 
+					sensitive = true;
+
+
+				storeTyp.AppendValues (name, descr, icon, di.FullName,pt,sensitive);
 			}
+
 			ivSelectTyp.SelectionChanged+= delegate(object sender, EventArgs e)
 			{
 				Gtk.TreePath[] selRow = ivSelectTyp.SelectedItems;
@@ -115,27 +130,37 @@ namespace Moscrif.IDE.Controls.Wizard
 					btnNext.Sensitive = false;
 					return;
 				}
-				btnNext.Sensitive = true;
 
 				Gtk.TreePath tp = selRow[0];
 				TreeIter ti = new TreeIter();
 				storeTyp.GetIter(out ti,tp);
 
 				if(tp.Equals(TreeIter.Zero))return;
-
+			
 				//string typ = storeTyp.GetValue (ti, 3).ToString();
 				string text1 = (string) storeTyp.GetValue (ti, 0);
 				string text2 = (string) storeTyp.GetValue (ti, 1);
+				bool sensitive = Convert.ToBoolean(storeTyp.GetValue (ti, 5));
+				if(!sensitive){
+					ivSelectTyp.SelectPath(selectedTypPrj);
+					return;
+				}
+				selectedTypPrj = selRow[0];
+
 				lblHint.Text = text1+" - "+text2;
+				btnNext.Sensitive = true;
 			};
-			ivSelectTyp.SelectPath(new TreePath("0")); 
+			CellRendererText rendererOrientation = new CellRendererText();
+
+			selectedTypPrj = new TreePath("0");
+			ivSelectTyp.SelectPath(selectedTypPrj); 
 
 			ivSelectOrientation.Model = storeOrientation;
 			ivSelectOrientation.SelectionMode = SelectionMode.Single;
 			ivSelectOrientation.Orientation = Orientation.Horizontal;
 
-			ivSelectOrientation.PackEnd(textRenderer,false);
-			ivSelectOrientation.SetCellDataFunc(textRenderer, new Gtk.CellLayoutDataFunc(RenderTypProject));
+			ivSelectOrientation.PackEnd(rendererOrientation,false);
+			ivSelectOrientation.SetCellDataFunc(rendererOrientation, new Gtk.CellLayoutDataFunc(RenderOrientationProject));
 			ivSelectOrientation.PixbufColumn = COL_PIXBUF;
 			ivSelectOrientation.TooltipColumn = COL_DISPLAY_TEXT;
 
@@ -146,24 +171,27 @@ namespace Moscrif.IDE.Controls.Wizard
 				storeOrientation.AppendValues (ds.Display,ds.Display,null,ds.Value);
 			}
 			ivSelectOrientation.SelectPath(new TreePath("0")); 
-
-
-			storeWorkspace = new ListStore(typeof(string), typeof(string));
+			storeWorkspace = new ListStore(typeof(string), typeof(string), typeof(int));
+			cbeWorkspace = new ComboBoxEntry();
 			cbeWorkspace.Model = storeWorkspace;
+			cbeWorkspace.TextColumn = 0;
+			cbeWorkspace.Changed+= OnCbeWorkspaceChanged;
 
-			CellRendererText text2Renderer = new CellRendererText();
-			//cbeWorkspace.Changed += new EventHandler(OnComboProjectChanged);
-			cbeWorkspace.PackStart(text2Renderer, true);
-			//cbeWorkspace.AddAttribute(text2Renderer, "text", 0);
+				//
+			table2.Attach(cbeWorkspace,1,2,1,2,AttachOptions.Fill|AttachOptions.Expand,AttachOptions.Fill,0,0);
 
-			cbeWorkspace.SetCellDataFunc(text2Renderer, new Gtk.CellLayoutDataFunc(RenderWorkspaceName));
+			CellRendererText rendererWorkspace = new CellRendererText();
+			cbeWorkspace.PackStart(rendererWorkspace, true);
+			cbeWorkspace.SetCellDataFunc(rendererWorkspace, new Gtk.CellLayoutDataFunc(RenderWorkspacePath));
 			cbeWorkspace.WidthRequest = 125;
+
+			cbeWorkspace.SetCellDataFunc(cbeWorkspace.Cells[0], new Gtk.CellLayoutDataFunc(RenderWorkspaceName));
 
 			string currentWorkspace ="";
 			if((MainClass.Workspace!= null) && !string.IsNullOrEmpty(MainClass.Workspace.FilePath))
 			{
 				string name = System.IO.Path.GetFileNameWithoutExtension(MainClass.Workspace.FilePath);
-				storeWorkspace.AppendValues (name,MainClass.Workspace.FilePath);
+				storeWorkspace.AppendValues (name,MainClass.Workspace.FilePath,1);
 				currentWorkspace = MainClass.Workspace.FilePath;
 			}
 			IList<RecentFile> lRecentProjects = MainClass.Settings.RecentFiles.GetWorkspace();
@@ -173,26 +201,30 @@ namespace Moscrif.IDE.Controls.Wizard
 				if(rf.FileName == currentWorkspace) continue;
 				if(File.Exists(rf.FileName)){
 					string name = System.IO.Path.GetFileNameWithoutExtension(rf.FileName);
-					storeWorkspace.AppendValues(name,rf.FileName);
+					storeWorkspace.AppendValues(name,rf.FileName,0);
 				}
 			}
 
+				//storeWorkspace.AppendValues("","-------------",-1);
+
+			worksDefaultName = "Workspace"+MainClass.Settings.WorkspaceCount.ToString();
+			TreeIter tiNewW = storeWorkspace.AppendValues(worksDefaultName,MainClass.Paths.WorkDir,2);
+
 			if(!String.IsNullOrEmpty(currentWorkspace)){
 				cbeWorkspace.Active =0;
-			} else {
+			}
+			else {
 				feLocation.DefaultPath = MainClass.Paths.WorkDir;
-				worksDefaultName = "Workspace"+MainClass.Settings.WorkspaceCount.ToString();
-				storeWorkspace.AppendValues(worksDefaultName,MainClass.Paths.WorkDir);
-				cbeWorkspace.Active =-1;
+				cbeWorkspace.SetActiveIter(tiNewW);
+				//storeWorkspace.AppendValues(worksDefaultName,MainClass.Paths.WorkDir,2);
+
 			}
 			prjDefaultName = "Project"+MainClass.Settings.ProjectCount.ToString();
 			entrProjectName.Text = prjDefaultName;
-			/*cbeWorkspace.Entry.Text = worksDefaultName;
-			cbeWorkspace.Active =-1;*/
+			cbeWorkspace.ShowAll();
 
-
-			CellRendererText text3Renderer = new CellRendererText();
-			cbTemplate.PackStart(text3Renderer, true);
+			CellRendererText rendererTemplate = new CellRendererText();
+			cbTemplate.PackStart(rendererTemplate, true);
 
 			storeTemplate = new ListStore(typeof(string), typeof(string));
 			cbTemplate.Model = storeTemplate;
@@ -252,14 +284,48 @@ namespace Moscrif.IDE.Controls.Wizard
 		{
 			string text = (string) model.GetValue (iter, 0);
 			string text2 = (string) model.GetValue (iter, 1);
+			int type = Convert.ToInt32(storeWorkspace.GetValue(iter, 2));
 
 			Pango.FontDescription fd = new Pango.FontDescription();
 
-			//fd.Weight = Pango.Weight.Bold;
-
+			if(type == 2)
+				fd.Weight = Pango.Weight.Bold;
+		
 			(cell as Gtk.CellRendererText).FontDesc = fd;
-			//(cell as Gtk.CellRendererText).Text =type; 
+
+		}
+
+		private void RenderWorkspacePath(CellLayout column, Gtk.CellRenderer cell, Gtk.TreeModel model, Gtk.TreeIter iter)
+		{
+			string text = (string) model.GetValue (iter, 0);
+			string text2 = (string) model.GetValue (iter, 1);
+			int type = Convert.ToInt32(storeWorkspace.GetValue(iter, 2));
+			
+			Pango.FontDescription fd = new Pango.FontDescription();
+			
+			if(type == 2)
+				fd.Weight = Pango.Weight.Bold;
+			
+			(cell as Gtk.CellRendererText).FontDesc = fd;
 			(cell as Gtk.CellRendererText).Markup = "<small><i>"+text2+"</i></small>";
+		}
+
+
+		private void RenderOrientationProject(CellLayout column, Gtk.CellRenderer cell, Gtk.TreeModel model, Gtk.TreeIter iter)
+		{
+			string text = (string) model.GetValue (iter, 0);
+			string text2 = (string) model.GetValue (iter, 1);
+
+			Pango.FontDescription fd = new Pango.FontDescription();
+			
+			(cell as Gtk.CellRendererText).FontDesc = fd;
+			(cell as Gtk.CellRendererText).Markup = "<b >"+text + "</b>"+Environment.NewLine+"<small>" +  text2+"</small>";
+			
+			/*string pathTemplates = (string) model.GetValue (iter, 3);
+
+				string[] templates =  System.IO.Directory.GetDirectories(pathTemplates);
+				if(templates.Length<1)
+					(cell as Gtk.CellRendererText).Sensitive = false;*/
 		}
 
 		private void RenderTypProject(CellLayout column, Gtk.CellRenderer cell, Gtk.TreeModel model, Gtk.TreeIter iter)
@@ -267,13 +333,20 @@ namespace Moscrif.IDE.Controls.Wizard
 			string text = (string) model.GetValue (iter, 0);
 			string text2 = (string) model.GetValue (iter, 1);
 
+
 			Pango.FontDescription fd = new Pango.FontDescription();
 
-			//fd.Weight = Pango.Weight.Bold;
-
 			(cell as Gtk.CellRendererText).FontDesc = fd;
-			//(cell as Gtk.CellRendererText).Text =type; 
 			(cell as Gtk.CellRendererText).Markup = "<b >"+text + "</b>"+Environment.NewLine+"<small>" +  text2+"</small>";
+
+			/*string pathTemplates = (string) model.GetValue (iter, 3);
+			if(!string.IsNullOrEmpty(pathTemplates)){
+				string[] templates =  System.IO.Directory.GetDirectories(pathTemplates);
+				if(templates.Length<1)
+					(cell as Gtk.CellRendererText).Sensitive = false;
+				else 
+					(cell as Gtk.CellRendererText).Sensitive = true;
+			}*/
 		}
 
 		protected void OnCbeWorkspaceChanged (object sender, EventArgs e)
@@ -282,7 +355,33 @@ namespace Moscrif.IDE.Controls.Wizard
 				feLocation.Sensitive = false;
 			} else {
 				feLocation.Sensitive = true;
+				//feLocation.DefaultPath = MainClass.Paths.WorkDir;
+				return;
 			}
+			TreeIter tiChb;
+			cbeWorkspace.GetActiveIter(out tiChb);
+			workspaceName = storeWorkspace.GetValue(tiChb, 0).ToString(); 
+			string workspacePath = storeWorkspace.GetValue(tiChb, 1).ToString();
+
+			string dir = System.IO.Path.GetDirectoryName(workspacePath);
+
+			if(dir.ToLower().EndsWith(workspaceName.ToLower()) ){
+				int indx =dir.ToLower().LastIndexOf(workspaceName.ToLower());
+				dir = dir.Remove(indx-1,workspaceName.Length);
+			}
+
+			int type = Convert.ToInt32(storeWorkspace.GetValue(tiChb, 2));
+			if(type == -1){
+				cbeWorkspace.Active = cbeWorkspace.Active+1;
+			} else if(type == 1 || type == 0){
+				feLocation.DefaultPath = dir;
+				feLocation.Sensitive = false;
+			} else if(type == 2) {
+				feLocation.Sensitive = true;
+				feLocation.DefaultPath = dir;
+			}
+
+
 		}
 
 		protected void OnBtnBackClicked (object sender, EventArgs e)
@@ -342,6 +441,7 @@ namespace Moscrif.IDE.Controls.Wizard
 					AddMessage("Finish ","",null);
 
 				} else { //Inicialize next page
+					lblCustom.LabelProp = projectTemplate.Custom;
 
 					storeTemplate.Clear();
 

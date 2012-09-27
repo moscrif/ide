@@ -42,16 +42,17 @@ namespace Moscrif.IDE.Controls
 			w3.TopAttach = ((uint)(1));
 			w3.BottomAttach = ((uint)(2));
 			w3.RightAttach = ((uint)(2));
+			w3.XPadding = ((uint)(10));
 			// Container child table1.Gtk.Table+TableChild
 			this.lblFeedback = new global::Gtk.Label ();
 			this.lblFeedback.Name = "lblFeedback";
 			this.lblFeedback.Xalign = 0F;
-			this.lblFeedback.LabelProp = global::Mono.Unix.Catalog.GetString (" Please give us a feedback.");
+			this.lblFeedback.LabelProp = global::Mono.Unix.Catalog.GetString ("Please give us a feedback.");
 			this.table1.Add (this.lblFeedback);
 			global::Gtk.Table.TableChild w4 = ((global::Gtk.Table.TableChild)(this.table1 [this.lblFeedback]));
 			w4.RightAttach = ((uint)(2));
-			w4.XPadding = ((uint)(3));
-			w4.YPadding = ((uint)(3));
+			w4.XPadding = ((uint)(10));
+			w4.YPadding = ((uint)(10));
 			w4.XOptions = ((global::Gtk.AttachOptions)(4));
 			w4.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild

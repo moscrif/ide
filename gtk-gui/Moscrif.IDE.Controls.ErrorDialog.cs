@@ -20,7 +20,7 @@ namespace Moscrif.IDE.Controls
 			// Widget Moscrif.IDE.Controls.ErrorDialog
 			this.Name = "Moscrif.IDE.Controls.ErrorDialog";
 			this.Title = global::Mono.Unix.Catalog.GetString ("Error");
-			this.WindowPosition = ((global::Gtk.WindowPosition)(4));
+			this.WindowPosition = ((global::Gtk.WindowPosition)(3));
 			// Internal child Moscrif.IDE.Controls.ErrorDialog.VBox
 			global::Gtk.VBox w1 = this.VBox;
 			w1.Name = "dialog1_VBox";
@@ -33,6 +33,8 @@ namespace Moscrif.IDE.Controls
 			// Container child table1.Gtk.Table+TableChild
 			this.GtkScrolledWindow = new global::Gtk.ScrolledWindow ();
 			this.GtkScrolledWindow.Name = "GtkScrolledWindow";
+			this.GtkScrolledWindow.VscrollbarPolicy = ((global::Gtk.PolicyType)(0));
+			this.GtkScrolledWindow.HscrollbarPolicy = ((global::Gtk.PolicyType)(0));
 			this.GtkScrolledWindow.ShadowType = ((global::Gtk.ShadowType)(1));
 			// Container child GtkScrolledWindow.Gtk.Container+ContainerChild
 			this.tvError = new global::Gtk.TextView ();
@@ -44,26 +46,29 @@ namespace Moscrif.IDE.Controls
 			w3.TopAttach = ((uint)(2));
 			w3.BottomAttach = ((uint)(3));
 			w3.RightAttach = ((uint)(2));
+			w3.XPadding = ((uint)(10));
 			w3.XOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
 			this.imgError = new global::Gtk.Image ();
 			this.imgError.Name = "imgError";
+			this.imgError.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "gtk-dialog-error", global::Gtk.IconSize.Dialog);
 			this.table1.Add (this.imgError);
 			global::Gtk.Table.TableChild w4 = ((global::Gtk.Table.TableChild)(this.table1 [this.imgError]));
-			w4.XPadding = ((uint)(5));
-			w4.YPadding = ((uint)(5));
+			w4.XPadding = ((uint)(10));
+			w4.YPadding = ((uint)(10));
 			w4.XOptions = ((global::Gtk.AttachOptions)(4));
 			w4.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
 			this.label2 = new global::Gtk.Label ();
 			this.label2.Name = "label2";
-			this.label2.LabelProp = global::Mono.Unix.Catalog.GetString ("label1");
+			this.label2.Xalign = 0F;
+			this.label2.LabelProp = global::Mono.Unix.Catalog.GetString ("Please report this error log. Thank you for your help. ");
 			this.table1.Add (this.label2);
 			global::Gtk.Table.TableChild w5 = ((global::Gtk.Table.TableChild)(this.table1 [this.label2]));
 			w5.TopAttach = ((uint)(1));
 			w5.BottomAttach = ((uint)(2));
 			w5.RightAttach = ((uint)(2));
-			w5.XPadding = ((uint)(2));
+			w5.XPadding = ((uint)(10));
 			w5.XOptions = ((global::Gtk.AttachOptions)(4));
 			w5.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
@@ -125,8 +130,8 @@ namespace Moscrif.IDE.Controls
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
-			this.DefaultWidth = 530;
-			this.DefaultHeight = 316;
+			this.DefaultWidth = 604;
+			this.DefaultHeight = 356;
 			this.Show ();
 		}
 	}
