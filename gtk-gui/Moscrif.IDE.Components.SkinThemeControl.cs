@@ -21,7 +21,6 @@ namespace Moscrif.IDE.Components
 			this.table1.Name = "table1";
 			this.table1.RowSpacing = ((uint)(5));
 			this.table1.ColumnSpacing = ((uint)(8));
-			this.table1.BorderWidth = ((uint)(8));
 			// Container child table1.Gtk.Table+TableChild
 			this.cbSkin = global::Gtk.ComboBox.NewText ();
 			this.cbSkin.Name = "cbSkin";

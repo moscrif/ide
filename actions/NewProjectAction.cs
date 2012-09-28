@@ -12,7 +12,8 @@ namespace Moscrif.IDE.Actions
 {
 	public class NewProjectAction : Gtk.Action
 	{
-		public NewProjectAction() : base("newproject", MainClass.Languages.Translate("menu_new_project"), MainClass.Languages.Translate("menu_title_new_project"),"project-new.png")
+		//public NewProjectAction() : base("newproject", MainClass.Languages.Translate("menu_new_project"), MainClass.Languages.Translate("menu_title_new_project"),"project-new.png")
+		public NewProjectAction(): base("newprojectwizzard", MainClass.Languages.Translate("menu_new_project_wizzard"), MainClass.Languages.Translate("menu_title_new_project_wizzard"),"project-new.png")
 		{
 
 		}

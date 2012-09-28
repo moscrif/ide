@@ -31,7 +31,7 @@ namespace Moscrif.IDE.Controls
 			this.table1.Name = "table1";
 			this.table1.RowSpacing = ((uint)(6));
 			this.table1.ColumnSpacing = ((uint)(6));
-			this.table1.BorderWidth = ((uint)(5));
+			this.table1.BorderWidth = ((uint)(10));
 			// Container child table1.Gtk.Table+TableChild
 			this.GtkScrolledWindow = new global::Gtk.ScrolledWindow ();
 			this.GtkScrolledWindow.Name = "GtkScrolledWindow";
@@ -104,7 +104,7 @@ namespace Moscrif.IDE.Controls
 			global::Gtk.HButtonBox w11 = this.ActionArea;
 			w11.Name = "dialog1_ActionArea";
 			w11.Spacing = 10;
-			w11.BorderWidth = ((uint)(5));
+			w11.BorderWidth = ((uint)(10));
 			w11.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
 			this.buttonOk = new global::Gtk.Button ();
@@ -121,8 +121,8 @@ namespace Moscrif.IDE.Controls
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
-			this.DefaultWidth = 400;
-			this.DefaultHeight = 300;
+			this.DefaultWidth = 470;
+			this.DefaultHeight = 339;
 			this.Show ();
 			this.tvInput.KeyReleaseEvent += new global::Gtk.KeyReleaseEventHandler (this.OnTvInputKeyReleaseEvent);
 			this.buttonOk.Clicked += new global::System.EventHandler (this.OnButtonOkClicked);

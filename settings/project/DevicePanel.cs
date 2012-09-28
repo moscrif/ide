@@ -153,7 +153,7 @@ namespace Moscrif.IDE.Settings
 			Label lblApp = new Label(label);
 			lblApp.Xalign = 1;
 			lblApp.Yalign = 0.5F;
-			lblApp.WidthRequest = 105;
+			lblApp.WidthRequest = 115;
 			if(table.Name != "table1")
 				lblApp.WidthRequest = 114;
 
@@ -181,7 +181,7 @@ namespace Moscrif.IDE.Settings
 			Label lblApp = new Label(label);
 			lblApp.Xalign = 1;
 			lblApp.Yalign = 0.5F;
-			lblApp.WidthRequest = 105;
+			lblApp.WidthRequest = 115;
 			if(table.Name != "table1")
 				lblApp.WidthRequest = 114;
 
@@ -199,16 +199,13 @@ namespace Moscrif.IDE.Settings
 			Label lblApp = new Label(label);
 			lblApp.Xalign = 1;
 			lblApp.Yalign = 0.5F;
-			lblApp.WidthRequest = 105;
+			lblApp.WidthRequest = 115;
 			if(table.Name != "table1")
 				lblApp.WidthRequest = 114;
 
 			Entry application = new Entry();
 			application.Name = name;
 
-			//Console.WriteLine("name->"+name);
-			//Console.WriteLine("application.Name->"+application.Name);
-			//Console.WriteLine("val->{0}",val);
 			if (!String.IsNullOrEmpty(val))
 				application.Text = val;
 			else{
@@ -239,7 +236,7 @@ namespace Moscrif.IDE.Settings
 			Label lblApp = new Label(label);
 			lblApp.Xalign = 1;
 			lblApp.Yalign = 0.5F;
-			lblApp.WidthRequest = 105;
+			lblApp.WidthRequest = 115;
 			if(table.Name != "table1")
 				lblApp.WidthRequest = 114;
 
@@ -277,7 +274,7 @@ namespace Moscrif.IDE.Settings
 			Label lblApp = new Label(label);
 			lblApp.Xalign = 1;
 			lblApp.Yalign = 0.5F;
-			lblApp.WidthRequest = 105;
+			lblApp.WidthRequest = 115;
 			if(table.Name != "table1")
 				lblApp.WidthRequest = 114;
 
@@ -329,7 +326,7 @@ namespace Moscrif.IDE.Settings
 			Label lblApp = new Label(label);
 			lblApp.Xalign = 1;
 			lblApp.Yalign = 0.5F;
-			lblApp.WidthRequest = 105;
+			lblApp.WidthRequest = 115;
 			if(table.Name != "table1")
 				lblApp.WidthRequest = 114;
 
@@ -350,7 +347,7 @@ namespace Moscrif.IDE.Settings
 			Label lblApp = new Label(label);
 			lblApp.Xalign = 1;
 			lblApp.Yalign = 0.5F;
-			lblApp.WidthRequest = 105;
+			lblApp.WidthRequest = 115;
 			if(table.Name != "table1")
 				lblApp.WidthRequest = 114;
 
@@ -390,12 +387,6 @@ namespace Moscrif.IDE.Settings
 
 		void ProcessIdentifyChange(object sender, string message)
 		{
-			Console.WriteLine(message);
-			/*message="Jozefs-MacBook-Pro:moscrif-publish oxy$ security find-identity -v -p codesigning"+
-  			"1) 159937767E689BF6EF04571188719E73B44199E7 \"iPhone Distribution: Mothiva, s.r.o.\""+
-  			"2) 2A768EB06CEC01C9E58B8699DE53EAD56BC2567B \"iPhone Developer: Jozef Pridavok (VCG492H52S)\""+
-   			"  2 valid identities found";*/
-
 			while(message.IndexOf("\"")>-1){
 				int idx =message.IndexOf("\"");
 				string tmp = message.Remove(0,idx+1);
@@ -437,7 +428,7 @@ namespace Moscrif.IDE.Settings
 			if(dpd.Device.Devicetype == DeviceType.iOS_5_0)
 				GetIdentify();
 
-			skinThemeControl.SetLabelWidth(105);
+			skinThemeControl.SetLabelWidth(115);
 			skinThemeControl.SetDevice(dpd.Device);
 
 			this.dpd.Project.GenerateDevices();
@@ -446,22 +437,22 @@ namespace Moscrif.IDE.Settings
 			//switch ((DeviceType)dpd.Device.TargetPlatformId) {
 			case DeviceType.Android_1_6:{
 
-				table1.NRows = table1.NRows+5;
+				table2.NRows = table2.NRows+5;
 				PublishProperty pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_ICON);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp = new PublishProperty(Project.KEY_ICON));
-				GenerateFileMaskEntry(ref table1,Project.KEY_ICON,MainClass.Languages.Translate("icon"),pp.PublishValue,1);
+				GenerateFileMaskEntry(ref table2,Project.KEY_ICON,MainClass.Languages.Translate("icon"),pp.PublishValue,1);
 				//GenerateFileEntry
 
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_SPLASH);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_SPLASH));
-				GenerateFileMaskEntry(ref table1,Project.KEY_SPLASH,MainClass.Languages.Translate("splash"),pp.PublishValue,2);
+				GenerateFileMaskEntry(ref table2,Project.KEY_SPLASH,MainClass.Languages.Translate("splash"),pp.PublishValue,2);
 				//
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_BUNDLEIDENTIFIER);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_BUNDLEIDENTIFIER));
-				GenerateBundleEntry(ref table1,Project.KEY_BUNDLEIDENTIFIER,MainClass.Languages.Translate("bundleIdentifier"),pp.PublishValue,3);
+				GenerateBundleEntry(ref table2,Project.KEY_BUNDLEIDENTIFIER,MainClass.Languages.Translate("bundleIdentifier"),pp.PublishValue,3);
 
 				Gtk.Expander expanderAndr16 = new Expander("Android signing");
 
@@ -492,18 +483,18 @@ namespace Moscrif.IDE.Settings
 					dpd.Device.PublishPropertisMask.Add(pp = new PublishProperty(Project.KEY_KEYPASSWORD));
 				GenerateEntry(ref tblAndr16,Project.KEY_KEYPASSWORD,MainClass.Languages.Translate("keypassword")+" ",pp.PublishValue,3);
 				//
-				table1.Attach(expanderAndr16,0,2,6,7,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Shrink,0,0);
+				table2.Attach(expanderAndr16,0,2,6,7,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Shrink,0,0);
 				expanderAndr16.ShowAll();
 
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_SUPPORTEDDEVICES);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp = new PublishProperty(Project.KEY_SUPPORTEDDEVICES));
-				GenerateComboBox(ref table1,Project.KEY_SUPPORTEDDEVICES,MainClass.Languages.Translate("supportedDevices"),pp.PublishValue,5,MainClass.Settings.AndroidSupportedDevices);
+				GenerateComboBox(ref table2,Project.KEY_SUPPORTEDDEVICES,MainClass.Languages.Translate("supportedDevices"),pp.PublishValue,5,MainClass.Settings.AndroidSupportedDevices);
 
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_PERMISSION);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp = new PublishProperty(Project.KEY_PERMISSION));
-				GeneratePermissionEditor(ref table1,Project.KEY_PERMISSION,MainClass.Languages.Translate("permisions"),pp.PublishValue,6);
+				GeneratePermissionEditor(ref table2,Project.KEY_PERMISSION,MainClass.Languages.Translate("permisions"),pp.PublishValue,6);
 
 				break;
 				}
@@ -513,22 +504,22 @@ namespace Moscrif.IDE.Settings
 					MainClass.Settings.GenerateInstallLocation();
 				}
 
-				table1.NRows = table1.NRows+6;
+				table2.NRows = table2.NRows+6;
 				PublishProperty pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_ICON);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp = new PublishProperty(Project.KEY_ICON));
-				GenerateFileMaskEntry(ref table1,Project.KEY_ICON,MainClass.Languages.Translate("icon"),pp.PublishValue,1);
+				GenerateFileMaskEntry(ref table2,Project.KEY_ICON,MainClass.Languages.Translate("icon"),pp.PublishValue,1);
 				//GenerateFileEntry
 
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_SPLASH);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_SPLASH));
-				GenerateFileMaskEntry(ref table1,Project.KEY_SPLASH,MainClass.Languages.Translate("splash"),pp.PublishValue,2);
+				GenerateFileMaskEntry(ref table2,Project.KEY_SPLASH,MainClass.Languages.Translate("splash"),pp.PublishValue,2);
 				//
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_BUNDLEIDENTIFIER);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_BUNDLEIDENTIFIER));
-				GenerateBundleEntry(ref table1,Project.KEY_BUNDLEIDENTIFIER,MainClass.Languages.Translate("bundleIdentifier"),pp.PublishValue,3);
+				GenerateBundleEntry(ref table2,Project.KEY_BUNDLEIDENTIFIER,MainClass.Languages.Translate("bundleIdentifier"),pp.PublishValue,3);
 
 				Gtk.Expander expanderAndr22 = new Expander("Android signing");
 				
@@ -559,24 +550,24 @@ namespace Moscrif.IDE.Settings
 					dpd.Device.PublishPropertisMask.Add(pp = new PublishProperty(Project.KEY_KEYPASSWORD));
 				GenerateEntry(ref tblAndr22,Project.KEY_KEYPASSWORD,MainClass.Languages.Translate("keypassword")+" ",pp.PublishValue,3);
 
-				table1.Attach(expanderAndr22,0,2,6,7,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Shrink,0,0);
+				table2.Attach(expanderAndr22,0,2,6,7,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Shrink,0,0);
 				expanderAndr22.ShowAll();
 
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_SUPPORTEDDEVICES);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp = new PublishProperty(Project.KEY_SUPPORTEDDEVICES));
-				GenerateComboBox(ref table1,Project.KEY_SUPPORTEDDEVICES,MainClass.Languages.Translate("supportedDevices"),pp.PublishValue,5,MainClass.Settings.AndroidSupportedDevices);
+				GenerateComboBox(ref table2,Project.KEY_SUPPORTEDDEVICES,MainClass.Languages.Translate("supportedDevices"),pp.PublishValue,5,MainClass.Settings.AndroidSupportedDevices);
 
 
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_INSTALLOCATION);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp = new PublishProperty(Project.KEY_INSTALLOCATION));
-				GenerateComboBox(ref table1,Project.KEY_INSTALLOCATION,MainClass.Languages.Translate("installLocation"),pp.PublishValue,6,MainClass.Settings.InstallLocations);
+				GenerateComboBox(ref table2,Project.KEY_INSTALLOCATION,MainClass.Languages.Translate("installLocation"),pp.PublishValue,6,MainClass.Settings.InstallLocations);
 
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_PERMISSION);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp = new PublishProperty(Project.KEY_PERMISSION));
-				GeneratePermissionEditor(ref table1,Project.KEY_PERMISSION,MainClass.Languages.Translate("permisions"),pp.PublishValue,7);
+				GeneratePermissionEditor(ref table2,Project.KEY_PERMISSION,MainClass.Languages.Translate("permisions"),pp.PublishValue,7);
 
 				break;
 				}
@@ -587,18 +578,18 @@ namespace Moscrif.IDE.Settings
 			case DeviceType.Bada_1_2:
 			case DeviceType.Bada_2_0:{
 
-				table1.NRows = table1.NRows+5;
+				table2.NRows = table2.NRows+5;
 
 				PublishProperty pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_ICON);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_ICON));
-				GenerateFileMaskEntry(ref table1,Project.KEY_ICON,MainClass.Languages.Translate("icon"),pp.PublishValue,1);
+				GenerateFileMaskEntry(ref table2,Project.KEY_ICON,MainClass.Languages.Translate("icon"),pp.PublishValue,1);
 				//
 
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_SPLASH);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_SPLASH));
-				GenerateFileMaskEntry(ref table1,Project.KEY_SPLASH,MainClass.Languages.Translate("splash"),pp.PublishValue,2);
+				GenerateFileMaskEntry(ref table2,Project.KEY_SPLASH,MainClass.Languages.Translate("splash"),pp.PublishValue,2);
 
 				/*PublishProperty pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_ICON_BADA1);
 				if (pp == null)
@@ -637,60 +628,60 @@ namespace Moscrif.IDE.Settings
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_MANIFEST);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_MANIFEST));
-				GenerateFileMaskEntry(ref table1,Project.KEY_MANIFEST,MainClass.Languages.Translate("manifest"),pp.PublishValue,3);
+				GenerateFileMaskEntry(ref table2,Project.KEY_MANIFEST,MainClass.Languages.Translate("manifest"),pp.PublishValue,3);
 				//
 
 				break;}
 			case DeviceType.Symbian_9_4:{
 
-				table1.NRows = table1.NRows+7;
+				table2.NRows = table2.NRows+7;
 				PublishProperty pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_ICON);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_ICON));
-				GenerateFileMaskEntry(ref table1,Project.KEY_ICON,MainClass.Languages.Translate("icon"),pp.PublishValue,1);
+				GenerateFileMaskEntry(ref table2,Project.KEY_ICON,MainClass.Languages.Translate("icon"),pp.PublishValue,1);
 				//
 
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_SPLASH);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_SPLASH));
-				GenerateFileMaskEntry(ref table1,Project.KEY_SPLASH,MainClass.Languages.Translate("splash"),pp.PublishValue,2);
+				GenerateFileMaskEntry(ref table2,Project.KEY_SPLASH,MainClass.Languages.Translate("splash"),pp.PublishValue,2);
 				//
 
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_APPLICATIONID);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp = new PublishProperty(Project.KEY_APPLICATIONID));
-				GenerateEntryWithMenu(ref table1,Project.KEY_APPLICATIONID,MainClass.Languages.Translate("application_id"),pp.PublishValue,3);
+				GenerateEntryWithMenu(ref table2,Project.KEY_APPLICATIONID,MainClass.Languages.Translate("application_id"),pp.PublishValue,3);
 
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_CERTIFICATE);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_CERTIFICATE));
-				GenerateFileMaskEntry(ref table1,Project.KEY_CERTIFICATE,MainClass.Languages.Translate("certificate"),pp.PublishValue,4);
+				GenerateFileMaskEntry(ref table2,Project.KEY_CERTIFICATE,MainClass.Languages.Translate("certificate"),pp.PublishValue,4);
 
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_KEY);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_KEY));
-				GenerateFileMaskEntry(ref table1,Project.KEY_KEY,MainClass.Languages.Translate("key"),pp.PublishValue,5);
+				GenerateFileMaskEntry(ref table2,Project.KEY_KEY,MainClass.Languages.Translate("key"),pp.PublishValue,5);
 
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_PASSWORD);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_PASSWORD));
-				GenerateEntry(ref table1,Project.KEY_PASSWORD,MainClass.Languages.Translate("password_f1"),pp.PublishValue,6);
+				GenerateEntry(ref table2,Project.KEY_PASSWORD,MainClass.Languages.Translate("password_f1"),pp.PublishValue,6);
 				//
 				break;}
 			case DeviceType.iOS_5_0:{
 
-				table1.NRows = table1.NRows+10;
+				table2.NRows = table2.NRows+10;
 //
 				PublishProperty pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_BUNDLEIDENTIFIER);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_BUNDLEIDENTIFIER));
-				GenerateBundleEntry(ref table1,Project.KEY_BUNDLEIDENTIFIER,MainClass.Languages.Translate("bundleIdentifier"),pp.PublishValue,1);
+				GenerateBundleEntry(ref table2,Project.KEY_BUNDLEIDENTIFIER,MainClass.Languages.Translate("bundleIdentifier"),pp.PublishValue,1);
 
 
 				 pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_CODESIGNINGIDENTITY);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_CODESIGNINGIDENTITY));
-				GenerateComboBoxSigning(ref table1,Project.KEY_CODESIGNINGIDENTITY,MainClass.Languages.Translate("codeSigningIdentity"),pp.PublishValue,2,securityIOs);
+				GenerateComboBoxSigning(ref table2,Project.KEY_CODESIGNINGIDENTITY,MainClass.Languages.Translate("codeSigningIdentity"),pp.PublishValue,2,securityIOs);
 				//GenerateComboBox(ref table1,Project.KEY_CODESIGNINGIDENTITY,MainClass.Languages.Translate("codeSigningIdentity"),pp.PublishValue,2,securityIOs);
 
 				//GenerateEntry(ref table1,Project.KEY_CODESIGNINGIDENTITY,MainClass.Languages.Translate("codeSigningIdentity"),pp.PublishValue,1);
@@ -698,7 +689,7 @@ namespace Moscrif.IDE.Settings
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_SUPPORTEDDEVICES);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp = new PublishProperty(Project.KEY_SUPPORTEDDEVICES));
-				GenerateComboBox(ref table1,Project.KEY_SUPPORTEDDEVICES,MainClass.Languages.Translate("supportedDevices"),pp.PublishValue,3,MainClass.Settings.OSSupportedDevices);
+				GenerateComboBox(ref table2,Project.KEY_SUPPORTEDDEVICES,MainClass.Languages.Translate("supportedDevices"),pp.PublishValue,3,MainClass.Settings.OSSupportedDevices);
 
 				// iPhone4
 				Gtk.Expander expanderiPh4 = new Expander("iPhone 4(S)");
@@ -716,7 +707,7 @@ namespace Moscrif.IDE.Settings
 					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_IP4SPLASH));
 				GenerateFileMaskEntry(ref tbliPh4,Project.KEY_IP4SPLASH,"iPhone 4 splash : ",pp.PublishValue,1);
 
-				table1.Attach(expanderiPh4,0,2,6,7,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Shrink,0,0);
+				table2.Attach(expanderiPh4,0,2,6,7,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Shrink,0,0);
 				expanderiPh4.ShowAll();
 
 				// iPhone5
@@ -735,7 +726,7 @@ namespace Moscrif.IDE.Settings
 					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_IP5SPLASH));
 				GenerateFileMaskEntry(ref tbliPh5,Project.KEY_IP5SPLASH,"iPhone 5 splash : ",pp.PublishValue,1);
 				
-				table1.Attach(expanderiPh5,0,2,7,8,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Shrink,0,0);
+				table2.Attach(expanderiPh5,0,2,7,8,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Shrink,0,0);
 				expanderiPh5.ShowAll();
 
 				// iPad2
@@ -754,7 +745,7 @@ namespace Moscrif.IDE.Settings
 					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_IPADSPLASH));
 				GenerateFileMaskEntry(ref tbliPd2,Project.KEY_IPADSPLASH,"iPad 2 splash : ",pp.PublishValue,1);
 				
-				table1.Attach(expanderiPd2,0,2,8,9,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Shrink,0,0);
+				table2.Attach(expanderiPd2,0,2,8,9,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Shrink,0,0);
 				expanderiPh5.ShowAll();
 
 				// new iPad
@@ -773,7 +764,7 @@ namespace Moscrif.IDE.Settings
 					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_INEWPADSPLASH));
 				GenerateFileMaskEntry(ref tbliNewPd,Project.KEY_INEWPADSPLASH,"new iPad splash : ",pp.PublishValue,1);
 				
-				table1.Attach(expanderNewiPd,0,2,9,10,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Shrink,0,0);
+				table2.Attach(expanderNewiPd,0,2,9,10,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Shrink,0,0);
 				expanderiPh5.ShowAll();
 
 				break;
@@ -782,49 +773,49 @@ namespace Moscrif.IDE.Settings
 			case DeviceType.WindowsMobile_5:
 			case DeviceType.WindowsMobile_6:{
 
-				table1.NRows = table1.NRows+3;
+				table2.NRows = table2.NRows+3;
 				PublishProperty pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_ICON);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_ICON));
-				GenerateFileMaskEntry(ref table1,Project.KEY_ICON,MainClass.Languages.Translate("icon"),pp.PublishValue,1);
+				GenerateFileMaskEntry(ref table2,Project.KEY_ICON,MainClass.Languages.Translate("icon"),pp.PublishValue,1);
 				//
 
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_SPLASH);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_SPLASH));
-				GenerateFileMaskEntry(ref table1,Project.KEY_SPLASH,MainClass.Languages.Translate("splash"),pp.PublishValue,2);
+				GenerateFileMaskEntry(ref table2,Project.KEY_SPLASH,MainClass.Languages.Translate("splash"),pp.PublishValue,2);
 				//
 				break;
 			}
 			case DeviceType.Windows:{
 
-				table1.NRows = table1.NRows+3;
+				table2.NRows = table2.NRows+3;
 				PublishProperty pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_ICON);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_ICON));
-				GenerateFileMaskEntry(ref table1,Project.KEY_ICON,MainClass.Languages.Translate("icon"),pp.PublishValue,1);
+				GenerateFileMaskEntry(ref table2,Project.KEY_ICON,MainClass.Languages.Translate("icon"),pp.PublishValue,1);
 				//
 
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_SPLASH);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_SPLASH));
-				GenerateFileMaskEntry(ref table1,Project.KEY_SPLASH,MainClass.Languages.Translate("splash"),pp.PublishValue,2);
+				GenerateFileMaskEntry(ref table2,Project.KEY_SPLASH,MainClass.Languages.Translate("splash"),pp.PublishValue,2);
 				//
 				break;
 			}
 			case DeviceType.MacOs:{
 
-				table1.NRows = table1.NRows+3;
+				table2.NRows = table2.NRows+3;
 				PublishProperty pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_ICON);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_ICON));
-				GenerateFileMaskEntry(ref table1,Project.KEY_ICON,MainClass.Languages.Translate("icon"),pp.PublishValue,1);
+				GenerateFileMaskEntry(ref table2,Project.KEY_ICON,MainClass.Languages.Translate("icon"),pp.PublishValue,1);
 				//
 
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_SPLASH);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_SPLASH));
-				GenerateFileMaskEntry(ref table1,Project.KEY_SPLASH,MainClass.Languages.Translate("splash"),pp.PublishValue,2);
+				GenerateFileMaskEntry(ref table2,Project.KEY_SPLASH,MainClass.Languages.Translate("splash"),pp.PublishValue,2);
 				//
 				break;
 			}
@@ -1223,7 +1214,7 @@ namespace Moscrif.IDE.Settings
 		public void StoreTable(Gtk.Container parent){
 
 			foreach (Widget w in parent.Children ){
-				Console.WriteLine(w.Name);
+				//Console.WriteLine(w.Name);
 				if (w is Gtk.Container) {
 					Gtk.Container container = w as Gtk.Container; 
 					StoreTable(container);
@@ -1358,7 +1349,7 @@ namespace Moscrif.IDE.Settings
 
 		public void Store()
 		{
-			StoreTable(table1);
+			StoreTable(table2);
 
 			/*Gtk.TreeIter iterSkin;
 			string skinName = string.Empty;

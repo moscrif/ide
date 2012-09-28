@@ -32,13 +32,13 @@ namespace Moscrif.IDE.Controls
 				if(Directory.Exists(MainClass.Paths.FileTemplateDir)){
 
 					string typeFile = GetSelectedTypFile();
-					typeFile = String.Format("*{0}t",typeFile);
+					typeFile = String.Format("*{0}",typeFile);
 					FileInfo[] fis = new DirectoryInfo(MainClass.Paths.FileTemplateDir).GetFiles(typeFile);
 
 					fileListStore.AppendValues(MainClass.Languages.Translate("empty_file"),"",null);
 
 					foreach (FileInfo fi in fis){
-		                		FileTemplate t = new FileTemplate(fi);
+		                		FileTemplate t = new FileTemplate(fi,true);
 	                			//if (String.Compare(t.TemplateType, "moscrif source code", true) != 0) continue;
 	                				//templates.Items.Add(t);
 						fileListStore.AppendValues(t.Name,t.Description,fi.FullName,t);
@@ -161,7 +161,6 @@ namespace Moscrif.IDE.Controls
 				TreePath[] tp = ts.GetSelectedRows();
 	
 				fileName = entrName.Text;
-	
 	
 				if (tp.Length <= 0 )  return;
 				if (String.IsNullOrEmpty(fileName) )  return;

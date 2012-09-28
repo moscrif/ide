@@ -18,12 +18,11 @@ namespace Moscrif.IDE.Controls
 			// Internal child Moscrif.IDE.Controls.OpenProjectDialog.VBox
 			global::Gtk.VBox w1 = this.VBox;
 			w1.Name = "dialog1_VBox";
-			w1.BorderWidth = ((uint)(2));
 			// Container child dialog1_VBox.Gtk.Box+BoxChild
 			this.GtkScrolledWindow = new global::Gtk.ScrolledWindow ();
 			this.GtkScrolledWindow.Name = "GtkScrolledWindow";
 			this.GtkScrolledWindow.ShadowType = ((global::Gtk.ShadowType)(1));
-			this.GtkScrolledWindow.BorderWidth = ((uint)(5));
+			this.GtkScrolledWindow.BorderWidth = ((uint)(10));
 			// Container child GtkScrolledWindow.Gtk.Container+ContainerChild
 			this.tvFiles = new global::Gtk.TreeView ();
 			this.tvFiles.CanFocus = true;
@@ -36,7 +35,7 @@ namespace Moscrif.IDE.Controls
 			global::Gtk.HButtonBox w4 = this.ActionArea;
 			w4.Name = "dialog1_ActionArea";
 			w4.Spacing = 10;
-			w4.BorderWidth = ((uint)(5));
+			w4.BorderWidth = ((uint)(10));
 			w4.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
 			this.buttonCancel = new global::Gtk.Button ();

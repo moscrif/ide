@@ -26,12 +26,13 @@ namespace Moscrif.IDE.Controls
 			this.vbox2 = new global::Gtk.VBox ();
 			this.vbox2.Name = "vbox2";
 			this.vbox2.Spacing = 6;
+			this.vbox2.BorderWidth = ((uint)(10));
 			// Container child vbox2.Gtk.Box+BoxChild
 			this.table3 = new global::Gtk.Table (((uint)(1)), ((uint)(2)), false);
 			this.table3.Name = "table3";
-			this.table3.RowSpacing = ((uint)(6));
+			this.table3.RowSpacing = ((uint)(5));
 			this.table3.ColumnSpacing = ((uint)(8));
-			this.table3.BorderWidth = ((uint)(6));
+			this.table3.BorderWidth = ((uint)(1));
 			// Container child table3.Gtk.Table+TableChild
 			this.entry3 = new global::Gtk.Entry ();
 			this.entry3.CanFocus = true;
@@ -75,7 +76,7 @@ namespace Moscrif.IDE.Controls
 			global::Gtk.HButtonBox w7 = this.ActionArea;
 			w7.Name = "dialog1_ActionArea";
 			w7.Spacing = 10;
-			w7.BorderWidth = ((uint)(5));
+			w7.BorderWidth = ((uint)(10));
 			w7.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
 			this.buttonCancel = new global::Gtk.Button ();
@@ -105,7 +106,7 @@ namespace Moscrif.IDE.Controls
 				this.Child.ShowAll ();
 			}
 			this.DefaultWidth = 400;
-			this.DefaultHeight = 187;
+			this.DefaultHeight = 189;
 			this.Show ();
 			this.entry3.KeyReleaseEvent += new global::Gtk.KeyReleaseEventHandler (this.OnEntry3KeyReleaseEvent);
 			this.buttonOk.Clicked += new global::System.EventHandler (this.OnButtonOkClicked);

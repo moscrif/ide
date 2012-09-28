@@ -58,6 +58,7 @@ namespace Moscrif.IDE.Settings
 			w1.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table2.Gtk.Table+TableChild
 			this.label1 = new global::Gtk.Label ();
+			this.label1.WidthRequest = 115;
 			this.label1.Name = "label1";
 			this.label1.Xalign = 1F;
 			this.label1.LabelProp = global::Mono.Unix.Catalog.GetString ("Workspace :");
@@ -67,6 +68,7 @@ namespace Moscrif.IDE.Settings
 			w2.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table2.Gtk.Table+TableChild
 			this.label2 = new global::Gtk.Label ();
+			this.label2.WidthRequest = 115;
 			this.label2.Name = "label2";
 			this.label2.Xalign = 1F;
 			this.label2.LabelProp = global::Mono.Unix.Catalog.GetString ("Workspace Path :");

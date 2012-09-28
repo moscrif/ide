@@ -128,20 +128,13 @@ namespace Moscrif.IDE.Editors
 				md.ShowDialog();
 				return null;
 			}
-			/*if (path != "StartPage"){
-				System.IO.FileInfo fi = new System.IO.FileInfo(path);
-				Console.WriteLine("1 --> {0}", path);
-				Console.WriteLine("2 --> {0}", fi.FullName);
-				Console.WriteLine("2 Exists--> {0}", fi.Exists);
-				Console.WriteLine("2 Attributes--> {0}", fi.Attributes);
-				Console.WriteLine("2 Length--> {0}", fi.Length);
-				Console.WriteLine("2 Length--> {0}", fi.Directory);
-
-				System.IO.DirectoryInfo di = fi.Directory;
-				Console.WriteLine("2 Attributes--> {0}", di.Attributes);
-				Console.WriteLine("2 Exists--> {0}", di.Exists);
-				Console.WriteLine("2 Exists--> {0}", di.FullName);
-			}*/
+			string ext = System.IO.Path.GetExtension(path);
+			if(ext.ToLower() ==".ttf"){
+				if (!String.IsNullOrEmpty(path)){
+					System.Diagnostics.Process.Start(path);
+				}
+				return null;
+			}
 
 			IEditor se = FindEditor(path);
 			if (se != null) {

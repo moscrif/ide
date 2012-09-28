@@ -27,9 +27,11 @@ namespace Moscrif.IDE.FileTemplates
         public string Author { get; private set; }
         public string Description { get; private set; }
         public List<Attribute> Attributes { get; private set; }
+	public bool IsHeader { get; private set; }
 
-        public FileTemplate(FileInfo fileInfo)
+        public FileTemplate(FileInfo fileInfo, bool isHeader)
         {
+	    IsHeader = isHeader;
             FileInfo = fileInfo;
             Attributes = new List<Attribute>();
 
@@ -54,7 +56,7 @@ namespace Moscrif.IDE.FileTemplates
                         DefaultValue = defVal,
                         ValidateExpr = validate
                     });
-                }
+		},IsHeader
             );
         }
 

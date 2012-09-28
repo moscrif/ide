@@ -42,6 +42,7 @@ namespace Moscrif.IDE.Controls
 			this.vbox2 = new global::Gtk.VBox ();
 			this.vbox2.Name = "vbox2";
 			this.vbox2.Spacing = 6;
+			this.vbox2.BorderWidth = ((uint)(10));
 			// Container child vbox2.Gtk.Box+BoxChild
 			this.table2b = new global::Gtk.Table (((uint)(2)), ((uint)(2)), false);
 			this.table2b.Name = "table2b";
@@ -58,7 +59,6 @@ namespace Moscrif.IDE.Controls
 			global::Gtk.Table.TableChild w2 = ((global::Gtk.Table.TableChild)(this.table2b [this.entWorkspace]));
 			w2.LeftAttach = ((uint)(1));
 			w2.RightAttach = ((uint)(2));
-			w2.XPadding = ((uint)(5));
 			w2.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table2b.Gtk.Table+TableChild
 			this.feRoot = new global::Moscrif.IDE.Components.FileEntry ();
@@ -71,7 +71,6 @@ namespace Moscrif.IDE.Controls
 			w3.BottomAttach = ((uint)(2));
 			w3.LeftAttach = ((uint)(1));
 			w3.RightAttach = ((uint)(2));
-			w3.XPadding = ((uint)(5));
 			w3.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table2b.Gtk.Table+TableChild
 			this.label3 = new global::Gtk.Label ();
@@ -224,12 +223,11 @@ namespace Moscrif.IDE.Controls
 			w1.Add (this.vbox2);
 			global::Gtk.Box.BoxChild w19 = ((global::Gtk.Box.BoxChild)(w1 [this.vbox2]));
 			w19.Position = 0;
-			w19.Padding = ((uint)(5));
 			// Internal child Moscrif.IDE.Controls.NewWorkspaceDialog.ActionArea
 			global::Gtk.HButtonBox w20 = this.ActionArea;
 			w20.Name = "dialog1_ActionArea";
 			w20.Spacing = 10;
-			w20.BorderWidth = ((uint)(5));
+			w20.BorderWidth = ((uint)(10));
 			w20.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
 			this.buttonCancel = new global::Gtk.Button ();
@@ -259,7 +257,7 @@ namespace Moscrif.IDE.Controls
 				this.Child.ShowAll ();
 			}
 			this.DefaultWidth = 447;
-			this.DefaultHeight = 316;
+			this.DefaultHeight = 305;
 			this.vbox3.Hide ();
 			this.trmProject.Hide ();
 			this.Show ();

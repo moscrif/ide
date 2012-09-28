@@ -718,21 +718,6 @@
     <None Include="resources\libs.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="cfg\filetemplates\application.mst">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="cfg\filetemplates\key_events.mst">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="cfg\filetemplates\scan_files.mst">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="cfg\filetemplates\scriflet.mst">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="cfg\filetemplates\adress_book.dbt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="cfg\languages\en.lng">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -831,9 +816,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="cfg\completedcache">
-    </None>
-    <None Include="cfg\filetemplates\game.mst">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="resources\starSelect.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

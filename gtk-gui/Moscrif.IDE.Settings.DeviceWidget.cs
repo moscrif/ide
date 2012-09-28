@@ -6,7 +6,7 @@ namespace Moscrif.IDE.Settings
 	{
 		private global::Gtk.VBox vbox2;
 		private global::Moscrif.IDE.Components.SkinThemeControl skinThemeControl;
-		private global::Gtk.Table table1;
+		private global::Gtk.Table table2;
 		private global::Gtk.ScrolledWindow GtkScrolledWindow;
 		private global::Gtk.TreeView nvFonts;
 		private global::Gtk.Label label4;
@@ -30,12 +30,11 @@ namespace Moscrif.IDE.Settings
 			w1.Expand = false;
 			w1.Fill = false;
 			// Container child vbox2.Gtk.Box+BoxChild
-			this.table1 = new global::Gtk.Table (((uint)(1)), ((uint)(2)), false);
-			this.table1.Name = "table1";
-			this.table1.RowSpacing = ((uint)(5));
-			this.table1.ColumnSpacing = ((uint)(8));
-			this.table1.BorderWidth = ((uint)(8));
-			// Container child table1.Gtk.Table+TableChild
+			this.table2 = new global::Gtk.Table (((uint)(1)), ((uint)(2)), false);
+			this.table2.Name = "table2";
+			this.table2.RowSpacing = ((uint)(5));
+			this.table2.ColumnSpacing = ((uint)(8));
+			// Container child table2.Gtk.Table+TableChild
 			this.GtkScrolledWindow = new global::Gtk.ScrolledWindow ();
 			this.GtkScrolledWindow.HeightRequest = 126;
 			this.GtkScrolledWindow.Name = "GtkScrolledWindow";
@@ -45,23 +44,24 @@ namespace Moscrif.IDE.Settings
 			this.nvFonts.CanFocus = true;
 			this.nvFonts.Name = "nvFonts";
 			this.GtkScrolledWindow.Add (this.nvFonts);
-			this.table1.Add (this.GtkScrolledWindow);
-			global::Gtk.Table.TableChild w3 = ((global::Gtk.Table.TableChild)(this.table1 [this.GtkScrolledWindow]));
+			this.table2.Add (this.GtkScrolledWindow);
+			global::Gtk.Table.TableChild w3 = ((global::Gtk.Table.TableChild)(this.table2 [this.GtkScrolledWindow]));
 			w3.LeftAttach = ((uint)(1));
 			w3.RightAttach = ((uint)(2));
+			w3.YPadding = ((uint)(7));
 			w3.YOptions = ((global::Gtk.AttachOptions)(4));
-			// Container child table1.Gtk.Table+TableChild
+			// Container child table2.Gtk.Table+TableChild
 			this.label4 = new global::Gtk.Label ();
 			this.label4.TooltipMarkup = "List of Fonts to be Embeded into Output Installation";
 			this.label4.Name = "label4";
 			this.label4.Xalign = 1F;
 			this.label4.LabelProp = global::Mono.Unix.Catalog.GetString ("Fonts :");
-			this.table1.Add (this.label4);
-			global::Gtk.Table.TableChild w4 = ((global::Gtk.Table.TableChild)(this.table1 [this.label4]));
+			this.table2.Add (this.label4);
+			global::Gtk.Table.TableChild w4 = ((global::Gtk.Table.TableChild)(this.table2 [this.label4]));
 			w4.XOptions = ((global::Gtk.AttachOptions)(4));
 			w4.YOptions = ((global::Gtk.AttachOptions)(4));
-			this.vbox2.Add (this.table1);
-			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.table1]));
+			this.vbox2.Add (this.table2);
+			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.table2]));
 			w5.Position = 1;
 			w5.Expand = false;
 			w5.Fill = false;

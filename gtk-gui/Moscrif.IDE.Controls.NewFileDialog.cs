@@ -31,6 +31,7 @@ namespace Moscrif.IDE.Controls
 			this.vbox2 = new global::Gtk.VBox ();
 			this.vbox2.Name = "vbox2";
 			this.vbox2.Spacing = 6;
+			this.vbox2.BorderWidth = ((uint)(10));
 			// Container child vbox2.Gtk.Box+BoxChild
 			this.hbox1 = new global::Gtk.HBox ();
 			this.hbox1.Name = "hbox1";
@@ -47,7 +48,6 @@ namespace Moscrif.IDE.Controls
 			this.hbox1.Add (this.GtkScrolledWindow);
 			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.GtkScrolledWindow]));
 			w3.Position = 1;
-			w3.Padding = ((uint)(5));
 			this.vbox2.Add (this.hbox1);
 			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.hbox1]));
 			w4.Position = 0;
@@ -107,12 +107,11 @@ namespace Moscrif.IDE.Controls
 			w1.Add (this.vbox2);
 			global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(w1 [this.vbox2]));
 			w10.Position = 0;
-			w10.Padding = ((uint)(8));
 			// Internal child Moscrif.IDE.Controls.NewFileDialog.ActionArea
 			global::Gtk.HButtonBox w11 = this.ActionArea;
 			w11.Name = "dialog1_ActionArea";
 			w11.Spacing = 10;
-			w11.BorderWidth = ((uint)(5));
+			w11.BorderWidth = ((uint)(10));
 			w11.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
 			this.buttonCancel = new global::Gtk.Button ();

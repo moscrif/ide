@@ -30,7 +30,7 @@ namespace Moscrif.IDE.FileTemplates
             this.fileInfo = fileInfo;
         }
 
-        public string Read(Action<AttributeType, string> attribute, Action<string, string, string, string> param)
+        public string Read(Action<AttributeType, string> attribute, Action<string, string, string, string> param, bool isHeader)
         {
             using (StreamReader sr = fileInfo.OpenText())
             {
@@ -39,7 +39,7 @@ namespace Moscrif.IDE.FileTemplates
                 StringBuilder content = new StringBuilder();
                 while ((line = sr.ReadLine()) != null)
                 {
-                    if (!headDone)
+		  if ((!headDone) && isHeader)
                     {
                         if (line.Trim().StartsWith(SEPARATOR))
                         {

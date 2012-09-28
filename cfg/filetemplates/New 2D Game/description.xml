@@ -6,7 +6,7 @@
       <lib value="media" display="Use Media (Sound and Music)" />
       <lib value="web" display="Use Web" />
       <lib value="sqlite" display="Use SQlite database" />
-      <lib value="crypto" display="Use Crypto API" />
+      <lib value="crypto" display="Use Crypto Api" />
       <lib value="uix" display="Use User interface" />
   </libs>
 </ProjectTemplate>

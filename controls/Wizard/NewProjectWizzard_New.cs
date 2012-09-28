@@ -10,6 +10,7 @@ using Moscrif.IDE.Iface;
 using MessageDialogs = Moscrif.IDE.Controls.MessageDialog;
 using Moscrif.IDE.Workspace;
 using Moscrif.IDE.FileTemplates;
+using System.Text.RegularExpressions;
 
 namespace Moscrif.IDE.Controls.Wizard
 {
@@ -44,16 +45,22 @@ namespace Moscrif.IDE.Controls.Wizard
 		string projectName = "";
 		string projectDir = "";
 		TreePath selectedTypPrj ;
+		FileTemplate.Attribute atrApplication;
 
 		int page = 0;
 		public NewProjectWizzard_New(Window parent)
 		{
+
 			if (parent != null)
 				this.TransientFor =parent;
 			else
 				this.TransientFor = MainClass.MainWindow;
 
 			this.Build();		
+
+			atrApplication = new FileTemplate.Attribute();
+			atrApplication.Name = "application";
+			atrApplication.Type = "text";
 
 			this.DefaultHeight = 390 ;
 			this.Title = MainClass.Languages.Translate("moscrif_ide_title_f1");
@@ -178,7 +185,7 @@ namespace Moscrif.IDE.Controls.Wizard
 			cbeWorkspace.Changed+= OnCbeWorkspaceChanged;
 
 				//
-			table2.Attach(cbeWorkspace,1,2,1,2,AttachOptions.Fill|AttachOptions.Expand,AttachOptions.Fill,0,0);
+			table3.Attach(cbeWorkspace,1,2,1,2,AttachOptions.Fill|AttachOptions.Expand,AttachOptions.Fill,0,0);
 
 			CellRendererText rendererWorkspace = new CellRendererText();
 			cbeWorkspace.PackStart(rendererWorkspace, true);
@@ -204,7 +211,6 @@ namespace Moscrif.IDE.Controls.Wizard
 					storeWorkspace.AppendValues(name,rf.FileName,0);
 				}
 			}
-
 				//storeWorkspace.AppendValues("","-------------",-1);
 
 			worksDefaultName = "Workspace"+MainClass.Settings.WorkspaceCount.ToString();
@@ -226,7 +232,7 @@ namespace Moscrif.IDE.Controls.Wizard
 			CellRendererText rendererTemplate = new CellRendererText();
 			cbTemplate.PackStart(rendererTemplate, true);
 
-			storeTemplate = new ListStore(typeof(string), typeof(string));
+			storeTemplate = new ListStore(typeof(string), typeof(string), typeof(string));
 			cbTemplate.Model = storeTemplate;
 
 			cbTemplate.Changed+= delegate(object sender, EventArgs e) {
@@ -251,8 +257,9 @@ namespace Moscrif.IDE.Controls.Wizard
 
 				string name = storeTemplate.GetValue(tiChb, 0).ToString(); 
 				string path = storeTemplate.GetValue(tiChb, 1).ToString();
+				string appPath = storeTemplate.GetValue(tiChb, 2).ToString();
 
-				string appPath = System.IO.Path.Combine(path,"$application$.app");
+				//string appPath = System.IO.Path.Combine(path,"$application$.app");
 				if(File.Exists(appPath)){
 					AppFile app = new AppFile(appPath);
 					List<string> libs = new List<string>(app.Libs);
@@ -418,6 +425,7 @@ namespace Moscrif.IDE.Controls.Wizard
 
 				if(String.IsNullOrEmpty(templateDir)){ //Create Empty project 
 					ntbWizzard.Page = 2;
+					buttonCancel.Label="_Close";
 					btnBack.Sensitive = false;
 					btnNext.Sensitive = false;
 
@@ -457,19 +465,25 @@ namespace Moscrif.IDE.Controls.Wizard
 					entrPage2PrjName.Text= projectName;
 					DirectoryInfo[] diTemplates = GetDirectory(templateDir);
 
-					List<DirectoryInfo> customTemplate = new List<DirectoryInfo>();
+					//List<DirectoryInfo> customTemplate = new List<DirectoryInfo>();
+					List<string> customTemplate = new List<string>();
 
 					storeTemplate.Clear();
-					storeTemplate.AppendValues(KEY_CUSTOM,"");
+					storeTemplate.AppendValues(KEY_CUSTOM,"","");
 
 					foreach (DirectoryInfo di in diTemplates) {
 						string name = System.IO.Path.GetFileNameWithoutExtension(di.FullName);
 						string ex = System.IO.Path.GetExtension(di.FullName);
 
+						FileInfo[] fiApp = di.GetFiles("*.app",SearchOption.TopDirectoryOnly);
+						if ((fiApp == null) || (fiApp.Length<1)){
+							continue ;
+						}
+
 						if(ex == ".custom"){
-							customTemplate.Add(di);
+							customTemplate.Add(fiApp[0].FullName);
 						} else {
-							storeTemplate.AppendValues(name,di.FullName);
+							storeTemplate.AppendValues(name,di.FullName,fiApp[0].FullName);
 						}
 					}
 					cbTemplate.Active = 0;
@@ -495,6 +509,7 @@ namespace Moscrif.IDE.Controls.Wizard
 			else if(page == 1){
 
 				ntbWizzard.Page = 2;
+				buttonCancel.Label="_Close";
 
 				while (Gtk.Application.EventsPending ())
 					Gtk.Application.RunIteration ();
@@ -514,8 +529,8 @@ namespace Moscrif.IDE.Controls.Wizard
 					TreeIter tiChb = new TreeIter();
 					cbTemplate.GetActiveIter(out tiChb);
 
-					string path = storeTemplate.GetValue(tiChb, 1).ToString();				
-					string appPath = System.IO.Path.Combine(path,"$application$.app");
+					string path = storeTemplate.GetValue(tiChb, 1).ToString();
+					string appPath = storeTemplate.GetValue(tiChb, 2).ToString();
 
 					if(File.Exists(appPath)){
 						Project prj =  ImportProject(appPath,projectName,String.Empty,String.Empty);
@@ -532,9 +547,10 @@ namespace Moscrif.IDE.Controls.Wizard
 					string appPath = "";
 					foreach (Widget w in widgets ){
 						if((w as RadioButton).Active){
-							path = (w as RadioButton).TooltipMarkup;
+							appPath = (w as RadioButton).TooltipMarkup;
 						}
 					}
+					path = System.IO.Path.GetDirectoryName(appPath);
 
 					widgets = tblLibraries.Children;
 					string libs = "core";
@@ -543,6 +559,9 @@ namespace Moscrif.IDE.Controls.Wizard
 					foreach (Widget w in widgets ){	
 						if((w as CheckButton).Active){
 							libs = libs +" "+(w as CheckButton).Name;
+							if((w as CheckButton).Name.ToLower() == "uix"){
+								libs = libs +" ui";
+							}
 						}
 					}
 
@@ -557,10 +576,6 @@ namespace Moscrif.IDE.Controls.Wizard
 						}
 					}
 
-					if(!String.IsNullOrEmpty(path)){
-
-						appPath = System.IO.Path.Combine(path,"$application$.app");
-					}
 					if(File.Exists(appPath)){
 						Project prj = ImportProject(appPath,projectName,libs, orientation.Trim());
 						MainClass.MainWindow.AddAndShowProject(prj,true);
@@ -597,7 +612,11 @@ namespace Moscrif.IDE.Controls.Wizard
 				md.ShowDialog();
 				return false;
 			}
-			if(cbeWorkspace.Active <0){
+			TreeIter tiChb;
+			cbeWorkspace.GetActiveIter(out tiChb);
+			int type = Convert.ToInt32(storeWorkspace.GetValue(tiChb, 2));
+
+			if((cbeWorkspace.Active <0) || (type ==2) ){
 				string workspaceName = cbeWorkspace.ActiveText;
 				string workspaceRoot =System.IO.Path.Combine(feLocation.Path,workspaceName);
 				string workspaceFile = System.IO.Path.Combine(workspaceRoot, workspaceName + ".msw");
@@ -619,7 +638,11 @@ namespace Moscrif.IDE.Controls.Wizard
 			if(cbeWorkspace.ActiveText == worksDefaultName)
 				MainClass.Settings.WorkspaceCount = MainClass.Settings.WorkspaceCount +1;
 
-			if(cbeWorkspace.Active <0){
+			TreeIter tiChb;
+			cbeWorkspace.GetActiveIter(out tiChb);
+			int type = Convert.ToInt32(storeWorkspace.GetValue(tiChb, 2));
+
+			if((cbeWorkspace.Active <0) || (type ==2)){
 
 				workspaceName = cbeWorkspace.ActiveText;
 				workspaceRoot =System.IO.Path.Combine(feLocation.Path,workspaceName);
@@ -643,8 +666,8 @@ namespace Moscrif.IDE.Controls.Wizard
 				UpdateMessage(ti,1 ,"OK");
 
 			} else {
-				TreeIter tiChb = new TreeIter();
-				cbeWorkspace.GetActiveIter(out tiChb);
+				//TreeIter tiChb = new TreeIter();
+				//cbeWorkspace.GetActiveIter(out tiChb);
 				workspaceName = storeWorkspace.GetValue(tiChb, 0).ToString(); 
 				string workspacePath = storeWorkspace.GetValue(tiChb, 1).ToString();
 				workspaceRoot = System.IO.Path.GetDirectoryName(workspacePath);
@@ -663,18 +686,20 @@ namespace Moscrif.IDE.Controls.Wizard
 			return true;
 		}
 
-
 		private Project ImportProject(string appPath, string projectName,string newLibs, string newOrientation)
 		{
 			TreeIter ti =  AddMessage("Create Project ","....",null);
-			
+
+			string oldName = System.IO.Path.GetFileNameWithoutExtension(appPath);
+			string oldApp = System.IO.Path.GetFileName(appPath);
+
 			if(String.IsNullOrEmpty(MainClass.Workspace.FilePath)) return null;
 			
 			string fileName = projectName;//System.IO.Path.GetFileNameWithoutExtension(destinationFile);
 			string destinationDir = System.IO.Path.GetDirectoryName(appPath); // aka workspace from
-			string projectDir = System.IO.Path.Combine(destinationDir,"$application$"); // aka project dir from
+			string projectDir = System.IO.Path.Combine(destinationDir,oldName); // aka project dir from
 		
-			string mspPath =  System.IO.Path.Combine(destinationDir,"$application$.msp");
+			string mspPath =  System.IO.Path.Combine(destinationDir,oldName+".msp");
 			
 			if (!File.Exists(appPath) || !File.Exists(mspPath)){
 				UpdateMessage(ti,1,MainClass.Languages.Translate("invalid_zip"));
@@ -694,13 +719,17 @@ namespace Moscrif.IDE.Controls.Wizard
 			}
 			
 			FileInfo fi = new FileInfo(appPath);
-			FileTemplate ft= new FileTemplate(fi);
-			int indx = ft.Attributes.FindIndex(x=>x.Name=="application");
+			FileTemplate ft= new FileTemplate(fi,false);
+			atrApplication.Value = projectName;
+			ft.Attributes.Add(atrApplication);
+
+			/*int indx = ft.Attributes.FindIndex(x=>x.Name=="application");
 			if(indx>-1)
-				ft.Attributes[indx].Value = projectName;
+				ft.Attributes[indx].Value = projectName;*/
 			
 			string contentApp = FileTemplateUtilities.Apply(ft.Content, ft.GetAttributesAsDictionary());
-			
+
+
 			string contentMsp="";
 			if(System.IO.File.Exists(mspPath)){
 				try {
@@ -711,8 +740,10 @@ namespace Moscrif.IDE.Controls.Wizard
 				} catch {
 				}						
 			}
-			
-			contentMsp = contentMsp.Replace("$application$",projectName);
+			//contentMsp = Regex.Replace(contentMsp,oldApp,System.IO.Path.GetFileName(newApp));
+			contentMsp = Regex.Replace(contentMsp,oldName,System.IO.Path.GetFileNameWithoutExtension(newApp));
+
+			//contentMsp = contentMsp.Replace(oldApp,projectName);
 			Project prj = null;
 			try {
 				FileUtility.CreateFile(newApp,contentApp); 
@@ -727,7 +758,33 @@ namespace Moscrif.IDE.Controls.Wizard
 				FileUtility.CreateFile(newMsp,contentMsp); 
 				
 				string newPrjDir = System.IO.Path.Combine(MainClass.Workspace.RootDirectory,projectName);			
+
 				MainClass.Tools.CopyDirectory(projectDir,newPrjDir,true,true);
+				//string[] dirNew = System.IO.Directory.GetDirectories(newPrjDir,"*.*",SearchOption.AllDirectories);
+
+				string[] filesNew = System.IO.Directory.GetFiles(newPrjDir,"*.ms",SearchOption.AllDirectories);
+				foreach (string file in filesNew){
+
+					FileInfo fiNew = new FileInfo(file);
+					FileTemplate ftNew= new FileTemplate(fiNew,false);
+					atrApplication.Value = projectName;
+					ftNew.Attributes.Add(atrApplication);
+
+					string contentNew = FileTemplateUtilities.Apply(ftNew.Content, ftNew.GetAttributesAsDictionary());
+
+					try{
+						using (StreamWriter fileSW = new StreamWriter(file)) {
+							fileSW.Write(contentNew);
+							fileSW.Close();
+							fileSW.Dispose();
+						}
+
+					}catch(Exception ex){
+						Tool.Logger.Error(ex.Message);
+						continue;
+					}
+				}
+
 				prj = MainClass.Workspace.OpenProject(newMsp,false,true); //Project.OpenProject(newMsp,false,true);
 
 				LoggingInfo log = new LoggingInfo();
@@ -741,26 +798,36 @@ namespace Moscrif.IDE.Controls.Wizard
 			return prj;
 		}
 
-
-		private void GenerateCustomTemplate(List<DirectoryInfo> customTemplate){
+		private void GenerateCustomTemplate(List<string> customTemplate){
 			int x = 0;
 			RadioButton rbGroup = new RadioButton("test");
 			
-			foreach(DirectoryInfo di in customTemplate){
-				
+			foreach(string appPath in customTemplate){
+				string dir = System.IO.Path.GetDirectoryName(appPath);
+				DirectoryInfo di = new DirectoryInfo(dir);
+
 				string name = System.IO.Path.GetFileNameWithoutExtension(di.FullName);
 				string ex = System.IO.Path.GetExtension(di.FullName);
 				
-				string appPath = System.IO.Path.Combine(di.FullName,"$application$.app");
-				
+
+				AppFile app = new AppFile(appPath);
+
 				RadioButton rb = new RadioButton(name);
 				rb.Group = rbGroup.Group;
 				rb.Name = name;
-				rb.TooltipMarkup = di.FullName;
+
+				if(String.IsNullOrEmpty(app.Description)){
+					rb.Label = app.Title;
+				}else {
+					rb.Label = app.Description;
+				}
+
+				rb.TooltipMarkup = appPath;
 				rb.Events = Gdk.EventMask.AllEventsMask;
+
 				rb.Clicked+= delegate(object sndr, EventArgs evt) {
 					if(File.Exists(appPath)){
-						AppFile app = new AppFile(appPath);
+						//AppFile app = new AppFile(appPath);
 						List<string> libs = new List<string>(app.Libs);
 						Widget[] widgets = tblLibraries.Children;
 						

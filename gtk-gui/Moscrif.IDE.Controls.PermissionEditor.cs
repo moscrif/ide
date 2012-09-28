@@ -30,6 +30,7 @@ namespace Moscrif.IDE.Controls
 			this.GtkScrolledWindow = new global::Gtk.ScrolledWindow ();
 			this.GtkScrolledWindow.Name = "GtkScrolledWindow";
 			this.GtkScrolledWindow.ShadowType = ((global::Gtk.ShadowType)(1));
+			this.GtkScrolledWindow.BorderWidth = ((uint)(10));
 			// Container child GtkScrolledWindow.Gtk.Container+ContainerChild
 			this.tvPermission = new global::Gtk.TextView ();
 			this.tvPermission.CanFocus = true;
@@ -54,7 +55,7 @@ namespace Moscrif.IDE.Controls
 			global::Gtk.HButtonBox w6 = this.ActionArea;
 			w6.Name = "dialog1_ActionArea";
 			w6.Spacing = 10;
-			w6.BorderWidth = ((uint)(5));
+			w6.BorderWidth = ((uint)(10));
 			w6.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
 			this.buttonCancel = new global::Gtk.Button ();
