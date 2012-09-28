@@ -9,14 +9,13 @@ namespace Moscrif.IDE.Controls
 {
 	public partial class NewFileDialog : Gtk.Dialog
 	{
-
 		Gtk.ListStore fileListStore = new Gtk.ListStore(typeof(string),typeof(string), typeof(string), typeof(FileTemplate));
 		//Table tblAtributes;
 		public NewFileDialog()
 		{
 			this.TransientFor = MainClass.MainWindow;
 			this.Build(); 
-
+			notebook1.ShowTabs = false;
 
 			//tblMain.Visible = false;
 
@@ -75,14 +74,14 @@ namespace Moscrif.IDE.Controls
 
 		private void GenerateEntry(ref Table table, FileTemplate.Attribute attribute,int xPos){
 			AttributeEntry ae = new AttributeEntry(attribute);
-			table.Attach(ae,0,1,(uint)(xPos-1),(uint)xPos,AttachOptions.Fill,AttachOptions.Shrink,3,3);
+			table.Attach(ae,0,1,(uint)(xPos-1),(uint)xPos,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Fill,0,0);
 			//table.Attach(entr,1,2,(uint)(xPos-1),(uint)xPos,AttachOptions.Fill,AttachOptions.Shrink,3,3);
 		}
 
 		private void GenerateCheckBox(ref Table table,  FileTemplate.Attribute attribute,int xPos){
 
 			AttributeCheckBox achb = new AttributeCheckBox(attribute);
-			table.Attach(achb,0,1,(uint)(xPos-1),(uint)xPos,AttachOptions.Fill,AttachOptions.Shrink,3,3);
+			table.Attach(achb,0,1,(uint)(xPos-1),(uint)xPos,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Fill,0,0);
 			//table.Attach(chb,1,2,(uint)(xPos-1),(uint)xPos,AttachOptions.Fill,AttachOptions.Shrink,3,3);
 		}
 
@@ -174,17 +173,23 @@ namespace Moscrif.IDE.Controls
 				} else {
 					//hbox1.Destroy();
 					//tblMain.Destroy();
+					notebook1.Page = 1;
 					fileTemplate = ft;
 					hbox1.HideAll();
 					tblMain.HideAll();
 					vbox2.Remove(hbox1);
 					vbox2.Remove(tblMain);
+
 					//if(tblAtributes!=null)
 					//	tblAtributes.Destroy();
-					Table tblAtributes = new Table((uint)ft.Attributes.Count+2,3,false);
+					//Table tblAtributes = new Table((uint)ft.Attributes.Count+2,3,false);
+					tblAtributes.NRows = (uint)ft.Attributes.Count+2;
+					tblAtributes.NColumns =3;
+					tblAtributes.BorderWidth = 10;
 					tblAtributes.WidthRequest = 200;
-					tblAtributes.BorderWidth = 2;
-					vbox2.PackStart(tblAtributes,false,true,2);
+					//tblAtributes.BorderWidth = 2;
+				
+					//vbox3.PackStart(tblAtributes,true,true,2);
 					int i =1;
 				        foreach (FileTemplate.Attribute attr in ft.Attributes) {
 						if(attr.Type=="bool"){

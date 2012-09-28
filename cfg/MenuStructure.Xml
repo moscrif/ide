@@ -19,7 +19,7 @@
 	    <menu name="FileAction" action="FileAction">
 	    	<menu name="addFileSubmenu" action="addFileSubmenu">
 	    	   	<menuitem name="newfile"  action="newfile" />
-	    		<menuitem name="NewProjectWizzard" action="newprojectwizzard" />
+	    		<menuitem name="NewProject" action="newproject" />
 	    		<menuitem name="newworkspace" action="newworkspace"/>
 	    	</menu>
 	    	<menuitem name="Open" action="open" />

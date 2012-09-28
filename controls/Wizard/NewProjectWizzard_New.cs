@@ -399,6 +399,7 @@ namespace Moscrif.IDE.Controls.Wizard
 				btnBack.Sensitive = false;
 				btnNext.Label = "_Next";
 				this.DefaultHeight = 390 ;
+				entrProjectName.Text = entrPage2PrjName.Text;
 			}
 		}
 
@@ -436,7 +437,7 @@ namespace Moscrif.IDE.Controls.Wizard
 					string projectFile = System.IO.Path.Combine(MainClass.Workspace.RootDirectory, projectName + ".msp");
 					string appFile = System.IO.Path.Combine(MainClass.Workspace.RootDirectory, projectName + ".app");
 
-					TreeIter tiPrj =  AddMessage("Create Project ","....",null);
+					TreeIter tiPrj =  AddMessage(MainClass.Languages.Translate("wizzard_create_project"),"....",null);
 					Project prj = null;
 					try{
 						prj = MainClass.Workspace.CreateProject(projectFile, projectName, MainClass.Workspace.RootDirectory, projectDir, appFile,null,null);
@@ -446,7 +447,7 @@ namespace Moscrif.IDE.Controls.Wizard
 					}
 					UpdateMessage(tiPrj,1,"OK");
 					MainClass.MainWindow.AddAndShowProject(prj,true);
-					AddMessage("Finish ","",null);
+					AddMessage(MainClass.Languages.Translate("wizzard_finish"),"",null);
 
 				} else { //Inicialize next page
 					lblCustom.LabelProp = projectTemplate.Custom;
@@ -507,6 +508,7 @@ namespace Moscrif.IDE.Controls.Wizard
 				} 
 			}
 			else if(page == 1){
+				if(!CheckPage1()) return;
 
 				ntbWizzard.Page = 2;
 				buttonCancel.Label="_Close";
@@ -517,6 +519,7 @@ namespace Moscrif.IDE.Controls.Wizard
 				page++;
 				btnNext.Sensitive = false;
 				btnBack.Sensitive = false;
+				projectName = MainClass.Tools.RemoveDiacritics(entrPage2PrjName.Text).Replace(" ","_");
 
 				if(cbTemplate.ActiveText != KEY_CUSTOM){ // Select App
 
@@ -535,7 +538,7 @@ namespace Moscrif.IDE.Controls.Wizard
 					if(File.Exists(appPath)){
 						Project prj =  ImportProject(appPath,projectName,String.Empty,String.Empty);
 						MainClass.MainWindow.AddAndShowProject(prj,true);
-						AddMessage("Finish ","",null);
+						AddMessage(MainClass.Languages.Translate("wizzard_finish"),"",null);
 					}
 				} else { // SELECT Custom
 					if(!CreateWorkspace(out workspaceName,out workspaceRoot,out workspaceOutput,out workspaceFile)){
@@ -579,7 +582,7 @@ namespace Moscrif.IDE.Controls.Wizard
 					if(File.Exists(appPath)){
 						Project prj = ImportProject(appPath,projectName,libs, orientation.Trim());
 						MainClass.MainWindow.AddAndShowProject(prj,true);
-						AddMessage("Finish ","",null);
+						AddMessage(MainClass.Languages.Translate("wizzard_finish"),"",null);
 					}
 				}			
 			}
@@ -630,9 +633,27 @@ namespace Moscrif.IDE.Controls.Wizard
 			return true;
 		}
 
+		private bool CheckPage1(){
+
+			if  (String.IsNullOrEmpty(entrPage2PrjName.Text)){
+				MessageDialogs md =
+					new MessageDialogs(MessageDialogs.DialogButtonType.Ok, MainClass.Languages.Translate("please_set_project_name"),"", Gtk.MessageType.Error);
+				md.ShowDialog();
+				return false;
+			}
+			
+			if(entrPage2PrjName.Text.Contains(" ")){
+				MessageDialogs md =
+					new MessageDialogs(MessageDialogs.DialogButtonType.Ok, MainClass.Languages.Translate("error_whitespace_proj"),"", Gtk.MessageType.Error);
+				md.ShowDialog();
+				return false;
+			}
+			return true;
+		}
+
 		private bool CreateWorkspace(out string  workspaceName,out string workspaceRoot,out string workspaceOutput,out string workspaceFile){
 
-			if(entrProjectName.Text == prjDefaultName)
+			if(entrPage2PrjName.Text == prjDefaultName)
 				MainClass.Settings.ProjectCount = MainClass.Settings.ProjectCount +1;
 
 			if(cbeWorkspace.ActiveText == worksDefaultName)
@@ -650,7 +671,7 @@ namespace Moscrif.IDE.Controls.Wizard
 				workspaceOutput =System.IO.Path.Combine("$(workspace_dir)","output");
 				workspaceFile = System.IO.Path.Combine(workspaceRoot, workspaceName + ".msw");
 
-				TreeIter ti =  AddMessage("Create Workspace ","....",null);
+				TreeIter ti =  AddMessage(MainClass.Languages.Translate("wizzard_create_workspace"),"....",null);
 
 				Workspace.Workspace workspace = null;
 				try{
@@ -688,7 +709,7 @@ namespace Moscrif.IDE.Controls.Wizard
 
 		private Project ImportProject(string appPath, string projectName,string newLibs, string newOrientation)
 		{
-			TreeIter ti =  AddMessage("Create Project ","....",null);
+			//TreeIter ti =  AddMessage("Create Project ","....",null);
 
 			string oldName = System.IO.Path.GetFileNameWithoutExtension(appPath);
 			string oldApp = System.IO.Path.GetFileName(appPath);
@@ -702,11 +723,13 @@ namespace Moscrif.IDE.Controls.Wizard
 			string mspPath =  System.IO.Path.Combine(destinationDir,oldName+".msp");
 			
 			if (!File.Exists(appPath) || !File.Exists(mspPath)){
-				UpdateMessage(ti,1,MainClass.Languages.Translate("invalid_zip"));
+				AddMessage(MainClass.Languages.Translate("wizzard_create_project"),MainClass.Languages.Translate("invalid_zip"),null);
+				//UpdateMessage(ti,1,MainClass.Languages.Translate("invalid_zip"));
 				return null;
 			}
 			if(!System.IO.Directory.Exists(projectDir)){
-				UpdateMessage(ti,1,MainClass.Languages.Translate("invalid_project"));
+				AddMessage(MainClass.Languages.Translate("wizzard_create_project"),MainClass.Languages.Translate("invalid_project"),null);
+				//UpdateMessage(ti,1,MainClass.Languages.Translate("invalid_project"));
 				return null;
 			}
 			
@@ -714,7 +737,9 @@ namespace Moscrif.IDE.Controls.Wizard
 			string newMsp = System.IO.Path.Combine(MainClass.Workspace.RootDirectory,projectName+".msp");
 			
 			if(File.Exists(newApp) || File.Exists(newMsp)){
-				UpdateMessage(ti,1,MainClass.Languages.Translate("project_exist"));
+				AddMessage(MainClass.Languages.Translate("wizzard_create_project"),MainClass.Languages.Translate("project_exist"),null);
+
+				//UpdateMessage(ti,1,MainClass.Languages.Translate("project_exist"));
 				return null;
 			}
 			
@@ -759,6 +784,8 @@ namespace Moscrif.IDE.Controls.Wizard
 				
 				string newPrjDir = System.IO.Path.Combine(MainClass.Workspace.RootDirectory,projectName);			
 
+				TreeIter ti = AddMessage(MainClass.Languages.Translate("wizzard_copying"),"....",null);
+
 				MainClass.Tools.CopyDirectory(projectDir,newPrjDir,true,true);
 				//string[] dirNew = System.IO.Directory.GetDirectories(newPrjDir,"*.*",SearchOption.AllDirectories);
 
@@ -784,6 +811,7 @@ namespace Moscrif.IDE.Controls.Wizard
 						continue;
 					}
 				}
+				UpdateMessage(ti,1,"OK");
 
 				prj = MainClass.Workspace.OpenProject(newMsp,false,true); //Project.OpenProject(newMsp,false,true);
 
@@ -791,10 +819,12 @@ namespace Moscrif.IDE.Controls.Wizard
 				log.LoggWebThread(LoggingInfo.ActionId.IDENewProject,prj.ProjectName);
 			
 			} catch {
-				UpdateMessage(ti,1,MainClass.Languages.Translate("error_creating_project"));
+				AddMessage(MainClass.Languages.Translate("wizzard_create_project"),MainClass.Languages.Translate("error_creating_project"),null);
+				//UpdateMessage(ti,1,MainClass.Languages.Translate("error_creating_project"));
 				return null;
 			}
-			UpdateMessage(ti,1,"OK");
+			AddMessage(MainClass.Languages.Translate("wizzard_create_project"),"OK",null);
+			//UpdateMessage(ti,1,"OK");
 			return prj;
 		}
 

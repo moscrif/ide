@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" includeAllResolution="false" applicationType="application" projectOutput="$(workspace_dir)\output" facebookAppID="" projectArtefact="$application$_$(Platform)_$(Resolution)" appFile=".\$application$.app">
-  <conditionDefines />
-  <fileProperties />    
-  <devices />
-</Project>

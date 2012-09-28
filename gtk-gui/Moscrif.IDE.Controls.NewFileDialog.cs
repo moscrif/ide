@@ -4,6 +4,7 @@ namespace Moscrif.IDE.Controls
 {
 	public partial class NewFileDialog
 	{
+		private global::Gtk.Notebook notebook1;
 		private global::Gtk.VBox vbox2;
 		private global::Gtk.HBox hbox1;
 		private global::Gtk.ScrolledWindow GtkScrolledWindow;
@@ -13,6 +14,9 @@ namespace Moscrif.IDE.Controls
 		private global::Gtk.Entry entrName;
 		private global::Gtk.Label label1;
 		private global::Gtk.Label label2;
+		private global::Gtk.Label label3;
+		private global::Gtk.Table tblAtributes;
+		private global::Gtk.Label label4;
 		private global::Gtk.Button buttonCancel;
 		private global::Gtk.Button btnOk;
 		
@@ -28,10 +32,16 @@ namespace Moscrif.IDE.Controls
 			w1.Name = "dialog1_VBox";
 			w1.BorderWidth = ((uint)(2));
 			// Container child dialog1_VBox.Gtk.Box+BoxChild
+			this.notebook1 = new global::Gtk.Notebook ();
+			this.notebook1.CanFocus = true;
+			this.notebook1.Name = "notebook1";
+			this.notebook1.CurrentPage = 0;
+			this.notebook1.ShowBorder = false;
+			this.notebook1.BorderWidth = ((uint)(10));
+			// Container child notebook1.Gtk.Notebook+NotebookChild
 			this.vbox2 = new global::Gtk.VBox ();
 			this.vbox2.Name = "vbox2";
 			this.vbox2.Spacing = 6;
-			this.vbox2.BorderWidth = ((uint)(10));
 			// Container child vbox2.Gtk.Box+BoxChild
 			this.hbox1 = new global::Gtk.HBox ();
 			this.hbox1.Name = "hbox1";
@@ -104,15 +114,36 @@ namespace Moscrif.IDE.Controls
 			w9.Expand = false;
 			w9.Fill = false;
 			w9.Padding = ((uint)(2));
-			w1.Add (this.vbox2);
-			global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(w1 [this.vbox2]));
-			w10.Position = 0;
+			this.notebook1.Add (this.vbox2);
+			// Notebook tab
+			this.label3 = new global::Gtk.Label ();
+			this.label3.Name = "label3";
+			this.label3.LabelProp = global::Mono.Unix.Catalog.GetString ("page1");
+			this.notebook1.SetTabLabel (this.vbox2, this.label3);
+			this.label3.ShowAll ();
+			// Container child notebook1.Gtk.Notebook+NotebookChild
+			this.tblAtributes = new global::Gtk.Table (((uint)(3)), ((uint)(3)), false);
+			this.tblAtributes.Name = "tblAtributes";
+			this.tblAtributes.RowSpacing = ((uint)(6));
+			this.tblAtributes.ColumnSpacing = ((uint)(6));
+			this.notebook1.Add (this.tblAtributes);
+			global::Gtk.Notebook.NotebookChild w11 = ((global::Gtk.Notebook.NotebookChild)(this.notebook1 [this.tblAtributes]));
+			w11.Position = 1;
+			// Notebook tab
+			this.label4 = new global::Gtk.Label ();
+			this.label4.Name = "label4";
+			this.label4.LabelProp = global::Mono.Unix.Catalog.GetString ("page2");
+			this.notebook1.SetTabLabel (this.tblAtributes, this.label4);
+			this.label4.ShowAll ();
+			w1.Add (this.notebook1);
+			global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(w1 [this.notebook1]));
+			w12.Position = 0;
 			// Internal child Moscrif.IDE.Controls.NewFileDialog.ActionArea
-			global::Gtk.HButtonBox w11 = this.ActionArea;
-			w11.Name = "dialog1_ActionArea";
-			w11.Spacing = 10;
-			w11.BorderWidth = ((uint)(10));
-			w11.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
+			global::Gtk.HButtonBox w13 = this.ActionArea;
+			w13.Name = "dialog1_ActionArea";
+			w13.Spacing = 10;
+			w13.BorderWidth = ((uint)(10));
+			w13.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
 			this.buttonCancel = new global::Gtk.Button ();
 			this.buttonCancel.CanDefault = true;
@@ -122,20 +153,20 @@ namespace Moscrif.IDE.Controls
 			this.buttonCancel.UseUnderline = true;
 			this.buttonCancel.Label = "gtk-cancel";
 			this.AddActionWidget (this.buttonCancel, -6);
-			global::Gtk.ButtonBox.ButtonBoxChild w12 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w11 [this.buttonCancel]));
-			w12.Expand = false;
-			w12.Fill = false;
+			global::Gtk.ButtonBox.ButtonBoxChild w14 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w13 [this.buttonCancel]));
+			w14.Expand = false;
+			w14.Fill = false;
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
 			this.btnOk = new global::Gtk.Button ();
 			this.btnOk.CanFocus = true;
 			this.btnOk.Name = "btnOk";
 			this.btnOk.UseUnderline = true;
 			this.btnOk.Label = global::Mono.Unix.Catalog.GetString ("_Ok");
-			w11.Add (this.btnOk);
-			global::Gtk.ButtonBox.ButtonBoxChild w13 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w11 [this.btnOk]));
-			w13.Position = 1;
-			w13.Expand = false;
-			w13.Fill = false;
+			w13.Add (this.btnOk);
+			global::Gtk.ButtonBox.ButtonBoxChild w15 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w13 [this.btnOk]));
+			w15.Position = 1;
+			w15.Expand = false;
+			w15.Fill = false;
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}

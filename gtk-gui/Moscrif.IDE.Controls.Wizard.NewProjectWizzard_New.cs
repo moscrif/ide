@@ -46,7 +46,6 @@ namespace Moscrif.IDE.Controls.Wizard
 			// Widget Moscrif.IDE.Controls.Wizard.NewProjectWizzard_New
 			this.Name = "Moscrif.IDE.Controls.Wizard.NewProjectWizzard_New";
 			this.WindowPosition = ((global::Gtk.WindowPosition)(4));
-			this.BorderWidth = ((uint)(10));
 			// Internal child Moscrif.IDE.Controls.Wizard.NewProjectWizzard_New.VBox
 			global::Gtk.VBox w1 = this.VBox;
 			w1.Name = "dialog1_VBox";
@@ -55,8 +54,9 @@ namespace Moscrif.IDE.Controls.Wizard
 			this.ntbWizzard = new global::Gtk.Notebook ();
 			this.ntbWizzard.CanFocus = true;
 			this.ntbWizzard.Name = "ntbWizzard";
-			this.ntbWizzard.CurrentPage = 0;
+			this.ntbWizzard.CurrentPage = 1;
 			this.ntbWizzard.ShowBorder = false;
+			this.ntbWizzard.BorderWidth = ((uint)(10));
 			// Container child ntbWizzard.Gtk.Notebook+NotebookChild
 			this.table2 = new global::Gtk.Table (((uint)(4)), ((uint)(1)), false);
 			this.table2.Name = "table2";
@@ -215,7 +215,7 @@ namespace Moscrif.IDE.Controls.Wizard
 			this.entrPage2PrjName = new global::Gtk.Entry ();
 			this.entrPage2PrjName.CanFocus = true;
 			this.entrPage2PrjName.Name = "entrPage2PrjName";
-			this.entrPage2PrjName.IsEditable = false;
+			this.entrPage2PrjName.IsEditable = true;
 			this.entrPage2PrjName.InvisibleChar = '●';
 			this.table4.Add (this.entrPage2PrjName);
 			global::Gtk.Table.TableChild w16 = ((global::Gtk.Table.TableChild)(this.table4 [this.entrPage2PrjName]));
@@ -367,6 +367,7 @@ namespace Moscrif.IDE.Controls.Wizard
 			global::Gtk.HButtonBox w31 = this.ActionArea;
 			w31.Name = "dialog1_ActionArea";
 			w31.Spacing = 10;
+			w31.BorderWidth = ((uint)(10));
 			w31.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
 			this.buttonCancel = new global::Gtk.Button ();
@@ -407,7 +408,7 @@ namespace Moscrif.IDE.Controls.Wizard
 				this.Child.ShowAll ();
 			}
 			this.DefaultWidth = 569;
-			this.DefaultHeight = 379;
+			this.DefaultHeight = 383;
 			this.Show ();
 			this.btnBack.Clicked += new global::System.EventHandler (this.OnBtnBackClicked);
 			this.btnNext.Clicked += new global::System.EventHandler (this.OnButtonOkClicked);

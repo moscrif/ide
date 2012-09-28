@@ -41,7 +41,7 @@ namespace Moscrif.IDE.Components
 			};
 
 			this.PackStart(lblApp,false,false,2);
-			this.PackStart(entr,false,false,2);
+			this.PackEnd(entr,true,true,2);
 		}
 
 
