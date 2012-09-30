@@ -16,7 +16,7 @@ namespace Moscrif.IDE.Components
 			this.attribute = attribute;
 
 
-			Label lblApp = new Label(attribute.Name.Replace("_","__"));
+			Label lblApp = new Label(attribute.Name.Replace("_","__")+": ");
 			lblApp.Xalign = 1;
 			lblApp.Yalign = 0.5F;
 			lblApp.WidthRequest = 100;

@@ -16,13 +16,17 @@ namespace Moscrif.IDE.Controls
 			this.TransientFor = MainClass.MainWindow;
 			this.Build(); 
 			notebook1.ShowTabs = false;
+			btnBack.Sensitive = false;
+			//tvItem1.AppendColumn("", new Gtk.CellRendererPixbuf(), "pixbuf", 0);
+			tvItem1.AppendColumn(MainClass.Languages.Translate("file"), new Gtk.CellRendererText(), "text", 0);
+			tvItem1.AppendColumn(MainClass.Languages.Translate("description"), new Gtk.CellRendererText(), "text", 1);
 
 			//tblMain.Visible = false;
 
 			CellRendererText textRenderer = new CellRendererText();
 			//cbFileTemplates.Changed += new EventHandler(OnComboDeviceChanged);
-			cbFileTemplates.PackStart(textRenderer, true);
-			cbFileTemplates.AddAttribute(textRenderer, "text", 1);
+			//cbFileTemplates.PackStart(textRenderer, true);
+			//cbFileTemplates.AddAttribute(textRenderer, "text", 1);
 
 
 			tvItem.Selection.Changed+= delegate(object sender, EventArgs e) {
@@ -34,7 +38,7 @@ namespace Moscrif.IDE.Controls
 					typeFile = String.Format("*{0}",typeFile);
 					FileInfo[] fis = new DirectoryInfo(MainClass.Paths.FileTemplateDir).GetFiles(typeFile);
 
-					fileListStore.AppendValues(MainClass.Languages.Translate("empty_file"),"",null);
+					fileListStore.AppendValues(MainClass.Languages.Translate("empty_file"),MainClass.Languages.Translate("empty_file"),"",null);
 
 					foreach (FileInfo fi in fis){
 		                		FileTemplate t = new FileTemplate(fi,true);
@@ -43,18 +47,31 @@ namespace Moscrif.IDE.Controls
 						fileListStore.AppendValues(t.Name,t.Description,fi.FullName,t);
 					}
 				}
-				cbFileTemplates.Model = fileListStore;
-				cbFileTemplates.Active = 0;
+				tvItem1.Model = fileListStore;
+				tvItem1.Selection.SelectPath(new TreePath("0"));
+				//cbFileTemplates.Model = fileListStore;
+				//cbFileTemplates.Active = 0;
 			};
 			FillType();
 		}
 
 		private FileTemplate GetSelectedTemplate()
 		{
-			Gtk.TreeIter iter;
+			/*Gtk.TreeIter iter;
 			if (cbFileTemplates.GetActiveIter(out iter)){
 				return  (FileTemplate)cbFileTemplates.Model.GetValue(iter, 3);
-			} else return null;
+			} else return null;*/
+			TreeSelection ts = tvItem1.Selection;
+			
+			TreeIter ti = new TreeIter();
+			if(ts.GetSelected(out ti))
+				return  (FileTemplate)tvItem1.Model.GetValue(ti, 3);
+			else return null;
+			/*TreePath[] tp = ts.GetSelectedRows();
+			if (tp.Length < 1)
+				return null;*/
+			
+			//return  (FileTemplate)tvItem1.Model.GetValue(ti, 3);
 		}
 
 		private string GetSelectedTypFile()
@@ -62,13 +79,9 @@ namespace Moscrif.IDE.Controls
 			TreeSelection ts = tvItem.Selection;
 
 			TreeIter ti = new TreeIter();
-			ts.GetSelected(out ti);
-
-			TreePath[] tp = ts.GetSelectedRows();
-			if (tp.Length < 1)
-				return null;
-
-			return  (string)tvItem.Model.GetValue(ti, 1);
+			if(ts.GetSelected(out ti))							
+				return  (string)tvItem.Model.GetValue(ti, 1);
+			else return null;
 		}
 
 
@@ -87,19 +100,19 @@ namespace Moscrif.IDE.Controls
 
 		private void FillType()
 		{
-			Gtk.ListStore fileListStore = new Gtk.ListStore(typeof(Gdk.Pixbuf), typeof(string), typeof(string));
+			Gtk.ListStore allFileListStore = new Gtk.ListStore(typeof(Gdk.Pixbuf), typeof(string), typeof(string));
 			
 			tvItem.AppendColumn("", new Gtk.CellRendererPixbuf(), "pixbuf", 0);
 			tvItem.AppendColumn(MainClass.Languages.Translate("file"), new Gtk.CellRendererText(), "text", 1);
 			tvItem.AppendColumn(MainClass.Languages.Translate("description"), new Gtk.CellRendererText(), "text", 2);
 			
-			fileListStore.AppendValues(MainClass.Tools.GetIconFromStock("file-text.png", IconSize.LargeToolbar), ".txt", MainClass.Languages.Translate("new_file_text"));
-			TreeIter selectIter = fileListStore.AppendValues(MainClass.Tools.GetIconFromStock("file-ms.png", IconSize.LargeToolbar), ".ms", MainClass.Languages.Translate("new_file_source_code"));
-			fileListStore.AppendValues(MainClass.Tools.GetIconFromStock("file-ms.png", IconSize.LargeToolbar), ".mso", MainClass.Languages.Translate("new_file_json"));
-			fileListStore.AppendValues(MainClass.Tools.GetIconFromStock("file-html.png", IconSize.LargeToolbar), ".xml", MainClass.Languages.Translate("XML file (.xml)"));
-			fileListStore.AppendValues(MainClass.Tools.GetIconFromStock("file-database.png", IconSize.LargeToolbar), ".db", MainClass.Languages.Translate("new_file_sqlite"));
+			allFileListStore.AppendValues(MainClass.Tools.GetIconFromStock("file-text.png", IconSize.LargeToolbar), ".txt", MainClass.Languages.Translate("new_file_text"));
+			TreeIter selectIter = allFileListStore.AppendValues(MainClass.Tools.GetIconFromStock("file-ms.png", IconSize.LargeToolbar), ".ms", MainClass.Languages.Translate("new_file_source_code"));
+			allFileListStore.AppendValues(MainClass.Tools.GetIconFromStock("file-ms.png", IconSize.LargeToolbar), ".mso", MainClass.Languages.Translate("new_file_json"));
+			allFileListStore.AppendValues(MainClass.Tools.GetIconFromStock("file-html.png", IconSize.LargeToolbar), ".xml", MainClass.Languages.Translate("XML file (.xml)"));
+			allFileListStore.AppendValues(MainClass.Tools.GetIconFromStock("file-database.png", IconSize.LargeToolbar), ".db", MainClass.Languages.Translate("new_file_sqlite"));
 
-			tvItem.Model = fileListStore;
+			tvItem.Model = allFileListStore;
 			tvItem.Selection.SelectIter(selectIter);
 			entrName.GrabFocus();
 		}
@@ -148,10 +161,21 @@ namespace Moscrif.IDE.Controls
 			}
 		}
 
-		int pageCount = 1;
+		protected void OnBrnBackClicked (object sender, EventArgs e)
+		{
+			if(notebook1.Page > 0){
+				notebook1.Page = notebook1.Page-1;
+			}  
+			if(notebook1.Page == 0) {
+				btnBack.Sensitive = false;
+			}	
+		}
+
+		//int pageCount = 1;
 		protected virtual void OnButtonOkClicked(object sender, System.EventArgs e)
 		{
-			if(pageCount == 1){
+			if(notebook1.Page == 0){
+				btnBack.Sensitive = true;
 
 				TreeSelection ts = tvItem.Selection;
 				TreeIter ti = new TreeIter();
@@ -166,50 +190,61 @@ namespace Moscrif.IDE.Controls
 	
 				fileExtension = tvItem.Model.GetValue(ti, 1).ToString();
 	
+				notebook1.Page = 1;
+				//pageCount =2; 
+				entrName2.Text = entrName.Text;				
+				//}
+			}
+			else if(notebook1.Page == 1){
 				FileTemplate  ft = GetSelectedTemplate();
-				if (ft  == null){
+
+				lblPrjName.LabelProp = FileName;
+				Pango.FontDescription customFont = lblPrjName.Style.FontDescription.Copy();//  Pango.FontDescription.FromString(MainClass.Settings.ConsoleTaskFont);
+				customFont.Size = 24;
+				customFont.Weight = Pango.Weight.Bold;
+				lblPrjName.ModifyFont(customFont);
+
+
+				if(ft == null){
 					content = "";
 					this.Respond(ResponseType.Ok);
-				} else {
-					//hbox1.Destroy();
-					//tblMain.Destroy();
-					notebook1.Page = 1;
-					fileTemplate = ft;
-					hbox1.HideAll();
-					tblMain.HideAll();
-					vbox2.Remove(hbox1);
-					vbox2.Remove(tblMain);
-
-					//if(tblAtributes!=null)
-					//	tblAtributes.Destroy();
-					//Table tblAtributes = new Table((uint)ft.Attributes.Count+2,3,false);
-					tblAtributes.NRows = (uint)ft.Attributes.Count+2;
-					tblAtributes.NColumns =3;
-					tblAtributes.BorderWidth = 10;
-					tblAtributes.WidthRequest = 200;
-					//tblAtributes.BorderWidth = 2;
-				
-					//vbox3.PackStart(tblAtributes,true,true,2);
-					int i =1;
-				        foreach (FileTemplate.Attribute attr in ft.Attributes) {
-						if(attr.Type=="bool"){
-							bool defValue = false;
-							if(attr.Value!= null){
-								Boolean.TryParse(attr.Value.ToString(), out defValue);
-							}
-							GenerateCheckBox(ref tblAtributes,attr,i);
-						} else {
-							GenerateEntry(ref tblAtributes,attr,i);
-						}
-						i++;
-				        };
-					tblAtributes.ShowAll();
-					this.ShowAll();
-					pageCount = 2;
+					return;
 				}
-			} else if(pageCount == 2){
-				content = FileTemplateUtilities.Apply(fileTemplate.Content, fileTemplate.GetAttributesAsDictionary());
-				//Console.WriteLine(content);
+
+				tblAtributes.NRows = (uint)ft.Attributes.Count+3;
+				tblAtributes.NColumns =3;
+				tblAtributes.BorderWidth = 10;
+				tblAtributes.WidthRequest = 200;
+				//tblAtributes.BorderWidth = 2;
+				
+				//vbox3.PackStart(tblAtributes,true,true,2);
+				int i =3;
+				foreach (FileTemplate.Attribute attr in ft.Attributes) {
+					if(attr.Type=="bool"){
+						bool defValue = false;
+						if(attr.Value!= null){
+							Boolean.TryParse(attr.Value.ToString(), out defValue);
+						}
+						GenerateCheckBox(ref tblAtributes,attr,i);
+					} else {
+						GenerateEntry(ref tblAtributes,attr,i);
+					}
+					i++;
+				};
+				tblAtributes.ShowAll();
+				this.ShowAll();
+				notebook1.Page = 2;
+				//pageCount =3;
+			}
+			else if(notebook1.Page == 2){
+
+				FileTemplate  ft = GetSelectedTemplate();
+				fileTemplate = ft;
+				if (ft  == null){
+					content = "";
+				} else {
+					content = FileTemplateUtilities.Apply(fileTemplate.Content, fileTemplate.GetAttributesAsDictionary());
+				}
 				this.Respond(ResponseType.Ok);
 			}
 
@@ -221,9 +256,7 @@ namespace Moscrif.IDE.Controls
 				OnButtonOkClicked(null,null);
 		}
 
-		
 
-		
 	}
 }
 

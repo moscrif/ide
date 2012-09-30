@@ -283,7 +283,7 @@ namespace Moscrif.IDE.Task
 
 					pw.Exited += delegate(object sender, EventArgs e) {
 						//Console.WriteLine("pw.Exited");
-						ParseOutput("Exit Compilation",pw.StartInfo.WorkingDirectory);
+						ParseOutput(MainClass.Languages.Translate("exit_compiling"),pw.StartInfo.WorkingDirectory);
 					};
 
 				}
@@ -309,13 +309,13 @@ namespace Moscrif.IDE.Task
 
 
 			//#################### regenerate app file, backup, hash
-			parentTask = new TaskMessage("OK","Compiling",null);
+			parentTask = new TaskMessage("OK",MainClass.Languages.Translate("compiling"),null);
 			output.Add(parentTask);
 
 			List<string> filesList = new List<string>();
 			GetAllFiles(ref filesList,project.AbsolutProjectDir );
 
-			progressDialog.Reset(filesList.Count,"Generate App");
+			progressDialog.Reset(filesList.Count,MainClass.Languages.Translate("generate_app"));
 
 			string bakAppPath =project.AbsolutAppFilePath+".bak";
 			string hashAppPath =project.AbsolutAppFilePath+".hash";
@@ -366,7 +366,7 @@ namespace Moscrif.IDE.Task
 					string fileNameHash = Cryptographer.SHA1HashBase64(fileUpdate);
 					stream.WriteLine("hash : {0}",fileNameHash);
 					*/
-					progressDialog.Update("Create app file.");
+					progressDialog.Update(MainClass.Languages.Translate("create_app"));
 					using (FileStream fs = new FileStream(file, FileMode.Open, FileAccess.Read)) {
 						int size = (int)fs.Length;
 						byte[] data = new byte[size];
@@ -384,14 +384,9 @@ namespace Moscrif.IDE.Task
 
 			//#################### podpisovanie
 
-			progressDialog.Reset(0,"Sign app");
+			progressDialog.Reset(0,MainClass.Languages.Translate("sign_app"));
+			progressDialog.SetLabel (MainClass.Languages.Translate("sign_app") );
 
-			 progressDialog.SetLabel ("Sign app" );
-			//Timer timer = new Timer();
-			//timer.Interval = 250;
-			//timer.Elapsed += new ElapsedEventWrite(OnTimeElapsed);
-
-			//timer.Start();
 			SignApp sa = new SignApp();
 			string newAppdata = "";
 
@@ -436,7 +431,7 @@ namespace Moscrif.IDE.Task
 			}
 
 			//timer.Stop();
-			parentTask = new TaskMessage("OK","Sign",null);
+			parentTask = new TaskMessage("OK",MainClass.Languages.Translate("sign"),null);
 			output.Add(parentTask);
 
 			//#################### publish
@@ -477,7 +472,7 @@ namespace Moscrif.IDE.Task
 					fileName = fileName.Replace(String.Format("$({0})",cr.ConditionName),cr.RuleName);
 				}
 
-				parentTask = new TaskMessage("Publishing",fileName,null);
+				parentTask = new TaskMessage(MainClass.Languages.Translate("publishing"),fileName,null);
 				devicePublishError = false;
 
 				if (progressDialog != null)
@@ -989,7 +984,7 @@ namespace Moscrif.IDE.Task
 		}
 
 		void ExitPublish(object sender, EventArgs e){
-			if(lastMessage.Contains("Publishing succesful")){
+			if(lastMessage.Contains(MainClass.Languages.Translate("publishing_succesful"))){
 				devicePublishError = false;
 				return;
 			} else{
@@ -1019,7 +1014,7 @@ namespace Moscrif.IDE.Task
 			if (String.IsNullOrEmpty(msg))
 				return;
 
-			if(message.Contains("Publishing succesful")){
+			if(message.Contains(MainClass.Languages.Translate("publishing_succesful"))){
 				devicePublishError = false;
 				//this.stateTask = StateEnum.OK;
 				return;

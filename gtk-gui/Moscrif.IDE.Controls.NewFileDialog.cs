@@ -10,14 +10,21 @@ namespace Moscrif.IDE.Controls
 		private global::Gtk.ScrolledWindow GtkScrolledWindow;
 		private global::Gtk.TreeView tvItem;
 		private global::Gtk.Table tblMain;
-		private global::Gtk.ComboBox cbFileTemplates;
 		private global::Gtk.Entry entrName;
 		private global::Gtk.Label label1;
-		private global::Gtk.Label label2;
 		private global::Gtk.Label label3;
-		private global::Gtk.Table tblAtributes;
+		private global::Gtk.Table tblMain1;
+		private global::Gtk.Entry entrName2;
+		private global::Gtk.ScrolledWindow GtkScrolledWindow1;
+		private global::Gtk.TreeView tvItem1;
+		private global::Gtk.Label label7;
 		private global::Gtk.Label label4;
+		private global::Gtk.Table tblAtributes;
+		private global::Gtk.Label label6;
+		private global::Gtk.Label lblPrjName;
+		private global::Gtk.Label label5;
 		private global::Gtk.Button buttonCancel;
+		private global::Gtk.Button btnBack;
 		private global::Gtk.Button btnOk;
 		
 		protected virtual void Build ()
@@ -62,21 +69,10 @@ namespace Moscrif.IDE.Controls
 			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.hbox1]));
 			w4.Position = 0;
 			// Container child vbox2.Gtk.Box+BoxChild
-			this.tblMain = new global::Gtk.Table (((uint)(2)), ((uint)(3)), false);
+			this.tblMain = new global::Gtk.Table (((uint)(1)), ((uint)(3)), false);
 			this.tblMain.Name = "tblMain";
 			this.tblMain.RowSpacing = ((uint)(6));
 			this.tblMain.ColumnSpacing = ((uint)(6));
-			// Container child tblMain.Gtk.Table+TableChild
-			this.cbFileTemplates = global::Gtk.ComboBox.NewText ();
-			this.cbFileTemplates.Name = "cbFileTemplates";
-			this.tblMain.Add (this.cbFileTemplates);
-			global::Gtk.Table.TableChild w5 = ((global::Gtk.Table.TableChild)(this.tblMain [this.cbFileTemplates]));
-			w5.TopAttach = ((uint)(1));
-			w5.BottomAttach = ((uint)(2));
-			w5.LeftAttach = ((uint)(1));
-			w5.RightAttach = ((uint)(2));
-			w5.XOptions = ((global::Gtk.AttachOptions)(4));
-			w5.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child tblMain.Gtk.Table+TableChild
 			this.entrName = new global::Gtk.Entry ();
 			this.entrName.CanFocus = true;
@@ -84,36 +80,25 @@ namespace Moscrif.IDE.Controls
 			this.entrName.IsEditable = true;
 			this.entrName.InvisibleChar = '●';
 			this.tblMain.Add (this.entrName);
-			global::Gtk.Table.TableChild w6 = ((global::Gtk.Table.TableChild)(this.tblMain [this.entrName]));
-			w6.LeftAttach = ((uint)(1));
-			w6.RightAttach = ((uint)(2));
-			w6.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w5 = ((global::Gtk.Table.TableChild)(this.tblMain [this.entrName]));
+			w5.LeftAttach = ((uint)(1));
+			w5.RightAttach = ((uint)(2));
+			w5.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child tblMain.Gtk.Table+TableChild
 			this.label1 = new global::Gtk.Label ();
 			this.label1.Name = "label1";
 			this.label1.Xalign = 1F;
 			this.label1.LabelProp = global::Mono.Unix.Catalog.GetString ("Name :");
 			this.tblMain.Add (this.label1);
-			global::Gtk.Table.TableChild w7 = ((global::Gtk.Table.TableChild)(this.tblMain [this.label1]));
-			w7.XOptions = ((global::Gtk.AttachOptions)(4));
-			w7.YOptions = ((global::Gtk.AttachOptions)(4));
-			// Container child tblMain.Gtk.Table+TableChild
-			this.label2 = new global::Gtk.Label ();
-			this.label2.Name = "label2";
-			this.label2.Xalign = 1F;
-			this.label2.LabelProp = global::Mono.Unix.Catalog.GetString ("Template :");
-			this.tblMain.Add (this.label2);
-			global::Gtk.Table.TableChild w8 = ((global::Gtk.Table.TableChild)(this.tblMain [this.label2]));
-			w8.TopAttach = ((uint)(1));
-			w8.BottomAttach = ((uint)(2));
-			w8.XOptions = ((global::Gtk.AttachOptions)(4));
-			w8.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w6 = ((global::Gtk.Table.TableChild)(this.tblMain [this.label1]));
+			w6.XOptions = ((global::Gtk.AttachOptions)(4));
+			w6.YOptions = ((global::Gtk.AttachOptions)(4));
 			this.vbox2.Add (this.tblMain);
-			global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.tblMain]));
-			w9.Position = 1;
-			w9.Expand = false;
-			w9.Fill = false;
-			w9.Padding = ((uint)(2));
+			global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.tblMain]));
+			w7.Position = 1;
+			w7.Expand = false;
+			w7.Fill = false;
+			w7.Padding = ((uint)(2));
 			this.notebook1.Add (this.vbox2);
 			// Notebook tab
 			this.label3 = new global::Gtk.Label ();
@@ -122,28 +107,100 @@ namespace Moscrif.IDE.Controls
 			this.notebook1.SetTabLabel (this.vbox2, this.label3);
 			this.label3.ShowAll ();
 			// Container child notebook1.Gtk.Notebook+NotebookChild
+			this.tblMain1 = new global::Gtk.Table (((uint)(2)), ((uint)(3)), false);
+			this.tblMain1.Name = "tblMain1";
+			this.tblMain1.RowSpacing = ((uint)(6));
+			this.tblMain1.ColumnSpacing = ((uint)(6));
+			// Container child tblMain1.Gtk.Table+TableChild
+			this.entrName2 = new global::Gtk.Entry ();
+			this.entrName2.CanFocus = true;
+			this.entrName2.Name = "entrName2";
+			this.entrName2.IsEditable = true;
+			this.entrName2.InvisibleChar = '●';
+			this.tblMain1.Add (this.entrName2);
+			global::Gtk.Table.TableChild w9 = ((global::Gtk.Table.TableChild)(this.tblMain1 [this.entrName2]));
+			w9.LeftAttach = ((uint)(1));
+			w9.RightAttach = ((uint)(2));
+			w9.YOptions = ((global::Gtk.AttachOptions)(4));
+			// Container child tblMain1.Gtk.Table+TableChild
+			this.GtkScrolledWindow1 = new global::Gtk.ScrolledWindow ();
+			this.GtkScrolledWindow1.Name = "GtkScrolledWindow1";
+			this.GtkScrolledWindow1.ShadowType = ((global::Gtk.ShadowType)(1));
+			// Container child GtkScrolledWindow1.Gtk.Container+ContainerChild
+			this.tvItem1 = new global::Gtk.TreeView ();
+			this.tvItem1.CanFocus = true;
+			this.tvItem1.Name = "tvItem1";
+			this.GtkScrolledWindow1.Add (this.tvItem1);
+			this.tblMain1.Add (this.GtkScrolledWindow1);
+			global::Gtk.Table.TableChild w11 = ((global::Gtk.Table.TableChild)(this.tblMain1 [this.GtkScrolledWindow1]));
+			w11.TopAttach = ((uint)(1));
+			w11.BottomAttach = ((uint)(2));
+			w11.RightAttach = ((uint)(2));
+			w11.XPadding = ((uint)(3));
+			// Container child tblMain1.Gtk.Table+TableChild
+			this.label7 = new global::Gtk.Label ();
+			this.label7.Name = "label7";
+			this.label7.Xalign = 1F;
+			this.label7.LabelProp = global::Mono.Unix.Catalog.GetString ("Name :");
+			this.tblMain1.Add (this.label7);
+			global::Gtk.Table.TableChild w12 = ((global::Gtk.Table.TableChild)(this.tblMain1 [this.label7]));
+			w12.XPadding = ((uint)(3));
+			w12.XOptions = ((global::Gtk.AttachOptions)(4));
+			w12.YOptions = ((global::Gtk.AttachOptions)(4));
+			this.notebook1.Add (this.tblMain1);
+			global::Gtk.Notebook.NotebookChild w13 = ((global::Gtk.Notebook.NotebookChild)(this.notebook1 [this.tblMain1]));
+			w13.Position = 1;
+			// Notebook tab
+			this.label4 = new global::Gtk.Label ();
+			this.label4.Name = "label4";
+			this.label4.LabelProp = global::Mono.Unix.Catalog.GetString ("page3");
+			this.notebook1.SetTabLabel (this.tblMain1, this.label4);
+			this.label4.ShowAll ();
+			// Container child notebook1.Gtk.Notebook+NotebookChild
 			this.tblAtributes = new global::Gtk.Table (((uint)(3)), ((uint)(3)), false);
 			this.tblAtributes.Name = "tblAtributes";
 			this.tblAtributes.RowSpacing = ((uint)(6));
 			this.tblAtributes.ColumnSpacing = ((uint)(6));
+			// Container child tblAtributes.Gtk.Table+TableChild
+			this.label6 = new global::Gtk.Label ();
+			this.label6.Name = "label6";
+			this.label6.Xalign = 0F;
+			this.label6.LabelProp = global::Mono.Unix.Catalog.GetString ("Use Following Parameters to Create Content of Your File...");
+			this.tblAtributes.Add (this.label6);
+			global::Gtk.Table.TableChild w14 = ((global::Gtk.Table.TableChild)(this.tblAtributes [this.label6]));
+			w14.TopAttach = ((uint)(1));
+			w14.BottomAttach = ((uint)(2));
+			w14.RightAttach = ((uint)(3));
+			w14.XOptions = ((global::Gtk.AttachOptions)(4));
+			w14.YOptions = ((global::Gtk.AttachOptions)(4));
+			// Container child tblAtributes.Gtk.Table+TableChild
+			this.lblPrjName = new global::Gtk.Label ();
+			this.lblPrjName.Name = "lblPrjName";
+			this.lblPrjName.Xalign = 0F;
+			this.lblPrjName.LabelProp = global::Mono.Unix.Catalog.GetString ("label1");
+			this.tblAtributes.Add (this.lblPrjName);
+			global::Gtk.Table.TableChild w15 = ((global::Gtk.Table.TableChild)(this.tblAtributes [this.lblPrjName]));
+			w15.RightAttach = ((uint)(3));
+			w15.XOptions = ((global::Gtk.AttachOptions)(4));
+			w15.YOptions = ((global::Gtk.AttachOptions)(4));
 			this.notebook1.Add (this.tblAtributes);
-			global::Gtk.Notebook.NotebookChild w11 = ((global::Gtk.Notebook.NotebookChild)(this.notebook1 [this.tblAtributes]));
-			w11.Position = 1;
+			global::Gtk.Notebook.NotebookChild w16 = ((global::Gtk.Notebook.NotebookChild)(this.notebook1 [this.tblAtributes]));
+			w16.Position = 2;
 			// Notebook tab
-			this.label4 = new global::Gtk.Label ();
-			this.label4.Name = "label4";
-			this.label4.LabelProp = global::Mono.Unix.Catalog.GetString ("page2");
-			this.notebook1.SetTabLabel (this.tblAtributes, this.label4);
-			this.label4.ShowAll ();
+			this.label5 = new global::Gtk.Label ();
+			this.label5.Name = "label5";
+			this.label5.LabelProp = global::Mono.Unix.Catalog.GetString ("page2");
+			this.notebook1.SetTabLabel (this.tblAtributes, this.label5);
+			this.label5.ShowAll ();
 			w1.Add (this.notebook1);
-			global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(w1 [this.notebook1]));
-			w12.Position = 0;
+			global::Gtk.Box.BoxChild w17 = ((global::Gtk.Box.BoxChild)(w1 [this.notebook1]));
+			w17.Position = 0;
 			// Internal child Moscrif.IDE.Controls.NewFileDialog.ActionArea
-			global::Gtk.HButtonBox w13 = this.ActionArea;
-			w13.Name = "dialog1_ActionArea";
-			w13.Spacing = 10;
-			w13.BorderWidth = ((uint)(10));
-			w13.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
+			global::Gtk.HButtonBox w18 = this.ActionArea;
+			w18.Name = "dialog1_ActionArea";
+			w18.Spacing = 10;
+			w18.BorderWidth = ((uint)(10));
+			w18.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
 			this.buttonCancel = new global::Gtk.Button ();
 			this.buttonCancel.CanDefault = true;
@@ -153,27 +210,38 @@ namespace Moscrif.IDE.Controls
 			this.buttonCancel.UseUnderline = true;
 			this.buttonCancel.Label = "gtk-cancel";
 			this.AddActionWidget (this.buttonCancel, -6);
-			global::Gtk.ButtonBox.ButtonBoxChild w14 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w13 [this.buttonCancel]));
-			w14.Expand = false;
-			w14.Fill = false;
+			global::Gtk.ButtonBox.ButtonBoxChild w19 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w18 [this.buttonCancel]));
+			w19.Expand = false;
+			w19.Fill = false;
+			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
+			this.btnBack = new global::Gtk.Button ();
+			this.btnBack.CanFocus = true;
+			this.btnBack.Name = "btnBack";
+			this.btnBack.UseUnderline = true;
+			this.btnBack.Label = global::Mono.Unix.Catalog.GetString ("_Back");
+			w18.Add (this.btnBack);
+			global::Gtk.ButtonBox.ButtonBoxChild w20 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w18 [this.btnBack]));
+			w20.Position = 1;
+			w20.Expand = false;
+			w20.Fill = false;
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
 			this.btnOk = new global::Gtk.Button ();
 			this.btnOk.CanFocus = true;
 			this.btnOk.Name = "btnOk";
 			this.btnOk.UseUnderline = true;
-			this.btnOk.Label = global::Mono.Unix.Catalog.GetString ("_Ok");
-			w13.Add (this.btnOk);
-			global::Gtk.ButtonBox.ButtonBoxChild w15 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w13 [this.btnOk]));
-			w15.Position = 1;
-			w15.Expand = false;
-			w15.Fill = false;
+			this.btnOk.Label = global::Mono.Unix.Catalog.GetString ("_Next");
+			w18.Add (this.btnOk);
+			global::Gtk.ButtonBox.ButtonBoxChild w21 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w18 [this.btnOk]));
+			w21.Position = 2;
+			w21.Expand = false;
+			w21.Fill = false;
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
 			this.DefaultWidth = 538;
 			this.DefaultHeight = 372;
 			this.Show ();
-			this.entrName.KeyReleaseEvent += new global::Gtk.KeyReleaseEventHandler (this.OnEntrNameKeyReleaseEvent);
+			this.btnBack.Clicked += new global::System.EventHandler (this.OnBrnBackClicked);
 			this.btnOk.Clicked += new global::System.EventHandler (this.OnButtonOkClicked);
 		}
 	}

@@ -195,11 +195,13 @@
 		<menuitem name="exportZipProject"  action="exportZipProject" />
 		<menuitem name="archiveProject"  action="archiveProject" />		
 		<!--<menu name="addFileSubmenu" action="addFileSubmenu">-->
+		<separator name="sep261" />
 			<menuitem name="newfile"  action="newfile" />
 			<menuitem name="newdirectory"  action="newdirectory" />
 			<separator name="sep11" />
 			<menuitem name="addfile"  action="addfile" />
 			<menuitem name="adddirectory"  action="adddirectory" />	   		
+		<separator name="sep262" />
    		<!--</menu>		 -->
 		<menuitem name="deleteproject"  action="deleteproject" />      		
 		<menuitem name="renameproject"  action="renameproject" />   			
