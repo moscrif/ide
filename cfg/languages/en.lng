@@ -5,10 +5,10 @@ end_app = END Application
 file = File
 
 
-wizzard_create_project = Create Project 
-wizzard_create_workspace = Create Workspace  
-wizzard_finish = Finish 
-wizzard_copying = Copying project files
+wizzard_create_project = Creating the project...
+wizzard_create_workspace = Creating the workspace...  
+wizzard_finish = Finished
+wizzard_copying = Copying project files...
 
 setting_file_corrupted = Settings file is corrupted!
 cannot_create_temp = Can't create temporary directory!
