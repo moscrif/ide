@@ -171,9 +171,11 @@ devices = Devices
 new_device_name = New Device Name:
 compilation = Compilation
 generate_app = Generate App
+
 create_app = Creating application file...
 sign_app = Compile & Sign Application (valid license is required)
 sign_app_f1 = Signing application...
+
 sign = Sign
 publishing_succesful = Publishing succesful
 

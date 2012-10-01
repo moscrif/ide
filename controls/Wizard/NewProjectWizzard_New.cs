@@ -556,15 +556,15 @@ namespace Moscrif.IDE.Controls.Wizard
 					path = System.IO.Path.GetDirectoryName(appPath);
 
 					widgets = tblLibraries.Children;
-					string libs = "core";
+					string libs = "core ui";
 					string orientation = "";
 
 					foreach (Widget w in widgets ){	
 						if((w as CheckButton).Active){
 							libs = libs +" "+(w as CheckButton).Name;
-							if((w as CheckButton).Name.ToLower() == "uix"){
+							/*if((w as CheckButton).Name.ToLower() == "uix"){
 								libs = libs +" ui";
-							}
+							}*/
 						}
 					}
 

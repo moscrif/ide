@@ -96,10 +96,10 @@ namespace  Moscrif.IDE.Task
 			//MessageDialogs md =  new MessageDialogs(MessageDialogs.DialogButtonType.Cancel, "Cancel Publish.", filename, Gtk.MessageType.Question);
 			Tool.Logger.LogDebugInfo("Publish no sign",null);
 
-			if (MainClass.Settings.ClearConsoleBeforRuning){
+			/*if (MainClass.Settings.ClearConsoleBeforRuning){
 				Tool.Logger.LogDebugInfo("CLEAR CONSOLE");
 				MainClass.MainWindow.OutputConsole.Clear();
-			}
+			}*/
 
 			if (MainClass.Workspace.ActualProject == null) {
 				SetError(MainClass.Languages.Translate("no_project_selected"));
@@ -600,8 +600,8 @@ namespace  Moscrif.IDE.Task
 		public bool RunPublishTool (string appFile,TaskMessage parentTask)
 		{
 
-			if (MainClass.Settings.ClearConsoleBeforRuning)
-				MainClass.MainWindow.OutputConsole.Clear();
+			/*if (MainClass.Settings.ClearConsoleBeforRuning)
+				MainClass.MainWindow.OutputConsole.Clear();*/
 
 			if(MainClass.MainWindow.RunningEmulator){
 
@@ -632,27 +632,25 @@ namespace  Moscrif.IDE.Task
 			}
 
 			string args = String.Format("/o console /w nowindow /t nowarn /d {0} /f {1}",MainClass.Settings.PublishDirectory+System.IO.Path.DirectorySeparatorChar, appFile);
-
 			if(MainClass.Platform.IsMac){
 				args = String.Format("-o console -w nowindow -t nowarn -d {0} -f {1} ", MainClass.Settings.PublishDirectory+System.IO.Path.DirectorySeparatorChar, appFile);
-
-							/*Process []pArry = Process.GetProcesses();
-							foreach(Process p in pArry)
-							{
-								if(p != null){
-									try {
-										if(p.ProcessName == "Moscrif"){
-											p.Kill();
-											MainClass.MainWindow.RunningEmulator= false;
-										}
-										//string s = p.ProcessName;
-										//s = s.ToLower();
-										//Console.WriteLine("\t"+s);
-									} catch (Exception ex){
-										Console.WriteLine(ex.Message);
-									}
-								}
-							}*/
+				/*Process []pArry = Process.GetProcesses();
+				foreach(Process p in pArry)
+				{
+					if(p != null){
+						try {
+							if(p.ProcessName == "Moscrif"){
+								p.Kill();
+								MainClass.MainWindow.RunningEmulator= false;
+							}
+							//string s = p.ProcessName;
+							//s = s.ToLower();
+							//Console.WriteLine("\t"+s);
+						} catch (Exception ex){
+							Console.WriteLine(ex.Message);
+						}
+					}
+				}*/
 				}
 
 
@@ -819,7 +817,7 @@ namespace  Moscrif.IDE.Task
 				message =message.Replace("\n","");
 				message =message.Replace("\r","");
 
-				Console.WriteLine("messageError -> "+ message);
+				//Console.WriteLine("messageError -> "+ message);
 
 				string[] msg = message.Split('»');
 

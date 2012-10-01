@@ -18,7 +18,7 @@ namespace Moscrif.IDE.Controls
 			notebook1.ShowTabs = false;
 			btnBack.Sensitive = false;
 			//tvItem1.AppendColumn("", new Gtk.CellRendererPixbuf(), "pixbuf", 0);
-			tvItem1.AppendColumn(MainClass.Languages.Translate("file"), new Gtk.CellRendererText(), "text", 0);
+			tvItem1.AppendColumn(MainClass.Languages.Translate("template"), new Gtk.CellRendererText(), "text", 0);
 			tvItem1.AppendColumn(MainClass.Languages.Translate("description"), new Gtk.CellRendererText(), "text", 1);
 
 			//tblMain.Visible = false;

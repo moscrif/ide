@@ -103,7 +103,7 @@ namespace Moscrif.IDE.Iface
 			
 		public void CheckLogin(string name, string password,LoginYesTaskHandler loggYesTask,LoginNoTaskHandler loggNoTask){
       			string URL = loginUrl;
-			Console.WriteLine(URL);
+			//Console.WriteLine(URL);
 			WebClient client = new WebClient();
 
 			string data = String.Format("{0}\n{1}",name,GetMd5Sum(password+SALT)); //\n{2}\n{3}",name,GetMd5Sum(password+SALT),Environment.MachineName,Environment.UserName);

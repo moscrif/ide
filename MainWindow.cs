@@ -1138,7 +1138,6 @@ public partial class MainWindow : Gtk.Window
 	public void ErrorTaskWritte(object sender, string name, string status, TaskMessage error)
 	{
 		Gtk.Application.Invoke(delegate{
-
 			this.ErrorOutput.WriteTask_II(sender, name, status, error);
 			if (MainClass.Settings.ShowErrorPane)
 				TaskNotebook.CurrentPage = 1;

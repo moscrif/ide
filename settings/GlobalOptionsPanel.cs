@@ -63,6 +63,8 @@ namespace Moscrif.IDE.Settings
 			parentWindow = parent;
 
 			this.Build();
+			this.chbShowUnsupportDevic.Sensitive = false;
+
 			feLib = new FavoriteEntry(NavigationBar.NavigationType.libs);
 			feLib.IsFolder = true;
 			fePublishTool = new FavoriteEntry(NavigationBar.NavigationType.publish);
@@ -90,7 +92,7 @@ namespace Moscrif.IDE.Settings
 
 			chbAutoselectProject.Active = MainClass.Settings.AutoSelectProject;
 			chbOpenLastOpenedW.Active= MainClass.Settings.OpenLastOpenedWorkspace;
-			chbShowUnsupportDevic.Active =MainClass.Settings.ShowUnsupportedDevices;
+			chbShowUnsupportDevic.Active = MainClass.Settings.ShowUnsupportedDevices;
 			chbShowDebugDevic.Active =MainClass.Settings.ShowDebugDevices;
 
 			

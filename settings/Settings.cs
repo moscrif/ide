@@ -233,8 +233,8 @@ namespace  Moscrif.IDE.Settings
 		[XmlAttribute("javaCommand")]
 		public string JavaCommand = "java";
 
-		[XmlAttribute("signAllow")]
-		public bool SignAllow = false;
+		/*[XmlAttribute("signAllow")]
+		public bool SignAllow = false;*/
 
 		[XmlAttribute("javaArgument")]
 		public string JavaArgument = "-version";
@@ -501,33 +501,12 @@ namespace  Moscrif.IDE.Settings
 							s.GenerateIgnoreFolder();
 							s.VersionSetting = 111202;
 						}
-						if (s.VersionSetting < 120104){ //year, month, day
-							s.GeneratePlatformResolutions();
-							s.VersionSetting = 120104;
-
-						}
-						if (s.VersionSetting < 120123){ //year, month, day
-							s.GenerateResolution();
-							s.VersionSetting = 120123;
-
-						}
-						if (s.VersionSetting < 120228){ //year, month, day
-							s.GenerateResolution();
-							s.VersionSetting = 120228;
-
-						}
 						if (s.VersionSetting < 120314){ //year, month, day
 							s.GenerateResolution();
 							s.GeneratePlatformResolutions();
 							s.VersionSetting = 120314;
 
 						}
-						if (s.VersionSetting < 120531){ //year, month, day
-							s.GeneratePlatformResolutions();
-							s.VersionSetting = 120531;
-
-						}
-
 						if (s.VersionSetting < 120828){ //year, month, day
 							s.TweetUrl = "http://api.twitter.com/1/statuses/user_timeline.xml?screen_name=moscrif";
 							s.TweetBaseUrl = "http://twitter.com/moscrif/statuses/" ;
@@ -537,6 +516,12 @@ namespace  Moscrif.IDE.Settings
 							s.GeneratePlatformResolutions();
 							s.VersionSetting = 120903;
 						}
+						if (s.VersionSetting < 121001){ //year, month, day
+							s.ShowUnsupportedDevices = false;
+							s.VersionSetting = 121001;
+						}
+
+
 
 						return s;
 					}

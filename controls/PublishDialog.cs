@@ -161,7 +161,7 @@ namespace Moscrif.IDE.Controls
 
 			chbSignApp= new CheckButton( MainClass.Languages.Translate("sign_app"));
 			chbSignApp.Toggled += new EventHandler(OnChbSignAppToggled);
-			chbSignApp.Sensitive = MainClass.Settings.SignAllow;
+			chbSignApp.Sensitive = true;//MainClass.Settings.SignAllow;
 			//this.vbox2.PackEnd(chbSignApp,false,false,0);//
 
 			VBox hbox = new VBox();

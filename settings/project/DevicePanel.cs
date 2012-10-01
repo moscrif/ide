@@ -207,7 +207,7 @@ namespace Moscrif.IDE.Settings
 			application.Name = name;
 
 			if (!String.IsNullOrEmpty(val))
-				application.Text = val;
+				application.Text = val.ToLower();
 			else{
 				val = "com";
 				if(dpd.Project.AppFile!= null){
@@ -220,11 +220,11 @@ namespace Moscrif.IDE.Settings
 					val = Regex.Replace(txt, @"[^A-Za-z\.]", "");
 				}
 				//val = "com."+Environment.UserName+"."+dpd.Project.ProjectName;
-				application.Text = val;
+				application.Text = val.ToLower();
 			}
 			application.Changed+= delegate(object sender, EventArgs e) {
 				string txt =application.Text;
-				application.Text = Regex.Replace(txt, @"[^A-Za-z\.]", "");
+				application.Text = Regex.Replace(txt, @"[^A-Za-z\.]", "").ToLower();
 			};
 
 			table.Attach(lblApp,0,1,(uint)(xPos-1),(uint)xPos,AttachOptions.Fill,AttachOptions.Shrink,0,0);

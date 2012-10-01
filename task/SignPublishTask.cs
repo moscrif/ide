@@ -384,8 +384,8 @@ namespace Moscrif.IDE.Task
 
 			//#################### podpisovanie
 
-			progressDialog.Reset(0,MainClass.Languages.Translate("sign_app"));
-			progressDialog.SetLabel (MainClass.Languages.Translate("sign_app") );
+			progressDialog.Reset(0,MainClass.Languages.Translate("sign_app_f1"));
+			progressDialog.SetLabel (MainClass.Languages.Translate("sign_app_f1") );
 
 			SignApp sa = new SignApp();
 			string newAppdata = "";
