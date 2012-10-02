@@ -165,6 +165,10 @@ namespace  Moscrif.IDE.Settings
 		public List<IgnoreFolder> IgnoresFolders;
 		//public List<string> IgnoreFolders;
 
+		/*[XmlArrayAttribute("ignoresFiles")]
+		[XmlArrayItem("file")]
+		public List<IgnoreFolder> IgnoresFiles;*/
+
 		[XmlArray("logicalViews")]
 		[XmlArrayItem("view")]
 		public List<LogicalSystem> LogicalSort = null;
@@ -414,6 +418,7 @@ namespace  Moscrif.IDE.Settings
 			}
 
 			if ((IgnoresFolders == null)) GenerateIgnoreFolder();
+			//if ((IgnoresFiles == null)) GenerateIgnoresFiles();
 
 			if ((DisplayOrientations == null)) GenerateOrientations();
 			if ((InstallLocations == null)) GenerateInstallLocation();
@@ -465,6 +470,10 @@ namespace  Moscrif.IDE.Settings
 						if ((s.IgnoresFolders == null) || (s.IgnoresFolders.Count<1)){
 							s.GenerateIgnoreFolder();
 						}
+						/*if ((s.IgnoresFiles == null) || (s.IgnoresFiles.Count<1)){
+							s.GenerateIgnoresFiles();
+						}*/
+
 						if ((s.Platform == null) || (s.Platform.Rules.Count < 1)){
 							s.GeneratePlatform();
 						}
@@ -862,6 +871,14 @@ namespace  Moscrif.IDE.Settings
 			LibsDefine.Add("skin");
 			LibsDefine.Add("uix");*/
 		}
+
+
+		/*public void GenerateIgnoresFiles(){
+			IgnoresFolders = new List<IgnoreFolder>();
+			IgnoresFolders.Add(new IgnoreFolder(".DS_Store",true,true));
+			IgnoresFolders.Add(new IgnoreFolder("Thumbs.db",true,true));
+		}*/
+
 
 		public void GenerateIgnoreFolder(){
 			IgnoresFolders = new List<IgnoreFolder>();

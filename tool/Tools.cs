@@ -9,6 +9,7 @@ using ICSharpCode.SharpZipLib.Zip;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 using MessageDialogs = Moscrif.IDE.Controls.MessageDialog;
 using System.Timers;
+using System.Text.RegularExpressions;
 
 namespace Moscrif.IDE.Tool
 {
@@ -384,6 +385,22 @@ namespace Moscrif.IDE.Tool
 					sb.Append(s[i]);
 			string report = sb.ToString();
 			return report.Normalize(NormalizationForm.FormC);
+		}
+
+		public string RemoveDiacriticsAndOther(string s)
+		{
+			s = s.Normalize(NormalizationForm.FormD);
+			StringBuilder sb = new StringBuilder();
+			for (int i = 0; i < s.Length; i++)
+				if (CharUnicodeInfo.GetUnicodeCategory(s[i]) != UnicodeCategory.NonSpacingMark)
+					sb.Append(s[i]);
+			string report = sb.ToString();
+			report = report.Normalize(NormalizationForm.FormC);
+			//Regex regex = new Regex("([a-zA-Z0-9_])", RegexOptions.Compiled);
+			//regex.Replace(report,
+			return Regex.Replace(report,"([^a-zA-Z0-9_])",String.Empty);
+
+
 		}
 
 		public Gdk.Pixbuf GetIconFromStock(string iconName, Gtk.IconSize size)

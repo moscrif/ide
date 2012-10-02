@@ -126,29 +126,15 @@ namespace Moscrif.IDE.Settings
 			return pp;
 		}
 
-		/*private void GenerateFileEntry(ref Table table, string name, string label, string val,int xPos){
-			xPos = xPos+3;
-			Label lblApp = new Label(label);
-			lblApp.Xalign = 1;
-			lblApp.Yalign = 0.5F;
-			FileEntry fEntry = new FileEntry();
-			fEntry.Name = name;
-			fEntry.IsFolder = false;
-			if (!String.IsNullOrEmpty(val))
-				fEntry.DefaultPath = val;
-			else {
-				string projectPlatform = System.IO.Path.Combine( dpd.Project.AbsolutProjectDir,"Platform");
+		private void GenerateFileMaskEntry(ref Table table, string name, string label, string val,int xPos){
+			GenerateFileMaskEntry(ref table,name,label,val,xPos,true,"");
+		}
 
-				if (!Directory.Exists(projectPlatform))
-					fEntry.SetDefaultPathInvisible(dpd.Project.AbsolutProjectDir);
-				else fEntry.SetDefaultPathInvisible(projectPlatform);
-			}
+		private void GenerateFileMaskEntry(ref Table table, string name, string label, string val,int xPos,string tooltip){
+			GenerateFileMaskEntry(ref table,name,label,val,xPos,true,tooltip);
+		}
 
-			table.Attach(lblApp,0,1,(uint)(xPos-1),(uint)xPos,AttachOptions.Fill,AttachOptions.Shrink,0,0);
-			table.Attach(fEntry,1,2,(uint)(xPos-1),(uint)xPos,AttachOptions.Fill,AttachOptions.Expand,0,0);
-		}*/
-
-		private void GenerateFileMaskEntry(ref Table table, string name, string label, string val,int xPos,bool enabled){
+		private void GenerateFileMaskEntry(ref Table table, string name, string label, string val,int xPos,bool enabled,string tooltip){
 			xPos = xPos+3;
 			Label lblApp = new Label(label);
 			lblApp.Xalign = 1;
@@ -161,6 +147,8 @@ namespace Moscrif.IDE.Settings
 			fmEntry.Name = name;
 			fmEntry.IsFolder = false;
 			fmEntry.Sensitive = enabled;
+			if(!String.IsNullOrEmpty(tooltip))
+				fmEntry.TooltipText = tooltip;
 			
 			if (!String.IsNullOrEmpty(val)){
 				fmEntry.DefaultPath = dpd.Project.ConvertProjectMaskPathToFull(val);
@@ -175,10 +163,6 @@ namespace Moscrif.IDE.Settings
 			
 			table.Attach(lblApp,0,1,(uint)(xPos-1),(uint)xPos,AttachOptions.Fill,AttachOptions.Shrink,0,0);
 			table.Attach(fmEntry,1,2,(uint)(xPos-1),(uint)xPos,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Expand,0,0);
-		}
-
-		private void GenerateFileMaskEntry(ref Table table, string name, string label, string val,int xPos){
-			GenerateFileMaskEntry(ref table,name,label,val,xPos,true);
 		}
 
 		private void GenerateEntry(ref Table table, string name, string label, string val,int xPos){
@@ -705,12 +689,12 @@ namespace Moscrif.IDE.Settings
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_IP4ICON);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_IP4ICON));
-				GenerateFileMaskEntry(ref tbliPh4,Project.KEY_IP4ICON,"Icon : ",pp.PublishValue,0);
+				GenerateFileMaskEntry(ref tbliPh4,Project.KEY_IP4ICON,"Icon : ",pp.PublishValue,0,true,MainClass.Languages.Translate("property_ios_icon",114,114));
 
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_IP4SPLASH);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_IP4SPLASH));
-				GenerateFileMaskEntry(ref tbliPh4,Project.KEY_IP4SPLASH,"Splash : ",pp.PublishValue,1);
+				GenerateFileMaskEntry(ref tbliPh4,Project.KEY_IP4SPLASH,"Splash : ",pp.PublishValue,1,MainClass.Languages.Translate("property_ios_splash",640,960));
 
 				table2.Attach(expanderiPh4,0,2,6,7,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Shrink,0,0);
 				expanderiPh4.ShowAll();
@@ -725,12 +709,12 @@ namespace Moscrif.IDE.Settings
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_IP5ICON));
 
-				GenerateFileMaskEntry(ref tbliPh5,Project.KEY_IP5ICON,"Icon : ","the same as iPhone 4(S)",0,false);
+				GenerateFileMaskEntry(ref tbliPh5,Project.KEY_IP5ICON,"Icon : ",MainClass.Languages.Translate("property_ios_icon_4s"),0,false,MainClass.Languages.Translate("property_ios_icon",114,114));
 				
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_IP5SPLASH);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_IP5SPLASH));
-				GenerateFileMaskEntry(ref tbliPh5,Project.KEY_IP5SPLASH,"Splash : ",pp.PublishValue,1);
+				GenerateFileMaskEntry(ref tbliPh5,Project.KEY_IP5SPLASH,"Splash : ",pp.PublishValue,1,MainClass.Languages.Translate("property_ios_splash",640,1136));
 				
 				table2.Attach(expanderiPh5,0,2,7,8,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Shrink,0,0);
 				expanderiPh5.ShowAll();
@@ -744,12 +728,12 @@ namespace Moscrif.IDE.Settings
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_IPADICON);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_IPADICON));
-				GenerateFileMaskEntry(ref tbliPd2,Project.KEY_IPADICON,"Icon : ",pp.PublishValue,0);
+				GenerateFileMaskEntry(ref tbliPd2,Project.KEY_IPADICON,"Icon : ",pp.PublishValue,0,MainClass.Languages.Translate("property_ios_icon",72,72));
 				
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_IPADSPLASH);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_IPADSPLASH));
-				GenerateFileMaskEntry(ref tbliPd2,Project.KEY_IPADSPLASH,"Splash : ",pp.PublishValue,1);
+				GenerateFileMaskEntry(ref tbliPd2,Project.KEY_IPADSPLASH,"Splash : ",pp.PublishValue,1,MainClass.Languages.Translate("property_ios_splash",768,1004));
 				
 				table2.Attach(expanderiPd2,0,2,8,9,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Shrink,0,0);
 				expanderiPh5.ShowAll();
@@ -763,12 +747,12 @@ namespace Moscrif.IDE.Settings
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_INEWPADICON);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_INEWPADICON));
-				GenerateFileMaskEntry(ref tbliNewPd,Project.KEY_INEWPADICON,"Icon : ",pp.PublishValue,0);
+				GenerateFileMaskEntry(ref tbliNewPd,Project.KEY_INEWPADICON,"Icon : ",pp.PublishValue,0,MainClass.Languages.Translate("property_ios_icon",114,114));
 				
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_INEWPADSPLASH);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_INEWPADSPLASH));
-				GenerateFileMaskEntry(ref tbliNewPd,Project.KEY_INEWPADSPLASH,"Splash : ",pp.PublishValue,1);
+				GenerateFileMaskEntry(ref tbliNewPd,Project.KEY_INEWPADSPLASH,"Splash : ",pp.PublishValue,1,MainClass.Languages.Translate("property_ios_splash",1536,2008));
 				
 				table2.Attach(expanderNewiPd,0,2,9,10,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Shrink,0,0);
 				expanderiPh5.ShowAll();

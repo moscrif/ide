@@ -98,20 +98,12 @@ namespace Moscrif.IDE.Settings
 			
 			cbBackground.UseAlpha = false;
 
-			//ushort red =MainClass.Settings.BackgroundColor.Red;
-			//ushort green =MainClass.Settings.BackgroundColor.Green;
-			//ushort blue =MainClass.Settings.BackgroundColor.Blue;
-
 			cbBackground.Color = new Gdk.Color(MainClass.Settings.BackgroundColor.Red,
 				MainClass.Settings.BackgroundColor.Green,MainClass.Settings.BackgroundColor.Blue);
 
-			/*if(MainClass.Settings.IgnoresFolders == null || MainClass.Settings.IgnoresFolders.Count<1){
-				MainClass.Settings.GenerateIgnoreFolder();
-			}*/
-
 			ignoreFiles = new List<IgnoreFolder>( MainClass.Settings.IgnoresFolders.ToArray());
 
-			tvIgnoreFile.AppendColumn(MainClass.Languages.Translate("name"), new Gtk.CellRendererText(), "text", 0);
+			tvIgnoreFolder.AppendColumn(MainClass.Languages.Translate("name"), new Gtk.CellRendererText(), "text", 0);
 
 			CellRendererToggle crt = new CellRendererToggle();
 			crt.Activatable = true;
@@ -126,7 +118,7 @@ namespace Moscrif.IDE.Settings
 				}
 			};
 
-			tvIgnoreFile.AppendColumn(MainClass.Languages.Translate("ignore_for_ide"), crt , "active", 1);
+			tvIgnoreFolder.AppendColumn(MainClass.Languages.Translate("ignore_for_ide"), crt , "active", 1);
 
 			CellRendererToggle crt2 = new CellRendererToggle();
 			crt2.Activatable = true;
@@ -143,8 +135,8 @@ namespace Moscrif.IDE.Settings
 				}
 			};
 
-			tvIgnoreFile.AppendColumn(MainClass.Languages.Translate("ignore_for_Pub"), crt2 , "active", 2);
-			tvIgnoreFile.Model = storeIF;
+			tvIgnoreFolder.AppendColumn(MainClass.Languages.Translate("ignore_for_Pub"), crt2 , "active", 2);
+			tvIgnoreFolder.Model = storeIF;
 
 			foreach (IgnoreFolder ignoref in MainClass.Settings.IgnoresFolders){
 
@@ -247,7 +239,7 @@ namespace Moscrif.IDE.Settings
 		
 		protected virtual void OnBtnEditIFClicked (object sender, System.EventArgs e)
 		{
-			TreeSelection ts = tvIgnoreFile.Selection;
+			TreeSelection ts = tvIgnoreFolder.Selection;
 
 			TreeIter ti = new TreeIter();
 			ts.GetSelected(out ti);
@@ -256,7 +248,7 @@ namespace Moscrif.IDE.Settings
 			if (tp.Length < 1)
 				return ;
 
-			IgnoreFolder iFol = (IgnoreFolder)tvIgnoreFile.Model.GetValue(ti, 3);
+			IgnoreFolder iFol = (IgnoreFolder)tvIgnoreFolder.Model.GetValue(ti, 3);
 			if (String.IsNullOrEmpty(iFol.Folder) ) return;
 
 			EntryDialog ed = new EntryDialog(iFol.Folder,MainClass.Languages.Translate("new_name"),parentWindow);
@@ -273,7 +265,7 @@ namespace Moscrif.IDE.Settings
 		
 		protected virtual void OnBtnDeleteIFClicked (object sender, System.EventArgs e)
 		{
-			TreeSelection ts = tvIgnoreFile.Selection;
+			TreeSelection ts = tvIgnoreFolder.Selection;
 
 			TreeIter ti = new TreeIter();
 			ts.GetSelected(out ti);
@@ -282,7 +274,7 @@ namespace Moscrif.IDE.Settings
 			if (tp.Length < 1)
 				return ;
 
-			IgnoreFolder iFol = (IgnoreFolder)tvIgnoreFile.Model.GetValue(ti, 3);
+			IgnoreFolder iFol = (IgnoreFolder)tvIgnoreFolder.Model.GetValue(ti, 3);
 			if (iFol == null ) return;
 
 			MessageDialogs md = new MessageDialogs(MessageDialogs.DialogButtonType.YesNo,  MainClass.Languages.Translate("delete_resolution", iFol.Folder), "", Gtk.MessageType.Question,parentWindow);

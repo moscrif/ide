@@ -22,13 +22,13 @@ namespace Moscrif.IDE.Settings
 		private global::Gtk.HBox hbox1;
 		private global::Gtk.Label label5;
 		private global::Gtk.ScrolledWindow GtkScrolledWindow1;
-		private global::Gtk.TreeView tvIgnoreFile;
+		private global::Gtk.TreeView tvIgnoreFolder;
 		private global::Gtk.VButtonBox vbuttonbox1;
 		private global::Gtk.Button btnAddIF;
 		private global::Gtk.Button btnEditIF;
 		private global::Gtk.Button btnDeleteIF;
 		private global::Gtk.Button button8;
-		private global::Gtk.Label GtkLabel10;
+		private global::Gtk.Label GtkLabel6;
 		
 		protected virtual void Build ()
 		{
@@ -196,6 +196,7 @@ namespace Moscrif.IDE.Settings
 			// Container child vbox3.Gtk.Box+BoxChild
 			this.frame1 = new global::Gtk.Frame ();
 			this.frame1.Name = "frame1";
+			this.frame1.BorderWidth = ((uint)(1));
 			// Container child frame1.Gtk.Container+ContainerChild
 			this.GtkAlignment2 = new global::Gtk.Alignment (0F, 0F, 1F, 1F);
 			this.GtkAlignment2.Name = "GtkAlignment2";
@@ -220,16 +221,17 @@ namespace Moscrif.IDE.Settings
 			this.GtkScrolledWindow1.Name = "GtkScrolledWindow1";
 			this.GtkScrolledWindow1.ShadowType = ((global::Gtk.ShadowType)(1));
 			// Container child GtkScrolledWindow1.Gtk.Container+ContainerChild
-			this.tvIgnoreFile = new global::Gtk.TreeView ();
-			this.tvIgnoreFile.CanFocus = true;
-			this.tvIgnoreFile.Name = "tvIgnoreFile";
-			this.GtkScrolledWindow1.Add (this.tvIgnoreFile);
+			this.tvIgnoreFolder = new global::Gtk.TreeView ();
+			this.tvIgnoreFolder.CanFocus = true;
+			this.tvIgnoreFolder.Name = "tvIgnoreFolder";
+			this.GtkScrolledWindow1.Add (this.tvIgnoreFolder);
 			this.hbox1.Add (this.GtkScrolledWindow1);
 			global::Gtk.Box.BoxChild w15 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.GtkScrolledWindow1]));
 			w15.Position = 1;
 			// Container child hbox1.Gtk.Box+BoxChild
 			this.vbuttonbox1 = new global::Gtk.VButtonBox ();
 			this.vbuttonbox1.Name = "vbuttonbox1";
+			this.vbuttonbox1.Spacing = -1;
 			this.vbuttonbox1.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(3));
 			// Container child vbuttonbox1.Gtk.ButtonBox+ButtonBoxChild
 			this.btnAddIF = new global::Gtk.Button ();
@@ -281,11 +283,11 @@ namespace Moscrif.IDE.Settings
 			w20.Fill = false;
 			this.GtkAlignment2.Add (this.hbox1);
 			this.frame1.Add (this.GtkAlignment2);
-			this.GtkLabel10 = new global::Gtk.Label ();
-			this.GtkLabel10.Name = "GtkLabel10";
-			this.GtkLabel10.LabelProp = global::Mono.Unix.Catalog.GetString ("<b>Ignore Directories</b>");
-			this.GtkLabel10.UseMarkup = true;
-			this.frame1.LabelWidget = this.GtkLabel10;
+			this.GtkLabel6 = new global::Gtk.Label ();
+			this.GtkLabel6.Name = "GtkLabel6";
+			this.GtkLabel6.LabelProp = global::Mono.Unix.Catalog.GetString ("<b>Ignore Folder</b>");
+			this.GtkLabel6.UseMarkup = true;
+			this.frame1.LabelWidget = this.GtkLabel6;
 			this.vbox3.Add (this.frame1);
 			global::Gtk.Box.BoxChild w23 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.frame1]));
 			w23.Position = 1;

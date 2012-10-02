@@ -28,8 +28,6 @@ namespace Moscrif.IDE.Components
 		{
 			windowParent =parentWindow;
 
-			//this.isFolder = isFolder;
-			//this.name = name;
 			text = new Entry ();
 			this.parent= parent;
 			browse = Button.NewWithMnemonic (MainClass.Languages.Translate("browse"));
@@ -91,13 +89,22 @@ namespace Moscrif.IDE.Components
 			Gtk.MenuItem mi = new Gtk.MenuItem(condition.Replace("_","__"));
 			mi.Name = condition;
 			mi.Activated += delegate(object sender, EventArgs e) {
-					if (sender.GetType() == typeof(Gtk.MenuItem)){
-						text.Text =text.Text+condition;
-						//entrName.Text = entrName.Text = String.Format("{0}$({1})", entrName.Text, (sender as Gtk.MenuItem).Name);
-					}
-				};
+				if (sender.GetType() == typeof(Gtk.MenuItem)){
+					int start = 0;
+					int end = 0;
+					if(text.GetSelectionBounds(out start, out end)){
+						text.DeleteText(start,end);
+						text.InsertText(condition, ref start);
+						text.Position = text.Position + condition.Length;
+					} else {
+						int curPos = text.CursorPosition;
+						text.InsertText(condition, ref curPos);
+						text.Position = text.Position + condition.Length;
+					}				
+					//entrName.Text = entrName.Text = String.Format("{0}$({1})", entrName.Text, (sender as Gtk.MenuItem).Name);
+				}
+			};
 			popupCondition.Add(mi);
-
 		}
 
 		//abstract
@@ -190,7 +197,6 @@ namespace Moscrif.IDE.Components
 
 		public new string Path {
 			get {
-				//return default_path != null && text.Text.Length > 0 ? System.IO.Path.Combine (default_path, text.Text) : text.Text;
 				return text.Text;
 			}
 			/*set {

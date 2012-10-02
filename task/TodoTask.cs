@@ -49,7 +49,6 @@ namespace Moscrif.IDE.Task
 			project.GetAllFiles(ref files,project.AbsolutProjectDir,".ms");
 			//if(MainClass.MainWindow.EditorNotebook == null) return false;
 
-
 			List<string> openFiles = MainClass.MainWindow.EditorNotebook.OpenFiles;
 			foreach (string file in openFiles){
 				if(System.IO.Path.GetExtension(file)==".ms"){
@@ -58,9 +57,7 @@ namespace Moscrif.IDE.Task
 						files.Add(file);
 					}
 				}
-
 			}
-
 
 			List<TaskMessage> listOfTask = new List<TaskMessage>();
 

@@ -19,7 +19,7 @@ namespace Moscrif.IDE.Components
 			Label lblApp = new Label(attribute.Name.Replace("_","__")+": ");
 			lblApp.Xalign = 1;
 			lblApp.Yalign = 0.5F;
-			lblApp.WidthRequest = 100;
+			lblApp.WidthRequest = 115;
 			CheckButton chb = new CheckButton();
 			chb.Label = "";
 

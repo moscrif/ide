@@ -592,7 +592,7 @@ All Open Project</property>
           <widget class="Gtk.Notebook" id="notebook1">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
-            <property name="CurrentPage">0</property>
+            <property name="CurrentPage">2</property>
             <property name="ShowBorder">False</property>
             <property name="BorderWidth">10</property>
             <child>
@@ -795,20 +795,21 @@ All Open Project</property>
               </packing>
             </child>
             <child>
-              <widget class="Gtk.Table" id="tblAtributes">
+              <widget class="Gtk.VBox" id="vbox3">
                 <property name="MemberName" />
-                <property name="NRows">3</property>
-                <property name="NColumns">3</property>
-                <property name="RowSpacing">6</property>
-                <property name="ColumnSpacing">6</property>
+                <property name="Spacing">6</property>
                 <child>
-                  <placeholder />
-                </child>
-                <child>
-                  <placeholder />
-                </child>
-                <child>
-                  <placeholder />
+                  <widget class="Gtk.Label" id="lblPrjName">
+                    <property name="MemberName" />
+                    <property name="Xalign">0</property>
+                    <property name="LabelProp" translatable="yes">label1</property>
+                  </widget>
+                  <packing>
+                    <property name="Position">0</property>
+                    <property name="AutoSize">True</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
+                  </packing>
                 </child>
                 <child>
                   <widget class="Gtk.Label" id="label6">
@@ -817,37 +818,50 @@ All Open Project</property>
                     <property name="LabelProp" translatable="yes">Use Following Parameters to Create Content of Your File...</property>
                   </widget>
                   <packing>
-                    <property name="TopAttach">1</property>
-                    <property name="BottomAttach">2</property>
-                    <property name="RightAttach">3</property>
+                    <property name="Position">1</property>
                     <property name="AutoSize">True</property>
-                    <property name="XOptions">Fill</property>
-                    <property name="YOptions">Fill</property>
-                    <property name="XExpand">False</property>
-                    <property name="XFill">True</property>
-                    <property name="XShrink">False</property>
-                    <property name="YExpand">False</property>
-                    <property name="YFill">True</property>
-                    <property name="YShrink">False</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
                   </packing>
                 </child>
                 <child>
-                  <widget class="Gtk.Label" id="lblPrjName">
+                  <widget class="Gtk.Table" id="tblAtributes">
                     <property name="MemberName" />
-                    <property name="Xalign">0</property>
-                    <property name="LabelProp" translatable="yes">label1</property>
+                    <property name="NRows">3</property>
+                    <property name="NColumns">3</property>
+                    <property name="RowSpacing">6</property>
+                    <property name="ColumnSpacing">6</property>
+                    <child>
+                      <placeholder />
+                    </child>
+                    <child>
+                      <placeholder />
+                    </child>
+                    <child>
+                      <placeholder />
+                    </child>
+                    <child>
+                      <placeholder />
+                    </child>
+                    <child>
+                      <placeholder />
+                    </child>
+                    <child>
+                      <placeholder />
+                    </child>
+                    <child>
+                      <placeholder />
+                    </child>
+                    <child>
+                      <placeholder />
+                    </child>
+                    <child>
+                      <placeholder />
+                    </child>
                   </widget>
                   <packing>
-                    <property name="RightAttach">3</property>
+                    <property name="Position">2</property>
                     <property name="AutoSize">True</property>
-                    <property name="XOptions">Fill</property>
-                    <property name="YOptions">Fill</property>
-                    <property name="XExpand">False</property>
-                    <property name="XFill">True</property>
-                    <property name="XShrink">False</property>
-                    <property name="YExpand">False</property>
-                    <property name="YFill">True</property>
-                    <property name="YShrink">False</property>
                   </packing>
                 </child>
               </widget>
@@ -2078,7 +2092,7 @@ All Open Project</property>
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Bin" id="Moscrif.IDE.Settings.GlobalOptionsWidget2" design-size="618 412">
+  <widget class="Gtk.Bin" id="Moscrif.IDE.Settings.GlobalOptionsWidget2" design-size="618 417">
     <property name="MemberName" />
     <property name="Visible">False</property>
     <property name="GeneratePublic">False</property>
@@ -2408,6 +2422,7 @@ All Open Project</property>
         <child>
           <widget class="Gtk.Frame" id="frame1">
             <property name="MemberName" />
+            <property name="BorderWidth">1</property>
             <child>
               <widget class="Gtk.Alignment" id="GtkAlignment2">
                 <property name="MemberName" />
@@ -2437,7 +2452,7 @@ All Open Project</property>
                         <property name="MemberName" />
                         <property name="ShadowType">In</property>
                         <child>
-                          <widget class="Gtk.TreeView" id="tvIgnoreFile">
+                          <widget class="Gtk.TreeView" id="tvIgnoreFolder">
                             <property name="MemberName" />
                             <property name="CanFocus">True</property>
                             <property name="ShowScrollbars">True</property>
@@ -2452,6 +2467,7 @@ All Open Project</property>
                     <child>
                       <widget class="Gtk.VButtonBox" id="vbuttonbox1">
                         <property name="MemberName" />
+                        <property name="Spacing">-1</property>
                         <property name="Size">4</property>
                         <property name="LayoutStyle">Start</property>
                         <child>
@@ -2526,9 +2542,9 @@ All Open Project</property>
               </widget>
             </child>
             <child>
-              <widget class="Gtk.Label" id="GtkLabel10">
+              <widget class="Gtk.Label" id="GtkLabel6">
                 <property name="MemberName" />
-                <property name="LabelProp" translatable="yes">&lt;b&gt;Ignore Directories&lt;/b&gt;</property>
+                <property name="LabelProp" translatable="yes">&lt;b&gt;Ignore Folder&lt;/b&gt;</property>
                 <property name="UseMarkup">True</property>
               </widget>
               <packing>
@@ -5145,17 +5161,20 @@ All Open Project</property>
               <widget class="Gtk.Notebook" id="notebook1">
                 <property name="MemberName" />
                 <property name="CanFocus">True</property>
-                <property name="CurrentPage">1</property>
+                <property name="CurrentPage">0</property>
                 <property name="BorderWidth">1</property>
                 <signal name="SwitchPage" handler="OnNotebook1SwitchPage" />
                 <child>
                   <widget class="Gtk.Table" id="table2">
                     <property name="MemberName" />
-                    <property name="NRows">4</property>
+                    <property name="NRows">5</property>
                     <property name="NColumns">2</property>
                     <property name="RowSpacing">6</property>
                     <property name="ColumnSpacing">6</property>
                     <property name="BorderWidth">5</property>
+                    <child>
+                      <placeholder />
+                    </child>
                     <child>
                       <placeholder />
                     </child>
@@ -5177,8 +5196,9 @@ All Open Project</property>
                         <property name="LeftAttach">1</property>
                         <property name="RightAttach">2</property>
                         <property name="AutoSize">True</property>
+                        <property name="XOptions">Fill</property>
                         <property name="YOptions">Fill</property>
-                        <property name="XExpand">True</property>
+                        <property name="XExpand">False</property>
                         <property name="XFill">True</property>
                         <property name="XShrink">False</property>
                         <property name="YExpand">False</property>
@@ -5201,8 +5221,9 @@ All Open Project</property>
                         <property name="LeftAttach">1</property>
                         <property name="RightAttach">2</property>
                         <property name="AutoSize">True</property>
+                        <property name="XOptions">Fill</property>
                         <property name="YOptions">Fill</property>
-                        <property name="XExpand">True</property>
+                        <property name="XExpand">False</property>
                         <property name="XFill">True</property>
                         <property name="XShrink">False</property>
                         <property name="YExpand">False</property>
@@ -5225,8 +5246,9 @@ All Open Project</property>
                         <property name="LeftAttach">1</property>
                         <property name="RightAttach">2</property>
                         <property name="AutoSize">True</property>
+                        <property name="XOptions">Fill</property>
                         <property name="YOptions">Fill</property>
-                        <property name="XExpand">True</property>
+                        <property name="XExpand">False</property>
                         <property name="XFill">True</property>
                         <property name="XShrink">False</property>
                         <property name="YExpand">False</property>
@@ -5263,6 +5285,31 @@ All Open Project</property>
                       <packing>
                         <property name="TopAttach">1</property>
                         <property name="BottomAttach">2</property>
+                        <property name="AutoSize">True</property>
+                        <property name="XOptions">Fill</property>
+                        <property name="YOptions">Fill</property>
+                        <property name="XExpand">False</property>
+                        <property name="XFill">True</property>
+                        <property name="XShrink">False</property>
+                        <property name="YExpand">False</property>
+                        <property name="YFill">True</property>
+                        <property name="YShrink">False</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <widget class="Moscrif.IDE.Components.LinkButton" id="linkbutton1">
+                        <property name="MemberName" />
+                        <property name="CanFocus">True</property>
+                        <property name="Type">TextOnly</property>
+                        <property name="Label">Forgot your password?</property>
+                        <property name="UseUnderline">True</property>
+                        <property name="LinkUrl">http://moscrif.com/request-new-password?returnUrl=/login</property>
+                      </widget>
+                      <packing>
+                        <property name="TopAttach">3</property>
+                        <property name="BottomAttach">4</property>
+                        <property name="LeftAttach">1</property>
+                        <property name="RightAttach">2</property>
                         <property name="AutoSize">True</property>
                         <property name="XOptions">Fill</property>
                         <property name="YOptions">Fill</property>

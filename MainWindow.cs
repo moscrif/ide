@@ -507,9 +507,7 @@ public partial class MainWindow : Gtk.Window
 
 		Moscrif.IDE.Iface.SocketServer.OutputClientChanged+= delegate(object sndr, string message) {
 			Gtk.Application.Invoke(delegate{
-				//this.OutputConsole.WriteText("\n");
 				this.OutputConsole.WriteText(message);
-				//Console.WriteLine("\n");
 				Console.WriteLine(message);
 			});
 		};
@@ -532,18 +530,12 @@ public partial class MainWindow : Gtk.Window
 		btnSocketServer.Image = new Gtk.Image(pixbufRed);
 		//lblSocket.Text = ip;
 
-
 		Thread ExecEditorThreads = new Thread(new ThreadStart(ExecEditorThread));
 		//filllStartPageThread.Priority = ThreadPriority.Normal;
 		ExecEditorThreads.Name = "ExecEditorThread";
 		ExecEditorThreads.IsBackground = true;
 		ExecEditorThreads.Start();
 
-		/*if((MainClass.Settings.Account == null) || (String.IsNullOrEmpty(MainClass.Settings.Account.Token))){
-			LoginDialog ld = new LoginDialog(null);
-			ld.Run();
-			ld.Destroy();
-		}*/
 	}
 	
 
@@ -2081,7 +2073,6 @@ public partial class MainWindow : Gtk.Window
 			}
 			if (args.Widget.Name == "toolbarMiddle") {
 				toolbarMiddle = (Toolbar)args.Widget;
-
 				vbMenuMidle.PackEnd(toolbarMiddle,true, true, 0);//true, false,
 
 				ToolItem tic = new ToolItem();

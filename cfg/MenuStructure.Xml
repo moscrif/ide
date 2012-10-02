@@ -77,7 +77,6 @@
 		</menu>		
 	     <menu name="Project" action="Project">  
 	     	<menuitem name="NewProject" action="newproject" />	
-	    	<menuitem name="NewProjectWizzard" action="newprojectwizzard" />
 	    	<separator name="sep63" />		    		
 	    	<menuitem name="compileproject" action="compileproject" />	
 	    	<menuitem name="Publish" action="publish" />
@@ -94,16 +93,16 @@
 	    	<menuitem name="Clear" action="clear" />  	
 		</menu>	
 		<menu name="Tools" action="ToolsAction">
-	    	<menuitem name="idepreferences" action="idepreferences" />
-	    	<separator name="sep24" />		
+
 	    	<menuitem name="showstartpage" action="showstartpage" />
 			<!--<menuitem name="checkversion" action="checkversion" /> --> 
 			<separator name="sep23" />
 			<menuitem name="unicodesequence" action="unicodesequence" /> 	
+			<menuitem name="idepreferences" action="idepreferences" />
 			<!--<menuitem name="settingplatform" action="settingplatform" />
 			<separator name="sep24" /> 
-			<menuitem name="generateAutoComplete" action="generateAutoComplete" />--> 
-			<menuitem name="Test" action="test" />		
+			<menuitem name="generateAutoComplete" action="generateAutoComplete" /> 
+			<menuitem name="Test" action="test" />	-->	
 		</menu>	
 		<menu name="Help" action="HelpAction">
 	    	<menuitem name="About" action="about" />

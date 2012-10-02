@@ -421,7 +421,7 @@ namespace Moscrif.IDE.Controls.Wizard
 				templateDir = storeTyp.GetValue(ti, 3).ToString();
 				projectTemplate = (ProjectTemplate)storeTyp.GetValue(ti, 4);
 
-				projectName = MainClass.Tools.RemoveDiacritics(entrProjectName.Text).Replace(" ","_");
+				projectName = MainClass.Tools.RemoveDiacriticsAndOther(entrProjectName.Text).Replace(" ","_");
 				projectDir = projectName;
 
 				if(String.IsNullOrEmpty(templateDir)){ //Create Empty project 
@@ -519,7 +519,7 @@ namespace Moscrif.IDE.Controls.Wizard
 				page++;
 				btnNext.Sensitive = false;
 				btnBack.Sensitive = false;
-				projectName = MainClass.Tools.RemoveDiacritics(entrPage2PrjName.Text).Replace(" ","_");
+				projectName = MainClass.Tools.RemoveDiacriticsAndOther(entrPage2PrjName.Text).Replace(" ","_");
 
 				if(cbTemplate.ActiveText != KEY_CUSTOM){ // Select App
 

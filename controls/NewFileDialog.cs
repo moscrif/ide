@@ -210,6 +210,8 @@ namespace Moscrif.IDE.Controls
 					this.Respond(ResponseType.Ok);
 					return;
 				}
+				while (tblAtributes.Children.Length > 0)
+					tblAtributes.Remove(tblAtributes.Children[0]);
 
 				tblAtributes.NRows = (uint)ft.Attributes.Count+3;
 				tblAtributes.NColumns =3;
@@ -218,7 +220,7 @@ namespace Moscrif.IDE.Controls
 				//tblAtributes.BorderWidth = 2;
 				
 				//vbox3.PackStart(tblAtributes,true,true,2);
-				int i =3;
+				int i =1;
 				foreach (FileTemplate.Attribute attr in ft.Attributes) {
 					if(attr.Type=="bool"){
 						bool defValue = false;
