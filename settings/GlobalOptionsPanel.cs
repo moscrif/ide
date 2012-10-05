@@ -156,7 +156,7 @@ namespace Moscrif.IDE.Settings
 				btnClose.TooltipText = MainClass.Languages.Translate("select_color");
 				btnClose.Relief = Gtk.ReliefStyle.None;
 				btnClose.CanFocus = false;
-				btnClose.WidthRequest = btnClose.HeightRequest = 19;
+				btnClose.WidthRequest = btnClose.HeightRequest = 22;
 
 				popupColor.AttachToWidget(btnClose,new Gtk.MenuDetachFunc(DetachWidget));
 				btnClose.Clicked += delegate {
@@ -331,6 +331,12 @@ namespace Moscrif.IDE.Settings
 				return;
 
 			MainClass.Settings.GenerateIgnoreFolder();
+			storeIF.Clear();
+
+			foreach (IgnoreFolder ignoref in MainClass.Settings.IgnoresFolders){
+				
+				Gtk.TreeIter tir = storeIF.AppendValues(ignoref.Folder,ignoref.IsForIde,ignoref.IsForPublish,ignoref);
+			}
 		}
 	}
 }

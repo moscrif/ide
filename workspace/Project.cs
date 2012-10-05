@@ -547,7 +547,6 @@ namespace Moscrif.IDE.Workspace
 					} catch (Exception ex){
 						Tool.Logger.Error(ex.Message);
 					}
-
 				}
 			}
 
@@ -556,8 +555,12 @@ namespace Moscrif.IDE.Workspace
 					string libPath = System.IO.Path.Combine(MainClass.Workspace.RootDirectory,lib);
 
 					if(Directory.Exists(libPath)){
-						filePaths = Directory.GetFiles(libPath, "*",SearchOption.AllDirectories);
-						lng = lng  + filePaths.Length;
+						try{
+							filePaths = Directory.GetFiles(libPath, "*",SearchOption.AllDirectories);
+							lng = lng  + filePaths.Length;
+						}catch(Exception ex) {
+							Tool.Logger.Error(ex.Message);
+						}
 					}
 				}
 

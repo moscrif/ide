@@ -69,7 +69,7 @@ namespace Moscrif.IDE.Components
 				lb3.Description = MainClass.Languages.Translate("create_new_file");
 				lb3.WidthRequest = 150;
 				lb3.Clicked+= delegate(object sender, EventArgs e) {
-					new NewProjectAction().Activate();
+					new NewProjectWizzardAction().Activate();
 				};
 				tblAction.Attach(lb3,0,1,2,3,AttachOptions.Fill,AttachOptions.Shrink,0,0);
 	
@@ -170,22 +170,36 @@ namespace Moscrif.IDE.Components
 			for(int i =listdi.Length-1 ; i>-1 ; i-- ){
 
 				DirectoryInfo di =listdi[i];
-				FileInfo[] zipFile = di.GetFiles(di.Name+".zip",SearchOption.TopDirectoryOnly);
-				FileInfo[] txtFile = di.GetFiles(di.Name+".txt",SearchOption.TopDirectoryOnly);
-				FileInfo[] pngFile = di.GetFiles(di.Name+".png",SearchOption.TopDirectoryOnly);
 
-				if (zipFile.Length < 1 ) continue;
+				string  zipFile = System.IO.Path.Combine(di.FullName,di.Name+".zip");
+				if(!File.Exists(zipFile)) continue;
+
+				string  pngFile = System.IO.Path.Combine(di.FullName,di.Name+".png");
+				//if(!File.Exists(zipFile)) continue;
+				string  txtFile = System.IO.Path.Combine(di.FullName,di.Name+".txt");
+
+				//FileInfo[] zipFile = di.GetFiles(di.Name+".zip",SearchOption.TopDirectoryOnly);
+				//FileInfo[] txtFile = di.GetFiles(di.Name+".txt",SearchOption.TopDirectoryOnly);
+				//FileInfo[] pngFile = di.GetFiles(di.Name+".png",SearchOption.TopDirectoryOnly);
+
+				//if (zipFile.Length < 1 ) continue;
 
 				LinkImageButton lb = new LinkImageButton();
 				//lb.Label = System.IO.Path.GetFileName(di.Name);
 
-				if (txtFile.Length > 0){
+				//if (txtFile.Length > 0){
+				if(File.Exists(txtFile)){
 					string descr = "";
 
-					using (StreamReader file = new StreamReader(txtFile[0].FullName)) {
-						descr = file.ReadToEnd();
-						file.Close();
-						file.Dispose();
+					try{
+						using (StreamReader file = new StreamReader(txtFile)) {
+							descr = file.ReadToEnd();
+							file.Close();
+							file.Dispose();
+						}
+					} catch (Exception ex){
+						Tool.Logger.Error(ex.Message);
+						descr = di.Name;
 					}
 
 					if (!String.IsNullOrEmpty(descr)){
@@ -201,10 +215,10 @@ namespace Moscrif.IDE.Components
 				}
 
 				if (pngFile.Length > 0)
-					lb.Icon =pngFile[0].FullName;
+					lb.Icon =pngFile;
 
 				lb.WidthRequest = 53;
-				string fileName = zipFile[0].FullName;
+				string fileName = zipFile;
 				lb.Clicked+= delegate(object sender, EventArgs e) {
 
 					string prj = System.IO.Path.GetFileNameWithoutExtension(fileName);

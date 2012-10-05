@@ -133,7 +133,7 @@ namespace Moscrif.IDE.Controls
 				btnClose.TooltipText = MainClass.Languages.Translate("insert_libs");
 				btnClose.Relief = Gtk.ReliefStyle.None;
 				btnClose.CanFocus = false;
-				btnClose.WidthRequest = btnClose.HeightRequest = 19;
+				btnClose.WidthRequest = btnClose.HeightRequest = 22;
 				btnClose.Clicked += delegate {
 					popupLibs.Popup();
 				};

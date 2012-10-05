@@ -117,7 +117,7 @@ namespace Moscrif.IDE
 					btnClose.TooltipText = MainClass.Languages.Translate("select_color");
 					btnClose.Relief = Gtk.ReliefStyle.None;
 					btnClose.CanFocus = false;
-					btnClose.WidthRequest = btnClose.HeightRequest = 20;
+					btnClose.WidthRequest = btnClose.HeightRequest = 22;
 	
 					popupColor.AttachToWidget(btnClose,new Gtk.MenuDetachFunc(DetachWidget));
 					btnClose.Clicked += delegate {

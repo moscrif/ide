@@ -246,7 +246,7 @@ namespace Moscrif.IDE.Workspace
 			int type = (int)model.GetValue(iter, TYPE_ROW);
 			//(int)modelStore.GetValue(iter, TYPE_ROW);
 			Pango.FontDescription fd = new Pango.FontDescription();
-			(cell as Gtk.CellRendererText).Foreground = "Black";
+			//(cell as Gtk.CellRendererText).Foreground = "Black";
 			
 			if (type == (int)TypeFile.AppFile) {
 				fd.Weight = Pango.Weight.Bold;

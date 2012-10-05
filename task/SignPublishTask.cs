@@ -973,9 +973,9 @@ namespace Moscrif.IDE.Task
 
 					FileInfo fiCompile = new FileInfo(fileCompile);
 					// len tie ms ktorych datum upravy je vetsi, ako datum upravy msc subory
-						if(f.LastWriteTime > fiCompile.LastWriteTime){
+						//if(f.LastWriteTime > fiCompile.LastWriteTime){
 							list.Add(f.FullName);
-						}
+						//}
 
 				} else {
 					list.Add(f.FullName);
@@ -1008,7 +1008,7 @@ namespace Moscrif.IDE.Task
 		void ProcessOutputPublishChange(object sender, string message)
 		{
 			lastMessage = message;
-			//MainClass.MainWindow.OutputConsole.WriteText(message);
+			MainClass.MainWindow.OutputConsole.WriteText(message);
 			//return;
 			string msg = message.Trim();
 			if (String.IsNullOrEmpty(msg))

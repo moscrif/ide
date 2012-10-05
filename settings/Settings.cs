@@ -530,7 +530,10 @@ namespace  Moscrif.IDE.Settings
 							s.VersionSetting = 121001;
 						}
 
-
+						if (s.VersionSetting < 121005){ //year, month, day
+							s.GeneratePlatformResolutions();
+							s.VersionSetting = 121005;
+						}
 
 						return s;
 					}
@@ -734,7 +737,7 @@ namespace  Moscrif.IDE.Settings
 			PlatformResolution prBada11 = new PlatformResolution((int)DeviceType.Bada_1_1);
 			prBada11.AllowResolution = new List<int>();
 			prBada11.AllowResolution.Add(-1);
-			//prBada11.AllowResolution.Add(-3);
+			prBada11.AllowResolution.Add(-3);
 			//prBada11.AllowResolution.Add(-6);
 			//prBada11.AllowResolution.Add(-11);
 			PlatformResolutions.Add(prBada11);

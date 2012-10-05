@@ -37,6 +37,7 @@ namespace Moscrif.IDE.Controls
 			navigBar.OnChangePath+= NavigateBarChange;
 
 			Toolbar toolbar = new Toolbar ();
+			//WinMenuBar  toolbar = new WinMenuBar ();
 			this.PackStart (toolbar, false, false, 0);
 
 			refreshButton = new ToolButton ("refresh.png");//Stock.Home);
@@ -55,6 +56,7 @@ namespace Moscrif.IDE.Controls
 			toolbar.Insert (upButton, -1);
 
 			Gtk.Menu menu = new Gtk.Menu ();
+
 			MenuItem mi = new MenuItem ("Workspace");
 			mi.Activated += OnWorkspaceClicked;
 			menu.Insert (mi, -1);

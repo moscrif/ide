@@ -270,6 +270,7 @@ namespace Moscrif.IDE.Controls
 			global::Gtk.HButtonBox w20 = this.ActionArea;
 			w20.Name = "dialog1_ActionArea";
 			w20.Spacing = 10;
+			w20.BorderWidth = ((uint)(10));
 			w20.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
 			this.buttonCancel = new global::Gtk.Button ();

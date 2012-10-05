@@ -51,7 +51,7 @@ namespace Moscrif.IDE.Components
 				btnClose.TooltipText = MainClass.Languages.Translate("insert_path_mask");
 				btnClose.Relief = Gtk.ReliefStyle.None;
 				btnClose.CanFocus = false;
-				btnClose.WidthRequest = btnClose.HeightRequest = 19;
+				btnClose.WidthRequest = btnClose.HeightRequest = 22;
 
 				popupCondition.AttachToWidget(btnClose,new Gtk.MenuDetachFunc(DetachWidget));
 

@@ -28,9 +28,13 @@ public partial class MainWindow : Gtk.Window
 {
 
 	public ActionManager ActionUiManager = new ActionManager();
-	private ListStore projectModel = new ListStore(typeof(string), typeof(string));
+
+	//private ListStore projectModel = new ListStore(typeof(string), typeof(string));
+	DropDownButton.ComboItemSet projectItems = new DropDownButton.ComboItemSet ();
+	DropDownButton.ComboItemSet deviceItems = new DropDownButton.ComboItemSet ();
+
 	private ListStore resolutionModel = new ListStore(typeof(string), typeof(string));
-	private ListStore deviceModel = new ListStore(typeof(string), typeof(int));
+	//private ListStore deviceModel = new ListStore(typeof(string), typeof(int));
 	private bool runningEmulator = false;
 
 	Pixbuf pixbufGreen = null;
@@ -42,11 +46,14 @@ public partial class MainWindow : Gtk.Window
 		set { runningEmulator = value;}
 	}
 
-	private ComboBox cbProject = new ComboBox();
-	private ComboBox cbDevice = new ComboBox();
+	//private ComboBox cbProject = new ComboBox();
+	private DropDownButton ddbProject = new DropDownButton();
+	private DropDownButton ddbDevice = new DropDownButton();
+
+	//private ComboBox cbDevice = new ComboBox();
 	private ComboBox cbResolution = new ComboBox();
 
-	private MenuBar mainMenu;
+	private MenuBar mainMenu = new MenuBar();
 	Toolbar toolbarLeft = new Toolbar();
 	Toolbar toolbarMiddle = new Toolbar();
 	Toolbar toolbarRight = new Toolbar();
@@ -235,21 +242,31 @@ public partial class MainWindow : Gtk.Window
 		cbResolution.SetCellDataFunc(resolRenderer, new Gtk.CellLayoutDataFunc(RenderResolution));
 
 		CellRendererText textRenderer = new CellRendererText();
-		cbProject = new ComboBox();
+
+		/*cbProject = new ComboBox();
 		cbProject.Changed += new EventHandler(OnComboProjectChanged);
 		cbProject.PackStart(textRenderer, true);
 		cbProject.AddAttribute(textRenderer, "text", 0);
 		cbProject.WidthRequest = 125;
 
-		cbProject.Model = projectModel;
+		cbProject.Model = projectModel;*/
 
-		cbDevice = new ComboBox();
+		ddbProject = new DropDownButton();
+		ddbProject.Changed+= OnChangedProject; 
+		ddbProject.WidthRequest = 175;
+		ddbProject.SetItemSet(projectItems);
+
+		/*cbDevice = new ComboBox();
 		cbDevice.Changed += new EventHandler(OnComboDeviceChanged);
 		cbDevice.PackStart(textRenderer, true);
 		cbDevice.AddAttribute(textRenderer, "text", 0);
 		cbDevice.WidthRequest = 110;
-		cbDevice.Model = deviceModel;
+		cbDevice.Model = deviceModel;*/
 
+		ddbDevice = new DropDownButton();
+		ddbDevice.Changed+= OnChangedDevice; 
+		ddbDevice.WidthRequest = 175;
+		ddbDevice.SetItemSet(deviceItems);
 
 		ReloadSettings(false);
 		OpenFile("StartPage",false);
@@ -459,10 +476,10 @@ public partial class MainWindow : Gtk.Window
 		if(w<1200){
 			vpMenuRight.WidthRequest =125;
 		} else {
-			if(MainClass.Platform.IsMac)
+			//if(MainClass.Platform.IsMac)
 				vpMenuRight.WidthRequest =385;
-			else 
-				vpMenuRight.WidthRequest =355;
+			//else 
+			//	vpMenuRight.WidthRequest =355;
 		}
 
 		if (MainClass.Platform.IsMac) {
@@ -709,7 +726,9 @@ public partial class MainWindow : Gtk.Window
 
 		SetSensitiveMenu(false);
 
-		projectModel.Clear();
+		//projectModel.Clear();
+		ddbProject.Clear();
+
 		WorkspaceTree.Clear();
 		FrameworkTree.Clear();
 		return true;
@@ -736,11 +755,24 @@ public partial class MainWindow : Gtk.Window
 			OpenProject(projectPath, false);
 		}
 
-		TreeIter ti = new TreeIter();
+		/*TreeIter ti = new TreeIter();
 		bool isFind = false;
+		int countProject = 0;*/
 
-		int countProject = 0;
-		projectModel.Foreach((model, path, iterr) => {
+		string appFilename = System.IO.Path.GetFileNameWithoutExtension(MainClass.Workspace.ActualProjectPath);
+		DropDownButton.ComboItem findProject =projectItems.FindItem(MainClass.Workspace.ActualProjectPath);
+
+		if(findProject != null ){
+			ddbProject.SelectItem(projectItems,findProject);
+		} else {
+			if(projectItems.Count>0 ){
+				ddbProject.SelectItem(projectItems,projectItems[0]);
+			} else {
+				ddbProject.SelectItem(projectItems,null);
+			}
+		}
+
+		/*projectModel.Foreach((model, path, iterr) => {
 			//string name = projectModel.GetValue(iterr, 0).ToString();
 			string pathProject = projectModel.GetValue(iterr, 1).ToString();
 			countProject++;
@@ -758,7 +790,7 @@ public partial class MainWindow : Gtk.Window
 			if (countProject >0)
 				cbProject.Active = 0;
 		}
-
+		*/
 		ReloadDevice(true);
 
 		foreach (string file in workspace.OpenFiles)
@@ -855,7 +887,12 @@ public partial class MainWindow : Gtk.Window
 
 		string appFilename = System.IO.Path.GetFileNameWithoutExtension(appPath);
 
-		projectModel.Foreach((model, path, iterr) => {
+		DropDownButton.ComboItem findProject =projectItems.FindItem(appFilename);
+		if(findProject != null ){
+			ddbProject.SelectItem(projectItems,findProject);
+		}
+
+		/*projectModel.Foreach((model, path, iterr) => {
 			string name = projectModel.GetValue(iterr, 0).ToString();
 			string pathProject = projectModel.GetValue(iterr, 1).ToString();
 
@@ -864,7 +901,7 @@ public partial class MainWindow : Gtk.Window
 				return true;
 			}
 				return false;
-		});
+		});*/
 
 	}
 
@@ -882,6 +919,7 @@ public partial class MainWindow : Gtk.Window
 		this.toolbarRight.ModifyBg(StateType.Normal, col);
 		this.toolbarLeft.ModifyBg(StateType.Normal, col);
 		this.toolbarMiddle.ModifyBg(StateType.Normal, col);
+		//this.mainMenu.ModifyBg(StateType.Normal, col);
 		this.vbMenuMidle.ModifyBg(StateType.Normal, col);
 
 	}
@@ -1269,11 +1307,12 @@ public partial class MainWindow : Gtk.Window
 
 	public void AddAndShowProject(Project p, bool addRecent){
 		if (p != null) {
-			projectModel.AppendValues(p.ProjectName, p.FilePath);
+			projectItems.Add(new DropDownButton.ComboItem(p.ProjectName,p));
+			//projectModel.AppendValues(p.ProjectName, p.FilePath);
 			ShowProject(p,addRecent);
 
-			if (MainClass.Workspace.Projects.Count<2)
-				cbProject.Active = 0;
+			/*if (MainClass.Workspace.Projects.Count<2)
+				cbProject.Active = 0;*/
 		}
 	}
 
@@ -1548,7 +1587,7 @@ public partial class MainWindow : Gtk.Window
 
 		TreeIter iter = new TreeIter();
 
-		projectModel.Foreach((model, path, iterr) => {
+		/*projectModel.Foreach((model, path, iterr) => {
 					string name = projectModel.GetValue(iterr, 0).ToString();
 				string pathProject = projectModel.GetValue(iterr, 1).ToString();
 
@@ -1559,12 +1598,23 @@ public partial class MainWindow : Gtk.Window
 					return false;
 			});
 
-		projectModel.Remove(ref iter);
+		projectModel.Remove(ref iter);*/
+
+		DropDownButton.ComboItem findProject =projectItems.FindItem(p.ProjectName);
+		if(findProject != null ){
+			projectItems.Remove(findProject);
+		}
+
 		SetSensitiveMenu(false);
 
 		if(MainClass.Workspace.ActualProject == p){
 			MainClass.Workspace.ActualProject = null;
-			cbProject.Active =0;
+			if(projectItems.Count>0){
+				ddbProject.SelectItem(projectItems,projectItems[0]);
+			}else {
+				ddbProject.SelectItem(projectItems,null);
+			}
+			//cbProject.Active =0;
 		}
 
 		if (p != null)
@@ -1572,7 +1622,7 @@ public partial class MainWindow : Gtk.Window
 		return p;
 	}
 
-     public Project RenameProject()
+    public Project RenameProject()
     {
 	string appname = "";
 	int typ = -1;
@@ -1621,7 +1671,21 @@ public partial class MainWindow : Gtk.Window
 		if(!MainClass.Workspace.RenameProject(prj,newName))
 			return null;
 
-		projectModel.Foreach((model, path, iterr) => {
+
+		DropDownButton.ComboItem findProject =projectItems.FindItem(oldPrjName);
+		if(findProject!=null){
+			findProject.Label = prj.ProjectName;			
+			findProject.Item = prj;
+		}
+		string activeName = System.IO.Path.GetFileNameWithoutExtension(MainClass.Workspace.ActualProjectPath);
+		if(activeName == oldPrjName){
+			SetActualProject(prj.AbsolutAppFilePath);
+			//ddbProject.ActiveText =prj.ProjectName; 
+
+		}
+
+
+		/*projectModel.Foreach((model, path, iterr) => {
 			string name = projectModel.GetValue(iterr, 0).ToString();
 			//string pathProject = projectModel.GetValue(iterr, 1).ToString();
 
@@ -1632,7 +1696,7 @@ public partial class MainWindow : Gtk.Window
 				return true;
 			}
 				return false;
-		});
+		});*/
 
 
 	}catch(Exception ex){
@@ -2086,14 +2150,15 @@ public partial class MainWindow : Gtk.Window
 				Label lbl2 = new Label(MainClass.Languages.Translate("resolution"));
 				Label lbl3 = new Label(MainClass.Languages.Translate("device"));
 
-				til1.Add(lbl1);
+				//til1.Add(lbl1);
 				til2.Add(lbl2);
-				til3.Add(lbl3);
+				//til3.Add(lbl3);
 				if(MainClass.Platform.IsMac){
 
 					VBox vboxMenu1 = new VBox();
 					vboxMenu1.PackStart(new Label(),true,false,0);
-					vboxMenu1.PackStart(cbProject,false,false,0);
+					vboxMenu1.PackStart(ddbProject,false,false,0);
+					//vboxMenu1.PackStart(cbProject,false,false,0);
 					vboxMenu1.PackEnd(new Label(),true,false,0);
 
 					VBox vboxMenu2 = new VBox();
@@ -2103,7 +2168,8 @@ public partial class MainWindow : Gtk.Window
 
 					VBox vboxMenu3 = new VBox();
 					vboxMenu3.PackStart(new Label(),true,false,0);
-					vboxMenu3.PackStart(cbDevice,false,false,0);
+					vboxMenu3.PackStart(ddbDevice,false,false,0);
+					//vboxMenu3.PackStart(cbDevice,false,false,0);
 					vboxMenu3.PackEnd(new Label(),true,false,0);
 
 					tic.Add(vboxMenu1);
@@ -2111,12 +2177,13 @@ public partial class MainWindow : Gtk.Window
 					tic3.Add(vboxMenu3);
 
 				} else {
-					tic.Add(cbProject);
+					//tic.Add(cbProject);
+					tic.Add(ddbProject);
 					tic2.Add(cbResolution);
-					tic3.Add(cbDevice);
+					tic3.Add(ddbDevice);
+					//tic3.Add(cbDevice);
 
 				}
-
 
 				toolbarMiddle.Insert(tic2, 0);
 				toolbarMiddle.Insert(til2, 0);
@@ -2138,6 +2205,15 @@ public partial class MainWindow : Gtk.Window
 		if (args.Widget is MenuBar) {
 			mainMenu =(MenuBar)args.Widget;
 			mainMenu.Show();
+			Gtk.Style mainMenuStyle = Gtk.Rc.GetStyleByPaths (mainMenu.Settings, null, "*MenuBar*", (GLib.GType)typeof(Gtk.MenuBar));
+
+
+			/*Style st = Rc.GetStyle(mainMenu);//mainMenu.Style ;
+			Gdk.GC gc = st.BackgroundGC(StateType.Normal);
+			gc.Background =new Gdk.Color(255,255,255);
+			st.SetBackgroundGC(StateType.Normal,gc);
+			mainMenu.Style = st;*/
+
 			if(!MainClass.Platform.IsMac)
 				vbMenuMidle.PackStart(mainMenu, true, true, 0);
 		}
@@ -2176,26 +2252,31 @@ public partial class MainWindow : Gtk.Window
 
 	private void ReloadDevice(bool setSelectedDevices){
 
-		deviceModel.Clear();
+		//deviceModel.Clear();
+		ddbDevice.Clear();
 		foreach (Rule rl in MainClass.Settings.Platform.Rules) {
 			if( (rl.Tag == -1 ) && !MainClass.Settings.ShowUnsupportedDevices) continue;
 			if( (rl.Tag == -2 ) && !MainClass.Settings.ShowDebugDevices) continue;
 
 			string dirPublish = MainClass.Tools.GetPublishDirectory(rl.Specific);
 			if (System.IO.Directory.Exists(dirPublish)){
-				TreeIter tiD = deviceModel.AppendValues(rl.Name, rl.Id);
+
+				DropDownButton.ComboItem addComboItem = new DropDownButton.ComboItem(rl.Name,rl);
+				deviceItems.Add(addComboItem);
+				//TreeIter tiD = deviceModel.AppendValues(rl.Name, rl.Id);
 
 				if(setSelectedDevices){
 					if (rl.Id==  MainClass.Workspace.ActualDevice) {
-						cbDevice.SetActiveIter(tiD);
+						ddbDevice.SelectItem(deviceItems,addComboItem);
+						//cbDevice.SetActiveIter(tiD);
 					}
 				}
 			}else {
 				Logger.Debug("{0} devices missing publish tool.",rl.Name);
 			}
 		}
-		if (cbDevice.Active<0)
-			cbDevice.Active = 0;
+		/*if (cbDevice.Active<0)
+			cbDevice.Active = 0;*/
 	}
 
 	private void SetSensitiveMenu(bool sensitivy)
@@ -2287,7 +2368,7 @@ public partial class MainWindow : Gtk.Window
 		}
 	}
 
-	void OnComboDeviceChanged(object o, EventArgs args)
+	/*void OnComboDeviceChanged(object o, EventArgs args)
 	{
 		ComboBox combo = o as ComboBox;
 		if (o == null)
@@ -2301,9 +2382,9 @@ public partial class MainWindow : Gtk.Window
 			MainClass.Workspace.ActualDevice = device;
 		}
 		FullResolution(device,false);
-	}
+	}*/
 
-	void OnComboProjectChanged(object o, EventArgs args)
+	/*void OnComboProjectChanged(object o, EventArgs args)
 	{
 		ComboBox combo = o as ComboBox;
 		if (o == null)
@@ -2324,6 +2405,33 @@ public partial class MainWindow : Gtk.Window
 				LogOutput.WriteTask("","",lst);
 				TaskNotebook.CurrentPage = 2;
 			}
+		}
+	}*/
+
+	void OnChangedProject (object sender, DropDownButton.ChangedEventArgs args)
+	{
+		if(args.Item !=null){
+			Project actProject = (Project)args.Item;
+			MainClass.Workspace.SetActualProject(actProject.FilePath);
+	
+			if(MainClass.Workspace.ActualProjectPath.Contains(" ")){
+			
+				string error =MainClass.Languages.Translate("error_whitespace");
+				OutputConsole.WriteError( error );
+				List<string> lst = new List<string>();
+				lst.Add(error);
+				LogOutput.WriteTask("","",lst);
+				TaskNotebook.CurrentPage = 2;
+			}
+		}
+	}
+
+	void OnChangedDevice (object sender, DropDownButton.ChangedEventArgs args)
+	{
+		if(args.Item !=null){
+			Rule actDevice = (Rule)args.Item;
+
+			FullResolution(actDevice.Id,false);
 		}
 	}
 

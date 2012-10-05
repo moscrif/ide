@@ -5555,6 +5555,7 @@ All Open Project</property>
       <widget class="Gtk.HButtonBox" id="dialog1_ActionArea">
         <property name="MemberName" />
         <property name="Spacing">10</property>
+        <property name="BorderWidth">10</property>
         <property name="Size">2</property>
         <property name="LayoutStyle">End</property>
         <child>
@@ -10268,7 +10269,7 @@ All Open Project</property>
   <widget class="Gtk.Dialog" id="Moscrif.IDE.Controls.FeedbackDialog" design-size="530 316">
     <property name="MemberName" />
     <property name="Title" translatable="yes">Feedback</property>
-    <property name="WindowPosition">CenterOnParent</property>
+    <property name="WindowPosition">Center</property>
     <property name="Buttons">2</property>
     <property name="HelpButton">False</property>
     <child internal-child="VBox">

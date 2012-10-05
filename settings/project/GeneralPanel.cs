@@ -118,7 +118,7 @@ namespace Moscrif.IDE.Settings
 				btnPopUp.TooltipText = MainClass.Languages.Translate("insert_condition_name");
 				btnPopUp.Relief = Gtk.ReliefStyle.None;
 				btnPopUp.CanFocus = false;
-				btnPopUp.WidthRequest = btnPopUp.HeightRequest = 19;
+				btnPopUp.WidthRequest = btnPopUp.HeightRequest = 22;
 
 				btnPopUp.Clicked += delegate {
 					popupCondition.Popup(null,null, new Gtk.MenuPositionFunc (GetPosition) ,3,Gtk.Global.CurrentEventTime);

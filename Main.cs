@@ -62,6 +62,11 @@ namespace Moscrif.IDE
 			};
 			Gdk.Global.InitCheck(ref args);
 
+			string themePath = Paths.DefaultTheme;
+			if (System.IO.File.Exists (themePath))
+				Gtk.Rc.Parse (themePath);
+
+
 			mainWindow = new MainWindow(args);
 
 			MainWindow.Show();

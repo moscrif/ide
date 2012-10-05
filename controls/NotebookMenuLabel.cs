@@ -38,7 +38,7 @@ namespace Moscrif.IDE.Controls
 				btnClose.TooltipText = "Menu";
 				btnClose.Relief = ReliefStyle.None;
 				btnClose.CanFocus = false;
-				btnClose.WidthRequest = btnClose.HeightRequest = 19;
+				btnClose.WidthRequest = btnClose.HeightRequest = 22;
 
 				this.popupMenu.AttachToWidget(btnClose,new Gtk.MenuDetachFunc(DetachWidget));
 

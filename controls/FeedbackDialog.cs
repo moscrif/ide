@@ -12,6 +12,8 @@ namespace Moscrif.IDE.Controls
 		public FeedbackDialog()
 		{
 			this.Build();
+			this.TransientFor = MainClass.MainWindow;
+
 			Pango.FontDescription customFont = lblFeedback.Style.FontDescription.Copy();//  Pango.FontDescription.FromString(MainClass.Settings.ConsoleTaskFont);
 			customFont.Size = 24;
 			customFont.Weight = Pango.Weight.Bold;
@@ -32,7 +34,7 @@ namespace Moscrif.IDE.Controls
 			lblStatus.LabelProp = MainClass.Languages.Translate("error_feedback");
 			buttonOk.Sensitive = true;
 			MessageDialogs md =
-				new MessageDialogs(MessageDialogs.DialogButtonType.Ok, MainClass.Languages.Translate("error_feedback"),message, Gtk.MessageType.Error,null);
+				new MessageDialogs(MessageDialogs.DialogButtonType.Ok, MainClass.Languages.Translate("error_feedback"),message, Gtk.MessageType.Error,this);
 			md.ShowDialog();
 
 		}
@@ -41,7 +43,7 @@ namespace Moscrif.IDE.Controls
 		{
 			if((MainClass.Settings.Account == null) || (String.IsNullOrEmpty(MainClass.Settings.Account.Token))){
 				MessageDialogs md =
-					new MessageDialogs(MessageDialogs.DialogButtonType.Ok, MainClass.Languages.Translate("invalid_login_f1"),"", Gtk.MessageType.Error,null);
+					new MessageDialogs(MessageDialogs.DialogButtonType.Ok, MainClass.Languages.Translate("invalid_login_f1"),"", Gtk.MessageType.Error,this);
 				md.ShowDialog();
 
 				return ;

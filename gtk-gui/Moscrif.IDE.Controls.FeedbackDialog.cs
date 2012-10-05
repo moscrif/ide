@@ -18,7 +18,7 @@ namespace Moscrif.IDE.Controls
 			// Widget Moscrif.IDE.Controls.FeedbackDialog
 			this.Name = "Moscrif.IDE.Controls.FeedbackDialog";
 			this.Title = global::Mono.Unix.Catalog.GetString ("Feedback");
-			this.WindowPosition = ((global::Gtk.WindowPosition)(4));
+			this.WindowPosition = ((global::Gtk.WindowPosition)(1));
 			// Internal child Moscrif.IDE.Controls.FeedbackDialog.VBox
 			global::Gtk.VBox w1 = this.VBox;
 			w1.Name = "dialog1_VBox";

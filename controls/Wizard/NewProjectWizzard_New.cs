@@ -369,19 +369,23 @@ namespace Moscrif.IDE.Controls.Wizard
 			cbeWorkspace.GetActiveIter(out tiChb);
 			workspaceName = storeWorkspace.GetValue(tiChb, 0).ToString(); 
 			string workspacePath = storeWorkspace.GetValue(tiChb, 1).ToString();
+			int type = Convert.ToInt32(storeWorkspace.GetValue(tiChb, 2));
+			string dir = workspacePath;
 
-			string dir = System.IO.Path.GetDirectoryName(workspacePath);
-
-			if(dir.ToLower().EndsWith(workspaceName.ToLower()) ){
-				int indx =dir.ToLower().LastIndexOf(workspaceName.ToLower());
-				dir = dir.Remove(indx-1,workspaceName.Length);
+			if((type == 1 || type == 0)){
+				dir = System.IO.Path.GetDirectoryName(workspacePath);
+			
+				if(dir.ToLower().EndsWith(workspaceName.ToLower()) ){
+					int indx =dir.ToLower().LastIndexOf(workspaceName.ToLower());
+					dir = dir.Remove(indx-1,workspaceName.Length+1);
+				}
 			}
 
-			int type = Convert.ToInt32(storeWorkspace.GetValue(tiChb, 2));
 			if(type == -1){
 				cbeWorkspace.Active = cbeWorkspace.Active+1;
 			} else if(type == 1 || type == 0){
 				feLocation.DefaultPath = dir;
+
 				feLocation.Sensitive = false;
 			} else if(type == 2) {
 				feLocation.Sensitive = true;
@@ -448,6 +452,9 @@ namespace Moscrif.IDE.Controls.Wizard
 					UpdateMessage(tiPrj,1,"OK");
 					MainClass.MainWindow.AddAndShowProject(prj,true);
 					AddMessage(MainClass.Languages.Translate("wizzard_finish"),"",null);
+
+					if(entrProjectName.Text == prjDefaultName)
+						MainClass.Settings.ProjectCount = MainClass.Settings.ProjectCount +1;
 
 				} else { //Inicialize next page
 					lblCustom.LabelProp = projectTemplate.Custom;
@@ -653,9 +660,6 @@ namespace Moscrif.IDE.Controls.Wizard
 
 		private bool CreateWorkspace(out string  workspaceName,out string workspaceRoot,out string workspaceOutput,out string workspaceFile){
 
-			if(entrPage2PrjName.Text == prjDefaultName)
-				MainClass.Settings.ProjectCount = MainClass.Settings.ProjectCount +1;
-
 			if(cbeWorkspace.ActiveText == worksDefaultName)
 				MainClass.Settings.WorkspaceCount = MainClass.Settings.WorkspaceCount +1;
 
@@ -710,6 +714,8 @@ namespace Moscrif.IDE.Controls.Wizard
 		private Project ImportProject(string appPath, string projectName,string newLibs, string newOrientation)
 		{
 			//TreeIter ti =  AddMessage("Create Project ","....",null);
+			if(entrPage2PrjName.Text == prjDefaultName)
+				MainClass.Settings.ProjectCount = MainClass.Settings.ProjectCount +1;
 
 			string oldName = System.IO.Path.GetFileNameWithoutExtension(appPath);
 			string oldApp = System.IO.Path.GetFileName(appPath);

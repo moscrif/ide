@@ -28,6 +28,11 @@ namespace Moscrif.IDE.Iface
 			get { return System.IO.Path.Combine(ConfingDir, "styles"); }
 		}
 
+		public string ThemesDir
+		{
+			get { return System.IO.Path.Combine(ConfingDir, "themes"); }
+		}
+
 		public string LanguageDir
 		{
 			get { return System.IO.Path.Combine(ConfingDir, "languages"); }
@@ -46,6 +51,17 @@ namespace Moscrif.IDE.Iface
 		public string Temp
 		{
 			get { return System.IO.Path.Combine(appPath, "temp"); }
+		}
+
+
+		public string DefaultTheme
+		{
+			get { 
+				string path = System.IO.Path.Combine(ThemesDir, "Moscrif"); 
+				path = System.IO.Path.Combine(path, "gtk-2.0"); 
+				path = System.IO.Path.Combine(path, "gtkrc"); 
+				return path;
+			}
 		}
 
 		private string workDir;

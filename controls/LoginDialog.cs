@@ -107,7 +107,7 @@ namespace Moscrif.IDE.Controls
 		public LoginDialog(Gtk.Window parentWindows)
 		{
 			this.Build();
-			this.HeightRequest = 225;
+			this.HeightRequest = 235;
 			if(parentWindows!=null)
 				this.TransientFor = parentWindows;
 			else

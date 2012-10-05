@@ -1,0 +1,156 @@
+################################################
+# panel
+################################################
+style "panelbg"
+{
+
+  fg[NORMAL]        		= "#000000"
+  fg[PRELIGHT]      		= "#ffffff"
+  fg[ACTIVE]        		= "#ffffff"
+  fg[SELECTED]      		= "#ffffff"
+ 
+  xthickness            			= 0	#2
+  ythickness            			= 0
+
+  bg_pixmap[NORMAL]				= "Panel/panel-bg.png"
+  bg_pixmap[SELECTED]				= "Panel/panel-bg.png"
+  bg_pixmap[INSENSITIVE]			= "Panel/panel-bg.png"
+  bg_pixmap[PRELIGHT]				= "Panel/panel-bg.png"
+  
+}
+
+widget		"*PanelApplet*" 		style "panelbg"
+widget		"*PanelWidget*" 		style "panelbg"
+widget		"*TrayIcon*" 			style "panelbg"
+widget		"*fast-user-switch*"		style "panelbg"
+class		"PanelApp*"			style "panelbg"
+class 		"*PanelToplevel*" 		style "panelbg"
+widget_class 	"*PanelToplevel*" 		style "panelbg"
+widget_class 	"*notif*" 			style "panelbg"
+widget_class 	"*Notif*" 			style "panelbg"
+widget_class 	"*Tray*" 			style "panelbg"
+widget_class 	"*tray*" 			style "panelbg"
+widget		"*Xfce*Panel*"			style "panelbg"
+class 		"*Xfce*Panel*" 			style "panelbg"
+widget_class 	"*Xfce*Panel*" 			style "panelbg"
+
+
+#style "panelbg2" = "panelbg"
+#{
+#
+#  fg[NORMAL]        		= "#000000"
+#  fg[PRELIGHT]      		= "#ffffff"
+#  fg[ACTIVE]        		= "#ffffff"
+#  fg[SELECTED]      		= "#ffffff"
+# 
+#   engine "pixmap"
+#   {
+#
+#		image
+#		{
+#			function	= BOX
+#			file		= "Panel/panel-bg.png"
+#			border	= { 0, 0, 0, 0 }
+#			stretch	= TRUE		#FALSE
+#    		}
+#
+#   }
+#}
+
+#widget_class "*Panel*Menu*" style "panelbg2"
+
+##################### PANEL BUTTONS ###############################
+
+style "panelbuttons" 
+{
+
+  fg[NORMAL]        		= "#000000"
+  fg[PRELIGHT]      		= "#ffffff"
+  fg[ACTIVE]        		= "#ffffff"
+  fg[SELECTED]      		= "#ffffff"
+ 
+  xthickness            	= 1
+  ythickness            	= 1
+
+  GtkWidget::focus_padding	= 0	#2
+
+	engine "pixmap" {
+      
+		image
+		{
+			function        = BOX
+			recolorable     = TRUE
+			state		= NORMAL
+			file            = "Others/transparent.png"
+			border          = { 0, 0, 0, 0 }
+			stretch         = TRUE
+		}
+
+		image
+		{
+			function        = BOX
+			recolorable     = TRUE
+			state		= PRELIGHT
+			file            = "Panel/panel-item.png"
+			border          = { 1, 1, 1, 1 }
+			stretch         = TRUE
+		}
+
+		image
+		{
+			function        = BOX
+			recolorable     = TRUE
+			state		= ACTIVE
+			file            = "Panel/panel-item.png"
+			border          = { 1, 1, 1, 1 }
+			stretch         = TRUE
+		}  
+	}
+}
+
+widget 		"*PanelWidget*"				style "panelbuttons"
+widget 		"*PanelApplet*"				style "panelbuttons"
+widget_class 	"*PanelButton*."			style "panelbuttons"
+widget_class 	"*Panel*Menu*"				style "panelbuttons"
+widget_class 	"*Panel*MenuBar*"			style "panelbuttons"
+widget_class	"*Panel*<GtkMenuBar>*"			style "panelbuttons"
+widget_class	"*Panel*GtkButton"			style "panelbuttons"
+widget_class	"*Panel*GtkToggleButton"		style "panelbuttons"
+
+widget		"*task*"				style "panelbuttons"
+widget 		"*.tasklist-button"			style "panelbuttons"
+widget 		"*PanelApplet*TaskTitle*"		style "panelbuttons"
+widget_class 	"*PanelToplevel*Button"			style "panelbuttons"
+widget_class 	"*Xfce*Panel*.GtkToggleButton"		style "panelbuttons"
+widget_class 	"*Xfce*NetkTasklist*GtkToggleButton"	style "panelbuttons"
+
+########### panel arrow fix ############################
+
+style "panel-arrow"
+{
+ engine "pixmap"
+  {
+   image
+   {
+     function 		= ARROW
+   }
+  }
+}
+
+class "*Panel*" style "panel-arrow"
+
+############ panel handles #############################
+
+style "panel handle" 
+{
+    engine "pixmap"
+    {    
+        image
+        {
+            function 	= HANDLE
+        }    
+    }
+}
+
+class "PanelAppletFrame" 	style "panel handle"
+
