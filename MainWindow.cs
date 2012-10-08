@@ -32,8 +32,9 @@ public partial class MainWindow : Gtk.Window
 	//private ListStore projectModel = new ListStore(typeof(string), typeof(string));
 	DropDownButton.ComboItemSet projectItems = new DropDownButton.ComboItemSet ();
 	DropDownButton.ComboItemSet deviceItems = new DropDownButton.ComboItemSet ();
+	DropDownButton.ComboItemSet resolutionItems = new DropDownButton.ComboItemSet ();
 
-	private ListStore resolutionModel = new ListStore(typeof(string), typeof(string));
+	//private ListStore resolutionModel = new ListStore(typeof(string), typeof(string));
 	//private ListStore deviceModel = new ListStore(typeof(string), typeof(int));
 	private bool runningEmulator = false;
 
@@ -49,9 +50,10 @@ public partial class MainWindow : Gtk.Window
 	//private ComboBox cbProject = new ComboBox();
 	private DropDownButton ddbProject = new DropDownButton();
 	private DropDownButton ddbDevice = new DropDownButton();
+	private DropDownButton ddbResolution = new DropDownButton();
 
 	//private ComboBox cbDevice = new ComboBox();
-	private ComboBox cbResolution = new ComboBox();
+	//private ComboBox cbResolution = new ComboBox();
 
 	private MenuBar mainMenu = new MenuBar();
 	Toolbar toolbarLeft = new Toolbar();
@@ -230,16 +232,16 @@ public partial class MainWindow : Gtk.Window
 		} catch {
 		}
 
-		cbResolution = new ComboBox();
+		//cbResolution = new ComboBox();
 
 		CellRendererText resolRenderer = new CellRendererText();
 
-		cbResolution.Changed += new EventHandler(OnComboResolutionChanged);
+		/*cbResolution.Changed += new EventHandler(OnComboResolutionChanged);
 		cbResolution.PackStart(resolRenderer, true);
 		cbResolution.AddAttribute(resolRenderer, "text", 0);
 		cbResolution.WidthRequest = 175;
 		cbResolution.Model = resolutionModel;
-		cbResolution.SetCellDataFunc(resolRenderer, new Gtk.CellLayoutDataFunc(RenderResolution));
+		cbResolution.SetCellDataFunc(resolRenderer, new Gtk.CellLayoutDataFunc(RenderResolution));*/
 
 		CellRendererText textRenderer = new CellRendererText();
 
@@ -267,6 +269,11 @@ public partial class MainWindow : Gtk.Window
 		ddbDevice.Changed+= OnChangedDevice; 
 		ddbDevice.WidthRequest = 175;
 		ddbDevice.SetItemSet(deviceItems);
+
+		ddbResolution = new DropDownButton();
+		ddbResolution.Changed+= OnChangedResolution; 
+		ddbResolution.WidthRequest = 175;
+		ddbResolution.SetItemSet(resolutionItems);
 
 		ReloadSettings(false);
 		OpenFile("StartPage",false);
@@ -685,12 +692,13 @@ public partial class MainWindow : Gtk.Window
 		}
 		if(workspace == null) return;
 
-		TreeIter iter;
+		/*TreeIter iter;
 		if (cbResolution.GetActiveIter(out iter)) {
 			string prj = (string)cbResolution.Model.GetValue(iter, 1);
 
 			workspace.ActualResolution = prj;
-		}
+		}*/
+		workspace.ActualResolution = ddbResolution.CurrentItem.ToString();
 
 		if (workspace != null)
 		{
@@ -891,7 +899,6 @@ public partial class MainWindow : Gtk.Window
 		if(findProject != null ){
 			ddbProject.SelectItem(projectItems,findProject);
 		}
-
 		/*projectModel.Foreach((model, path, iterr) => {
 			string name = projectModel.GetValue(iterr, 0).ToString();
 			string pathProject = projectModel.GetValue(iterr, 1).ToString();
@@ -902,7 +909,6 @@ public partial class MainWindow : Gtk.Window
 			}
 				return false;
 		});*/
-
 	}
 
 
@@ -2146,13 +2152,15 @@ public partial class MainWindow : Gtk.Window
 				ToolItem til2 = new ToolItem();
 				ToolItem til3 = new ToolItem();
 
-				Label lbl1 = new Label(MainClass.Languages.Translate("project"));
+				/*Label lbl1 = new Label(MainClass.Languages.Translate("project"));
 				Label lbl2 = new Label(MainClass.Languages.Translate("resolution"));
-				Label lbl3 = new Label(MainClass.Languages.Translate("device"));
-
-				//til1.Add(lbl1);
+				Label lbl3 = new Label(MainClass.Languages.Translate("device"));*/
+				Label lbl1 = new Label(MainClass.Languages.Translate(" "));
+				Label lbl2 = new Label(MainClass.Languages.Translate(" "));
+				Label lbl3 = new Label(MainClass.Languages.Translate(" "));
+				til1.Add(lbl1);
 				til2.Add(lbl2);
-				//til3.Add(lbl3);
+				til3.Add(lbl3);
 				if(MainClass.Platform.IsMac){
 
 					VBox vboxMenu1 = new VBox();
@@ -2163,7 +2171,8 @@ public partial class MainWindow : Gtk.Window
 
 					VBox vboxMenu2 = new VBox();
 					vboxMenu2.PackStart(new Label(),true,false,0);
-					vboxMenu2.PackStart(cbResolution,false,false,0);
+					vboxMenu2.PackStart(ddbResolution,false,false,0);
+					//vboxMenu2.PackStart(cbResolution,false,false,0);
 					vboxMenu2.PackEnd(new Label(),true,false,0);
 
 					VBox vboxMenu3 = new VBox();
@@ -2179,12 +2188,12 @@ public partial class MainWindow : Gtk.Window
 				} else {
 					//tic.Add(cbProject);
 					tic.Add(ddbProject);
-					tic2.Add(cbResolution);
+					tic2.Add(ddbResolution);
+					//tic2.Add(cbResolution);
 					tic3.Add(ddbDevice);
 					//tic3.Add(cbDevice);
 
 				}
-
 				toolbarMiddle.Insert(tic2, 0);
 				toolbarMiddle.Insert(til2, 0);
 				toolbarMiddle.Insert(new SeparatorToolItem(), 0);
@@ -2286,25 +2295,29 @@ public partial class MainWindow : Gtk.Window
 
 	}
 
-	private void FullResolution(int device, bool allResolution){
+	private void FillResolution(int device, bool allResolution){
 
 		bool isFind = false;
 		bool hardAll  = false;
-		resolutionModel.Clear();
+		//resolutionModel.Clear();
+		ddbResolution.Clear();
+
 		string path="";
 		if(MainClass.Workspace!= null)
 			path = MainClass.Workspace.ActualResolution;
 
 		string[] listFi = Directory.GetFiles(MainClass.Paths.DisplayDir, "*.ini");
-		int prefferedIndex = 0;
+		//int prefferedIndex = 0;
 		string vvgaPath = System.IO.Path.Combine(MainClass.Paths.DisplayDir,"noskin_vga.ini");
-		int indx =0;
-		TreeIter tiSelect = new TreeIter();
+		//int indx =0;
+		//TreeIter tiSelect = new TreeIter();
 
 		PlatformResolution pr = MainClass.Settings.PlatformResolutions.Find(x=>x.IdPlatform == device);
 		if(pr == null){
 			hardAll = true; // nema definiciu , zobrazuju sa vsetky
 		}
+		DropDownButton.ComboItem selectComboItem = null;
+		DropDownButton.ComboItem vvgaComboItem = null;
 
 		foreach (string fi in listFi) {
 			EmulatorDisplay dd = new EmulatorDisplay(fi);
@@ -2319,34 +2332,56 @@ public partial class MainWindow : Gtk.Window
 					}
 				}
 
-				TreeIter ti = resolutionModel.AppendValues(dd.Title, dd.FilePath);
+				DropDownButton.ComboItem addComboItem = new DropDownButton.ComboItem(dd.Title,dd.FilePath);
+				resolutionItems.Add(addComboItem);
+
+				if(dd.FilePath == vvgaPath){
+					vvgaComboItem = addComboItem;
+						//ddbDevice.SelectItem(deviceItems,addComboItem);
+				}
+
+				if (dd.FilePath == path) {
+					isFind = true;
+					selectComboItem = addComboItem;
+				}
+
+				/*TreeIter ti = resolutionModel.AppendValues(dd.Title, dd.FilePath);
 				if (dd.FilePath == vvgaPath)
 					prefferedIndex =indx;
 
 				if (dd.FilePath == path) {
 					isFind = true;
 					tiSelect = ti;
-				}
-				indx++;
+				}*/
+				//indx++;
 			}
 		}
+
 		if (isFind)
-			cbResolution.SetActiveIter(tiSelect);
+			ddbResolution.SelectItem(resolutionItems,selectComboItem);
 		else{
-			if(System.IO.File.Exists(vvgaPath))
-				cbResolution.Active = prefferedIndex;
-			else cbResolution.Active =0;
+			if(vvgaComboItem != null){
+				ddbResolution.SelectItem(resolutionItems,vvgaComboItem);
+			} else {
+				if(resolutionItems.Count>0){
+					ddbResolution.SelectItem(resolutionItems,resolutionItems[0]);
+				}
+			}
 		}
 
 		if(!hardAll){
 			if(!allResolution){
-				resolutionModel.AppendValues(MainClass.Languages.Translate("show_denied" ) , "-1");
+				resolutionItems.Add(new DropDownButton.ComboItem(MainClass.Languages.Translate("show_denied" ) , "-1") );
+				//resolutionModel.AppendValues(MainClass.Languages.Translate("show_denied" ) , "-1");
 			} else {
-				resolutionModel.AppendValues(MainClass.Languages.Translate("hide_denied" ) , "-2");
+				resolutionItems.Add(new DropDownButton.ComboItem(MainClass.Languages.Translate("hide_denied" ) , "-2") );
+				//resolutionModel.AppendValues(MainClass.Languages.Translate("hide_denied" ) , "-2");
 			}
 		}
 
 	}
+
+	/*
 
 	void OnComboResolutionChanged(object o, EventArgs args)
 	{
@@ -2359,14 +2394,14 @@ public partial class MainWindow : Gtk.Window
 			string prj = (string)combo.Model.GetValue(iter, 1);
 
 			if(prj == "-1"){
-				FullResolution(MainClass.Workspace.ActualDevice, true);
+				FillResolution(MainClass.Workspace.ActualDevice, true);
 			}else if (prj == "-2"){
-				FullResolution(MainClass.Workspace.ActualDevice, false);
+				FillResolution(MainClass.Workspace.ActualDevice, false);
 			} else {
 				MainClass.Workspace.ActualResolution = prj;
 			}
 		}
-	}
+	}*/
 
 	/*void OnComboDeviceChanged(object o, EventArgs args)
 	{
@@ -2381,7 +2416,7 @@ public partial class MainWindow : Gtk.Window
 
 			MainClass.Workspace.ActualDevice = device;
 		}
-		FullResolution(device,false);
+		FillResolution(device,false);
 	}*/
 
 	/*void OnComboProjectChanged(object o, EventArgs args)
@@ -2408,6 +2443,21 @@ public partial class MainWindow : Gtk.Window
 		}
 	}*/
 
+	void OnChangedResolution (object sender, DropDownButton.ChangedEventArgs args)
+	{
+		if(args.Item !=null){
+			string devPath = (string)args.Item;
+						
+			if(devPath == "-1"){
+				FillResolution(MainClass.Workspace.ActualDevice, true);
+			}else if (devPath == "-2"){
+				FillResolution(MainClass.Workspace.ActualDevice, false);
+			} else {
+				MainClass.Workspace.ActualResolution = devPath;
+			}
+		}
+	}
+
 	void OnChangedProject (object sender, DropDownButton.ChangedEventArgs args)
 	{
 		if(args.Item !=null){
@@ -2430,8 +2480,8 @@ public partial class MainWindow : Gtk.Window
 	{
 		if(args.Item !=null){
 			Rule actDevice = (Rule)args.Item;
-
-			FullResolution(actDevice.Id,false);
+			MainClass.Workspace.ActualDevice = actDevice.Id;
+			FillResolution(actDevice.Id,false);
 		}
 	}
 

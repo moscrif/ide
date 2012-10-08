@@ -747,7 +747,7 @@ namespace Moscrif.IDE.Settings
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_INEWPADICON);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp =new PublishProperty(Project.KEY_INEWPADICON));
-				GenerateFileMaskEntry(ref tbliNewPd,Project.KEY_INEWPADICON,"Icon : ",pp.PublishValue,0,MainClass.Languages.Translate("property_ios_icon",114,114));
+				GenerateFileMaskEntry(ref tbliNewPd,Project.KEY_INEWPADICON,"Icon : ",pp.PublishValue,0,MainClass.Languages.Translate("property_ios_icon",144,144));
 				
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_INEWPADSPLASH);
 				if (pp == null)
