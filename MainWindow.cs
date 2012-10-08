@@ -2101,6 +2101,9 @@ public partial class MainWindow : Gtk.Window
 				if(setSelectedDevices){
 					if (rl.Id==  MainClass.Workspace.ActualDevice) {
 						ddbDevice.SelectItem(deviceItems,addComboItem);
+					} else {
+						if(deviceItems.Count>0)
+							ddbDevice.SelectItem(deviceItems,deviceItems[0]);
 					}
 				}
 			}else {

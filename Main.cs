@@ -61,11 +61,13 @@ namespace Moscrif.IDE
 				argsum.ExitApplication = true;
 			};
 			Gdk.Global.InitCheck(ref args);
-
+			if (Platform.IsWindows){
 			string themePath = Paths.DefaultTheme;
-			if (System.IO.File.Exists (themePath))
-				Gtk.Rc.Parse (themePath);
-
+				if (System.IO.File.Exists (themePath)){
+					Gtk.Rc.AddDefaultFile(themePath);
+					Gtk.Rc.Parse (themePath);
+				}
+			}
 
 			mainWindow = new MainWindow(args);
 
@@ -79,6 +81,7 @@ namespace Moscrif.IDE
 				LoggingInfo log = new LoggingInfo();
 				log.LoggWebThread(LoggingInfo.ActionId.IDEStart);
 			}
+
 			if (!String.IsNullOrEmpty(Paths.TempDir))
 			{
 				Application.Run();
