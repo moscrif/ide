@@ -13,6 +13,7 @@ namespace Moscrif.IDE.Controls//controls
 		public UniqueSequenceDialog()
 		{
 			this.Build();
+			this.TransientFor = MainClass.MainWindow;
 			this.Title = MainClass.Languages.Translate("moscrif_ide_title_f1");
 		}
 

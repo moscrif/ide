@@ -232,38 +232,10 @@ public partial class MainWindow : Gtk.Window
 		} catch {
 		}
 
-		//cbResolution = new ComboBox();
-
-		CellRendererText resolRenderer = new CellRendererText();
-
-		/*cbResolution.Changed += new EventHandler(OnComboResolutionChanged);
-		cbResolution.PackStart(resolRenderer, true);
-		cbResolution.AddAttribute(resolRenderer, "text", 0);
-		cbResolution.WidthRequest = 175;
-		cbResolution.Model = resolutionModel;
-		cbResolution.SetCellDataFunc(resolRenderer, new Gtk.CellLayoutDataFunc(RenderResolution));*/
-
-		CellRendererText textRenderer = new CellRendererText();
-
-		/*cbProject = new ComboBox();
-		cbProject.Changed += new EventHandler(OnComboProjectChanged);
-		cbProject.PackStart(textRenderer, true);
-		cbProject.AddAttribute(textRenderer, "text", 0);
-		cbProject.WidthRequest = 125;
-
-		cbProject.Model = projectModel;*/
-
 		ddbProject = new DropDownButton();
 		ddbProject.Changed+= OnChangedProject; 
 		ddbProject.WidthRequest = 175;
 		ddbProject.SetItemSet(projectItems);
-
-		/*cbDevice = new ComboBox();
-		cbDevice.Changed += new EventHandler(OnComboDeviceChanged);
-		cbDevice.PackStart(textRenderer, true);
-		cbDevice.AddAttribute(textRenderer, "text", 0);
-		cbDevice.WidthRequest = 110;
-		cbDevice.Model = deviceModel;*/
 
 		ddbDevice = new DropDownButton();
 		ddbDevice.Changed+= OnChangedDevice; 
@@ -331,10 +303,7 @@ public partial class MainWindow : Gtk.Window
 		GetOutputMenu(ref logMenu, LogOutput);
 		TaskNotebook.AppendPage(LogOutput, new NotebookMenuLabel("log.png",MainClass.Languages.Translate("logs"),logMenu));
 
-
 		TodoOutput = new TodoOutput();
-		//Gtk.Menu todoMenu = new Gtk.Menu();
-		//GetOutputMenu(ref todoMenu, TodoOutput);
 		TaskNotebook.AppendPage(TodoOutput, new NotebookLabel("task.png",MainClass.Languages.Translate("task")));
 
 
@@ -343,11 +312,8 @@ public partial class MainWindow : Gtk.Window
 		GetOutputMenu(ref findMenu, FindOutput);
 		TaskNotebook.AppendPage(FindOutput, new NotebookMenuLabel("find.png",MainClass.Languages.Translate("find_result"),findMenu));
 
-
 		hpOutput.Add2(TaskNotebook);
-
 		FirstShow();
-		//this.ShowAll();
 
 		EditorNotebook.PageIsChanged +=PageIsChanged;
 
@@ -358,7 +324,6 @@ public partial class MainWindow : Gtk.Window
 				ReloadWorkspace(workspace, false,false);
 				Console.WriteLine("RecentFiles");
 				MainClass.Settings.RecentFiles.AddWorkspace(workspace.FilePath, workspace.FilePath);
-				//ActionUiManager.RefreshRecentWorkspace(MainClass.Settings.RecentFiles.GetWorkspace());
 				ActionUiManager.RefreshRecentAll(MainClass.Settings.RecentFiles.GetFiles(),
 			                          MainClass.Settings.RecentFiles.GetProjects(),
 		                                 MainClass.Settings.RecentFiles.GetWorkspace());
@@ -424,7 +389,6 @@ public partial class MainWindow : Gtk.Window
 			}
 		}
 
-		//Gtk.Drag.
 		Gtk.Drag.DestSet (this, 0, null, 0);
 		this.DragDrop += delegate(object o, DragDropArgs args) {
 
@@ -439,7 +403,6 @@ public partial class MainWindow : Gtk.Window
 
 			Atom [] targets = args.Context.Targets;
 			foreach (Atom a in targets){
-				//Console.WriteLine (a.Name);
 				if(a.Name == "text/uri-list")
 					Gtk.Drag.GetData (o as Widget, dc, a, args.Time);
 			}
@@ -448,7 +411,6 @@ public partial class MainWindow : Gtk.Window
 
 		this.DragDataReceived += delegate(object o, DragDataReceivedArgs args) {
 
-			//Gdk.DragContext dc=args.Context;
 			if(args.SelectionData != null){
 				string fullData = System.Text.Encoding.UTF8.GetString (args.SelectionData.Data);
 	
@@ -512,7 +474,6 @@ public partial class MainWindow : Gtk.Window
 
 		OutputConsole.WriteError(sbError.ToString());
 
-		//Moscrif.IDE.Iface.SocetServer.OutputStreamChanged +=
 		IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
 
 		lblPort.Text =MainClass.Settings.SocetServerPort;
@@ -523,8 +484,6 @@ public partial class MainWindow : Gtk.Window
 			if (ip.AddressFamily == AddressFamily.InterNetwork){
 				if(cbIpAdress.Active <0)
 					cbIpAdress.Active = indx;
-				//ipAddress = ip;
-				//Tool.Logger.Debug("InterNetwork IP- >"+ipAddress.ToString());
 			}
 			indx++;
 		}
@@ -552,7 +511,6 @@ public partial class MainWindow : Gtk.Window
 		btnSocketServer.CanFocus = false;
 		btnSocketServer.WidthRequest = btnSocketServer.HeightRequest =24;
 		btnSocketServer.Image = new Gtk.Image(pixbufRed);
-		//lblSocket.Text = ip;
 
 		Thread ExecEditorThreads = new Thread(new ThreadStart(ExecEditorThread));
 		//filllStartPageThread.Priority = ThreadPriority.Normal;
@@ -565,14 +523,12 @@ public partial class MainWindow : Gtk.Window
 
 
 	private void RenderResolution (CellLayout cell_layout, CellRenderer cell, TreeModel model, TreeIter iter)
-		//(Gtk.TreeViewColumn column, Gtk.CellRenderer cell, Gtk.TreeModel model, Gtk.TreeIter iter)
 	{
 		string type = (string) model.GetValue (iter, 1);
 
 		Pango.FontDescription fd = new Pango.FontDescription();
 
 		if ((type == "-1") || (type == "-2")) {
-			//(cell as Gtk.CellRendererText).ForegroundGdk = new Gdk.Color(255,111,0); // "black";
 			fd.Style =  Pango.Style.Italic;
 		}
 		(cell as Gtk.CellRendererText).FontDesc = fd;
@@ -616,7 +572,7 @@ public partial class MainWindow : Gtk.Window
 					ActionUiManager.SetSensitive("save",true);
 					ActionUiManager.SetSensitive("saveas",true);
 					ActionUiManager.SetEditMenu(true);
-				//ActionUiManager.SetSensitive("EditAction",true);
+					//ActionUiManager.SetSensitive("EditAction",true);
 					break;
 				}
 		}
@@ -641,16 +597,13 @@ public partial class MainWindow : Gtk.Window
 		vpBody.Parent.ParentWindow.GetGeometry(out x2, out y2, out w2, out h2, out d2);
 
 		int jednaStvrtina =(h2 / 4);
-		//Console.WriteLine("jednaStvrtina -> {0}",jednaStvrtina);
 
 		if (jednaStvrtina< 250)
 			jednaStvrtina = 250;
 		if (jednaStvrtina> 400)
 			jednaStvrtina = 400;
 
-		//Console.WriteLine("h2 -> {0}",h2);
 		int triStvrtiny = h2-jednaStvrtina;
-		//Console.WriteLine("triStvrtiny -> {0}",triStvrtiny);
 		vpBody.Position =triStvrtiny;
 	}
 
@@ -691,13 +644,6 @@ public partial class MainWindow : Gtk.Window
 			return;
 		}
 		if(workspace == null) return;
-
-		/*TreeIter iter;
-		if (cbResolution.GetActiveIter(out iter)) {
-			string prj = (string)cbResolution.Model.GetValue(iter, 1);
-
-			workspace.ActualResolution = prj;
-		}*/
 		workspace.ActualResolution = ddbResolution.CurrentItem.ToString();
 
 		if (workspace != null)
@@ -733,8 +679,6 @@ public partial class MainWindow : Gtk.Window
 		//SaveWorkspace();
 
 		SetSensitiveMenu(false);
-
-		//projectModel.Clear();
 		ddbProject.Clear();
 
 		WorkspaceTree.Clear();
@@ -763,12 +707,8 @@ public partial class MainWindow : Gtk.Window
 			OpenProject(projectPath, false);
 		}
 
-		/*TreeIter ti = new TreeIter();
-		bool isFind = false;
-		int countProject = 0;*/
-
 		string appFilename = System.IO.Path.GetFileNameWithoutExtension(MainClass.Workspace.ActualProjectPath);
-		DropDownButton.ComboItem findProject =projectItems.FindItem(MainClass.Workspace.ActualProjectPath);
+		DropDownButton.ComboItem findProject =projectItems.FindItem(appFilename);
 
 		if(findProject != null ){
 			ddbProject.SelectItem(projectItems,findProject);
@@ -780,33 +720,12 @@ public partial class MainWindow : Gtk.Window
 			}
 		}
 
-		/*projectModel.Foreach((model, path, iterr) => {
-			//string name = projectModel.GetValue(iterr, 0).ToString();
-			string pathProject = projectModel.GetValue(iterr, 1).ToString();
-			countProject++;
-			if (pathProject == MainClass.Workspace.ActualProjectPath){
-				ti = iterr;
-				isFind = true;
-				return true;
-			}
-				return false;
-		});
-
-		if (isFind)
-			cbProject.SetActiveIter(ti);
-		else{
-			if (countProject >0)
-				cbProject.Active = 0;
-		}
-		*/
 		ReloadDevice(true);
 
 		foreach (string file in workspace.OpenFiles)
 			if (System.IO.File.Exists(file))
 				EditorNotebook.Open(file);
 
-		// -Menu for mobile platform
-		//GenerateMenuPublish();
 		if(settingPanel){
 			ReloadPanel();
 
@@ -825,7 +744,6 @@ public partial class MainWindow : Gtk.Window
 
 		if (addRecent){
 			MainClass.Settings.RecentFiles.AddWorkspace(workspace.FilePath, workspace.FilePath);
-			//ActionUiManager.RefreshRecentWorkspace(MainClass.Settings.RecentFiles.GetWorkspace());
 			ActionUiManager.RefreshRecentAll(MainClass.Settings.RecentFiles.GetFiles(),
 			                          MainClass.Settings.RecentFiles.GetProjects(),
 		                                 MainClass.Settings.RecentFiles.GetWorkspace());
@@ -866,8 +784,6 @@ public partial class MainWindow : Gtk.Window
 		}
 
 		if(MainClass.Workspace.ShowLeftPane){
-			//if (hpBodyMiddleWidth != 0) // tree->editor
-			//	hpBodyMidle.Position = hpBodyMiddleWidth;
 
 			if ((hpBodyMiddleWidth != 0) &&(hpBodyMiddleWidth < w)){
 				hpBodyMidle.Position = hpBodyMiddleWidth;
@@ -899,16 +815,6 @@ public partial class MainWindow : Gtk.Window
 		if(findProject != null ){
 			ddbProject.SelectItem(projectItems,findProject);
 		}
-		/*projectModel.Foreach((model, path, iterr) => {
-			string name = projectModel.GetValue(iterr, 0).ToString();
-			string pathProject = projectModel.GetValue(iterr, 1).ToString();
-
-			if (name == appFilename){
-				cbProject.SetActiveIter(iterr);
-				return true;
-			}
-				return false;
-		});*/
 	}
 
 
@@ -920,7 +826,6 @@ public partial class MainWindow : Gtk.Window
 		}
 		col = new Gdk.Color(MainClass.Settings.BackgroundColor.Red,MainClass.Settings.BackgroundColor.Green,MainClass.Settings.BackgroundColor.Blue);
 
-		//Gdk.Color.Parse("red", ref col);
 		this.ModifyBg(StateType.Normal, col);
 		this.toolbarRight.ModifyBg(StateType.Normal, col);
 		this.toolbarLeft.ModifyBg(StateType.Normal, col);
@@ -932,7 +837,6 @@ public partial class MainWindow : Gtk.Window
 
 	public void ReloadSettings(bool setSelectedDevices)
 	{
-
 		SetSettingColor();
 
 
@@ -970,19 +874,16 @@ public partial class MainWindow : Gtk.Window
 			} catch {
 				MainClass.Settings.PreCompile = false;
 			}
-		//Console.WriteLine(MainClass.Tools.TempPrecompileDir);
 
 		string pathPreCompile = System.IO.Path.Combine(MainClass.Paths.TempPrecompileDir, "moscrif.exe");
 		if( MainClass.Platform.IsMac){
 			pathPreCompile = System.IO.Path.Combine(MainClass.Paths.TempPrecompileDir, "moscrif.app");
-		
+	
 			if (!Directory.Exists(pathPreCompile)) {
 	
 				string emulator = System.IO.Path.Combine(MainClass.Settings.EmulatorDirectory, "moscrif.app");
 				try {
-					//System.IO.File.Copy(emulator, pathPreCompile);
 					MainClass.Tools.CopyDirectory(emulator, pathPreCompile,false,false);
-
 				} catch {
 					MainClass.Settings.PreCompile = false;
 				}
@@ -1014,11 +915,10 @@ public partial class MainWindow : Gtk.Window
 			pbProgress.SizeRequest();
 			pbProgress.HeightRequest = 1;
 
-			//Console.WriteLine("stepvalue >>" + stepvalue);
 			pbProgress.PulseStep = stepvalue;
 			stepProgress = stepvalue;
 			actualValue = 0.0;
-			//Console.WriteLine("pbProgress.PulseStep >>" + pbProgress.PulseStep);
+
 			pbProgress.Text = text;
 			pbProgress.QueueDraw();
 		});
@@ -1045,17 +945,13 @@ public partial class MainWindow : Gtk.Window
 
 	public void ProgressStep()
 	{
-		//Console.WriteLine("pbProgress.Fraction>>" + pbProgress.Fraction);
 		actualValue = actualValue + stepProgress;//pbProgress.PulseStep;
-		//Console.WriteLine("actualValue >>" + actualValue);
 
 		if (actualValue > 1.0)
 			actualValue = 0;
 
 		pbProgress.Fraction = actualValue;
 		pbProgress.QueueDraw();
-
-		//Console.WriteLine("pbProgress.Fraction>>" + pbProgress.Fraction);
 
 		while (Application.EventsPending ())
 			Application.RunIteration ();
@@ -1078,12 +974,10 @@ public partial class MainWindow : Gtk.Window
 				if ((MainClass.Workspace != null) && (MainClass.Workspace.ActualProject != null) && !isBussy) {
 			    		isBussy = true;
 						
-			    		//lock (secondTaskList) {
 			    		TaskList tl = new TaskList();
 			    		tl.TasksList = new System.Collections.Generic.List<Moscrif.IDE.Task.ITask>();
 						
 			    		TodoTask tt = new TodoTask();
-			    		//tt.Initialize(new PrecompileData(editor.Document.Text, fileName));
 			    		tt.Initialize(MainClass.Workspace.ActualProject);
 						
 			    		tl.TasksList.Clear();
@@ -1102,15 +996,12 @@ public partial class MainWindow : Gtk.Window
 		}
 	}
 
-
 	public void ClearOutput(){
-
 		MainClass.MainWindow.ProcessOutput.Clear();
 		MainClass.MainWindow.ErrorOutput.Clear();
 		MainClass.MainWindow.LogOutput.Clear();
 		MainClass.MainWindow.LogMonitor.Clear();
 		MainClass.MainWindow.LogGarbageCollector.Clear();
-
 		garbageColectorLabel.SetLabel(MainClass.Languages.Translate("garbage_collector",this.LogGarbageCollector.CountItem));
 
 	}
@@ -1213,15 +1104,14 @@ public partial class MainWindow : Gtk.Window
 	{
 
 		this.ProcessOutput.Clear();
-		//ProcessWrapper pw = MainClass.ProcessService.StartProcess(command, arguments, workDir, ProcessOutputChange, ProcessErrorChange);
 		ProcessWrapper pw = new ProcessWrapper();
 
 		if (pve != null){
 			pw = MainClass.ProcessService.StartProcess(command, arguments, workDir, pve, pve);
-
 		}
-		else
+		else{
 			pw = MainClass.ProcessService.StartProcess(command, arguments, workDir, ProcessOutputChange, ProcessErrorChange);
+		}
 
 		//VRATIT SPET
 		//runningEmulator = true;
@@ -1314,11 +1204,7 @@ public partial class MainWindow : Gtk.Window
 	public void AddAndShowProject(Project p, bool addRecent){
 		if (p != null) {
 			projectItems.Add(new DropDownButton.ComboItem(p.ProjectName,p));
-			//projectModel.AppendValues(p.ProjectName, p.FilePath);
 			ShowProject(p,addRecent);
-
-			/*if (MainClass.Workspace.Projects.Count<2)
-				cbProject.Active = 0;*/
 		}
 	}
 
@@ -1383,14 +1269,9 @@ public partial class MainWindow : Gtk.Window
 				md.ShowDialog();
 				return ;
 			}
-
-
 			fileName = System.IO.Path.GetFileNameWithoutExtension(fis1[0]);
-			//destinationDir = System.IO.Path.GetDirectoryName(destinationFile);
-
 			projectDir = System.IO.Path.Combine(destinationDir,fileName);
 		}
-		//MainClass.Tools.UnzipFile(zipFile,tempDir);
 
 		string[] fis = System.IO.Directory.GetFiles(destinationDir,fileName+".app",SearchOption.TopDirectoryOnly);
 		string[] fisMsp = System.IO.Directory.GetFiles(destinationDir,fileName+".msp",SearchOption.TopDirectoryOnly);
@@ -1404,7 +1285,6 @@ public partial class MainWindow : Gtk.Window
 		if(!System.IO.Directory.Exists(projectDir)){
 			MessageDialogs md = new MessageDialogs(MessageDialogs.DialogButtonType.Ok, MainClass.Languages.Translate("invalid_project"), "", Gtk.MessageType.Error);
 			md.ShowDialog();
-			//fc.Destroy();
 			return ;
 		}
 
@@ -1414,16 +1294,13 @@ public partial class MainWindow : Gtk.Window
 
 		if((fiExist != null) || (fiExist.Length>0)){
 			List<string> existApp = new List<string>(fiExist);
-			//foreach(string fileApp in fis){
-			//	string fileExistApp = System.IO.Path.GetFileNameWithoutExtension(fileApp);
+
 			int findIndex = existApp.FindIndex(x=> System.IO.Path.GetFileNameWithoutExtension(x) == fileExistApp);
 			if(findIndex>-1){
 				MessageDialogs md = new MessageDialogs(MessageDialogs.DialogButtonType.Ok,  MainClass.Languages.Translate("project_exist"), "", Gtk.MessageType.Error);
 				md.ShowDialog();
-			//fc.Destroy();
 				return ;
 			}
-					//}
 		}
 
 		string newApp = System.IO.Path.GetFileName(fis[0]);
@@ -1494,7 +1371,6 @@ public partial class MainWindow : Gtk.Window
 
 	public void OpenOutput(bool projectFromTree)
 	{
-
 		Project p;
 		if(projectFromTree){
 			string appname = "";
@@ -1527,7 +1403,6 @@ public partial class MainWindow : Gtk.Window
 
 	public void ShowProjectInExplorer(bool projectFromTree)
 	{
-
 		Project p;
 		if(projectFromTree){
 			string appname = "";
@@ -1593,19 +1468,6 @@ public partial class MainWindow : Gtk.Window
 
 		TreeIter iter = new TreeIter();
 
-		/*projectModel.Foreach((model, path, iterr) => {
-					string name = projectModel.GetValue(iterr, 0).ToString();
-				string pathProject = projectModel.GetValue(iterr, 1).ToString();
-
-				if ((name == p.ProjectName) && (pathProject == p.FilePath)){
-						iter = iterr;
-						return true;
-				}
-					return false;
-			});
-
-		projectModel.Remove(ref iter);*/
-
 		DropDownButton.ComboItem findProject =projectItems.FindItem(p.ProjectName);
 		if(findProject != null ){
 			projectItems.Remove(findProject);
@@ -1620,7 +1482,6 @@ public partial class MainWindow : Gtk.Window
 			}else {
 				ddbProject.SelectItem(projectItems,null);
 			}
-			//cbProject.Active =0;
 		}
 
 		if (p != null)
@@ -1635,8 +1496,6 @@ public partial class MainWindow : Gtk.Window
 	Gtk.TreeIter ti = new Gtk.TreeIter();
 
 	WorkspaceTree.GetSelectedFile(out appname, out typ, out ti);
-
-	//string appfile = WorkspaceTree.GetSelectedProjectApp();
 	Project prj = MainClass.Workspace.FindProject_byApp(appname, true);
 
 	if (prj == null)
@@ -1686,25 +1545,7 @@ public partial class MainWindow : Gtk.Window
 		string activeName = System.IO.Path.GetFileNameWithoutExtension(MainClass.Workspace.ActualProjectPath);
 		if(activeName == oldPrjName){
 			SetActualProject(prj.AbsolutAppFilePath);
-			//ddbProject.ActiveText =prj.ProjectName; 
-
 		}
-
-
-		/*projectModel.Foreach((model, path, iterr) => {
-			string name = projectModel.GetValue(iterr, 0).ToString();
-			//string pathProject = projectModel.GetValue(iterr, 1).ToString();
-
-			if ((name == oldPrjName)){ //&& (pathProject == prj.FilePath)){
-				projectModel.SetValue(iterr,0,prj.ProjectName);
-				projectModel.SetValue(iterr,1,prj.FilePath);
-					//iter = iterr;
-				return true;
-			}
-				return false;
-		});*/
-
-
 	}catch(Exception ex){
 		Logger.Error(ex.Message);
 		MessageDialogs md =
@@ -1884,7 +1725,6 @@ public partial class MainWindow : Gtk.Window
 		if(addToRecent){
 			MainClass.Settings.RecentFiles.AddFile(filename, filename);
 
-			//ActionUiManager.RefreshRecentFiles(MainClass.Settings.RecentFiles.GetFiles());
 			ActionUiManager.RefreshRecentAll(MainClass.Settings.RecentFiles.GetFiles(),
 			                          MainClass.Settings.RecentFiles.GetProjects(),
 			                                 MainClass.Settings.RecentFiles.GetWorkspace());
@@ -1922,7 +1762,6 @@ public partial class MainWindow : Gtk.Window
 		if (!String.IsNullOrEmpty(newFile)) {
 			MainClass.Settings.RecentFiles.AddFile(newFile, newFile);
 
-			//ActionUiManager.RefreshRecentFiles(MainClass.Settings.RecentFiles.GetFiles());
 			ActionUiManager.RefreshRecentAll(MainClass.Settings.RecentFiles.GetFiles(),
 			                          MainClass.Settings.RecentFiles.GetProjects(),
 		                                 MainClass.Settings.RecentFiles.GetWorkspace());
@@ -2016,7 +1855,6 @@ public partial class MainWindow : Gtk.Window
 		WorkspaceTree.AddFileToTree(newFile, ti);
 		MainClass.Settings.RecentFiles.AddFile(newFile, newFile);
 
-		//ActionUiManager.RefreshRecentFiles(MainClass.Settings.RecentFiles.GetFiles());
 		ActionUiManager.RefreshRecentAll(MainClass.Settings.RecentFiles.GetFiles(),
 			                          MainClass.Settings.RecentFiles.GetProjects(),
 		                                 MainClass.Settings.RecentFiles.GetWorkspace());
@@ -2161,24 +1999,22 @@ public partial class MainWindow : Gtk.Window
 				til1.Add(lbl1);
 				til2.Add(lbl2);
 				til3.Add(lbl3);
+
 				if(MainClass.Platform.IsMac){
 
 					VBox vboxMenu1 = new VBox();
 					vboxMenu1.PackStart(new Label(),true,false,0);
 					vboxMenu1.PackStart(ddbProject,false,false,0);
-					//vboxMenu1.PackStart(cbProject,false,false,0);
 					vboxMenu1.PackEnd(new Label(),true,false,0);
 
 					VBox vboxMenu2 = new VBox();
 					vboxMenu2.PackStart(new Label(),true,false,0);
 					vboxMenu2.PackStart(ddbResolution,false,false,0);
-					//vboxMenu2.PackStart(cbResolution,false,false,0);
 					vboxMenu2.PackEnd(new Label(),true,false,0);
 
 					VBox vboxMenu3 = new VBox();
 					vboxMenu3.PackStart(new Label(),true,false,0);
 					vboxMenu3.PackStart(ddbDevice,false,false,0);
-					//vboxMenu3.PackStart(cbDevice,false,false,0);
 					vboxMenu3.PackEnd(new Label(),true,false,0);
 
 					tic.Add(vboxMenu1);
@@ -2186,12 +2022,9 @@ public partial class MainWindow : Gtk.Window
 					tic3.Add(vboxMenu3);
 
 				} else {
-					//tic.Add(cbProject);
 					tic.Add(ddbProject);
 					tic2.Add(ddbResolution);
-					//tic2.Add(cbResolution);
 					tic3.Add(ddbDevice);
-					//tic3.Add(cbDevice);
 
 				}
 				toolbarMiddle.Insert(tic2, 0);
@@ -2214,14 +2047,6 @@ public partial class MainWindow : Gtk.Window
 		if (args.Widget is MenuBar) {
 			mainMenu =(MenuBar)args.Widget;
 			mainMenu.Show();
-			Gtk.Style mainMenuStyle = Gtk.Rc.GetStyleByPaths (mainMenu.Settings, null, "*MenuBar*", (GLib.GType)typeof(Gtk.MenuBar));
-
-
-			/*Style st = Rc.GetStyle(mainMenu);//mainMenu.Style ;
-			Gdk.GC gc = st.BackgroundGC(StateType.Normal);
-			gc.Background =new Gdk.Color(255,255,255);
-			st.SetBackgroundGC(StateType.Normal,gc);
-			mainMenu.Style = st;*/
 
 			if(!MainClass.Platform.IsMac)
 				vbMenuMidle.PackStart(mainMenu, true, true, 0);
@@ -2233,7 +2058,7 @@ public partial class MainWindow : Gtk.Window
 
 		lblMessage1.Text = message;
 	}
-	// Jazda nad menu zobrazi v status bare text tooltip menu
+
 	private void OnSelect(object obj, EventArgs args)
 	{
 		if (obj.GetType() == typeof(ImageMenuItem)) {
@@ -2272,20 +2097,16 @@ public partial class MainWindow : Gtk.Window
 
 				DropDownButton.ComboItem addComboItem = new DropDownButton.ComboItem(rl.Name,rl);
 				deviceItems.Add(addComboItem);
-				//TreeIter tiD = deviceModel.AppendValues(rl.Name, rl.Id);
 
 				if(setSelectedDevices){
 					if (rl.Id==  MainClass.Workspace.ActualDevice) {
 						ddbDevice.SelectItem(deviceItems,addComboItem);
-						//cbDevice.SetActiveIter(tiD);
 					}
 				}
 			}else {
 				Logger.Debug("{0} devices missing publish tool.",rl.Name);
 			}
 		}
-		/*if (cbDevice.Active<0)
-			cbDevice.Active = 0;*/
 	}
 
 	private void SetSensitiveMenu(bool sensitivy)
@@ -2299,7 +2120,6 @@ public partial class MainWindow : Gtk.Window
 
 		bool isFind = false;
 		bool hardAll  = false;
-		//resolutionModel.Clear();
 		ddbResolution.Clear();
 
 		string path="";
@@ -2307,10 +2127,7 @@ public partial class MainWindow : Gtk.Window
 			path = MainClass.Workspace.ActualResolution;
 
 		string[] listFi = Directory.GetFiles(MainClass.Paths.DisplayDir, "*.ini");
-		//int prefferedIndex = 0;
 		string vvgaPath = System.IO.Path.Combine(MainClass.Paths.DisplayDir,"noskin_vga.ini");
-		//int indx =0;
-		//TreeIter tiSelect = new TreeIter();
 
 		PlatformResolution pr = MainClass.Settings.PlatformResolutions.Find(x=>x.IdPlatform == device);
 		if(pr == null){
@@ -2337,23 +2154,12 @@ public partial class MainWindow : Gtk.Window
 
 				if(dd.FilePath == vvgaPath){
 					vvgaComboItem = addComboItem;
-						//ddbDevice.SelectItem(deviceItems,addComboItem);
 				}
 
 				if (dd.FilePath == path) {
 					isFind = true;
 					selectComboItem = addComboItem;
 				}
-
-				/*TreeIter ti = resolutionModel.AppendValues(dd.Title, dd.FilePath);
-				if (dd.FilePath == vvgaPath)
-					prefferedIndex =indx;
-
-				if (dd.FilePath == path) {
-					isFind = true;
-					tiSelect = ti;
-				}*/
-				//indx++;
 			}
 		}
 
@@ -2372,76 +2178,12 @@ public partial class MainWindow : Gtk.Window
 		if(!hardAll){
 			if(!allResolution){
 				resolutionItems.Add(new DropDownButton.ComboItem(MainClass.Languages.Translate("show_denied" ) , "-1") );
-				//resolutionModel.AppendValues(MainClass.Languages.Translate("show_denied" ) , "-1");
 			} else {
 				resolutionItems.Add(new DropDownButton.ComboItem(MainClass.Languages.Translate("hide_denied" ) , "-2") );
-				//resolutionModel.AppendValues(MainClass.Languages.Translate("hide_denied" ) , "-2");
 			}
 		}
 
 	}
-
-	/*
-
-	void OnComboResolutionChanged(object o, EventArgs args)
-	{
-		ComboBox combo = o as ComboBox;
-		if (o == null)
-			return;
-
-		TreeIter iter;
-		if (combo.GetActiveIter(out iter)) {
-			string prj = (string)combo.Model.GetValue(iter, 1);
-
-			if(prj == "-1"){
-				FillResolution(MainClass.Workspace.ActualDevice, true);
-			}else if (prj == "-2"){
-				FillResolution(MainClass.Workspace.ActualDevice, false);
-			} else {
-				MainClass.Workspace.ActualResolution = prj;
-			}
-		}
-	}*/
-
-	/*void OnComboDeviceChanged(object o, EventArgs args)
-	{
-		ComboBox combo = o as ComboBox;
-		if (o == null)
-			return;
-
-		TreeIter iter;
-		int device = -1;
-		if (combo.GetActiveIter(out iter)) {
-			device = (int)combo.Model.GetValue(iter, 1);
-
-			MainClass.Workspace.ActualDevice = device;
-		}
-		FillResolution(device,false);
-	}*/
-
-	/*void OnComboProjectChanged(object o, EventArgs args)
-	{
-		ComboBox combo = o as ComboBox;
-		if (o == null)
-			return;
-
-		TreeIter iter;
-		if (combo.GetActiveIter(out iter)) {
-			string prj = (string)combo.Model.GetValue(iter, 1);
-
-			MainClass.Workspace.SetActualProject(prj);
-
-			if(MainClass.Workspace.ActualProjectPath.Contains(" ")){
-
-				string error =MainClass.Languages.Translate("error_whitespace");
-				OutputConsole.WriteError( error );
-				List<string> lst = new List<string>();
-				lst.Add(error);
-				LogOutput.WriteTask("","",lst);
-				TaskNotebook.CurrentPage = 2;
-			}
-		}
-	}*/
 
 	void OnChangedResolution (object sender, DropDownButton.ChangedEventArgs args)
 	{
