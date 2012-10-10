@@ -101,8 +101,8 @@
 			<menuitem name="idepreferences" action="idepreferences" />
 			<!--<menuitem name="settingplatform" action="settingplatform" />
 			<separator name="sep24" /> 
-			<menuitem name="generateAutoComplete" action="generateAutoComplete" /> 
-			<menuitem name="Test" action="test" />	-->	
+			<menuitem name="generateAutoComplete" action="generateAutoComplete" />-->	 
+			<menuitem name="Test" action="test" />	
 		</menu>	
 		<menu name="Help" action="HelpAction">
 	    	<menuitem name="About" action="about" />

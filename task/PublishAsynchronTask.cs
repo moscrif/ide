@@ -9,20 +9,20 @@ using Moscrif.IDE.Workspace;
 using Moscrif.IDE.Devices;
 using Moscrif.IDE.Tool;
 using Moscrif.IDE.Controls;
-using MessageDialogs = Moscrif.IDE.Controls.MessageDialog;
-using MessageDialogsUrl = Moscrif.IDE.Controls.MessageDialogUrl;
+//using MessageDialogs = Moscrif.IDE.Controls.MessageDialog;
+//using MessageDialogsUrl = Moscrif.IDE.Controls.MessageDialogUrl;
 using Moscrif.IDE.Iface.Entities;
 using Moscrif.IDE.Execution;
 using System.Text;
 
 namespace  Moscrif.IDE.Task
 {
-	public class PublishTask : ITask
+	public class PublishAsynchronTask : ITaskAsyn
 	{
 		List<TaskMessage> output = new List<TaskMessage>();
 		StateEnum stateTask = StateEnum.OK;
 		//private List<Condition> fullCondition;
-		private ProgressDialog progressDialog;
+		//private ProgressDialog progressDialog;
 
 		private Project project;
 		private List<CombinePublish> listCombinePublish;
@@ -42,7 +42,7 @@ namespace  Moscrif.IDE.Task
 		}
 
 
-		public PublishTask()
+		public PublishAsynchronTask()
 		{
 		}
 
@@ -79,9 +79,9 @@ namespace  Moscrif.IDE.Task
 
 			allErrors.AppendLine(error);
 			output.Add(tm);
-			//MainClass.MainWindow.OutputConsole.WriteError(String.Format("Platform {0} not found!", MainClass.Settings.Platform.Name));
 			this.stateTask = StateEnum.ERROR;
 			allPublishError = true;
+			ShowError(error, "");
 		}
 
 		private void SetError(string error){
@@ -109,6 +109,8 @@ namespace  Moscrif.IDE.Task
 
 			project = MainClass.Workspace.ActualProject;
 			Tool.Logger.LogDebugInfo(String.Format("Project -> {0}",MainClass.Workspace.ActualProject),null);
+
+			ShowInfo("Publish project" ,MainClass.Workspace.ActualProject.ProjectName);
 
 			if (String.IsNullOrEmpty(project.ProjectOutput)){
 
@@ -174,17 +176,17 @@ namespace  Moscrif.IDE.Task
 			}
 
 			if(!isJavaInstaled && isAndroid){
-			//if(isJavaInstaled && isAndroid){
-				MessageDialogsUrl md = new MessageDialogsUrl(MessageDialogsUrl.DialogButtonType.Ok,MainClass.Languages.Translate("java_missing"), MainClass.Languages.Translate("java_missing_title"),"http://moscrif.com/java-requirement", Gtk.MessageType.Error,ParentWindow);
-				md.ShowDialog();
+				ShowError(MainClass.Languages.Translate("java_missing"),MainClass.Languages.Translate("java_missing_title"));
+				/*MessageDialogsUrl md = new MessageDialogsUrl(MessageDialogsUrl.DialogButtonType.Ok,MainClass.Languages.Translate("java_missing"), MainClass.Languages.Translate("java_missing_title"),"http://moscrif.com/java-requirement", Gtk.MessageType.Error,ParentWindow);
+				md.ShowDialog();*/
 			}
 
-			if (listCombinePublish.Count > 0) {
+			/*if (listCombinePublish.Count > 0) {
 
 				double step = 1 / (listCombinePublish.Count * 1.0);
 				MainClass.MainWindow.ProgressStart(step, MainClass.Languages.Translate("publish"));
 				progressDialog = new ProgressDialog(MainClass.Languages.Translate("publishing"),ProgressDialog.CancelButtonType.Cancel,listCombinePublish.Count,ParentWindow);//MainClass.MainWindow
-			}
+			}*/
 
 			foreach(CombinePublish ccc in  listCombinePublish){//listCC ){
 				//if (!ccc.IsSelected) continue;
@@ -219,8 +221,10 @@ namespace  Moscrif.IDE.Task
 				parentTask = new TaskMessage("Publishing",fileName,null);
 				devicePublishError = false;
 
-				if (progressDialog != null)
-					 progressDialog.SetLabel (fileName );
+				ShowInfo( "Publishing",fileName);
+
+				/*if (progressDialog != null)
+					 progressDialog.SetLabel (fileName );*/
 
 				if (Directory.Exists(tempDir)) {
 					try{
@@ -255,7 +259,7 @@ namespace  Moscrif.IDE.Task
 				  (crPlatform.RuleId == (int)DeviceType.Android_2_2))
 				    && (!isJavaInstaled)){
 					SetError(MainClass.Languages.Translate("java_missing"),parentTask);
-
+					ShowError(MainClass.Languages.Translate("java_missing"),fileName);
 					continue;
 				}
 
@@ -493,23 +497,26 @@ namespace  Moscrif.IDE.Task
 				if(devicePublishError){
 					parentTask.Message = StateEnum.ERROR.ToString();
 					allPublishError = true;
+					ShowError(StateEnum.ERROR.ToString()," ");
+					//ShowError(lastMessage.Trim(),fileName);
 				}else {
 					parentTask.Message = StateEnum.OK.ToString();
+					ShowInfo(" ",StateEnum.OK.ToString());
 				}
 				//parentTask.Message = //this.StateTask.ToString();
 				//Console.WriteLine(parentTask.Child.Message);
 				output.Add(parentTask);
 
 				MainClass.MainWindow.ProgressStep();
-				if (progressDialog != null)
-					cancelled = progressDialog.Update (fileName );
+				/*if (progressDialog != null)
+					cancelled = progressDialog.Update (fileName );*/
 			}
 
 			MainClass.MainWindow.ProgressEnd();
 
-			if(progressDialog!= null){
+			/*if(progressDialog!= null){
 				progressDialog.Destroy();
-			}
+			}*/
 			//Console.WriteLine("allPublishError -> {0}",allPublishError);
 			if(allPublishError){
 				this.stateTask = StateEnum.ERROR;
@@ -520,43 +527,20 @@ namespace  Moscrif.IDE.Task
 					s= s+ " ... and more.";
 				}
 
-				ShowError(MainClass.Languages.Translate("publish_error"), s);
+				ShowError(MainClass.Languages.Translate("publish_error")," ");
 				return false;
 			} else {
 				this.stateTask = StateEnum.OK;
 
-				ShowInfo(MainClass.Languages.Translate("publish_successfully_done"), "");
-				if(MainClass.Settings.OpenOutputAfterPublish){
+				ShowInfo(" ",MainClass.Languages.Translate("publish_successfully_done"));
+
+				/*if(MainClass.Settings.OpenOutputAfterPublish){
 					if (!String.IsNullOrEmpty(project.ProjectOutput)){
 						MainClass.Tools.OpenFolder(project.OutputMaskToFullPath);
 					}
-				}
+				}*/
 				return true;
 			}
-
-			/*if(this.stateTask == StateEnum.ERROR){
-				stateTask = StateEnum.ERROR;
-				string s = allErrors.ToString();
-
-				if(s.Length > 120){
-					s = s.Substring(0,120);
-					s= s+ " ... and more.";
-				}
-
-
-				ShowError(MainClass.Languages.Translate("publish_error"), s);
-				return false;
-			} else {
-				ShowInfo(MainClass.Languages.Translate("publish_successfully_done"), "");
-
-
-				if(MainClass.Settings.OpenOutputAfterPublish){
-					if (!String.IsNullOrEmpty(project.ProjectOutput)){
-						MainClass.Tools.OpenFolder(project.OutputMaskToFullPath);
-					}
-				}
-				return true;
-			}*/
 		}
 
 
@@ -597,10 +581,6 @@ namespace  Moscrif.IDE.Task
 
 		public bool RunPublishTool (string appFile,TaskMessage parentTask)
 		{
-
-			/*if (MainClass.Settings.ClearConsoleBeforRuning)
-				MainClass.MainWindow.OutputConsole.Clear();*/
-
 			if(MainClass.MainWindow.RunningEmulator){
 
 				//output.Add( new TaskMessage(MainClass.Languages.Translate("emulator_is_running"),null,null));
@@ -675,6 +655,7 @@ namespace  Moscrif.IDE.Task
 		{
 			string cmd =MainClass.Settings.JavaCommand;
 			string args = MainClass.Settings.JavaArgument;
+			Console.WriteLine("cmd -->"+cmd);
 			try{
 				ProcessWrapper pw = MainClass.ProcessService.StartProcess(cmd,args, "", ProcessOutputJavaChange, ProcessOutputJavaChange);
 				pw.WaitForExit();
@@ -698,14 +679,20 @@ namespace  Moscrif.IDE.Task
 		}
 
 		private void ShowError(string error1, string error2){
-			MessageDialogs md = new MessageDialogs(MessageDialogs.DialogButtonType.Ok,error1, error2, Gtk.MessageType.Error,ParentWindow);
-			md.ShowDialog();
+			if(WriteStep!=null){
+				WriteStep(this,new StepEventArgs(error2,error1,true));
+			}
+			/*MessageDialogs md = new MessageDialogs(MessageDialogs.DialogButtonType.Ok,error1, error2, Gtk.MessageType.Error,ParentWindow);
+			md.ShowDialog();*/
 
 		}
 
 		private void ShowInfo(string error1, string error2){
-			MessageDialogs md = new MessageDialogs(MessageDialogs.DialogButtonType.Ok,error1, error2, Gtk.MessageType.Info,ParentWindow);
-			md.ShowDialog();
+			if(WriteStep!=null){
+				WriteStep(this,new StepEventArgs(error1,error2,false));
+			}
+			/*MessageDialogs md = new MessageDialogs(MessageDialogs.DialogButtonType.Ok,error1, error2, Gtk.MessageType.Info,ParentWindow);
+			md.ShowDialog();*/
 
 		}
 
@@ -726,145 +713,6 @@ namespace  Moscrif.IDE.Task
 		public event ProcessErrorHandler ErrorWrite;
 		public event ProcessErrorHandler LogWrite;
 		public event ProcessTaskHandler EndTaskWrite;
-
-		/*private string messageError;
-		private bool isLog; // novy text
-		private bool isOldLog; // predchadzajuci text*/
-
-		void ExitPublish(object sender, EventArgs e){
-			if(lastMessage.Contains("Publishing succesful")){
-				devicePublishError = false;
-				return;
-			} else{
-				if (ErrorWrite!=null){
-					devicePublishError = true;
-					//TaskMessage tm2 = new TaskMessage(lastMessage,"","");
-					TaskMessage tm =new TaskMessage(lastMessage.Trim(), "","" );
-					allErrors.AppendLine(lastMessage.Trim());
-					parentTask.Child = tm;
-					if (ErrorWrite!=null){
-							ErrorWrite(this,this.Name,StateEnum.ERROR.ToString(),tm);
-							this.stateTask = StateEnum.ERROR;
-						}
-
-					//ProcessErrorWrite(this,this.Name,this.StateTask.ToString(),tm2);
-				}
-			}
-		}
-
-		void ProcessOutputChange(object sender, string message)
-		{
-			Console.WriteLine("-->"+message);
-			MainClass.MainWindow.OutputConsole.WriteText(message);
-			//return;
-			string msg = message.Trim();
-			if (String.IsNullOrEmpty(msg))
-				return;
-			//if (string.Compare(msg,"OK",true)>-1 )
-			//	return;
-			//isPublishError = true;
-			ParseOutput(message);
-		}
-
-
-		private string lastMessage = "";
-		private void ParseOutput(string message)
-		{
-			lastMessage = message;
-
-			if (String.IsNullOrEmpty(message))
-				return;
-
-			if(message.Contains("Publishing succesful")){
-				devicePublishError = false;
-				//this.stateTask = StateEnum.OK;
-				return;
-			}
-			GetLog(message);
-			return;
-			//Publishing succesful
-			/*devicePublishError = true;
-			TaskMessage tm =new TaskMessage(message.Trim(), "","" );
-			allErrors.AppendLine(message.Trim());
-
-			parentTask.Child = tm;
-
-			this.stateTask = StateEnum.ERROR;
-
-			if (ErrorWrite!=null){
-					ErrorWrite(this,this.Name,StateEnum.ERROR.ToString(),tm);
-			}
-
-			Console.WriteLine("devicePublishError ParseOutput2->{0}",devicePublishError);*/
-		}
-
-
-		private TaskMessage GetLog(string message){
-
-			TaskMessage tm =new TaskMessage();
-			try{
-				//Log-I: Log-W: Log-E:
-				message= message.Replace("LOG-I","" );
-				message= message.Replace("LOG-W","" );
-				message= message.Replace("LOG-E","" );
-
-				message =message.Replace("\t","»");
-
-				message =message.Replace("\n\r","");
-				message =message.Replace("\r\n","");
-				message =message.Replace("\n","");
-				message =message.Replace("\r","");
-
-				//Console.WriteLine("messageError -> "+ message);
-
-				string[] msg = message.Split('»');
-
-				//Console.WriteLine("match.Count -> "+ msg.Length);
-
-				if (msg.Length <3){
-					//Tool.Logger.Error("message ->"+message+"<");
-					return null;
-				}
-
-				string  filename= msg[0];
-				string  line= msg[1];
-				string  error=msg[2];
-
-				filename = filename.Replace('/',System.IO.Path.DirectorySeparatorChar);
-
-				/*Console.WriteLine("error -> "+ error);
-				Console.WriteLine("filename -> "+ filename);
-				Console.WriteLine("line -> "+ line);
-				Console.WriteLine("this.Name -> "+ this.Name);*/
-
-				tm =new TaskMessage(error, filename, line);
-
-				//this.output.Add(tm);
-				this.stateTask = StateEnum.ERROR;
-				//messageError = null;
-
-				if(filename.Contains("Log-E:")){
-					//Console.WriteLine("YES LOGE");
-					if (ErrorWrite!=null){
-						TaskMessage tm2 = new TaskMessage(error,"","");
-
-						ErrorWrite(this,this.Name,this.StateTask.ToString(),tm2);
-					}
-				} //else {
-
-				// this if
-				if( filename.Contains("Log-E:") || filename.Contains("Log-W:") || filename.Contains("Log-I:") ){
-					if (LogWrite!=null){
-						LogWrite(this,this.Name,this.StateTask.ToString(),tm);
-					}
-				}
-
-
-			} catch {
-
-			}
-			return tm;
-		}
 
 		public string Name
 		{
@@ -907,6 +755,146 @@ namespace  Moscrif.IDE.Task
 
 
 		#endregion
+
+		#region ITaskAsyn implementation
+		public event EventHandler<StepEventArgs> WriteStep;
+		#endregion
+
+		#region private
+		void ExitPublish(object sender, EventArgs e){
+			if(lastMessage.Contains("Publishing succesful")){
+				devicePublishError = false;
+				return;
+			} else{
+				if (ErrorWrite!=null){
+					devicePublishError = true;
+					//TaskMessage tm2 = new TaskMessage(lastMessage,"","");
+					TaskMessage tm =new TaskMessage(lastMessage.Trim(), "","" );
+					allErrors.AppendLine(lastMessage.Trim());
+					parentTask.Child = tm;
+					if (ErrorWrite!=null){
+						ErrorWrite(this,this.Name,StateEnum.ERROR.ToString(),tm);
+						this.stateTask = StateEnum.ERROR;
+					}
+				}
+			}
+		}
+		
+		void ProcessOutputChange(object sender, string message)
+		{
+			//Console.WriteLine("-->"+message);
+			MainClass.MainWindow.OutputConsole.WriteText(message);
+			//return;
+			string msg = message.Trim();
+			if (String.IsNullOrEmpty(msg))
+				return;
+			//if (string.Compare(msg,"OK",true)>-1 )
+			//	return;
+			//isPublishError = true;
+			ParseOutput(message);
+		}
+		
+		
+		private string lastMessage = "";
+		private void ParseOutput(string message)
+		{
+			lastMessage = message;
+			
+			if (String.IsNullOrEmpty(message))
+				return;
+			
+			if(message.Contains("Publishing succesful")){
+				devicePublishError = false;
+				//this.stateTask = StateEnum.OK;
+				return;
+			}
+			GetLog(message);
+			return;
+			//Publishing succesful
+			/*devicePublishError = true;
+			TaskMessage tm =new TaskMessage(message.Trim(), "","" );
+			allErrors.AppendLine(message.Trim());
+
+			parentTask.Child = tm;
+
+			this.stateTask = StateEnum.ERROR;
+
+			if (ErrorWrite!=null){
+					ErrorWrite(this,this.Name,StateEnum.ERROR.ToString(),tm);
+			}
+
+			Console.WriteLine("devicePublishError ParseOutput2->{0}",devicePublishError);*/
+		}
+		
+		
+		private TaskMessage GetLog(string message){
+			
+			TaskMessage tm =new TaskMessage();
+			try{
+				//Log-I: Log-W: Log-E:
+				message= message.Replace("LOG-I","" );
+				message= message.Replace("LOG-W","" );
+				message= message.Replace("LOG-E","" );
+				
+				message =message.Replace("\t","»");
+				
+				message =message.Replace("\n\r","");
+				message =message.Replace("\r\n","");
+				message =message.Replace("\n","");
+				message =message.Replace("\r","");
+				
+				//Console.WriteLine("messageError -> "+ message);
+				
+				string[] msg = message.Split('»');
+				
+				//Console.WriteLine("match.Count -> "+ msg.Length);
+				
+				if (msg.Length <3){
+					//Tool.Logger.Error("message ->"+message+"<");
+					return null;
+				}
+				
+				string  filename= msg[0];
+				string  line= msg[1];
+				string  error=msg[2];
+				
+				filename = filename.Replace('/',System.IO.Path.DirectorySeparatorChar);
+				
+				/*Console.WriteLine("error -> "+ error);
+				Console.WriteLine("filename -> "+ filename);
+				Console.WriteLine("line -> "+ line);
+				Console.WriteLine("this.Name -> "+ this.Name);*/
+				
+				tm =new TaskMessage(error, filename, line);
+				
+				//this.output.Add(tm);
+				this.stateTask = StateEnum.ERROR;
+				//messageError = null;
+				
+				if(filename.Contains("Log-E:")){
+					//Console.WriteLine("YES LOGE");
+					if (ErrorWrite!=null){
+						TaskMessage tm2 = new TaskMessage(error,"","");
+						
+						ErrorWrite(this,this.Name,this.StateTask.ToString(),tm2);
+					}
+				} //else {
+				
+				// this if
+				if( filename.Contains("Log-E:") || filename.Contains("Log-W:") || filename.Contains("Log-I:") ){
+					if (LogWrite!=null){
+						LogWrite(this,this.Name,this.StateTask.ToString(),tm);
+					}
+				}
+				
+				
+			} catch {
+				
+			}
+			return tm;
+		}
+		#endregion
+
 	}
 }
 

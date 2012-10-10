@@ -60,9 +60,10 @@ namespace Moscrif.IDE
 
 				argsum.ExitApplication = true;
 			};
+
 			Gdk.Global.InitCheck(ref args);
 			if (Platform.IsWindows){
-			string themePath = Paths.DefaultTheme;
+				string themePath = Paths.DefaultTheme;
 				if (System.IO.File.Exists (themePath)){
 					Gtk.Rc.AddDefaultFile(themePath);
 					Gtk.Rc.Parse (themePath);
@@ -70,7 +71,6 @@ namespace Moscrif.IDE
 			}
 
 			mainWindow = new MainWindow(args);
-
 			MainWindow.Show();
 
 			if((MainClass.Settings.Account == null) || (String.IsNullOrEmpty(MainClass.Settings.Account.Token))){
@@ -86,8 +86,6 @@ namespace Moscrif.IDE
 			{
 				Application.Run();
 			}
-
-
 		}
 
 		static ProcessService processService = null;
@@ -113,38 +111,6 @@ namespace Moscrif.IDE
 			}
 		}
 
-
-		/*	private static void LogImpl(Exception e)
-		{
-			//if (disabled) return text;
-			string fileFullFileName = System.IO.Path.Combine(Tools.AppPath, "moscrift.ide.log");
-			try {
-				using (StreamWriter stream = File.AppendText(fileFullFileName)) {
-					stream.WriteLine("+=======================================================================================================================");
-					stream.WriteLine(DateTime.Now.ToString("dd.MM.yyyy hh:mm.ss"));
-					stream.WriteLine("+-----------------------------------------------------------------------------------------------------------------------");
-					stream.WriteLine("Message:");
-					stream.WriteLine(e.Message);
-					stream.WriteLine("Source:");
-					stream.WriteLine(e.Source);
-					stream.WriteLine("InnerException:");
-					stream.WriteLine(e.InnerException);
-					stream.WriteLine("StackTrace:");
-					stream.WriteLine(e.StackTrace);
-					//string[] lines = text.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
-					//foreach (string line in lines)
-					//    stream.WriteLine(String.Format("| {0}", line));
-					stream.WriteLine("+=======================================================================================================================");
-					stream.WriteLine();
-					stream.Flush();
-					stream.Close();
-					stream.Dispose();
-				}
-			} catch (Exception ex) {
-				System.Diagnostics.Debug.WriteLine(ex);
-			}
-		}
-		 */
 		//static MainWindow mainWindow = null;
 		static MainWindow mainWindow = null;
 		static internal MainWindow MainWindow
@@ -239,11 +205,10 @@ namespace Moscrif.IDE
 					return workspace;
 				Logger.Log("Workspace.Workspace ->"+Settings.CurrentWorkspace);
 				workspace = new Workspace.Workspace();
-				
-				//string file =  System.IO.Path.Combine(Tools.ConfingDir, "workspace.msw");
+
 				if (String.IsNullOrEmpty(Settings.CurrentWorkspace))
 					return workspace;
-				//null;//new Workspace.Workspace();
+
 				string file = Settings.CurrentWorkspace;
 				
 				if (File.Exists(file)) {
@@ -255,8 +220,6 @@ namespace Moscrif.IDE
 					
 					workspace.FilePath = file;
 				}
-				//null;
-				//workspace = new Workspace.Workspace();
 				return workspace;
 			}
 			set {

@@ -738,14 +738,19 @@ namespace Moscrif.IDE
 
 	void OnTest(object obj, EventArgs args)
 	{
-			throw new NotImplementedException();
+		//	throw new NotImplementedException();
 
-		NewProjectWizzard_New npw = new NewProjectWizzard_New(null);
+		/*PublishDialogWizzard npw = new PublishDialogWizzard();
 		int result = npw.Run();
 		if (result == (int)ResponseType.Ok) {
 
 		}
-		npw.Destroy();
+		npw.Destroy();*/
+		PublishDialog pd = new PublishDialog();
+		if(pd.Run() == (int)ResponseType.Ok){
+			
+		}
+		pd.Destroy();
 					
 	}
 	#endregion

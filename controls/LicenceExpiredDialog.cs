@@ -5,7 +5,7 @@ namespace Moscrif.IDE.Controls
 	{
 		protected virtual void OnBtnBuyNowClicked (object sender, System.EventArgs e)
 		{
-			string url = "http://moscrif.com/buy?t={0}";
+			string url = "http://moscrif.com/download?t={0}";
 			if (MainClass.User!=null && (!String.IsNullOrEmpty(MainClass.User.Token))) {
 				url = string.Format(url,MainClass.User.Token);
 
@@ -31,8 +31,19 @@ namespace Moscrif.IDE.Controls
 			Gtk.Label lblMessage = new Gtk.Label("<b>"+message+"</b>");
 			lblMessage.UseMarkup = true;
 			hbox1.PackEnd(lblMessage, true ,true, 0);
+			ShowAll ();
+	
+			while (Gtk.Application.EventsPending ())
+				Gtk.Application.RunIteration ();
 
-			this.ShowAll();
+		}
+
+		public int ShowDialog(){
+			int result =   this.Run();
+			this.Destroy();
+			while (Gtk.Application.EventsPending ())
+				Gtk.Application.RunIteration ();
+			return result;
 		}
 
 	}

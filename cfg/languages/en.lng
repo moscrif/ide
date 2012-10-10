@@ -111,6 +111,7 @@ login_logout = Login/Log out
 rror_loat_tweet = Error loading Tweeter.
 error_loat_rss = Error loading RSS.
 loading = Loading...
+pleas_select_application = Please select an Application tu publish!
 pleas_select_resolution = Please select an Emulator Skin!
 pleas_select_skin_theme = Please select a Skin and Theme!
 resolution_file_not_exist = Emulator Skin File doesn't exist! {0}

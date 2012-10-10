@@ -530,9 +530,10 @@ namespace  Moscrif.IDE.Settings
 							s.VersionSetting = 121001;
 						}
 
-						if (s.VersionSetting < 121005){ //year, month, day
+						if (s.VersionSetting < 121009){ //year, month, day
+							s.GenerateResolution();
 							s.GeneratePlatformResolutions();
-							s.VersionSetting = 121005;
+							s.VersionSetting = 121009;
 						}
 
 						return s;

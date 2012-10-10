@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using Moscrif.IDE.Controls;
+using Moscrif.IDE.Controls.Wizard;
 using Moscrif.IDE.Task;
 using Gtk;
 using MessageDialogs = Moscrif.IDE.Controls.MessageDialog;
@@ -31,12 +32,18 @@ namespace  Moscrif.IDE.Actions
 				return;
 			}
 
+			PublishDialogWizzard npw = new PublishDialogWizzard();
+			int result = npw.Run();
+			if (result == (int)ResponseType.Ok) {
+				
+			}
+			npw.Destroy();
 
-			PublishDialog pd = new PublishDialog();
+			/*PublishDialog pd = new PublishDialog();
 			if(pd.Run() == (int)ResponseType.Ok){
 
 			}
-			pd.Destroy();
+			pd.Destroy();*/
 
 			/*TaskList tl = new TaskList();
 			tl.TasksList = new System.Collections.Generic.List<Moscrif.IDE.Task.ITask>();

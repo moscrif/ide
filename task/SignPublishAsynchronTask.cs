@@ -9,26 +9,26 @@ using Moscrif.IDE.Iface.Entities;
 using Moscrif.IDE.Controls;
 using Moscrif.IDE.Devices;
 using System.Timers;
-using MessageDialogs = Moscrif.IDE.Controls.MessageDialog;
-using MessageDialogsUrl = Moscrif.IDE.Controls.MessageDialogUrl;
+//using MessageDialogs = Moscrif.IDE.Controls.MessageDialog;
+//using MessageDialogsUrl = Moscrif.IDE.Controls.MessageDialogUrl;
 using System.Text;
 using Moscrif.IDE.Iface;
 
 namespace Moscrif.IDE.Task
 {
-	public class SignPublishTask : ITask
+	public class SignPublishAsynchronTask : ITaskAsyn
 	{
 		List<TaskMessage> output = new List<TaskMessage>();
 		StateEnum stateTask;
 		Project project;
 
-		private ProgressDialog progressDialog;
+		//private ProgressDialog progressDialog;
 
 		private List<CombinePublish> listCombinePublish;
 
 		TaskMessage parentTask = new TaskMessage();
 		//List<string> listFiles = new List<string>();
-		public SignPublishTask()
+		public SignPublishAsynchronTask()
 		{
 		}
 
@@ -38,14 +38,6 @@ namespace Moscrif.IDE.Task
 		}
 
 		#region ITask implementation
-		/*public void Initialize(object dataObject)
-		{
-			if (dataObject.GetType() == typeof(Project)) {
-				project = (Project)dataObject;
-				
-			}
-		}*/
-
 		public void Initialize(object dataObject)
 		{
 			if (dataObject.GetType()== typeof(List<CombinePublish>)){
@@ -77,6 +69,7 @@ namespace Moscrif.IDE.Task
 			output.Add(tm);
 			this.stateTask = StateEnum.ERROR;
 			allPublishError = true;
+			ShowError(error, "");
 		}
 
 		private void SetError(string error){
@@ -91,7 +84,7 @@ namespace Moscrif.IDE.Task
 			stateTask = StateEnum.ERROR;
 			allPublishError = true;
 			//MainClass.MainWindow.OutputConsole.WriteError(String.Format("Platform {0} not found!", MainClass.Settings.Platform.Name));
-			ShowError(error1, error2);
+			ShowError(error1, " ");
 		}
 
 		public bool ExecuteTask()
@@ -121,7 +114,7 @@ namespace Moscrif.IDE.Task
 				return false;
 				}
 			}
-
+			ShowInfo("Publish project" ,MainClass.Workspace.ActualProject.ProjectName);
 
 			stateTask = StateEnum.OK;
 
@@ -187,8 +180,9 @@ namespace Moscrif.IDE.Task
 			}
 
 			if(!isJavaInstaled && isAndroid){
-				MessageDialogsUrl md = new MessageDialogsUrl(MessageDialogsUrl.DialogButtonType.Ok,MainClass.Languages.Translate("java_missing"), MainClass.Languages.Translate("java_missing_title"),"http://moscrif.com/java-requirement", Gtk.MessageType.Error,ParentWindow);
-				md.ShowDialog();
+				ShowError(MainClass.Languages.Translate("java_missing"),MainClass.Languages.Translate("java_missing_title"));
+				/*MessageDialogsUrl md = new MessageDialogsUrl(MessageDialogsUrl.DialogButtonType.Ok,MainClass.Languages.Translate("java_missing"), MainClass.Languages.Translate("java_missing_title"),"http://moscrif.com/java-requirement", Gtk.MessageType.Error,ParentWindow);
+				md.ShowDialog();*/
 			}
 
 
@@ -200,7 +194,7 @@ namespace Moscrif.IDE.Task
 			}
 
 			//########################## kompilovanie
-			progressDialog = new ProgressDialog(MainClass.Languages.Translate("compiling"),ProgressDialog.CancelButtonType.None,listCombinePublish.Count,ParentWindow);//MainClass.MainWindow		//#################### kompilovanie
+			//progressDialog = new ProgressDialog(MainClass.Languages.Translate("compiling"),ProgressDialog.CancelButtonType.None,listCombinePublish.Count,ParentWindow);//MainClass.MainWindow		//#################### kompilovanie
 			try {
 				List<string> list = new List<string>();
 				
@@ -217,15 +211,17 @@ namespace Moscrif.IDE.Task
 				if (list.Count > 0) {
 					double step = 1 / (list.Count * 1.0);
 						MainClass.MainWindow.ProgressStart(step, MainClass.Languages.Translate("compiling"));
-					progressDialog.Reset(list.Count,MainClass.Languages.Translate("compiling"));
+					//progressDialog.Reset(list.Count,MainClass.Languages.Translate("compiling"));
+					ShowInfo(MainClass.Languages.Translate("compiling") ,list.Count + " Files");
 				}
 
 				foreach (string f in list) {
 					if (exitCompile) { // chyba koncim
 						MainClass.MainWindow.ProgressEnd();
-						progressDialog.Destroy();
+						//progressDialog.Destroy();
 
 						SetError(MainClass.Languages.Translate("compiling_failed"));
+
 						return false;
 					}
 
@@ -250,23 +246,23 @@ namespace Moscrif.IDE.Task
 
 						args = String.Format("-d {0} -c {1} -o console", fdir, fname);
 
-							/*Process []pArry = Process.GetProcesses();
-							foreach(Process p in pArry)
-							{
-								if(p != null){
-									try {
-										if(p.ProcessName == "Moscrif"){
-											p.Kill();
-											MainClass.MainWindow.RunningEmulator= false;
-										}
-										//string s = p.ProcessName;
-										//s = s.ToLower();
-										//Console.WriteLine("\t"+s);
-									} catch (Exception ex){
-										Console.WriteLine(ex.Message);
+						/*Process []pArry = Process.GetProcesses();
+						foreach(Process p in pArry)
+						{
+							if(p != null){
+								try {
+									if(p.ProcessName == "Moscrif"){
+										p.Kill();
+										MainClass.MainWindow.RunningEmulator= false;
 									}
+									//string s = p.ProcessName;
+									//s = s.ToLower();
+									//Console.WriteLine("\t"+s);
+								} catch (Exception ex){
+									Console.WriteLine(ex.Message);
 								}
-							}*/
+							}
+						}*/
 					}
 
 					string a = args;
@@ -275,7 +271,7 @@ namespace Moscrif.IDE.Task
 					ProcessService ps = new ProcessService();
 
 					MainClass.MainWindow.ProgressStep();
-					progressDialog.Update(f);
+					//progressDialog.Update(f);
 
 					ProcessWrapper pw = ps.StartProcess(cmd, a, fdir, ProcessOutputChange, ProcessOutputChange);
 					pw.WaitForExit();
@@ -290,7 +286,7 @@ namespace Moscrif.IDE.Task
 
 			} catch (Exception ex) {
 				MainClass.MainWindow.ProgressEnd();
-				progressDialog.Destroy();
+				//progressDialog.Destroy();
 				SetError(MainClass.Languages.Translate("compiling_failed"),ex.Message);
 
 				return false;
@@ -300,7 +296,7 @@ namespace Moscrif.IDE.Task
 			if(stateTask != StateEnum.OK){
 
 				MainClass.MainWindow.ProgressEnd();
-				progressDialog.Destroy();
+				//progressDialog.Destroy();
 
 				SetError(MainClass.Languages.Translate("compiling_failed"));
 
@@ -310,12 +306,15 @@ namespace Moscrif.IDE.Task
 
 			//#################### regenerate app file, backup, hash
 			parentTask = new TaskMessage("OK",MainClass.Languages.Translate("compiling"),null);
+			ShowInfo(" ",StateEnum.OK.ToString());
 			output.Add(parentTask);
+
+			ShowInfo(MainClass.Languages.Translate("create_app")," ");
 
 			List<string> filesList = new List<string>();
 			GetAllFiles(ref filesList,project.AbsolutProjectDir );
 
-			progressDialog.Reset(filesList.Count,MainClass.Languages.Translate("generate_app"));
+			//progressDialog.Reset(filesList.Count,MainClass.Languages.Translate("generate_app"));
 
 			string bakAppPath =project.AbsolutAppFilePath+".bak";
 			string hashAppPath =project.AbsolutAppFilePath+".hash";
@@ -324,7 +323,7 @@ namespace Moscrif.IDE.Task
 				try{
 					File.Delete(bakAppPath);
 				} catch {
-					progressDialog.Destroy();
+					//progressDialog.Destroy();
 					SetError(MainClass.Languages.Translate("cannot_create_backup"));
 
 					return false;
@@ -334,7 +333,7 @@ namespace Moscrif.IDE.Task
 				try{
 					File.Delete(hashAppPath);
 				} catch {
-					progressDialog.Destroy();
+					//progressDialog.Destroy();
 					SetError(MainClass.Languages.Translate("cannot_create_hash"));
 					return false;
 				}
@@ -344,7 +343,7 @@ namespace Moscrif.IDE.Task
 				File.Copy(project.AbsolutAppFilePath,bakAppPath);
 				File.Copy(project.AbsolutAppFilePath,hashAppPath);
 			} catch {
-				progressDialog.Destroy();
+				//progressDialog.Destroy();
 				SetError(MainClass.Languages.Translate("cannot_create_backup"));
 				return false;
 			}
@@ -366,7 +365,7 @@ namespace Moscrif.IDE.Task
 					string fileNameHash = Cryptographer.SHA1HashBase64(fileUpdate);
 					stream.WriteLine("hash : {0}",fileNameHash);
 					*/
-					progressDialog.Update(MainClass.Languages.Translate("create_app"));
+					//progressDialog.Update(MainClass.Languages.Translate("create_app"));
 					using (FileStream fs = new FileStream(file, FileMode.Open, FileAccess.Read)) {
 						int size = (int)fs.Length;
 						byte[] data = new byte[size];
@@ -381,11 +380,12 @@ namespace Moscrif.IDE.Task
 				stream.Close();
 				stream.Dispose();
 			}
-
+			ShowInfo(" ",StateEnum.OK.ToString());
 			//#################### podpisovanie
 
-			progressDialog.Reset(0,MainClass.Languages.Translate("sign_app_f1"));
-			progressDialog.SetLabel (MainClass.Languages.Translate("sign_app_f1") );
+			//progressDialog.Reset(0,MainClass.Languages.Translate("sign_app_f1"));
+			//progressDialog.SetLabel (MainClass.Languages.Translate("sign_app_f1") );
+			ShowInfo(MainClass.Languages.Translate("sign_app_f1") ," ");
 
 			SignApp sa = new SignApp();
 			string newAppdata = "";
@@ -393,22 +393,25 @@ namespace Moscrif.IDE.Task
 			try{
 				if(!sa.PostFile(hashAppPath,MainClass.User.Token,out newAppdata)){
 					//timer.Stop();
-					progressDialog.Destroy();
+					//progressDialog.Destroy();
 					RestoreBackup(hashAppPath,bakAppPath);
 
 					//SetError(MainClass.Languages.Translate("expired_licence"),newAppdata);
 					output.Add(new TaskMessage(newAppdata,MainClass.Languages.Translate("expired_licence"),null));
-					stateTask = StateEnum.ERROR;
+					ShowError(MainClass.Languages.Translate("expired_licence")," ");
 
-					LicenceExpiredDialog md = new LicenceExpiredDialog(MainClass.Languages.Translate("expired_licence"));
-					md.Run();
-					md.Destroy();
+					stateTask = StateEnum.ERROR;
+					Gtk.Application.Invoke(delegate{
+						LicenceExpiredDialog md = new LicenceExpiredDialog(MainClass.Languages.Translate("expired_licence"));
+						md.ShowDialog();
+					});
+
 					return false;
 				}
 
 				if(String.IsNullOrEmpty(newAppdata)){
 					//timer.Stop();
-					progressDialog.Destroy();
+					//progressDialog.Destroy();
 					RestoreBackup(hashAppPath,bakAppPath);
 					SetError(MainClass.Languages.Translate("sign_app_failed"));
 					return false;
@@ -422,7 +425,7 @@ namespace Moscrif.IDE.Task
 
 			}catch(Exception ex){
 				//timer.Stop();
-				progressDialog.Destroy();
+				//progressDialog.Destroy();
 
 				SetError(MainClass.Languages.Translate("sign_app_failed"), ex.Message);
 				//Console.WriteLine(ex.Message);
@@ -433,6 +436,7 @@ namespace Moscrif.IDE.Task
 			//timer.Stop();
 			parentTask = new TaskMessage("OK",MainClass.Languages.Translate("sign"),null);
 			output.Add(parentTask);
+			ShowInfo(" ",StateEnum.OK.ToString());
 
 			//#################### publish
 			//if (listCombinePublish.Count > 0) {
@@ -440,7 +444,8 @@ namespace Moscrif.IDE.Task
 				double step2 = 1 / (listCombinePublish.Count * 1.0);
 				MainClass.MainWindow.ProgressStart(step2, MainClass.Languages.Translate("publish"));
 				//progressDialog = new ProgressDialog(MainClass.Languages.Translate("publishing"),ProgressDialog.CancelButtonType.Cancel,listCombinePublish.Count,MainClass.MainWindow);
-				progressDialog.Reset(listCombinePublish.Count,MainClass.Languages.Translate("publishing"));
+				//progressDialog.Reset(listCombinePublish.Count,MainClass.Languages.Translate("publishing"));
+				//ShowInfo( MainClass.Languages.Translate("publish")," ");
 			//}
 
 			foreach(CombinePublish ccc in  listCombinePublish){//listCC ){
@@ -475,8 +480,9 @@ namespace Moscrif.IDE.Task
 				parentTask = new TaskMessage(MainClass.Languages.Translate("publishing"),fileName,null);
 				devicePublishError = false;
 
-				if (progressDialog != null)
-					 progressDialog.SetLabel (fileName );
+				/*if (progressDialog != null)
+					 progressDialog.SetLabel (fileName );*/
+				ShowInfo( "Publishing",fileName);
 
 				if (Directory.Exists(tempDir)) {
 					try{
@@ -711,10 +717,12 @@ namespace Moscrif.IDE.Task
 					//Console.WriteLine(parentTask.Child.Message);
 					output.Add(parentTask);
 					stateTask = StateEnum.ERROR;
+					ShowError(StateEnum.ERROR.ToString()," ");
 				}
 				else{
 					parentTask.Message = MainClass.Languages.Translate("publish_successfully_done");
 					output.Add(parentTask);
+					ShowInfo(" ",StateEnum.OK.ToString());
 				}
 
 
@@ -733,16 +741,16 @@ namespace Moscrif.IDE.Task
 				}*/
 
 				MainClass.MainWindow.ProgressStep();
-				if (progressDialog != null)
-					cancelled = progressDialog.Update (fileName );
+				/*if (progressDialog != null)
+					cancelled = progressDialog.Update (fileName );*/
 			}
 
 
 			MainClass.MainWindow.ProgressEnd();
 
-			if (progressDialog != null){
+			/*if (progressDialog != null){
 				progressDialog.Destroy();
-			}
+			}*/
 			 
 			RestoreBackup(hashAppPath,bakAppPath);
 
@@ -754,17 +762,17 @@ namespace Moscrif.IDE.Task
 					s= s+ " ... and more.";
 				}
 
-				ShowError(MainClass.Languages.Translate("publish_error"), s);
+				ShowError(MainClass.Languages.Translate("publish_error")," ");
 				return false;
 			} else {
 				this.stateTask = StateEnum.OK;
 				ShowInfo(MainClass.Languages.Translate("publish_successfully_done"), "");
 
-				if(MainClass.Settings.OpenOutputAfterPublish){
+				/*if(MainClass.Settings.OpenOutputAfterPublish){
 					if (!String.IsNullOrEmpty(project.ProjectOutput)){
 						MainClass.Tools.OpenFolder(project.OutputMaskToFullPath);
 					}
-				}
+				}*/
 
 				return true;
 			}
@@ -794,8 +802,8 @@ namespace Moscrif.IDE.Task
 
 		private void OnTimeElapsed(object o, ElapsedEventArgs args){
 
-			if(progressDialog != null)
-				progressDialog.AutomaticUpdate();
+			/*if(progressDialog != null)
+				progressDialog.AutomaticUpdate();*/
 		}
 
 		private void GetAllFiles(ref List<string> filesList,string path)
@@ -910,16 +918,19 @@ namespace Moscrif.IDE.Task
 		private void ShowError(string error1, string error2){
 
 			stateTask = StateEnum.ERROR;
+			if(WriteStep!=null){
+				WriteStep(this,new StepEventArgs(error2,error1,true));
+			}
 			/*MessageDialogs md = new MessageDialogs(MessageDialogs.DialogButtonType.Ok,error1, error2, Gtk.MessageType.Error,ParentWindow);
 			md.ShowDialog();*/
-
 		}
 
 		private void ShowInfo(string error1, string error2){
-
-			MessageDialogs md = new MessageDialogs(MessageDialogs.DialogButtonType.Ok,error1, error2, Gtk.MessageType.Info,ParentWindow);
-			md.ShowDialog();
-
+			if(WriteStep!=null){
+				WriteStep(this,new StepEventArgs(error1,error2,false));
+			}
+			/*MessageDialogs md = new MessageDialogs(MessageDialogs.DialogButtonType.Ok,error1, error2, Gtk.MessageType.Info,ParentWindow);
+			md.ShowDialog();*/
 		}
 
 		public void OnEndTaskWrite(object sender, string name, string status, List<TaskMessage> errors){
@@ -946,42 +957,6 @@ namespace Moscrif.IDE.Task
 		public event ProcessErrorHandler ErrorWrite;
 		public event ProcessErrorHandler LogWrite;
 		public event ProcessTaskHandler EndTaskWrite;
-
-		public void GetComands(string dir, ref List<string> list, bool ignoreFiles)
-		{
-			if (!Directory.Exists(dir))
-				return;
-			
-			DirectoryInfo di = new DirectoryInfo(dir);
-			
-			foreach (DirectoryInfo d in di.GetDirectories()){
-
-				int indx = -1;
-				if(ignoreFiles){
-					indx = MainClass.Settings.IgnoresFolders.FindIndex(x => x.Folder == d.Name && x.IsForPublish);
-				}
-
-				if(indx<0){
-				//if (!d.Name.StartsWith(".")) {
-					GetComands(d.FullName, ref list,ignoreFiles);
-				}
-			}
-
-			foreach (FileInfo f in di.GetFiles("*.ms")){
-				string fileCompile = System.IO.Path.ChangeExtension(f.FullName,".msc");
-				if( File.Exists(fileCompile)){
-
-					FileInfo fiCompile = new FileInfo(fileCompile);
-					// len tie ms ktorych datum upravy je vetsi, ako datum upravy msc subory
-						//if(f.LastWriteTime > fiCompile.LastWriteTime){
-							list.Add(f.FullName);
-						//}
-
-				} else {
-					list.Add(f.FullName);
-				}
-			}
-		}
 
 		void ExitPublish(object sender, EventArgs e){
 			if(lastMessage.Contains(MainClass.Languages.Translate("publishing_succesful"))){
@@ -1080,187 +1055,6 @@ namespace Moscrif.IDE.Task
 			//});
 		}
 
-
-		private string messageError;
-
-		private void ParseOutput(string message, string fileDir)
-		{
-			int indx = message.IndexOf("Error:");
-
-			//Console.WriteLine("indx ->"+indx);
-			//Console.WriteLine("message >>> "+message.Replace("\t","»") + "<<<");
-			message = message.Replace("\r\n","\n"); //\r\n\r\n
-			message = message.Replace("\n\r","\n");//\n\r\n\r
-
-			if (indx > -1) {
-
-				if (!String.IsNullOrEmpty(messageError)){
-					TaskMessage tm =GetMessage(messageError,fileDir);
-					if (tm == null) return;
-
-					this.output.Add(tm);
-					this.stateTask = StateEnum.ERROR;
-					messageError = null;
-
-					if (ErrorWrite!=null){
-						ErrorWrite(this,this.Name,this.StateTask.ToString(),tm);
-					}
-				}
-
-				messageError = message; //.Remove(0, indx + 6);
-
-				int indxError = messageError.IndexOf("Error: ");
-				if (indxError>0) messageError = messageError.Remove(0,indx);
-
-				//message =message.Replace("\n\r","");// odstranim entery riadkov necham len \n
-				//message =message.Replace("\r\n","");
-				//message =message.Replace("\n","");
-				//message =message.Replace("\r","");
-				message= message.Replace("Compilation failed!","" );
-
-				//int indxEmptyLine =message.IndexOf("\n");
-				//Console.WriteLine("indxEmptyLine 1->"+indxEmptyLine);
-				if (message.EndsWith("\n\n"))//\r\n\r\n // koniec erroru
-				{
-					TaskMessage tm =GetMessage(messageError,fileDir);
-					if (tm == null) return;
-
-					this.output.Add(tm);
-					this.stateTask = StateEnum.ERROR;
-					messageError = null;
-
-					if (ErrorWrite!=null){
-						ErrorWrite(this,this.Name,this.StateTask.ToString(),tm);
-					}
-					//if (MainClass.Settings.FirstErrorStopCompile)
-						exitCompile = true;
-
-				}
-
-				return;
-				//messageError = message.Remove(0,6) ;
-				//this.output.Add( new TaskMessage(message));
-			}
-
-			if (message.StartsWith("\t") && (message.Trim().Length > 1 ) )
-			{
-				messageError  = messageError +message;
-
-				//message =message.Replace("\n\r",""); // odstranim entery riadkov necham len \n
-				//message =message.Replace("\r\n","");
-				//message =message.Replace("\n","");
-				//message =message.Replace("\r","");
-				message= message.Replace("Compilation failed!","" );
-
-				//int indxEmptyLine =message.IndexOf("\n");
-				//Console.WriteLine("indxEmptyLine 2->"+indxEmptyLine);
-				if (message.EndsWith("\n\n"))//\r\n\r\n  // koniec erroru
-				{
-					TaskMessage tm =GetMessage(messageError,fileDir);
-					if (tm == null) return;
-
-					this.output.Add(tm);
-					this.stateTask = StateEnum.ERROR;
-					messageError = null;
-
-					if (ErrorWrite!=null){
-						ErrorWrite(this,this.Name,this.StateTask.ToString(),tm);
-					}
-					//if (MainClass.Settings.FirstErrorStopCompile)
-						exitCompile = true;
-
-				}
-				return;
-			}else if (!String.IsNullOrEmpty(messageError) )//	if (!message.StartsWith("\t"))
-			{
-				TaskMessage tm =GetMessage(messageError,fileDir);
-				if (tm == null) return;
-
-				this.output.Add(tm);
-				this.stateTask = StateEnum.ERROR;
-				messageError = null;
-
-				if (ErrorWrite!=null){
-					ErrorWrite(this,this.Name,this.StateTask.ToString(),tm);
-				}
-				//if (MainClass.Settings.FirstErrorStopCompile)
-					exitCompile = true;
-			}
-		}
-
-		private TaskMessage GetMessage(string message, string fileDir){
-			TaskMessage tm =new TaskMessage();
-			try{
-
-				messageError= messageError.Replace("Error:","" );
-
-
-				messageError =messageError.Replace("\t","»");
-
-				messageError =messageError.Replace("\n\r","");
-				messageError =messageError.Replace("\r\n","");
-				messageError =messageError.Replace("\n","");
-				messageError =messageError.Replace("\r","");
-				messageError= messageError.Replace("Compilation failed!","" );
-
-
-				//Console.WriteLine("messageError -> "+ messageError);
-
-				string[] msg = messageError.Split('»');
-
-				//Console.WriteLine("match.Count -> "+ msg.Length);
-
-				if (msg.Length <3){
-					//Tool.Logger.Error("message ->"+messageError+"<");
-					return null;
-				}
-
-				string error = msg[0];
-				string filename = msg[1];
-				string line =msg[2];
-
-				if (msg[1].StartsWith("at") ){
-					if (msg.Length <4){
-						//Tool.Logger.Error("message ->"+messageError+"<");
-						return null;
-					}
-
-					filename = msg[2];
-					line =msg[3];
-				}
-				else{
-					filename = msg[1];
-					line =msg[2];
-				}
-				filename = filename.Replace('/',System.IO.Path.DirectorySeparatorChar);
-
-
-				if (!String.IsNullOrEmpty(fileDir) ){
-					filename=System.IO.Path.Combine(fileDir,filename);
-					if(filename.EndsWith (".ms")){
-						string tmp = System.IO.Path.ChangeExtension(filename, ".msc");
-						if(File.Exists(tmp)){
-							try{
-								File.Delete(tmp);
-							} catch{}
-						}
-					}
-
-				}
-
-				//Console.WriteLine("error -> "+ error);
-				//Console.WriteLine("filename -> "+ filename);
-				//Console.WriteLine("line -> "+ line);
-
-				tm =new TaskMessage(error, filename, line);
-
-			} catch {
-
-			}
-			return tm;
-		}
-
-
 		public StateEnum StateTask
 		{
 			get { return stateTask; }
@@ -1281,6 +1075,230 @@ namespace Moscrif.IDE.Task
 		{
 			get { return null; }
 		}
+		#endregion
+
+		#region ITaskAsyn implementation
+		public event EventHandler<StepEventArgs> WriteStep;
+		#endregion
+
+
+		#region private
+		private string messageError;
+		
+		private void ParseOutput(string message, string fileDir)
+		{
+			int indx = message.IndexOf("Error:");
+			
+			//Console.WriteLine("indx ->"+indx);
+			//Console.WriteLine("message >>> "+message.Replace("\t","»") + "<<<");
+			message = message.Replace("\r\n","\n"); //\r\n\r\n
+			message = message.Replace("\n\r","\n");//\n\r\n\r
+			
+			if (indx > -1) {
+				
+				if (!String.IsNullOrEmpty(messageError)){
+					TaskMessage tm =GetMessage(messageError,fileDir);
+					if (tm == null) return;
+					
+					this.output.Add(tm);
+					this.stateTask = StateEnum.ERROR;
+					messageError = null;
+					
+					if (ErrorWrite!=null){
+						ErrorWrite(this,this.Name,this.StateTask.ToString(),tm);
+					}
+				}
+				
+				messageError = message; //.Remove(0, indx + 6);
+				
+				int indxError = messageError.IndexOf("Error: ");
+				if (indxError>0) messageError = messageError.Remove(0,indx);
+				
+				//message =message.Replace("\n\r","");// odstranim entery riadkov necham len \n
+				//message =message.Replace("\r\n","");
+				//message =message.Replace("\n","");
+				//message =message.Replace("\r","");
+				message= message.Replace("Compilation failed!","" );
+				
+				//int indxEmptyLine =message.IndexOf("\n");
+				//Console.WriteLine("indxEmptyLine 1->"+indxEmptyLine);
+				if (message.EndsWith("\n\n"))//\r\n\r\n // koniec erroru
+				{
+					TaskMessage tm =GetMessage(messageError,fileDir);
+					if (tm == null) return;
+					
+					this.output.Add(tm);
+					this.stateTask = StateEnum.ERROR;
+					messageError = null;
+					
+					if (ErrorWrite!=null){
+						ErrorWrite(this,this.Name,this.StateTask.ToString(),tm);
+					}
+					//if (MainClass.Settings.FirstErrorStopCompile)
+					exitCompile = true;
+					
+				}
+				
+				return;
+				//messageError = message.Remove(0,6) ;
+				//this.output.Add( new TaskMessage(message));
+			}
+			
+			if (message.StartsWith("\t") && (message.Trim().Length > 1 ) )
+			{
+				messageError  = messageError +message;
+				
+				//message =message.Replace("\n\r",""); // odstranim entery riadkov necham len \n
+				//message =message.Replace("\r\n","");
+				//message =message.Replace("\n","");
+				//message =message.Replace("\r","");
+				message= message.Replace("Compilation failed!","" );
+				
+				//int indxEmptyLine =message.IndexOf("\n");
+				//Console.WriteLine("indxEmptyLine 2->"+indxEmptyLine);
+				if (message.EndsWith("\n\n"))//\r\n\r\n  // koniec erroru
+				{
+					TaskMessage tm =GetMessage(messageError,fileDir);
+					if (tm == null) return;
+					
+					this.output.Add(tm);
+					this.stateTask = StateEnum.ERROR;
+					messageError = null;
+					
+					if (ErrorWrite!=null){
+						ErrorWrite(this,this.Name,this.StateTask.ToString(),tm);
+					}
+					//if (MainClass.Settings.FirstErrorStopCompile)
+					exitCompile = true;
+					
+				}
+				return;
+			}else if (!String.IsNullOrEmpty(messageError) )//	if (!message.StartsWith("\t"))
+			{
+				TaskMessage tm =GetMessage(messageError,fileDir);
+				if (tm == null) return;
+				
+				this.output.Add(tm);
+				this.stateTask = StateEnum.ERROR;
+				messageError = null;
+				
+				if (ErrorWrite!=null){
+					ErrorWrite(this,this.Name,this.StateTask.ToString(),tm);
+				}
+				//if (MainClass.Settings.FirstErrorStopCompile)
+				exitCompile = true;
+			}
+		}
+		
+		private TaskMessage GetMessage(string message, string fileDir){
+			TaskMessage tm =new TaskMessage();
+			try{
+				
+				messageError= messageError.Replace("Error:","" );
+				
+				
+				messageError =messageError.Replace("\t","»");
+				
+				messageError =messageError.Replace("\n\r","");
+				messageError =messageError.Replace("\r\n","");
+				messageError =messageError.Replace("\n","");
+				messageError =messageError.Replace("\r","");
+				messageError= messageError.Replace("Compilation failed!","" );
+				
+				
+				//Console.WriteLine("messageError -> "+ messageError);
+				
+				string[] msg = messageError.Split('»');
+				
+				//Console.WriteLine("match.Count -> "+ msg.Length);
+				
+				if (msg.Length <3){
+					//Tool.Logger.Error("message ->"+messageError+"<");
+					return null;
+				}
+				
+				string error = msg[0];
+				string filename = msg[1];
+				string line =msg[2];
+				
+				if (msg[1].StartsWith("at") ){
+					if (msg.Length <4){
+						//Tool.Logger.Error("message ->"+messageError+"<");
+						return null;
+					}
+					
+					filename = msg[2];
+					line =msg[3];
+				}
+				else{
+					filename = msg[1];
+					line =msg[2];
+				}
+				filename = filename.Replace('/',System.IO.Path.DirectorySeparatorChar);
+				
+				
+				if (!String.IsNullOrEmpty(fileDir) ){
+					filename=System.IO.Path.Combine(fileDir,filename);
+					if(filename.EndsWith (".ms")){
+						string tmp = System.IO.Path.ChangeExtension(filename, ".msc");
+						if(File.Exists(tmp)){
+							try{
+								File.Delete(tmp);
+							} catch{}
+						}
+					}
+					
+				}
+				
+				//Console.WriteLine("error -> "+ error);
+				//Console.WriteLine("filename -> "+ filename);
+				//Console.WriteLine("line -> "+ line);
+				
+				tm =new TaskMessage(error, filename, line);
+				
+			} catch {
+				
+			}
+			return tm;
+		}
+
+		private void GetComands(string dir, ref List<string> list, bool ignoreFiles)
+		{
+			if (!Directory.Exists(dir))
+				return;
+			
+			DirectoryInfo di = new DirectoryInfo(dir);
+			
+			foreach (DirectoryInfo d in di.GetDirectories()){
+				
+				int indx = -1;
+				if(ignoreFiles){
+					indx = MainClass.Settings.IgnoresFolders.FindIndex(x => x.Folder == d.Name && x.IsForPublish);
+				}
+				
+				if(indx<0){
+					//if (!d.Name.StartsWith(".")) {
+					GetComands(d.FullName, ref list,ignoreFiles);
+				}
+			}
+			
+			foreach (FileInfo f in di.GetFiles("*.ms")){
+				string fileCompile = System.IO.Path.ChangeExtension(f.FullName,".msc");
+				if( File.Exists(fileCompile)){
+					
+					FileInfo fiCompile = new FileInfo(fileCompile);
+					// len tie ms ktorych datum upravy je vetsi, ako datum upravy msc subory
+					//if(f.LastWriteTime > fiCompile.LastWriteTime){
+					list.Add(f.FullName);
+					//}
+					
+				} else {
+					list.Add(f.FullName);
+				}
+			}
+		}
+
+
 		#endregion
 	}
 	

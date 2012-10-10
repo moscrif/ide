@@ -256,6 +256,7 @@ namespace Moscrif.IDE.Workspace
 				(cell as Gtk.CellRendererText).Foreground = "LightGray";
 			else {
 				fd.Weight = Pango.Weight.Normal;
+				(cell as Gtk.CellRendererText).Foreground = "Black";
 			}
 			(cell as Gtk.CellRendererText).FontDesc = fd;
 			

@@ -26,12 +26,6 @@ namespace Moscrif.IDE.Task
 
 
 				if (task.ExecuteTask()) {
-					if(task.Name.Contains("Precomp")){
-						/*if(task.Output!= null){
-							Console.WriteLine("task.Output->{0}",task.Output.Count);
-						} else  Console.WriteLine("task.Output->NULL");	*/
-
-					}
 
 					task.OnEndTaskWrite(task, task.Name,task.StateTask.ToString(), task.Output);
 					/*if (EndTaskWritte != null){

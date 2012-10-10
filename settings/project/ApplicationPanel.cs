@@ -84,28 +84,16 @@ namespace Moscrif.IDE.Settings
 			cbType.Model= projectModel;
 
 			TreeIter ti = new TreeIter();
-			DropDownButton.ComboItemSet items = new DropDownButton.ComboItemSet ();
-			DropDownButton ddb = new DropDownButton();
-
 			foreach(SettingValue ds in MainClass.Settings.ApplicationType){// MainClass.Settings.InstallLocations){
-				items.Add( new DropDownButton.ComboItem(ds.Display,ds));
-
 				if(ds.Value == this.project.ApplicationType){
 					ti = projectModel.AppendValues(ds.Display,ds.Value);
 					cbType.SetActiveIter(ti);
-					items.CurrentItem = ds;
-					ddb.ActiveText = ds.Display;
 				} else  projectModel.AppendValues(ds.Display,ds.Value);
 			}
 			if(cbType.Active <0)
 				cbType.Active =0;
 
 			tblGlobal.Attach(cbType, 1, 2, 0,1, AttachOptions.Fill|AttachOptions.Expand, AttachOptions.Fill|AttachOptions.Expand, 0, 0);
-
-			ddb.SetItemSet(items);
-			//ddb.
-			tblGlobal.Attach(ddb, 2,3,0,1, AttachOptions.Fill|AttachOptions.Expand, AttachOptions.Fill|AttachOptions.Expand, 0, 0);
-
 
 			afc = new ApplicationFileControl(project.AppFile,ApplicationFileControl.Mode.EditNoSaveButton,parentWindow);
 			vbox2.PackEnd(afc, true, true, 0);

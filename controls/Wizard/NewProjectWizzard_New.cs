@@ -50,7 +50,6 @@ namespace Moscrif.IDE.Controls.Wizard
 		int page = 0;
 		public NewProjectWizzard_New(Window parent)
 		{
-
 			if (parent != null)
 				this.TransientFor =parent;
 			else
