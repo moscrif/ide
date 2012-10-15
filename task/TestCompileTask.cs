@@ -142,6 +142,10 @@ namespace Moscrif.IDE.Task
 		public event ProcessErrorHandler LogWrite;
 		public event ProcessTaskHandler EndTaskWrite;
 
+		void ITask.StopTask()
+		{
+		}
+
 		public string Name {
 			get {
 				return "COMPILE TEST Emulator";

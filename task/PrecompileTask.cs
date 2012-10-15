@@ -328,6 +328,10 @@ namespace  Moscrif.IDE.Task
 
 		}		
 
+		void ITask.StopTask()
+		{
+		}
+
 		/*
 		private void ParseOutput(string message){
 

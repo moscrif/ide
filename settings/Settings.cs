@@ -535,6 +535,10 @@ namespace  Moscrif.IDE.Settings
 							s.GeneratePlatformResolutions();
 							s.VersionSetting = 121009;
 						}
+						if (s.VersionSetting < 121015){ //year, month, day
+							s.GenerateResolution();
+							s.VersionSetting = 121015;
+						}
 
 						return s;
 					}
@@ -802,7 +806,7 @@ namespace  Moscrif.IDE.Settings
 			Resolution.Rules.Add(new Rule(-10,"qHD","qhd",540,960));
 			Resolution.Rules.Add(new Rule(-11,"WQVGA","wqvga",240,400));
 			Resolution.Rules.Add(new Rule(-12,"VXGA","vxga",800,1280));
-			Resolution.Rules.Add(new Rule(-13,"FWVGA","fwvga",854,480));
+			Resolution.Rules.Add(new Rule(-13,"FWVGA","fwvga",480,854));
 			Resolution.Rules.Add(new Rule(-14,"WSVGA","wsvga",600,1024));
 			Resolution.Rules.Add(new Rule(-15,"QXGA","qxga",1536,2048));
 			Resolution.Rules.Add(new Rule(-16,"HD720","hd720",720,1280));

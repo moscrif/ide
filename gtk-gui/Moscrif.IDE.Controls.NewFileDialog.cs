@@ -43,7 +43,7 @@ namespace Moscrif.IDE.Controls
 			this.notebook1 = new global::Gtk.Notebook ();
 			this.notebook1.CanFocus = true;
 			this.notebook1.Name = "notebook1";
-			this.notebook1.CurrentPage = 2;
+			this.notebook1.CurrentPage = 0;
 			this.notebook1.ShowBorder = false;
 			this.notebook1.BorderWidth = ((uint)(10));
 			// Container child notebook1.Gtk.Notebook+NotebookChild
@@ -247,6 +247,7 @@ namespace Moscrif.IDE.Controls
 			this.DefaultWidth = 538;
 			this.DefaultHeight = 372;
 			this.Show ();
+			this.entrName.KeyReleaseEvent += new global::Gtk.KeyReleaseEventHandler (this.OnEntrNameKeyReleaseEvent);
 			this.btnBack.Clicked += new global::System.EventHandler (this.OnBrnBackClicked);
 			this.btnOk.Clicked += new global::System.EventHandler (this.OnButtonOkClicked);
 		}

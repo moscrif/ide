@@ -155,6 +155,10 @@ namespace Moscrif.IDE.Task
 		public event ProcessErrorHandler LogWrite;
 		public event ProcessTaskHandler EndTaskWrite;
 
+		void ITask.StopTask()
+		{
+		}
+
 		/*	public void GetComands(string dir, ref List<string> list)
 		{
 			if (!Directory.Exists(dir))

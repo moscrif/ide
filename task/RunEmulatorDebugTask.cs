@@ -279,6 +279,10 @@ namespace Moscrif.IDE.Task
 		public event ProcessErrorHandler LogMonitor;
 		public event ProcessErrorHandler LogGarbageCollector;
 
+		void ITask.StopTask()
+		{
+		}
+
 		private string messageError;
 		private bool isLog; // novy text
 		private bool isOldLog; // predchadzajuci text

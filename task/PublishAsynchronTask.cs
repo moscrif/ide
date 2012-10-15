@@ -26,7 +26,7 @@ namespace  Moscrif.IDE.Task
 
 		private Project project;
 		private List<CombinePublish> listCombinePublish;
-
+		private bool stopProcess = false;
 		//bool isPublishError = false;
 		bool devicePublishError = false;
 		bool allPublishError = false;
@@ -159,7 +159,6 @@ namespace  Moscrif.IDE.Task
 				//project.GeneratePublishCombination();
 			}
 
-			bool cancelled = false;
 			bool isAndroid = false;
 
 			foreach(CombinePublish ccc in  listCombinePublish){
@@ -192,7 +191,7 @@ namespace  Moscrif.IDE.Task
 				//if (!ccc.IsSelected) continue;
 				//Console.WriteLine(ccc.ToString());
 
-				if (cancelled) break;
+				if (stopProcess) break;
 
 				if(String.IsNullOrEmpty(project.ProjectArtefac) ){
 					project.ProjectArtefac = System.IO.Path.GetFileNameWithoutExtension(project.RelativeAppFilePath);
@@ -529,7 +528,13 @@ namespace  Moscrif.IDE.Task
 
 				ShowError(MainClass.Languages.Translate("publish_error")," ");
 				return false;
-			} else {
+			} if(stopProcess){
+				this.stateTask = StateEnum.CANCEL;
+				ShowInfo(MainClass.Languages.Translate("Canceled")," ");
+
+				return false;
+			}
+			else {
 				this.stateTask = StateEnum.OK;
 
 				ShowInfo(" ",MainClass.Languages.Translate("publish_successfully_done"));
@@ -699,7 +704,10 @@ namespace  Moscrif.IDE.Task
 		public void OnEndTaskWrite(object sender, string name, string status, List<TaskMessage> errors){
 			if(EndTaskWrite!= null)
 				EndTaskWrite(sender, name,status, errors);
+		}
 
+		public void StopTask(){
+			stopProcess = true;
 		}
 
 		// not use

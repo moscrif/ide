@@ -304,6 +304,7 @@ no_suggestions = No suggestions
 select = Select:
 as_link = As Link
 cancel = Cancel
+canceled = Canceled
 ok = OK
 lib_name = Library name
 workspace_location = Workspace location

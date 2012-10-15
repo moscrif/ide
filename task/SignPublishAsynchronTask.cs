@@ -21,8 +21,7 @@ namespace Moscrif.IDE.Task
 		List<TaskMessage> output = new List<TaskMessage>();
 		StateEnum stateTask;
 		Project project;
-
-		//private ProgressDialog progressDialog;
+		private bool stopProcess = false;
 
 		private List<CombinePublish> listCombinePublish;
 
@@ -70,6 +69,11 @@ namespace Moscrif.IDE.Task
 			this.stateTask = StateEnum.ERROR;
 			allPublishError = true;
 			ShowError(error, "");
+		}
+
+		private void StopProces(){
+			this.stateTask = StateEnum.CANCEL;
+			ShowInfo(MainClass.Languages.Translate("Canceled")," ");
 		}
 
 		private void SetError(string error){
@@ -194,7 +198,11 @@ namespace Moscrif.IDE.Task
 			}
 
 			//########################## kompilovanie
-			//progressDialog = new ProgressDialog(MainClass.Languages.Translate("compiling"),ProgressDialog.CancelButtonType.None,listCombinePublish.Count,ParentWindow);//MainClass.MainWindow		//#################### kompilovanie
+			if(stopProcess){
+				StopProces();
+				return false;
+			}
+
 			try {
 				List<string> list = new List<string>();
 				
@@ -211,17 +219,20 @@ namespace Moscrif.IDE.Task
 				if (list.Count > 0) {
 					double step = 1 / (list.Count * 1.0);
 						MainClass.MainWindow.ProgressStart(step, MainClass.Languages.Translate("compiling"));
-					//progressDialog.Reset(list.Count,MainClass.Languages.Translate("compiling"));
 					ShowInfo(MainClass.Languages.Translate("compiling") ,list.Count + " Files");
 				}
 
 				foreach (string f in list) {
+
 					if (exitCompile) { // chyba koncim
 						MainClass.MainWindow.ProgressEnd();
-						//progressDialog.Destroy();
-
 						SetError(MainClass.Languages.Translate("compiling_failed"));
 
+						return false;
+					}
+					if(stopProcess){
+						MainClass.MainWindow.ProgressEnd();
+						StopProces();
 						return false;
 					}
 
@@ -271,8 +282,6 @@ namespace Moscrif.IDE.Task
 					ProcessService ps = new ProcessService();
 
 					MainClass.MainWindow.ProgressStep();
-					//progressDialog.Update(f);
-
 					ProcessWrapper pw = ps.StartProcess(cmd, a, fdir, ProcessOutputChange, ProcessOutputChange);
 					pw.WaitForExit();
 					//pw.WaitForOutput();
@@ -305,11 +314,13 @@ namespace Moscrif.IDE.Task
 
 
 			//#################### regenerate app file, backup, hash
+			if(stopProcess){
+				StopProces();
+				return false;
+			}
 			parentTask = new TaskMessage("OK",MainClass.Languages.Translate("compiling"),null);
-			ShowInfo(" ",StateEnum.OK.ToString());
-			output.Add(parentTask);
-
-			ShowInfo(MainClass.Languages.Translate("create_app")," ");
+			//ShowInfo(" ",StateEnum.OK.ToString());
+			output.Add(parentTask);		
 
 			List<string> filesList = new List<string>();
 			GetAllFiles(ref filesList,project.AbsolutProjectDir );
@@ -380,23 +391,25 @@ namespace Moscrif.IDE.Task
 				stream.Close();
 				stream.Dispose();
 			}
-			ShowInfo(" ",StateEnum.OK.ToString());
+			ShowInfo(MainClass.Languages.Translate("create_app"),StateEnum.OK.ToString());
+			//ShowInfo(" ",StateEnum.OK.ToString());
 			//#################### podpisovanie
 
-			//progressDialog.Reset(0,MainClass.Languages.Translate("sign_app_f1"));
-			//progressDialog.SetLabel (MainClass.Languages.Translate("sign_app_f1") );
-			ShowInfo(MainClass.Languages.Translate("sign_app_f1") ," ");
+			//ShowInfo(MainClass.Languages.Translate("sign_app_f1") ," ");
 
 			SignApp sa = new SignApp();
 			string newAppdata = "";
 
+			if(stopProcess){
+				RestoreBackup(hashAppPath,bakAppPath);
+				StopProces();
+				return false;
+			}
+
 			try{
 				if(!sa.PostFile(hashAppPath,MainClass.User.Token,out newAppdata)){
-					//timer.Stop();
-					//progressDialog.Destroy();
 					RestoreBackup(hashAppPath,bakAppPath);
 
-					//SetError(MainClass.Languages.Translate("expired_licence"),newAppdata);
 					output.Add(new TaskMessage(newAppdata,MainClass.Languages.Translate("expired_licence"),null));
 					ShowError(MainClass.Languages.Translate("expired_licence")," ");
 
@@ -410,8 +423,6 @@ namespace Moscrif.IDE.Task
 				}
 
 				if(String.IsNullOrEmpty(newAppdata)){
-					//timer.Stop();
-					//progressDialog.Destroy();
 					RestoreBackup(hashAppPath,bakAppPath);
 					SetError(MainClass.Languages.Translate("sign_app_failed"));
 					return false;
@@ -424,11 +435,8 @@ namespace Moscrif.IDE.Task
 				}
 
 			}catch(Exception ex){
-				//timer.Stop();
-				//progressDialog.Destroy();
 
 				SetError(MainClass.Languages.Translate("sign_app_failed"), ex.Message);
-				//Console.WriteLine(ex.Message);
 				RestoreBackup(hashAppPath,bakAppPath);
 				return false;
 			}
@@ -436,23 +444,24 @@ namespace Moscrif.IDE.Task
 			//timer.Stop();
 			parentTask = new TaskMessage("OK",MainClass.Languages.Translate("sign"),null);
 			output.Add(parentTask);
-			ShowInfo(" ",StateEnum.OK.ToString());
+			ShowInfo(MainClass.Languages.Translate("sign_app_f1"),StateEnum.OK.ToString());
+			if(stopProcess){
+				RestoreBackup(hashAppPath,bakAppPath);
+				StopProces();
+				return false;
+			}
 
 			//#################### publish
-			//if (listCombinePublish.Count > 0) {
-				//List<CombinePublish> lst =project.CombinePublish.FindAll(x=>x.IsSelected==true);
-				double step2 = 1 / (listCombinePublish.Count * 1.0);
-				MainClass.MainWindow.ProgressStart(step2, MainClass.Languages.Translate("publish"));
-				//progressDialog = new ProgressDialog(MainClass.Languages.Translate("publishing"),ProgressDialog.CancelButtonType.Cancel,listCombinePublish.Count,MainClass.MainWindow);
-				//progressDialog.Reset(listCombinePublish.Count,MainClass.Languages.Translate("publishing"));
-				//ShowInfo( MainClass.Languages.Translate("publish")," ");
-			//}
+			double step2 = 1 / (listCombinePublish.Count * 1.0);
+			MainClass.MainWindow.ProgressStart(step2, MainClass.Languages.Translate("publish"));
 
 			foreach(CombinePublish ccc in  listCombinePublish){//listCC ){
 				//if (!ccc.IsSelected) continue;
 				//Console.WriteLine(ccc.ToString());
 
-				if (cancelled) break;
+				if(stopProcess){
+					break;
+				}
 
 				if(String.IsNullOrEmpty(project.ProjectArtefac) ){
 					project.ProjectArtefac = System.IO.Path.GetFileNameWithoutExtension(project.RelativeAppFilePath);
@@ -694,8 +703,6 @@ namespace Moscrif.IDE.Task
 					continue;
 				}
 
-				//var platformRule = MainClass.Settings.Platform.Rules.Find(x => x.Id == dvc.TargetPlatformId);
-
 				string appFile =dvc.Platform.Specific+ ".app"; /*dvc.TargetPlatform*///platformRule.Specific + ".app";
 				string fullAppPath = System.IO.Path.Combine(MainClass.Settings.PublishDirectory,appFile);
 
@@ -725,32 +732,11 @@ namespace Moscrif.IDE.Task
 					ShowInfo(" ",StateEnum.OK.ToString());
 				}
 
-
-				/*if (RunPublishTool(appFile,parentTask) ){
-					parentTask.Message =MainClass.Languages.Translate("publish_successfully_done");
-					output.Add(parentTask);
-
-					//output.Add(new TaskMessage(MainClass.Languages.Translate("publish_successfully_done"),dvc.Platform.Specific,null));
-				} else {
-					parentTask.Message =MainClass.Languages.Translate("publish_error");
-					Console.WriteLine(parentTask.Child.Message);
-					output.Add(parentTask);
-					stateTask = StateEnum.ERROR;
-					isPublishError = true;
-					//output.Add(new TaskMessage(MainClass.Languages.Translate("publish_error"),dvc.Platform.Specific,null));
-				}*/
-
 				MainClass.MainWindow.ProgressStep();
-				/*if (progressDialog != null)
-					cancelled = progressDialog.Update (fileName );*/
 			}
 
 
 			MainClass.MainWindow.ProgressEnd();
-
-			/*if (progressDialog != null){
-				progressDialog.Destroy();
-			}*/
 			 
 			RestoreBackup(hashAppPath,bakAppPath);
 
@@ -764,46 +750,17 @@ namespace Moscrif.IDE.Task
 
 				ShowError(MainClass.Languages.Translate("publish_error")," ");
 				return false;
-			} else {
+			} if(stopProcess){
+				this.stateTask = StateEnum.CANCEL;
+				ShowInfo(MainClass.Languages.Translate("Canceled")," ");
+				return false;
+			}
+			else {
 				this.stateTask = StateEnum.OK;
 				ShowInfo(MainClass.Languages.Translate("publish_successfully_done"), "");
 
-				/*if(MainClass.Settings.OpenOutputAfterPublish){
-					if (!String.IsNullOrEmpty(project.ProjectOutput)){
-						MainClass.Tools.OpenFolder(project.OutputMaskToFullPath);
-					}
-				}*/
-
 				return true;
 			}
-
-			/*if(this.stateTask == StateEnum.ERROR){
-
-				string s = allErrors.ToString();
-				if(s.Length > 120){
-					s = s.Substring(0,120);
-					s= s+ " ... and more.";
-				}
-
-				ShowError(MainClass.Languages.Translate("publish_error"), s);
-				return false;
-			} else {
-				ShowInfo(MainClass.Languages.Translate("publish_successfully_done"), "");
-
-				if(MainClass.Settings.OpenOutputAfterPublish){
-					if (!String.IsNullOrEmpty(project.ProjectOutput)){
-						MainClass.Tools.OpenFolder(project.OutputMaskToFullPath);
-					}
-				}
-
-				return true;
-			}*/
-		}
-
-		private void OnTimeElapsed(object o, ElapsedEventArgs args){
-
-			/*if(progressDialog != null)
-				progressDialog.AutomaticUpdate();*/
 		}
 
 		private void GetAllFiles(ref List<string> filesList,string path)
@@ -843,6 +800,8 @@ namespace Moscrif.IDE.Task
 				File.Delete(bakAppPath);
 
 			}catch(Exception ex){
+				Moscrif.IDE.Tool.Logger.Error("Restore backup App file FAILED.");
+				Moscrif.IDE.Tool.Logger.Error(ex.Message);
 				Console.WriteLine(ex.Message);
 			}
 		}
@@ -939,6 +898,11 @@ namespace Moscrif.IDE.Task
 
 		}
 
+		public void StopTask(){
+			stopProcess = true;
+			//Console.WriteLine("spat-:StopTask");				
+		}
+
 		// not use
 		public void OnTaskOutputChanged(object sender, string name, string status, List<TaskMessage> errors){
 			if(TaskOutputChanged!= null)
@@ -996,15 +960,6 @@ namespace Moscrif.IDE.Task
 			}
 
 			return;
-			/*devicePublishError = true;
-			TaskMessage tm =new TaskMessage(message.Trim(), "","" );
-			allErrors.AppendLine(message.Trim());
-
-			parentTask.Child = tm;
-			if (ErrorWrite!=null){
-					ErrorWrite(this,this.Name,StateEnum.ERROR.ToString(),tm);
-					this.stateTask = StateEnum.ERROR;
-				}*/
 		}
 
 

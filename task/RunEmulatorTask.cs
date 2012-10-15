@@ -276,6 +276,10 @@ namespace Moscrif.IDE.Task
 		public event ProcessErrorHandler LogWrite;
 		public event ProcessTaskHandler EndTaskWrite;
 
+		void ITask.StopTask()
+		{
+		}
+
 		private string messageError;
 		private TaskMessage oldTaskMessage;
 		private bool isLog; // novy text

@@ -12,7 +12,8 @@ namespace Moscrif.IDE.Controls
 {
 	public partial class LoginDialog : Gtk.Dialog
 	{
-		//protected virtual void OnButtonOkClicked (object sender, System.EventArgs e)
+		public event EventHandler LogginSucces;
+
 		bool exitTrue = false;
 		private void Login()
 		{
@@ -38,8 +39,12 @@ namespace Moscrif.IDE.Controls
 				ShowModalError(ex.Message);
 				return;
 			}
-			if(exitTrue)
+			if(exitTrue){
+				if(LogginSucces!=null){
+					LogginSucces(this,null);
+				}
 				this.Respond(Gtk.ResponseType.Ok);
+			}
 		}
 
 		public void LoginNoWrite(object sender, string  message)
@@ -57,6 +62,7 @@ namespace Moscrif.IDE.Controls
 				MainClass.User = account;
 				MainClass.MainWindow.SetLogin();
 				exitTrue = true;
+
 			} else {
 				ShowModalError(MainClass.Languages.Translate("login_failed"));
 				exitTrue = false;

@@ -168,6 +168,10 @@ namespace Moscrif.IDE.Task
 		public event ProcessErrorHandler LogWrite;
 		public event ProcessTaskHandler EndTaskWrite;
 
+		void ITask.StopTask()
+		{
+		}
+
 //Error: Bad syntax : Expecting '<identifier>' or 'assert', found 'class'
 //	 D:\Work\moscrift.Ide\bin\Debug\Workspace4\x000001\aaa.ms  11  14
 

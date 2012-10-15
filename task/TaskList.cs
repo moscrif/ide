@@ -51,6 +51,12 @@ namespace Moscrif.IDE.Task
 			}
 		}
 
+		public void StopAsynchronTask(){
+			foreach (ITask task in TasksList){
+				task.StopTask();
+			}
+		}
+
 		public void ExecuteTask()
 		{
 			foreach (ITask task in TasksList){

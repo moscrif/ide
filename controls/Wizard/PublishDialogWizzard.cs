@@ -23,15 +23,19 @@ namespace Moscrif.IDE.Controls.Wizard
 		private CheckButton chbSignApp;
 		private CheckButton chbIncludeAllResolution;
 		private CheckButton chbDebugLog;
+		Thread secondTaskThread;
+		TaskList tlpublish;
 
+		//PublishAsynchronTask pt;
 		ListStore storeOutput;
+
+		private bool runningPublish = false;
 
 		public PublishDialogWizzard()
 		{
 			project  = MainClass.Workspace.ActualProject;
-
-			this.Build();
 			this.TransientFor = MainClass.MainWindow;
+			this.Build();
 			btnResetMatrix.Label = MainClass.Languages.Translate("reset_matrix");
 
 			notebook1.ShowTabs = false;
@@ -46,7 +50,7 @@ namespace Moscrif.IDE.Controls.Wizard
 			//nvOutput.AppendColumn ("", new Gtk.CellRendererPixbuf (), "pixbuf", 2);
 			nvOutput.AppendColumn ("", collumnRenderer, "text", 0);
 			nvOutput.AppendColumn ("", collumnRenderer, "text", 1);
-			nvOutput.Columns[0].FixedWidth = 175;
+			nvOutput.Columns[0].FixedWidth = 200;
 			nvOutput.Columns[1].Expand = true;
 
 			//nvOutput.Columns[0].SetCellDataFunc(collumnRenderer, new Gtk.TreeCellDataFunc(RenderOutput));
@@ -145,18 +149,6 @@ namespace Moscrif.IDE.Controls.Wizard
 			notebook.CurrentPage =cpage;
 			btnNext.GrabFocus();
 		}
-
-		private void ShowLogin(){
-			LoginDialog ld = new LoginDialog(this);
-			int res = ld.Run();
-			if (res == (int)Gtk.ResponseType.Cancel){
-				ld.Destroy();
-				return;
-			}
-			ld.Destroy();
-			return;
-		}
-
 
 		private void GenerateNotebookPages(){
 			
@@ -578,13 +570,44 @@ namespace Moscrif.IDE.Controls.Wizard
 			MainClass.Settings.OpenOutputAfterPublish = chbOpenOutputDirectory.Active;
 		}
 
+
+		private bool LogginAndVerification(){
+
+			LoggUser vc = new LoggUser();
+			
+			if((MainClass.User == null)||(string.IsNullOrEmpty(MainClass.User.Token))){
+				
+				LoginDialog ld = new LoginDialog(this);
+				int res = ld.Run();
+				
+				if (res == (int)Gtk.ResponseType.Cancel){
+					ld.Destroy();
+					return false;
+				} 
+				ld.Destroy();
+			}
+			
+			if(!vc.Ping(MainClass.User.Token)){
+				MessageDialogs md = new MessageDialogs(MessageDialogs.DialogButtonType.Ok, MainClass.Languages.Translate("invalid_login_f1"), "", Gtk.MessageType.Error,this);
+				md.ShowDialog();
+				
+				LoginDialog ld = new LoginDialog(this);
+				int res = ld.Run();
+				if (res == (int)Gtk.ResponseType.Cancel){
+					ld.Destroy();
+					return false;
+				}else if(res == (int)Gtk.ResponseType.Ok){
+					ld.Destroy();
+					return true;
+				}
+			}
+			return true;
+		}
+
 		protected void OnBtnNextClicked (object sender, EventArgs e)
 		{
 			if(notebook1.Page == 0){
 				//btnResetMatrix.Visib
-				btnResetMatrix.Sensitive = false;
-				btnNext.Sensitive = false;
-				btnCancel.Label = "_Close";
 				List<CombinePublish> list =project.ProjectUserSetting.CombinePublish.FindAll(x=>x.IsSelected==true);
 				
 				if(list==null || list.Count<1){
@@ -594,36 +617,14 @@ namespace Moscrif.IDE.Controls.Wizard
 				}
 
 				if(MainClass.Workspace.SignApp){
-					LoggUser vc = new LoggUser();
-					
-					if((MainClass.User == null)||(string.IsNullOrEmpty(MainClass.User.Token))){
-						
-						LoginDialog ld = new LoginDialog(this);
-						int res = ld.Run();
-						
-						if (res == (int)Gtk.ResponseType.Cancel){
-							ld.Destroy();
-							return;
-						}
-						ld.Destroy();
-						return;
-					}
-					
-					if(!vc.Ping(MainClass.User.Token)){
-						MessageDialogs md = new MessageDialogs(MessageDialogs.DialogButtonType.Ok, MainClass.Languages.Translate("invalid_login_f1"), "", Gtk.MessageType.Error,this);
-						md.ShowDialog();
-						
-						LoginDialog ld = new LoginDialog(this);
-						int res = ld.Run();
-						if (res == (int)Gtk.ResponseType.Cancel){
-							ld.Destroy();
-							return;
-						}
-						ld.Destroy();
+					if(!LogginAndVerification()){
 						return;
 					}
 				}
 				notebook1.Page = 1;
+				btnResetMatrix.Sensitive = false;
+				btnNext.Sensitive = false;
+				btnCancel.Label = "_Close";
 				RunPublishTask(list);
 			}
 		}
@@ -631,16 +632,22 @@ namespace Moscrif.IDE.Controls.Wizard
 		private void RunPublishTask(List<CombinePublish> list){
 			
 			LoggingInfo log = new LoggingInfo();
-			log.LoggWebThread(LoggingInfo.ActionId.IDEEnd,project.ProjectName);
+			log.LoggWebThread(LoggingInfo.ActionId.IDEPublish,project.ProjectName);
 			
 			if(!MainClass.Workspace.SignApp){
 				
-				TaskList tlpublish = new TaskList();
+				tlpublish = new TaskList();
 				tlpublish.TasksList = new System.Collections.Generic.List<Moscrif.IDE.Task.ITask>();
 				
 				PublishAsynchronTask pt = new PublishAsynchronTask();
 				pt.ParentWindow = this;
 				pt.EndTaskWrite+= MainClass.MainWindow.EndTaskWritte;
+
+				pt.EndTaskWrite+= delegate(object sender, string name, string status, List<TaskMessage> errors) {
+					runningPublish = false;
+					btnCancel.Label = "_Close";
+				};
+
 				pt.ErrorWrite+= MainClass.MainWindow.ErrorTaskWritte;
 				pt.LogWrite+= MainClass.MainWindow.LogTaskWritte;
 				pt.WriteStep+=  delegate(object sender, StepEventArgs e) {
@@ -650,22 +657,29 @@ namespace Moscrif.IDE.Controls.Wizard
 					//return ti;
 				};
 				pt.Initialize(list);
-				
+
 				tlpublish.TasksList.Add(pt);
 
-				Thread secondTaskThread = new Thread(new ThreadStart(tlpublish.ExecuteTaskOnlineWrite ));
+				secondTaskThread = new Thread(new ThreadStart(tlpublish.ExecuteTaskOnlineWrite ));
 				secondTaskThread.Name = "Publish Second Task";
 				secondTaskThread.IsBackground = true;
+				runningPublish = true;
+				btnCancel.Label = "_Cancel";
 				secondTaskThread.Start();
-				
+
+
 			} else {
 			
-				TaskList tlpublish = new TaskList();
+				tlpublish = new TaskList();
 				tlpublish.TasksList = new System.Collections.Generic.List<Moscrif.IDE.Task.ITask>();
 				
 				SignPublishAsynchronTask pt = new SignPublishAsynchronTask();
 				pt.ParentWindow = this;
 				pt.EndTaskWrite+= MainClass.MainWindow.EndTaskWritte;
+				pt.EndTaskWrite+= delegate(object sender, string name, string status, List<TaskMessage> errors) {
+					runningPublish = false;
+					btnCancel.Label = "_Close";
+				};
 				pt.ErrorWrite+= MainClass.MainWindow.ErrorTaskWritte;
 				pt.LogWrite+= MainClass.MainWindow.LogTaskWritte;
 				pt.WriteStep+=  delegate(object sender, StepEventArgs e) {
@@ -678,10 +692,14 @@ namespace Moscrif.IDE.Controls.Wizard
 				
 				tlpublish.TasksList.Add(pt);
 				
-				Thread secondTaskThread = new Thread(new ThreadStart(tlpublish.ExecuteTaskOnlineWrite ));
+				secondTaskThread = new Thread(new ThreadStart(tlpublish.ExecuteTaskOnlineWrite ));
 				secondTaskThread.Name = "Publish Second Task";
 				secondTaskThread.IsBackground = true;
+				runningPublish = true;
+				btnCancel.Label = "_Cancel";
 				secondTaskThread.Start();
+
+
 			}
 		}
 
@@ -701,6 +719,20 @@ namespace Moscrif.IDE.Controls.Wizard
 
 		protected void OnBtnCancelClicked (object sender, EventArgs e)
 		{
+			if(runningPublish){
+				if(tlpublish!= null){
+					storeOutput.AppendValues("Waiting for Cancel","",null,false);
+					tlpublish.StopAsynchronTask();
+				}
+				/*if(secondTaskThread!= null){
+					secondTaskThread.Abort();
+
+				}*/
+
+				return;
+			}
+
+
 			if(notebook1.Page == 1){
 				if(MainClass.Settings.OpenOutputAfterPublish){
 					if (!String.IsNullOrEmpty(project.ProjectOutput)){

@@ -21,12 +21,14 @@ namespace Moscrif.IDE.Task
 		event ProcessErrorHandler LogWrite;
 		event ProcessTaskHandler EndTaskWrite;
 		void OnEndTaskWrite(object sender, string name, string status, List<TaskMessage> errors);
+		void StopTask();
 	}
 	
 	public enum StateEnum{
 		OK,
 		ERROR,
-		DONE
+		DONE,
+		CANCEL
 		
 	}
 

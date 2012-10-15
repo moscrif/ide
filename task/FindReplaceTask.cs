@@ -149,6 +149,10 @@ namespace Moscrif.IDE.Task
 		public event ProcessErrorHandler LogWrite;
 		public event ProcessTaskHandler EndTaskWrite;
 
+		void ITask.StopTask()
+		{
+		}
+
 		#endregion
 	}
 
