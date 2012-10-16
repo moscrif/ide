@@ -62,6 +62,9 @@ namespace Moscrif.IDE.Workspace
 		[XmlAttribute("horzMiddleBodyHeight")]
 		public int HpBodyMiddleWidth;
 
+		[XmlAttribute("horzRightBodyWidth")]
+		public int HpBodyRightWidth;
+
 		[XmlAttribute("vertOutputWidth")]
 		public int HpOutputWidth;
 
@@ -190,7 +193,7 @@ namespace Moscrif.IDE.Workspace
 			OpenFiles = new List<string>();
 		}*/
 
-		public void SaveWorkspace(List<string> openFile, int vpBodyHeight, int hpBodyMiddleWidth, int hpOutputWidth)
+		public void SaveWorkspace(List<string> openFile, int vpBodyHeight, int hpBodyMiddleWidth,int hpBodyRightWidth, int hpOutputWidth)
 		{
 			foreach (Project project in Projects)
 				SaveProject(project);
@@ -198,6 +201,7 @@ namespace Moscrif.IDE.Workspace
 			HpOutputWidth = hpOutputWidth;
 			VpBodyHeight = vpBodyHeight;
 			HpBodyMiddleWidth = hpBodyMiddleWidth;
+			HpBodyRightWidth = hpBodyRightWidth;
 
 			OpenFiles = openFile;
 

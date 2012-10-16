@@ -246,14 +246,16 @@ namespace Moscrif.IDE.Workspace
 			int type = (int)model.GetValue(iter, TYPE_ROW);
 			//(int)modelStore.GetValue(iter, TYPE_ROW);
 			Pango.FontDescription fd = new Pango.FontDescription();
-			//(cell as Gtk.CellRendererText).Foreground = "Black";
+			(cell as Gtk.CellRendererText).Foreground = "Black";
 			
 			if (type == (int)TypeFile.AppFile) {
 				fd.Weight = Pango.Weight.Bold;
 			} else if (type == (int)TypeFile.StartFile)
-				fd.Weight = Pango.Weight.Bold; else if (type == (int)TypeFile.ExcludetFile)
+				fd.Weight = Pango.Weight.Bold; 
+			else if (type == (int)TypeFile.ExcludetFile){
 				//Gdk.Color(228, 228, 228);
 				(cell as Gtk.CellRendererText).Foreground = "LightGray";
+			}
 			else {
 				fd.Weight = Pango.Weight.Normal;
 				(cell as Gtk.CellRendererText).Foreground = "Black";

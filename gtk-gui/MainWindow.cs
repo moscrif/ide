@@ -4,7 +4,6 @@
 public partial class MainWindow
 {
 	private global::Gtk.UIManager UIManager;
-	private global::Gtk.RadioAction aaaAction;
 	private global::Gtk.VBox vbMain;
 	private global::Gtk.HBox hbMenu;
 	private global::Gtk.VPaned vpMenuLeft;
@@ -30,10 +29,6 @@ public partial class MainWindow
 		// Widget MainWindow
 		this.UIManager = new global::Gtk.UIManager ();
 		global::Gtk.ActionGroup w1 = new global::Gtk.ActionGroup ("Default");
-		this.aaaAction = new global::Gtk.RadioAction ("aaaAction", global::Mono.Unix.Catalog.GetString ("aaa"), null, null, 0);
-		this.aaaAction.Group = new global::GLib.SList (global::System.IntPtr.Zero);
-		this.aaaAction.ShortLabel = global::Mono.Unix.Catalog.GetString ("aaa");
-		w1.Add (this.aaaAction, null);
 		this.UIManager.InsertActionGroup (w1, 0);
 		this.AddAccelGroup (this.UIManager.AccelGroup);
 		this.Name = "MainWindow";

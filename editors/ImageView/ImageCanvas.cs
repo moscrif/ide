@@ -49,6 +49,19 @@ namespace Moscrif.IDE.Editors.ImageView
 			colorLine = gdkLineColor.ToCairoColor(MainClass.Settings.ImageEditors.LineColor.Alpha);
 			colorPoint = gdkPointColor.ToCairoColor(MainClass.Settings.ImageEditors.PointColor.Alpha);
 			colorSelectPoint = gdkSelPointColor.ToCairoColor(MainClass.Settings.ImageEditors.SelectPointColor.Alpha);
+		
+			Gdk.Pixbuf bg;
+			try{
+				using (var fs = new System.IO.FileStream(fileName, System.IO.FileMode.Open))
+					bg = new Gdk.Pixbuf(fs);
+			
+				bg = bg.ApplyEmbeddedOrientation();
+				this.HeightImage = bg.Height;
+				this.WidthImage= bg.Width;	
+
+			}catch(Exception ex){
+				Tool.Logger.Error(ex.Message,null);
+			}
 		}
 
 		public int WidthImage {get;set;}
@@ -201,7 +214,7 @@ namespace Moscrif.IDE.Editors.ImageView
 			return true;*/
 		}
 
-		#region TEST
+	#region TEST
 
 	void Draw3Circles (Context cr, int xc, int yc, double radius, double alpha)
 	{
@@ -264,7 +277,6 @@ namespace Moscrif.IDE.Editors.ImageView
 		circles.Destroy ();
 	}
 		#endregion
-
 
 		void Draw(Context cr, int width, int height)
 		{

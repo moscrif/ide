@@ -25,8 +25,8 @@ namespace Moscrif.IDE
 			//foreach(string str in args)
 			//	Logger.Log("arg ->{0}",str);
 
-			Logger.Log(Languages.Translate("start_app"));
 			Application.Init();
+			Logger.Log(Languages.Translate("start_app"));
 
 			ExceptionManager.UnhandledException += delegate(UnhandledExceptionArgs argsum)
 			{

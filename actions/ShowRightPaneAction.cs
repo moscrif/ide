@@ -11,8 +11,8 @@ namespace Moscrif.IDE.Actions
 		private bool ignoreEvent = false;
 		public ShowRightPaneAction():base("showrightpane",MainClass.Languages.Translate("menu_show_right_pane"),MainClass.Languages.Translate("menu_title_show_right_pane"),"workspace-right.png"){
 			ignoreEvent = true;
-			this.Sensitive = false;
-			//this.Active =MainClass.Workspace.ShowRightPane;
+			//this.Sensitive = false;
+			this.Active =MainClass.Workspace.ShowRightPane;
 			ignoreEvent = false;
 		}
 

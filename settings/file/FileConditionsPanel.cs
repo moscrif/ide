@@ -78,14 +78,8 @@ namespace  Moscrif.IDE.Settings
 			//Table tableSystem = new Table((uint)(2),(uint)2,false);
 			Table table = new Table((uint)(rowCount + 3),(uint)2,false);
 
-
 			GenerateContent(ref table, MainClass.Settings.Platform.Name, 1, MainClass.Settings.Platform,false);//tableSystem
 			GenerateContent(ref table, MainClass.Settings.Resolution.Name, 2,MainClass.Settings.Resolution,true); //project.Resolution);//tableSystem
-
-			//vbox2.PackStart(tableSystem, false, false, 0);
-			//vbox2.PackStart(new Gtk.HSeparator(), false, false, 0);
-
-			//
 			int i = 3;//1;
 
 			foreach (Condition cd in project.ConditoinsDefine) {

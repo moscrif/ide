@@ -194,6 +194,7 @@ namespace Moscrif.IDE.Editors
 			vp.Show ();
 
 			vbox.ShowAll();
+
 		}
 
 

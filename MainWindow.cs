@@ -15,6 +15,7 @@ using Moscrif.IDE.Devices;
 using Moscrif.IDE.Tool;
 using Moscrif.IDE.Task;
 using Moscrif.IDE.Settings;
+using Moscrif.IDE.Controls.Properties;
 using MessageDialogs = Moscrif.IDE.Controls.MessageDialog;
 using Moscrif.IDE.Iface.Entities;
 using System.Text;
@@ -61,13 +62,14 @@ public partial class MainWindow : Gtk.Window
 	Toolbar toolbarRight = new Toolbar();
 	public EditorNotebook EditorNotebook = new EditorNotebook();
 	public Notebook FileNotebook = new Notebook();
+	public Notebook PropertisNotebook = new Notebook();
 
 	public Notebook OutputNotebook = new Notebook();
 	public Notebook TaskNotebook = new Notebook();
 	public WorkspaceTree WorkspaceTree = null;
 	public FrameworkTree FrameworkTree = null;
 	public FileExplorer FileExplorer = null;
-
+	public HPaned hpRight = new HPaned();
 
 	public OutputConsole OutputConsole = null;
 	public ProcessOutput ProcessOutput = null;
@@ -217,11 +219,21 @@ public partial class MainWindow : Gtk.Window
 
 		FileNotebook.CurrentPage = 1;
 
-		hpBodyMidle.Pack2(EditorNotebook, true, true);
 		hpBodyMidle.Pack1(FileNotebook, false, true);
+		//hpBodyMidle.Pack2(EditorNotebook, true, true);
+		hpRight = new HPaned();
+		hpRight.Pack1(EditorNotebook, true, true);
+		hpRight.Pack2(PropertisNotebook, false, true);
+		hpBodyMidle.Pack2(hpRight, true, true);
+
+		//hpBodyRight.Pack1(EditorNotebook, false, true);
+		//hpBodyRight.Pack1(EditorNotebook, false, true);
+		//hpBodyRight.Pack2(new Button(), false, true);
 		FileNotebook.WidthRequest = 500;
 		//hpBodyMidle.ShowAll();
 		hpBodyMidle.ResizeMode = ResizeMode.Queue;
+		//hpBodyRight.ResizeMode = ResizeMode.Queue;
+
 
 		try {
 			//ActionUiManager.RecentFiles(MainClass.Settings.RecentFiles.GetFiles());
@@ -366,6 +378,62 @@ public partial class MainWindow : Gtk.Window
 					SetActualProject(fileName);
 				else if (!String.IsNullOrEmpty(appFileName))
 					SetActualProject(appFileName);
+			}//PropertisNotebook
+			PropertisNotebook.RemovePage(0);
+			if((TypeFile)fileType == TypeFile.SourceFile || ((TypeFile)fileType == TypeFile.StartFile )
+			   || ((TypeFile)fileType == TypeFile.ExcludetFile ) ){
+				string file = "";
+				string appfile = "";
+				int typ = -1;
+				Gtk.TreeIter ti = new Gtk.TreeIter();
+				WorkspaceTree.GetSelectedFile(out file, out typ, out ti);
+				
+				if (String.IsNullOrEmpty(file))
+					return;
+				
+				appfile = WorkspaceTree.GetSelectedProjectApp();
+				
+				Project p = MainClass.Workspace.FindProject_byApp(appfile, true);
+				if (p == null)
+					return;
+
+				FilePropertisData fpd = new FilePropertisData();
+				fpd.Filename = MainClass.Workspace.GetRelativePath(file);
+				fpd.Project = p;
+
+				FilePropertyWidget fpw = new FilePropertyWidget( fpd);
+				PropertisNotebook.AppendPage(fpw,new Label("Properties"));
+				/*FileConditionsWidget fcw = new FileConditionsWidget(fpd);
+				PropertisNotebook.AppendPage(fcw,new Label("Properties"));*/
+
+			}else  if ((TypeFile)fileType == TypeFile.Directory){
+
+				string file = "";
+				string appfile = "";
+				int typ = -1;
+				Gtk.TreeIter ti = new Gtk.TreeIter();
+				WorkspaceTree.GetSelectedFile(out file, out typ, out ti);
+				
+				if (String.IsNullOrEmpty(file)) return;
+				
+				appfile = WorkspaceTree.GetSelectedProjectApp();
+				
+				Project p = MainClass.Workspace.FindProject_byApp(appfile, true);
+				if (p == null)
+					return;
+				
+				FilePropertisData fpd = new FilePropertisData();
+				fpd.Filename = MainClass.Workspace.GetRelativePath(file);
+				fpd.Project = p;
+
+				DirPropertyWidget fpw = new DirPropertyWidget( fpd);
+				PropertisNotebook.AppendPage(fpw,new Label("Properties"));
+
+				/*DirConditionsWidget dcw = new DirConditionsWidget(fpd);
+				PropertisNotebook.AppendPage(dcw,new Label("Properties"));*/
+
+			} else{
+
 			}
 		};
 
@@ -657,6 +725,7 @@ public partial class MainWindow : Gtk.Window
 		if (!String.IsNullOrEmpty(MainClass.Workspace.FilePath)){
 			int bottonPane =MainClass.Workspace.VpBodyHeight;
 			int leftPane =MainClass.Workspace.HpBodyMiddleWidth;
+			int rightPane =MainClass.Workspace.HpBodyRightWidth;
 
 			if(MainClass.Workspace.ShowLeftPane)
 				leftPane =hpBodyMidle.Position;
@@ -664,7 +733,10 @@ public partial class MainWindow : Gtk.Window
 			if(MainClass.Workspace.ShowBottomPane)
 				bottonPane =vpBody.Position;
 
-			MainClass.Workspace.SaveWorkspace(EditorNotebook.OpenFiles, bottonPane,leftPane , hpOutput.Position);
+			if(MainClass.Workspace.ShowRightPane)
+				rightPane=hpRight.Position;
+
+			MainClass.Workspace.SaveWorkspace(EditorNotebook.OpenFiles, bottonPane,leftPane , rightPane,hpOutput.Position);
 		}
 
 	}
@@ -759,12 +831,15 @@ public partial class MainWindow : Gtk.Window
 	public void SetBodyParameter(){
 		int bottonPane =MainClass.Workspace.VpBodyHeight;
 		int leftPane =MainClass.Workspace.HpBodyMiddleWidth;
+		int rirhtPane = MainClass.Workspace.HpBodyRightWidth;
 
 		bottonPane =vpBody.Position;
 		leftPane =hpBodyMidle.Position;
+		rirhtPane = hpRight.Position;
 
 		MainClass.Workspace.HpBodyMiddleWidth =leftPane;
 		MainClass.Workspace.VpBodyHeight =bottonPane;
+		MainClass.Workspace.HpBodyRightWidth = rirhtPane;
 
 	}
 
@@ -775,6 +850,7 @@ public partial class MainWindow : Gtk.Window
 
 		int vpBodyHeight = MainClass.Workspace.VpBodyHeight;
 		int hpBodyMiddleWidth = MainClass.Workspace.HpBodyMiddleWidth;
+		int hpBodyRightWidth = MainClass.Workspace.HpBodyRightWidth;
 
 		int hpOutputWidth = MainClass.Workspace.HpOutputWidth;// output->find
 		if (hpOutputWidth > 0)
@@ -793,6 +869,18 @@ public partial class MainWindow : Gtk.Window
 
 		}else {
 			hpBodyMidle.Position = 0;//100;
+		}
+
+		if(MainClass.Workspace.ShowRightPane){
+
+			if ((hpBodyRightWidth != 0) &&(hpBodyRightWidth < w)){
+				hpRight.Position = hpBodyRightWidth;
+			}else {
+				hpRight.Position = w-200;
+			}
+			
+		}else {
+			hpRight.Position = w;//100;
 		}
 		
 		if(MainClass.Workspace.ShowBottomPane ){

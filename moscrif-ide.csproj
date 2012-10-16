@@ -465,6 +465,8 @@
     <Compile Include="task\PublishAsynchronTask.cs" />
     <Compile Include="task\ITaskAsyn.cs" />
     <Compile Include="task\SignPublishAsynchronTask.cs" />
+    <Compile Include="controls\Properties\FilePropertyWidget.cs" />
+    <Compile Include="controls\Properties\DirPropertyWidget.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -497,6 +499,7 @@
     <Folder Include="controls\Wizard\" />
     <Folder Include="samples\" />
     <Folder Include="cfg\themes\" />
+    <Folder Include="controls\Properties\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cfg\MenuStructure.Xml">

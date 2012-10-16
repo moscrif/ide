@@ -26,6 +26,8 @@ error = Error
 error_error = Couldn't sent the error!
 error_feedback = Couldn't sent the feedback.
 
+waiting_cancel = Waiting for Cancelation.
+
 feedback_send = Your feedback has been sent. Thank you for your support!
 
 property_ios_icon = The main icon, size {0}x{1}.

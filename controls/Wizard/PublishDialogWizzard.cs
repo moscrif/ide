@@ -721,7 +721,7 @@ namespace Moscrif.IDE.Controls.Wizard
 		{
 			if(runningPublish){
 				if(tlpublish!= null){
-					storeOutput.AppendValues("Waiting for Cancel","",null,false);
+					storeOutput.AppendValues(MainClass.Languages.Translate("waiting_cancel"),"",null,false);
 					tlpublish.StopAsynchronTask();
 				}
 				/*if(secondTaskThread!= null){
