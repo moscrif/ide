@@ -738,8 +738,9 @@ namespace Moscrif.IDE
 
 	void OnTest(object obj, EventArgs args)
 	{
-		//	throw new NotImplementedException();
-
+			Console.WriteLine("MainClass.MainWindow.hpRight.Position SW 1 -:"+MainClass.MainWindow.hpRight.Position );
+			//	throw new NotImplementedException();
+			return;
 		/*PublishDialogWizzard npw = new PublishDialogWizzard();
 		int result = npw.Run();
 		if (result == (int)ResponseType.Ok) {
@@ -753,8 +754,7 @@ namespace Moscrif.IDE
 		pd.Destroy();
 					
 	}
-	#endregion
-		
+	#endregion	
 	}
 	
 }

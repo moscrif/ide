@@ -7,14 +7,15 @@
 	</toolbar>
 	<toolbar name="toolbarMiddle">
 	</toolbar>
-	<toolbar name="toolbarRight">
+	<toolbar name="toolbarRight1">
 	    <toolitem name="ShowLeftPane" action="showleftpane" />
 	    <toolitem name="ShowBottonPane" action="showbottonpane" />		
 	    <toolitem name="ShowRightPane" action="showrightpane" />
-		
+	</toolbar>
+	<toolbar name="toolbarRight2">	
 		<toolitem name="About" action="about" />
 	    <toolitem name="Quit" action="quit" />
-	</toolbar>
+	</toolbar>	
 	<menubar >
 	    <menu name="FileAction" action="FileAction">
 	    	<menu name="addFileSubmenu" action="addFileSubmenu">

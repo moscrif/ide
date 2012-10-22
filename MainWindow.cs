@@ -59,7 +59,8 @@ public partial class MainWindow : Gtk.Window
 	private MenuBar mainMenu = new MenuBar();
 	Toolbar toolbarLeft = new Toolbar();
 	Toolbar toolbarMiddle = new Toolbar();
-	Toolbar toolbarRight = new Toolbar();
+	Toolbar toolbarRight1 = new Toolbar();
+	Toolbar toolbarRight2 = new Toolbar();
 	public EditorNotebook EditorNotebook = new EditorNotebook();
 	public Notebook FileNotebook = new Notebook();
 	public Notebook PropertisNotebook = new Notebook();
@@ -220,24 +221,16 @@ public partial class MainWindow : Gtk.Window
 		FileNotebook.CurrentPage = 1;
 
 		hpBodyMidle.Pack1(FileNotebook, false, true);
-		//hpBodyMidle.Pack2(EditorNotebook, true, true);
 		hpRight = new HPaned();
+		//hpRight.Fi
+
 		hpRight.Pack1(EditorNotebook, true, true);
 		hpRight.Pack2(PropertisNotebook, false, true);
 		hpBodyMidle.Pack2(hpRight, true, true);
-
-		//hpBodyRight.Pack1(EditorNotebook, false, true);
-		//hpBodyRight.Pack1(EditorNotebook, false, true);
-		//hpBodyRight.Pack2(new Button(), false, true);
 		FileNotebook.WidthRequest = 500;
-		//hpBodyMidle.ShowAll();
 		hpBodyMidle.ResizeMode = ResizeMode.Queue;
-		//hpBodyRight.ResizeMode = ResizeMode.Queue;
-
 
 		try {
-			//ActionUiManager.RecentFiles(MainClass.Settings.RecentFiles.GetFiles());
-			//ActionUiManager.RecentWorkspace(MainClass.Settings.RecentFiles.GetWorkspace());
 			ActionUiManager.RecentAll(MainClass.Settings.RecentFiles.GetFiles(),
 			                          MainClass.Settings.RecentFiles.GetProjects(),
 			                                          MainClass.Settings.RecentFiles.GetWorkspace());
@@ -403,8 +396,6 @@ public partial class MainWindow : Gtk.Window
 
 				FilePropertyWidget fpw = new FilePropertyWidget( fpd);
 				PropertisNotebook.AppendPage(fpw,new Label("Properties"));
-				/*FileConditionsWidget fcw = new FileConditionsWidget(fpd);
-				PropertisNotebook.AppendPage(fcw,new Label("Properties"));*/
 
 			}else  if ((TypeFile)fileType == TypeFile.Directory){
 
@@ -429,8 +420,22 @@ public partial class MainWindow : Gtk.Window
 				DirPropertyWidget fpw = new DirPropertyWidget( fpd);
 				PropertisNotebook.AppendPage(fpw,new Label("Properties"));
 
-				/*DirConditionsWidget dcw = new DirConditionsWidget(fpd);
-				PropertisNotebook.AppendPage(dcw,new Label("Properties"));*/
+			}else  if ((TypeFile)fileType == TypeFile.AppFile){
+				
+				string file = "";
+				string appfile = "";
+				int typ = -1;
+				Gtk.TreeIter ti = new Gtk.TreeIter();
+				WorkspaceTree.GetSelectedFile(out file, out typ, out ti);
+				
+				if (String.IsNullOrEmpty(file)) return;
+
+				Project p = MainClass.Workspace.FindProject_byApp(file, true);
+				if (p == null)
+					return;
+
+				ProjectPropertyWidget fpw = new ProjectPropertyWidget( p);
+				PropertisNotebook.AppendPage(fpw,new Label("Properties"));
 
 			} else{
 
@@ -499,22 +504,22 @@ public partial class MainWindow : Gtk.Window
 				}
 			}
 		};
-
 		this.ShowAll();
 		this.Maximize();
-
-		//SetDefaultvpBody();
 
 		int x, y, w, h, d = 0;
 		hpOutput.Parent.ParentWindow.GetGeometry(out x, out y, out w, out h, out d);
 		hpOutput.Position = w / 2;
 
-		vpMenuRight.Parent.ParentWindow.GetGeometry(out x, out y, out w, out h, out d);
+		//vpMenuRight.Parent.ParentWindow.GetGeometry(out x, out y, out w, out h, out d);
+		tblMenuRight.Parent.ParentWindow.GetGeometry(out x, out y, out w, out h, out d);
 		if(w<1200){
-			vpMenuRight.WidthRequest =125;
+			//vpMenuRight.WidthRequest =125;
+			tblMenuRight.WidthRequest =220;
 		} else {
 			//if(MainClass.Platform.IsMac)
-				vpMenuRight.WidthRequest =385;
+			//	vpMenuRight.WidthRequest =385;
+			tblMenuRight.WidthRequest =385;
 			//else 
 			//	vpMenuRight.WidthRequest =355;
 		}
@@ -528,12 +533,8 @@ public partial class MainWindow : Gtk.Window
 				Logger.Error("Mac IGE Main Menu failed."+ex.Message,null);
 			}
 		}
-
 		ReloadPanel();
-
 		Moscrif.IDE.Tool.Logger.LogDebugInfo(String.Format("splash.hide-{0}",DateTime.Now));
-
-		Console.WriteLine(String.Format("splash.hide-{0}",DateTime.Now));
 
 		if(showSplash)
 			splash.HideAll();
@@ -581,13 +582,30 @@ public partial class MainWindow : Gtk.Window
 		btnSocketServer.Image = new Gtk.Image(pixbufRed);
 
 		Thread ExecEditorThreads = new Thread(new ThreadStart(ExecEditorThread));
-		//filllStartPageThread.Priority = ThreadPriority.Normal;
+
 		ExecEditorThreads.Name = "ExecEditorThread";
 		ExecEditorThreads.IsBackground = true;
 		ExecEditorThreads.Start();
-
+		LoadBaner();
 	}
 	
+	private void LoadBaner(){
+		//hbMenuRight
+		string bannerParth  = System.IO.Path.Combine(MainClass.Paths.ResDir,"banner");
+		bannerParth = System.IO.Path.Combine(bannerParth,"test.png");
+		if(File.Exists(bannerParth)){
+
+			LinkImageButton lib = new LinkImageButton();
+			lib.Icon = bannerParth;
+			lib.LinkUrl = "http://www.moscrif.com";
+			tblMenuRight.Attach(lib,0,1,0,2,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Expand,0,0);
+			//Gtk.Image img = new Gtk.Image(bannerParth);
+			//tblMenuRight.Attach(img,0,1,0,2,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Expand,0,0);
+			//hbMenuRight.PackStart(img,true,true,0);
+			lib.ShowAll();
+
+		}
+	}
 
 
 	private void RenderResolution (CellLayout cell_layout, CellRenderer cell, TreeModel model, TreeIter iter)
@@ -733,9 +751,11 @@ public partial class MainWindow : Gtk.Window
 			if(MainClass.Workspace.ShowBottomPane)
 				bottonPane =vpBody.Position;
 
-			if(MainClass.Workspace.ShowRightPane)
-				rightPane=hpRight.Position;
-
+			if(MainClass.Workspace.ShowRightPane){
+				int x, y, w, h, d = 0;
+				hpRight.ParentWindow.GetGeometry(out x, out y, out w, out h, out d);
+				rightPane = w- hpRight.Position;
+			}
 			MainClass.Workspace.SaveWorkspace(EditorNotebook.OpenFiles, bottonPane,leftPane , rightPane,hpOutput.Position);
 		}
 
@@ -831,25 +851,31 @@ public partial class MainWindow : Gtk.Window
 	public void SetBodyParameter(){
 		int bottonPane =MainClass.Workspace.VpBodyHeight;
 		int leftPane =MainClass.Workspace.HpBodyMiddleWidth;
-		int rirhtPane = MainClass.Workspace.HpBodyRightWidth;
+		int rightPane = MainClass.Workspace.HpBodyRightWidth;
 
 		bottonPane =vpBody.Position;
 		leftPane =hpBodyMidle.Position;
-		rirhtPane = hpRight.Position;
+		rightPane = hpRight.Position;
+
+		int x, y, w, h, d = 0;
+		hpRight.ParentWindow.GetGeometry(out x, out y, out w, out h, out d);
+		rightPane = w- hpRight.Position;
 
 		MainClass.Workspace.HpBodyMiddleWidth =leftPane;
 		MainClass.Workspace.VpBodyHeight =bottonPane;
-		MainClass.Workspace.HpBodyRightWidth = rirhtPane;
+		MainClass.Workspace.HpBodyRightWidth = rightPane;
 
 	}
 
 	public void ReloadPanel(){
+
 
 		int x, y, w, h, d = 0;
 		hpOutput.Parent.ParentWindow.GetGeometry(out x, out y, out w, out h, out d);
 
 		int vpBodyHeight = MainClass.Workspace.VpBodyHeight;
 		int hpBodyMiddleWidth = MainClass.Workspace.HpBodyMiddleWidth;
+
 		int hpBodyRightWidth = MainClass.Workspace.HpBodyRightWidth;
 
 		int hpOutputWidth = MainClass.Workspace.HpOutputWidth;// output->find
@@ -859,6 +885,20 @@ public partial class MainWindow : Gtk.Window
 			hpOutput.Position = w / 2;
 		}
 
+		hpRight.ParentWindow.GetGeometry(out x, out y, out w, out h, out d);
+		if(MainClass.Workspace.ShowRightPane){
+			//if ((hpBodyRightWidth != 0) &&(hpBodyRightWidth < w)){
+			//	hpRight.Position = w-hpBodyRightWidth;
+			//}else {
+				hpRight.Position = w-450;
+			//}
+
+		}else {
+			hpRight.Position = w;//100;
+		}
+
+
+		hpOutput.Parent.ParentWindow.GetGeometry(out x, out y, out w, out h, out d);
 		if(MainClass.Workspace.ShowLeftPane){
 
 			if ((hpBodyMiddleWidth != 0) &&(hpBodyMiddleWidth < w)){
@@ -869,18 +909,6 @@ public partial class MainWindow : Gtk.Window
 
 		}else {
 			hpBodyMidle.Position = 0;//100;
-		}
-
-		if(MainClass.Workspace.ShowRightPane){
-
-			if ((hpBodyRightWidth != 0) &&(hpBodyRightWidth < w)){
-				hpRight.Position = hpBodyRightWidth;
-			}else {
-				hpRight.Position = w-200;
-			}
-			
-		}else {
-			hpRight.Position = w;//100;
 		}
 		
 		if(MainClass.Workspace.ShowBottomPane ){
@@ -893,6 +921,7 @@ public partial class MainWindow : Gtk.Window
 			vpBody.Parent.ParentWindow.GetGeometry(out x, out y, out w, out h, out d);
 			vpBody.Position = h;
 		}
+
 	}
 
 	public void SetActualProject(string appPath){
@@ -915,7 +944,8 @@ public partial class MainWindow : Gtk.Window
 		col = new Gdk.Color(MainClass.Settings.BackgroundColor.Red,MainClass.Settings.BackgroundColor.Green,MainClass.Settings.BackgroundColor.Blue);
 
 		this.ModifyBg(StateType.Normal, col);
-		this.toolbarRight.ModifyBg(StateType.Normal, col);
+		this.toolbarRight1.ModifyBg(StateType.Normal, col);
+		this.toolbarRight2.ModifyBg(StateType.Normal, col);
 		this.toolbarLeft.ModifyBg(StateType.Normal, col);
 		this.toolbarMiddle.ModifyBg(StateType.Normal, col);
 		//this.mainMenu.ModifyBg(StateType.Normal, col);
@@ -2126,10 +2156,26 @@ public partial class MainWindow : Gtk.Window
 
 				toolbarMiddle.ShowAll();
 			}
-			if (args.Widget.Name == "toolbarRight") {
-				toolbarRight = (Toolbar)args.Widget;
-				vpMenuRight.Pack1(toolbarRight, true, true);
-				toolbarRight.IconSize = IconSize.LargeToolbar;
+			if (args.Widget.Name == "toolbarRight1") {
+				toolbarRight1 = (Toolbar)args.Widget;
+				toolbarRight1.IconSize = IconSize.SmallToolbar;
+				toolbarRight1.ToolbarStyle = ToolbarStyle.Icons;
+				//toolbarRight.
+				//hbMenuRight.PackStart(toolbarRight, true, true,0);
+				//vbRight.PackStart(toolbarRight1, true, true,0);//Pack1(toolbarRight, true, true);
+				tblMenuRight.Attach(toolbarRight1,1,2,0,1,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Fill,0,0);
+
+			}
+			if (args.Widget.Name == "toolbarRight2") {
+				toolbarRight2 = (Toolbar)args.Widget;
+				toolbarRight2.IconSize = IconSize.SmallToolbar;
+				toolbarRight2.ToolbarStyle = ToolbarStyle.Icons;
+				//toolbarRight2.AccelCanActivate;
+				//toolbarRight.
+				//hbMenuRight.PackStart(toolbarRight, true, true,0);
+				tblMenuRight.Attach(toolbarRight2,1,2,1,2,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Fill,0,0);
+				//vbRight.PackEnd(toolbarRight2, true, true,0);//Pack1(toolbarRight, true, true);
+				
 			}
 		}
 		if (args.Widget is MenuBar) {

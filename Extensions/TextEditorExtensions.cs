@@ -108,6 +108,11 @@ namespace Moscrif.IDE.Extensions
 
 			foreach (FileInfo f in di.GetFiles()) {
 
+				int indx = -1;
+				indx = MainClass.Settings.IgnoresFiles.FindIndex(x => x.Folder == f.Name && x.IsForPublish);
+				if(indx >-1)continue;
+
+
 				//if (f.Extension == ".msc") continue;
 				if (f.Extension != ".ms") continue;
 
