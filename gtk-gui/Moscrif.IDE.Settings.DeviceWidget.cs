@@ -5,7 +5,7 @@ namespace Moscrif.IDE.Settings
 	public partial class DeviceWidget
 	{
 		private global::Gtk.VBox vbox2;
-		private global::Moscrif.IDE.Components.SkinThemeControl skinThemeControl;
+		private global::Gtk.HBox hbox1;
 		private global::Gtk.Table table2;
 		private global::Gtk.ScrolledWindow GtkScrolledWindow;
 		private global::Gtk.TreeView nvFonts;
@@ -21,14 +21,13 @@ namespace Moscrif.IDE.Settings
 			this.vbox2 = new global::Gtk.VBox ();
 			this.vbox2.Name = "vbox2";
 			// Container child vbox2.Gtk.Box+BoxChild
-			this.skinThemeControl = new global::Moscrif.IDE.Components.SkinThemeControl ();
-			this.skinThemeControl.Events = ((global::Gdk.EventMask)(256));
-			this.skinThemeControl.Name = "skinThemeControl";
-			this.vbox2.Add (this.skinThemeControl);
-			global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.skinThemeControl]));
+			this.hbox1 = new global::Gtk.HBox ();
+			this.hbox1.Name = "hbox1";
+			this.hbox1.Spacing = 6;
+			this.vbox2.Add (this.hbox1);
+			global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.hbox1]));
 			w1.Position = 0;
 			w1.Expand = false;
-			w1.Fill = false;
 			// Container child vbox2.Gtk.Box+BoxChild
 			this.table2 = new global::Gtk.Table (((uint)(1)), ((uint)(2)), false);
 			this.table2.Name = "table2";

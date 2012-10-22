@@ -154,13 +154,13 @@ namespace Moscrif.IDE.Settings
 			w10.XOptions = ((global::Gtk.AttachOptions)(4));
 			w10.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
-			this.sbHeight = new global::Gtk.SpinButton (0, 2000, 50);
+			this.sbHeight = new global::Gtk.SpinButton (0D, 2000D, 50D);
 			this.sbHeight.WidthRequest = 110;
 			this.sbHeight.Sensitive = false;
 			this.sbHeight.CanFocus = true;
 			this.sbHeight.Name = "sbHeight";
-			this.sbHeight.Adjustment.PageIncrement = 100;
-			this.sbHeight.ClimbRate = 1;
+			this.sbHeight.Adjustment.PageIncrement = 100D;
+			this.sbHeight.ClimbRate = 1D;
 			this.sbHeight.Numeric = true;
 			this.table1.Add (this.sbHeight);
 			global::Gtk.Table.TableChild w11 = ((global::Gtk.Table.TableChild)(this.table1 [this.sbHeight]));
@@ -171,13 +171,13 @@ namespace Moscrif.IDE.Settings
 			w11.XOptions = ((global::Gtk.AttachOptions)(4));
 			w11.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
-			this.sbWidth = new global::Gtk.SpinButton (0, 2000, 50);
+			this.sbWidth = new global::Gtk.SpinButton (0D, 2000D, 50D);
 			this.sbWidth.WidthRequest = 110;
 			this.sbWidth.Sensitive = false;
 			this.sbWidth.CanFocus = true;
 			this.sbWidth.Name = "sbWidth";
-			this.sbWidth.Adjustment.PageIncrement = 100;
-			this.sbWidth.ClimbRate = 1;
+			this.sbWidth.Adjustment.PageIncrement = 100D;
+			this.sbWidth.ClimbRate = 1D;
 			this.sbWidth.Numeric = true;
 			this.table1.Add (this.sbWidth);
 			global::Gtk.Table.TableChild w12 = ((global::Gtk.Table.TableChild)(this.table1 [this.sbWidth]));

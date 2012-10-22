@@ -7,7 +7,7 @@ namespace Moscrif.IDE.Controls
 {
 	public partial class NewWorkspaceDialog : Gtk.Dialog
 	{
-
+		private SkinThemeControl skinthemecontrol1;
 		private FileMaskEntry feOutput ;
 		private bool project = false;
 		public string  WorkspaceName {
@@ -153,6 +153,9 @@ namespace Moscrif.IDE.Controls
 		{
 			this.TransientFor = MainClass.MainWindow;
 			this.Build();
+			skinthemecontrol1 = new SkinThemeControl();
+			vbox3.PackEnd(skinthemecontrol1,false,true,0);
+			skinthemecontrol1.ShowAll();
 			expander1.Activated += OnConfigureGeometry;
 
 

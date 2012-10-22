@@ -14,11 +14,15 @@ namespace Moscrif.IDE.Controls
 {
 	public partial class NewProjectDialog : Gtk.Dialog
 	{
+		private SkinThemeControl skinthemecontrol1 ;
 
 		public NewProjectDialog() 
 		{
 			this.TransientFor = MainClass.MainWindow;			
 			this.Build();
+			skinthemecontrol1 = new SkinThemeControl();
+			vbox2.PackEnd(skinthemecontrol1,false,true,0);
+
 			this.Title="New Project"; 
 			skinthemecontrol1.SetLabelWidth(50);
 		}

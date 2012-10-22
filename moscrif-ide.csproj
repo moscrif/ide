@@ -302,9 +302,7 @@
     <Compile Include="Iface\recent\RecentItem.cs" />
     <Compile Include="Iface\recent\RecentOpen.cs" />
     <Compile Include="Iface\LoggUser.cs" />
-    <Compile Include="Iface\Paths.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
+    <Compile Include="Iface\Paths.cs" />
     <Compile Include="Iface\VersionChecker.cs" />
     <Compile Include="Iface\SignApp.cs" />
     <Compile Include="Iface\Platform.cs" />
@@ -383,7 +381,6 @@
     <Compile Include="task\LogMonitor.cs" />
     <Compile Include="task\LogGarbageCollector.cs" />
     <Compile Include="controls\NewProjectDialog.cs" />
-    <Compile Include="components\SkinThemeControl.cs" />
     <Compile Include="devices\DeviceJSonFormatter.cs" />
     <Compile Include="actions\RenameProjectAction.cs" />
     <Compile Include="components\MenuToolButton.cs" />
@@ -407,7 +404,6 @@
     <Compile Include="actions\OpenOnlineSamples.cs" />
     <Compile Include="actions\OpenOnlineApiReferenceAction.cs" />
     <Compile Include="actions\StopEmulatorAction.cs" />
-    <Compile Include="controls\Wizard\NewProjectWizzard_Old.cs" />
     <Compile Include="controls\Wizard\NewProjectWizzard_New.cs" />
     <Compile Include="Iface\SocketServer.cs" />
     <Compile Include="controls\ErrorDialog.cs" />
@@ -454,7 +450,6 @@
     <Compile Include="gtk-gui\Moscrif.IDE.Controls.PermissionEditor.cs" />
     <Compile Include="gtk-gui\Moscrif.IDE.Controls.NewProjectDialog.cs" />
     <Compile Include="gtk-gui\Moscrif.IDE.Components.SkinThemeControl.cs" />
-    <Compile Include="gtk-gui\Moscrif.IDE.Controls.Wizard.NewProjectWizzard_Old.cs" />
     <Compile Include="gtk-gui\Moscrif.IDE.Controls.Wizard.NewProjectWizzard_New.cs" />
     <Compile Include="gtk-gui\Moscrif.IDE.Settings.GlobalOptionsWidget2.cs" />
     <Compile Include="gtk-gui\Moscrif.IDE.Controls.FeedbackDialog.cs" />
@@ -467,6 +462,9 @@
     <Compile Include="task\SignPublishAsynchronTask.cs" />
     <Compile Include="controls\Properties\FilePropertyWidget.cs" />
     <Compile Include="controls\Properties\DirPropertyWidget.cs" />
+    <Compile Include="controls\Properties\ProjectPropertyWidget.cs" />
+    <Compile Include="components\SkinThemeControl.cs" />
+    <Compile Include="components\FeedbackControl.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -820,7 +818,9 @@
     <None Include="cfg\displays\noskin_wsvga.ini">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="cfg\displays\noskin_vxga.ini" />
+    <None Include="cfg\displays\noskin_vxga.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="cfg\AndroidPermission.ini">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -1082,6 +1082,12 @@
     <None Include="cfg\themes\Moscrif\gtk-2.0\Toolbar\toolbarbg2-o.png" />
     <None Include="cfg\themes\Moscrif\gtk-2.0\Toolbar\toolbarbg2.png" />
     <None Include="cfg\themes\Moscrif\gtk-2.0\Toolbar\toolbutton-active.png" />
+    <None Include="cfg\displays\noskin_wdvga.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\moscrif_background.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="resources\all.ico">

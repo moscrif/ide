@@ -411,11 +411,16 @@ namespace Moscrif.IDE.Tool
 				indx = MainClass.Settings.IgnoresFolders.FindIndex(x => x.Folder == d.Name && x.IsForIde);
 
 				if (indx < 0)
-						GetAllFiles(ref filesList, d.FullName);
+					GetAllFiles(ref filesList, d.FullName);
 			}
 
-			foreach (FileInfo f in di.GetFiles())
-					filesList.Add(f.FullName);
+			foreach (FileInfo f in di.GetFiles()){
+				int indx = -1;
+				indx = MainClass.Settings.IgnoresFiles.FindIndex(x => x.Folder == f.Name && x.IsForIde);
+				if(indx >-1)continue;
+				
+				filesList.Add(f.FullName);
+			}
 
 		}
 

@@ -197,12 +197,16 @@ namespace Moscrif.IDE.Task
 				}
 			}
 
-			foreach (FileInfo f in di.GetFiles("*.ms"))
+			foreach (FileInfo f in di.GetFiles("*.ms")){
 				//string fdir = System.IO.Path.GetDirectoryName(f.FullName) ;//+ System.IO.Path.DirectorySeparatorChar;
 				//string fname = System.IO.Path.GetFileName(f.FullName);
 				//string args = String.Format("/c {1} /o console /d \"{0}\"",fdir, fname);
-				
+				int indx = -1;
+				indx = MainClass.Settings.IgnoresFiles.FindIndex(x => x.Folder == f.Name && x.IsForIde);
+				if(indx >-1)continue;
+
 				list.Add(f.FullName);
+			}
 		}
 
 

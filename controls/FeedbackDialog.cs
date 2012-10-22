@@ -2,13 +2,19 @@ using System;
 using Moscrif.IDE.Iface.Entities;
 using Moscrif.IDE.Settings;
 using Moscrif.IDE.Iface;
+using Moscrif.IDE.Components;
 using System.IO;
 using MessageDialogs = Moscrif.IDE.Controls.MessageDialog;
+using Gtk;
 
 namespace Moscrif.IDE.Controls
 {
 	public partial class FeedbackDialog : Gtk.Dialog
 	{
+		Notebook notb = new Notebook();
+		FeedbackControl feedbackIssue = new  FeedbackControl();
+		FeedbackControl feedbackQuestion = new  FeedbackControl();
+		FeedbackControl feedbackSuggestion = new  FeedbackControl();
 		public FeedbackDialog()
 		{
 			this.Build();
@@ -20,7 +26,14 @@ namespace Moscrif.IDE.Controls
 			lblFeedback.ModifyFont(customFont);
 			lblStatus.ModifyFont(customFont);
 			lblStatus.LabelProp = "";
+
+			notb.AppendPage(feedbackIssue,new Label("Report an Issue"));
+			notb.AppendPage(feedbackQuestion,new Label("Ask a Question"));
+			notb.AppendPage(feedbackSuggestion,new Label("Make a Suggestion"));
+
+			tblMain.Attach(notb,0,2,1,2,AttachOptions.Fill|AttachOptions.Expand,AttachOptions.Fill|AttachOptions.Expand,0,0);
 			//imgError.SetFromStock ("gtk-dialog-error", Gtk.IconSize.Dialog);
+			tblMain.ShowAll();
 		}
 
 		public void LoginYesWrite(object sender, Account  account)
@@ -41,6 +54,19 @@ namespace Moscrif.IDE.Controls
 
 		protected void OnButtonOkClicked (object sender, EventArgs e)
 		{
+			string feedText = "";
+			switch (notb.Page){
+				case 0:
+					feedText = feedbackIssue.GetDescription();
+					break;
+				case 1:
+					feedText = feedbackQuestion.GetDescription();
+					break;
+				case 2:
+					feedText = feedbackSuggestion.GetDescription();
+					break;
+			}
+
 			if((MainClass.Settings.Account == null) || (String.IsNullOrEmpty(MainClass.Settings.Account.Token))){
 				MessageDialogs md =
 					new MessageDialogs(MessageDialogs.DialogButtonType.Ok, MainClass.Languages.Translate("invalid_login_f1"),"", Gtk.MessageType.Error,this);
@@ -49,7 +75,6 @@ namespace Moscrif.IDE.Controls
 				return ;
 			}
 
-			string feedText =tvFeedback.Buffer.Text;
 			buttonOk.Sensitive = false;
 
 			if(string.IsNullOrEmpty(feedText)){

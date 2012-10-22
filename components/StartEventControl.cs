@@ -39,7 +39,7 @@ namespace Moscrif.IDE.Components
 	
 				this.ModifyBg (Gtk.StateType.Normal, Style.White);
 	
-				string file2 = System.IO.Path.Combine(MainClass.Paths.ResDir, "moscrif.png");
+				string file2 = System.IO.Path.Combine(MainClass.Paths.ResDir, "moscrif_background.png"); //"moscrif.png");
 				logoPixbuf = new Gdk.Pixbuf (file2);
 	
 				webCacheFile = WebCache.OpenWebCache(webCacheName);
@@ -274,38 +274,24 @@ namespace Moscrif.IDE.Components
 		{
 			if (bgPixbuf != null) {
 				var gc = Style.BackgroundGC ( State);
-				//var lRect = new Rectangle (Allocation.X, Allocation.Y, logoPixbuf.Width, logoPixbuf.Height);
-				//if (evnt.Region.RectIn (lRect) != OverlapType.Out)
-				//	GdkWindow.DrawPixbuf (gc, logoPixbuf, 0, 0, lRect.X, lRect.Y, lRect.Width, lRect.Height, RgbDither.None, 0, 0);
+				var lRect = new Rectangle (Allocation.X, Allocation.Y, logoPixbuf.Width, logoPixbuf.Height);
+				if (evnt.Region.RectIn (lRect) != OverlapType.Out)
+					GdkWindow.DrawPixbuf (gc, logoPixbuf, 0, 0, lRect.X, lRect.Y, lRect.Width, lRect.Height, RgbDither.None, 0, 0);
 
-				//var bgRect = new Rectangle (Allocation.X + logoPixbuf.Width, Allocation.Y, Allocation.Width - logoPixbuf.Width, bgPixbuf.Height);
-				//if (evnt.Region.RectIn (bgRect) != OverlapType.Out)
-				//	for (int x = bgRect.X; x < bgRect.Right; x += bgPixbuf.Width)
-				//		GdkWindow.DrawPixbuf (gc, bgPixbuf, 0, 0, x, bgRect.Y, bgPixbuf.Width, bgRect.Height, RgbDither.None, 0, 0);
+				var bgRect = new Rectangle (Allocation.X + logoPixbuf.Width, Allocation.Y, Allocation.Width - logoPixbuf.Width, bgPixbuf.Height);
+				if (evnt.Region.RectIn (bgRect) != OverlapType.Out)
+					for (int x = bgRect.X; x < bgRect.Right; x += bgPixbuf.Width)
+						GdkWindow.DrawPixbuf (gc, bgPixbuf, 0, 0, x, bgRect.Y, bgPixbuf.Width, bgRect.Height, RgbDither.None, 0, 0);
 
-				var bgRect = new Rectangle (Allocation.X , Allocation.Y, Allocation.Width ,Allocation.Height);
+/*				var bgRect = new Rectangle (Allocation.X , Allocation.Y, Allocation.Width ,Allocation.Height);
 				if (evnt.Region.RectIn (bgRect) != OverlapType.Out)
 					for (int y = bgRect.Y; y < bgRect.Bottom; y += bgPixbuf.Height)
 						for (int x = bgRect.X; x < bgRect.Right; x += bgPixbuf.Width)
 							GdkWindow.DrawPixbuf (gc, bgPixbuf, 0, 0, x, y, bgPixbuf.Width,bgPixbuf.Height, RgbDither.None, 0, 0);
-
-				/*var bgRect = new Rectangle (Allocation.X, Allocation.Bottom-logoPixbuf.Height, Allocation.Width - logoPixbuf.Width, bgPixbuf.Height);
-				if (evnt.Region.RectIn (bgRect) != OverlapType.Out)
-					for (int x = bgRect.Right- bgPixbuf.Width; x < bgRect.X; x -= bgPixbuf.Width)
-						GdkWindow.DrawPixbuf (gc, bgPixbuf, 0, 0, x, bgRect.Y, bgPixbuf.Width, bgRect.Height, RgbDither.None, 0, 0);
-				 */
-
-				/*var bgRect = new Rectangle (Allocation.X , Allocation.Y, Allocation.Width ,Allocation.Height);
-				if (evnt.Region.RectIn (bgRect) != OverlapType.Out)
-					for (int y =bgRect.Bottom-bgPixbuf.Height; y <  bgRect.Y; y -= bgPixbuf.Height)
-						for (int x =bgRect.Right- bgPixbuf.Width; x <  bgRect.X; x -= bgPixbuf.Width)
-							GdkWindow.DrawPixbuf (gc, bgPixbuf, 0, 0, x, y, bgPixbuf.Width,bgPixbuf.Height, RgbDither.None, 0, 0);
-				 */
-
 				var lRect = new Rectangle (Allocation.Right- logoPixbuf.Width, Allocation.Bottom-logoPixbuf.Height, Allocation.Width ,Allocation.Height);
 				if (evnt.Region.RectIn (lRect) != OverlapType.Out)
 					GdkWindow.DrawPixbuf (gc, logoPixbuf, 0, 0, lRect.X, lRect.Y, logoPixbuf.Width, logoPixbuf.Height, RgbDither.None, 0, 0);
-				
+*/
 
 			}
 

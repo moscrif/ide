@@ -398,13 +398,17 @@ namespace  Moscrif.IDE.Workspace
 				}
 			}
 			
-			foreach (FileInfo f in di.GetFiles())
-				if (!MainClass.Tools.IsIgnoredExtension(f.Extension)) {
-					
-					string stockIcon = MainClass.Tools.GetIconForExtension(f.Extension);
+			foreach (FileInfo f in di.GetFiles()){
 
+				int indx = -1;
+				indx = MainClass.Settings.IgnoresFiles.FindIndex(x => x.Folder == f.Name && x.IsForIde);
+				if(indx >-1)continue;
+
+				if (!MainClass.Tools.IsIgnoredExtension(f.Extension)) {
+					string stockIcon = MainClass.Tools.GetIconForExtension(f.Extension);
 					rootStore.AppendValues(parent, MainClass.Tools.GetIconFromStock(stockIcon, Gtk.IconSize.SmallToolbar), f.Name, f.FullName, TypeFile.SourceFile);
 				}
+			}
 		}
 
 		private static Gdk.Pixbuf GetIcon(string name)

@@ -315,6 +315,7 @@ namespace Moscrif.IDE.Controls
 				btnReplace.Sensitive = false;
 			} else {
 				btnReplace.Sensitive = true;
+				SetSearch();
 			}
 		}
 

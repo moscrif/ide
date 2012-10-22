@@ -821,6 +821,9 @@ namespace Moscrif.IDE.Task
 			foreach (FileInfo f in di.GetFiles()) {
 
 				//if (f.Extension == ".ms") continue;
+				int indx = -1;
+				indx = MainClass.Settings.IgnoresFiles.FindIndex(x => x.Folder == f.Name && x.IsForPublish);
+				if(indx >-1)continue;
 
 				filesList.Add( f.FullName );
 			}
@@ -973,6 +976,11 @@ namespace Moscrif.IDE.Task
 
 			foreach (FileInfo f in di.GetFiles("*.ms")){
 				string fileCompile = System.IO.Path.ChangeExtension(f.FullName,".msc");
+
+				int indx = -1;
+				indx = MainClass.Settings.IgnoresFiles.FindIndex(x => x.Folder == f.Name && x.IsForPublish);
+				if(indx >-1)continue;
+
 				if( File.Exists(fileCompile)){
 
 					FileInfo fiCompile = new FileInfo(fileCompile);

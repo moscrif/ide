@@ -54,7 +54,7 @@ namespace Moscrif.IDE.Controls.Wizard
 			this.ntbWizzard = new global::Gtk.Notebook ();
 			this.ntbWizzard.CanFocus = true;
 			this.ntbWizzard.Name = "ntbWizzard";
-			this.ntbWizzard.CurrentPage = 2;
+			this.ntbWizzard.CurrentPage = 0;
 			this.ntbWizzard.ShowBorder = false;
 			this.ntbWizzard.BorderWidth = ((uint)(10));
 			// Container child ntbWizzard.Gtk.Notebook+NotebookChild

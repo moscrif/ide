@@ -220,12 +220,16 @@ namespace Moscrif.IDE.Settings
 				}
 			}
 			
-			foreach (FileInfo f in di.GetFiles())
+			foreach (FileInfo f in di.GetFiles()){
 				if (!MainClass.Tools.IsIgnoredExtension(f.Extension)) {
-					
+
+					int indx = -1;
+					indx = MainClass.Settings.IgnoresFiles.FindIndex(x => x.Folder == f.Name && x.IsForIde);
+					if(indx >-1) continue;
+
 					string relativePath = MainClass.Workspace.GetRelativePath(f.FullName);
 					FileItem fi = project.FilesProperty.Find(x => x.SystemFilePath == relativePath);
-					
+
 					if (fi != null) {
 						fi.ConditionValues = conditionRules;
 					} else {
@@ -236,6 +240,7 @@ namespace Moscrif.IDE.Settings
 					}
 					
 				}
+			}
 		}
 
 		protected void OnButton7Clicked (object sender, System.EventArgs e)

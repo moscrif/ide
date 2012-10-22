@@ -137,14 +137,17 @@ namespace Moscrif.IDE.Workspace
 			foreach (FileInfo f in di.GetFiles()) {
 
 				if (skipMsc && (f.Extension.ToUpper() == ".MSC")) continue;
+				int indx = -1;
+				indx = MainClass.Settings.IgnoresFiles.FindIndex(x => x.Folder == f.Name && x.IsForPublish);
 
 				if(!String.IsNullOrEmpty(extension) ){
 					if(f.Extension.ToLower() == extension.ToLower()){
-						filesList.Add( f.FullName );
+						if(indx<0)
+							filesList.Add( f.FullName );
 					}
 				}else {
-
-					filesList.Add( f.FullName );
+					if(indx<0)
+						filesList.Add( f.FullName );
 				}
 
 			}
@@ -705,9 +708,14 @@ namespace Moscrif.IDE.Workspace
 			string[] files = Directory.GetFiles(path);
 
 			foreach (string filename in files) {
-		
+
 				FileInfo fi = new FileInfo(filename);
-		
+
+				int indx = -1;
+				indx = MainClass.Settings.IgnoresFiles.FindIndex(x => x.Folder == fi.Name && x.IsForIde);
+
+				if(indx >-1) continue;
+
 				string entryName = filename.Substring(folderOffset); // Makes the name in zip based on the folder
 				entryName = ZipEntry.CleanName(entryName); // Removes drive from name and fixes slash direction
 				ZipEntry newEntry = new ZipEntry(entryName);

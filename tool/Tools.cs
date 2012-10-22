@@ -15,6 +15,33 @@ namespace Moscrif.IDE.Tool
 {
 	public class Tools
 	{
+		public void RecalculateImageSize(int imageWidth, int imageHeight, int maxWidth, int maxHeight, ref int width, ref int height)
+		{
+			if (maxWidth > imageWidth && maxHeight > imageHeight)
+			{
+				width = imageWidth;
+				height = imageHeight;
+				return;
+			}
+			
+			int imageW = imageWidth;
+			int imageH = imageHeight;
+			
+			double wIndex = (double)imageWidth / (double)maxWidth;
+			double hIndex = (double)imageHeight / (double)maxHeight;
+			
+			if (hIndex > wIndex)
+			{
+				height = maxHeight;
+				width = (int)((imageW * height) / imageH);
+			}
+			else
+			{
+				width = maxWidth;
+				height = (int)((imageH * width) / imageW);
+			}
+		}
+
 		private List<string> validExtension = new List<string>(new string[]{".xml",".ms",".mso",".txt",".db",".png",".jpg",".bmp",".tab",".app",".msp",".msw",".mss"});
 		private ProgressDialog progressDialog;
 
@@ -371,6 +398,11 @@ namespace Moscrif.IDE.Tool
 						//if (Path.GetFileName(Element)[0] == '.')continue;
 					CopyDirectory(Element,destPath, ignoreDotDirectory);
 				} else {
+					int indx = -1;
+					indx = MainClass.Settings.IgnoresFiles.FindIndex(x => x.Folder == Path.GetFileName(Element) && x.IsForIde);
+					
+					if(indx >-1) continue;
+
 					File.Copy(Element, destPath, true);
 				}
 			}

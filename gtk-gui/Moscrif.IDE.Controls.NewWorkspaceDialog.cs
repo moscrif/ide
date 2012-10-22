@@ -22,7 +22,6 @@ namespace Moscrif.IDE.Controls
 		private global::Gtk.Table table3;
 		private global::Gtk.Entry entrProjectName;
 		private global::Gtk.Label label5;
-		private global::Moscrif.IDE.Components.SkinThemeControl skinthemecontrol1;
 		private global::Gtk.Label GtkLabel4;
 		private global::Gtk.Button buttonCancel;
 		private global::Gtk.Button buttonOk;
@@ -201,15 +200,6 @@ namespace Moscrif.IDE.Controls
 			w14.Position = 0;
 			w14.Expand = false;
 			w14.Fill = false;
-			// Container child vbox3.Gtk.Box+BoxChild
-			this.skinthemecontrol1 = new global::Moscrif.IDE.Components.SkinThemeControl ();
-			this.skinthemecontrol1.Events = ((global::Gdk.EventMask)(256));
-			this.skinthemecontrol1.Name = "skinthemecontrol1";
-			this.vbox3.Add (this.skinthemecontrol1);
-			global::Gtk.Box.BoxChild w15 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.skinthemecontrol1]));
-			w15.Position = 1;
-			w15.Expand = false;
-			w15.Fill = false;
 			this.GtkAlignment1.Add (this.vbox3);
 			this.trmProject.Add (this.GtkAlignment1);
 			this.GtkLabel4 = new global::Gtk.Label ();
@@ -218,17 +208,17 @@ namespace Moscrif.IDE.Controls
 			this.GtkLabel4.UseMarkup = true;
 			this.trmProject.LabelWidget = this.GtkLabel4;
 			this.vbox2.Add (this.trmProject);
-			global::Gtk.Box.BoxChild w18 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.trmProject]));
-			w18.Position = 2;
+			global::Gtk.Box.BoxChild w17 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.trmProject]));
+			w17.Position = 2;
 			w1.Add (this.vbox2);
-			global::Gtk.Box.BoxChild w19 = ((global::Gtk.Box.BoxChild)(w1 [this.vbox2]));
-			w19.Position = 0;
+			global::Gtk.Box.BoxChild w18 = ((global::Gtk.Box.BoxChild)(w1 [this.vbox2]));
+			w18.Position = 0;
 			// Internal child Moscrif.IDE.Controls.NewWorkspaceDialog.ActionArea
-			global::Gtk.HButtonBox w20 = this.ActionArea;
-			w20.Name = "dialog1_ActionArea";
-			w20.Spacing = 10;
-			w20.BorderWidth = ((uint)(10));
-			w20.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
+			global::Gtk.HButtonBox w19 = this.ActionArea;
+			w19.Name = "dialog1_ActionArea";
+			w19.Spacing = 10;
+			w19.BorderWidth = ((uint)(10));
+			w19.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
 			this.buttonCancel = new global::Gtk.Button ();
 			this.buttonCancel.CanDefault = true;
@@ -238,9 +228,9 @@ namespace Moscrif.IDE.Controls
 			this.buttonCancel.UseUnderline = true;
 			this.buttonCancel.Label = "gtk-cancel";
 			this.AddActionWidget (this.buttonCancel, -6);
-			global::Gtk.ButtonBox.ButtonBoxChild w21 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w20 [this.buttonCancel]));
-			w21.Expand = false;
-			w21.Fill = false;
+			global::Gtk.ButtonBox.ButtonBoxChild w20 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w19 [this.buttonCancel]));
+			w20.Expand = false;
+			w20.Fill = false;
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
 			this.buttonOk = new global::Gtk.Button ();
 			this.buttonOk.CanDefault = true;
@@ -248,11 +238,11 @@ namespace Moscrif.IDE.Controls
 			this.buttonOk.Name = "buttonOk";
 			this.buttonOk.UseUnderline = true;
 			this.buttonOk.Label = global::Mono.Unix.Catalog.GetString ("_OK");
-			w20.Add (this.buttonOk);
-			global::Gtk.ButtonBox.ButtonBoxChild w22 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w20 [this.buttonOk]));
-			w22.Position = 1;
-			w22.Expand = false;
-			w22.Fill = false;
+			w19.Add (this.buttonOk);
+			global::Gtk.ButtonBox.ButtonBoxChild w21 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w19 [this.buttonOk]));
+			w21.Position = 1;
+			w21.Expand = false;
+			w21.Fill = false;
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}

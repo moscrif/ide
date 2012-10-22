@@ -4,9 +4,7 @@ namespace Moscrif.IDE.Controls
 {
 	public partial class FeedbackDialog
 	{
-		private global::Gtk.Table table1;
-		private global::Gtk.ScrolledWindow GtkScrolledWindow;
-		private global::Gtk.TextView tvFeedback;
+		private global::Gtk.Table tblMain;
 		private global::Gtk.Label lblFeedback;
 		private global::Gtk.Label lblStatus;
 		private global::Gtk.Button buttonCancel;
@@ -24,57 +22,43 @@ namespace Moscrif.IDE.Controls
 			w1.Name = "dialog1_VBox";
 			w1.BorderWidth = ((uint)(2));
 			// Container child dialog1_VBox.Gtk.Box+BoxChild
-			this.table1 = new global::Gtk.Table (((uint)(4)), ((uint)(2)), false);
-			this.table1.Name = "table1";
-			this.table1.RowSpacing = ((uint)(6));
-			this.table1.ColumnSpacing = ((uint)(6));
-			// Container child table1.Gtk.Table+TableChild
-			this.GtkScrolledWindow = new global::Gtk.ScrolledWindow ();
-			this.GtkScrolledWindow.Name = "GtkScrolledWindow";
-			this.GtkScrolledWindow.ShadowType = ((global::Gtk.ShadowType)(1));
-			// Container child GtkScrolledWindow.Gtk.Container+ContainerChild
-			this.tvFeedback = new global::Gtk.TextView ();
-			this.tvFeedback.CanFocus = true;
-			this.tvFeedback.Name = "tvFeedback";
-			this.GtkScrolledWindow.Add (this.tvFeedback);
-			this.table1.Add (this.GtkScrolledWindow);
-			global::Gtk.Table.TableChild w3 = ((global::Gtk.Table.TableChild)(this.table1 [this.GtkScrolledWindow]));
-			w3.TopAttach = ((uint)(1));
-			w3.BottomAttach = ((uint)(2));
-			w3.RightAttach = ((uint)(2));
-			w3.XPadding = ((uint)(10));
-			// Container child table1.Gtk.Table+TableChild
+			this.tblMain = new global::Gtk.Table (((uint)(4)), ((uint)(2)), false);
+			this.tblMain.Name = "tblMain";
+			this.tblMain.RowSpacing = ((uint)(6));
+			this.tblMain.ColumnSpacing = ((uint)(6));
+			this.tblMain.BorderWidth = ((uint)(10));
+			// Container child tblMain.Gtk.Table+TableChild
 			this.lblFeedback = new global::Gtk.Label ();
 			this.lblFeedback.Name = "lblFeedback";
 			this.lblFeedback.Xalign = 0F;
 			this.lblFeedback.LabelProp = global::Mono.Unix.Catalog.GetString ("Please give us a feedback.");
-			this.table1.Add (this.lblFeedback);
-			global::Gtk.Table.TableChild w4 = ((global::Gtk.Table.TableChild)(this.table1 [this.lblFeedback]));
-			w4.RightAttach = ((uint)(2));
-			w4.XPadding = ((uint)(10));
-			w4.YPadding = ((uint)(10));
-			w4.XOptions = ((global::Gtk.AttachOptions)(4));
-			w4.YOptions = ((global::Gtk.AttachOptions)(4));
-			// Container child table1.Gtk.Table+TableChild
+			this.tblMain.Add (this.lblFeedback);
+			global::Gtk.Table.TableChild w2 = ((global::Gtk.Table.TableChild)(this.tblMain [this.lblFeedback]));
+			w2.RightAttach = ((uint)(2));
+			w2.XPadding = ((uint)(10));
+			w2.YPadding = ((uint)(10));
+			w2.XOptions = ((global::Gtk.AttachOptions)(4));
+			w2.YOptions = ((global::Gtk.AttachOptions)(4));
+			// Container child tblMain.Gtk.Table+TableChild
 			this.lblStatus = new global::Gtk.Label ();
 			this.lblStatus.Name = "lblStatus";
 			this.lblStatus.LabelProp = global::Mono.Unix.Catalog.GetString ("label1");
-			this.table1.Add (this.lblStatus);
-			global::Gtk.Table.TableChild w5 = ((global::Gtk.Table.TableChild)(this.table1 [this.lblStatus]));
-			w5.TopAttach = ((uint)(2));
-			w5.BottomAttach = ((uint)(3));
-			w5.RightAttach = ((uint)(2));
-			w5.XOptions = ((global::Gtk.AttachOptions)(4));
-			w5.YOptions = ((global::Gtk.AttachOptions)(0));
-			w1.Add (this.table1);
-			global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(w1 [this.table1]));
-			w6.Position = 0;
+			this.tblMain.Add (this.lblStatus);
+			global::Gtk.Table.TableChild w3 = ((global::Gtk.Table.TableChild)(this.tblMain [this.lblStatus]));
+			w3.TopAttach = ((uint)(2));
+			w3.BottomAttach = ((uint)(3));
+			w3.RightAttach = ((uint)(2));
+			w3.XOptions = ((global::Gtk.AttachOptions)(4));
+			w3.YOptions = ((global::Gtk.AttachOptions)(0));
+			w1.Add (this.tblMain);
+			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(w1 [this.tblMain]));
+			w4.Position = 0;
 			// Internal child Moscrif.IDE.Controls.FeedbackDialog.ActionArea
-			global::Gtk.HButtonBox w7 = this.ActionArea;
-			w7.Name = "dialog1_ActionArea";
-			w7.Spacing = 10;
-			w7.BorderWidth = ((uint)(5));
-			w7.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
+			global::Gtk.HButtonBox w5 = this.ActionArea;
+			w5.Name = "dialog1_ActionArea";
+			w5.Spacing = 10;
+			w5.BorderWidth = ((uint)(5));
+			w5.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
 			this.buttonCancel = new global::Gtk.Button ();
 			this.buttonCancel.CanDefault = true;
@@ -84,9 +68,9 @@ namespace Moscrif.IDE.Controls
 			this.buttonCancel.UseUnderline = true;
 			this.buttonCancel.Label = "gtk-cancel";
 			this.AddActionWidget (this.buttonCancel, -6);
-			global::Gtk.ButtonBox.ButtonBoxChild w8 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w7 [this.buttonCancel]));
-			w8.Expand = false;
-			w8.Fill = false;
+			global::Gtk.ButtonBox.ButtonBoxChild w6 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w5 [this.buttonCancel]));
+			w6.Expand = false;
+			w6.Fill = false;
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
 			this.buttonOk = new global::Gtk.Button ();
 			this.buttonOk.CanDefault = true;
@@ -94,11 +78,11 @@ namespace Moscrif.IDE.Controls
 			this.buttonOk.Name = "buttonOk";
 			this.buttonOk.UseUnderline = true;
 			this.buttonOk.Label = global::Mono.Unix.Catalog.GetString ("_Send");
-			w7.Add (this.buttonOk);
-			global::Gtk.ButtonBox.ButtonBoxChild w9 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w7 [this.buttonOk]));
-			w9.Position = 1;
-			w9.Expand = false;
-			w9.Fill = false;
+			w5.Add (this.buttonOk);
+			global::Gtk.ButtonBox.ButtonBoxChild w7 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w5 [this.buttonOk]));
+			w7.Position = 1;
+			w7.Expand = false;
+			w7.Fill = false;
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}

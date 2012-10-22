@@ -5,12 +5,12 @@ namespace Moscrif.IDE.Controls.SqlLite
 	public partial class SqlLiteAddFiled
 	{
 		private global::Gtk.Table table1;
-		private global::Gtk.CheckButton chbNulable;
 		private global::Gtk.Entry entrDefault;
 		private global::Gtk.Entry entrFieldName;
 		private global::Gtk.HBox hbox1;
 		private global::Gtk.ComboBox cbFieldType;
 		private global::Gtk.Button btnMyType;
+		private global::Gtk.CheckButton chbNulable;
 		private global::Gtk.Label label1;
 		private global::Gtk.Label label2;
 		private global::Gtk.Label label3;
@@ -33,32 +33,18 @@ namespace Moscrif.IDE.Controls.SqlLite
 			this.table1.RowSpacing = ((uint)(6));
 			this.table1.ColumnSpacing = ((uint)(6));
 			// Container child table1.Gtk.Table+TableChild
-			this.chbNulable = new global::Gtk.CheckButton ();
-			this.chbNulable.CanFocus = true;
-			this.chbNulable.Name = "chbNulable";
-			this.chbNulable.Label = global::Mono.Unix.Catalog.GetString ("Not NULL");
-			this.chbNulable.DrawIndicator = true;
-			this.chbNulable.UseUnderline = true;
-			this.table1.Add (this.chbNulable);
-			global::Gtk.Table.TableChild w2 = ((global::Gtk.Table.TableChild)(this.table1 [this.chbNulable]));
-			w2.TopAttach = ((uint)(2));
-			w2.BottomAttach = ((uint)(3));
-			w2.LeftAttach = ((uint)(1));
-			w2.RightAttach = ((uint)(2));
-			w2.YOptions = ((global::Gtk.AttachOptions)(4));
-			// Container child table1.Gtk.Table+TableChild
 			this.entrDefault = new global::Gtk.Entry ();
 			this.entrDefault.CanFocus = true;
 			this.entrDefault.Name = "entrDefault";
 			this.entrDefault.IsEditable = true;
 			this.entrDefault.InvisibleChar = '●';
 			this.table1.Add (this.entrDefault);
-			global::Gtk.Table.TableChild w3 = ((global::Gtk.Table.TableChild)(this.table1 [this.entrDefault]));
-			w3.TopAttach = ((uint)(3));
-			w3.BottomAttach = ((uint)(4));
-			w3.LeftAttach = ((uint)(1));
-			w3.RightAttach = ((uint)(2));
-			w3.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w2 = ((global::Gtk.Table.TableChild)(this.table1 [this.entrDefault]));
+			w2.TopAttach = ((uint)(3));
+			w2.BottomAttach = ((uint)(4));
+			w2.LeftAttach = ((uint)(1));
+			w2.RightAttach = ((uint)(2));
+			w2.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
 			this.entrFieldName = new global::Gtk.Entry ();
 			this.entrFieldName.CanFocus = true;
@@ -66,10 +52,10 @@ namespace Moscrif.IDE.Controls.SqlLite
 			this.entrFieldName.IsEditable = true;
 			this.entrFieldName.InvisibleChar = '●';
 			this.table1.Add (this.entrFieldName);
-			global::Gtk.Table.TableChild w4 = ((global::Gtk.Table.TableChild)(this.table1 [this.entrFieldName]));
-			w4.LeftAttach = ((uint)(1));
-			w4.RightAttach = ((uint)(2));
-			w4.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w3 = ((global::Gtk.Table.TableChild)(this.table1 [this.entrFieldName]));
+			w3.LeftAttach = ((uint)(1));
+			w3.RightAttach = ((uint)(2));
+			w3.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
 			this.hbox1 = new global::Gtk.HBox ();
 			this.hbox1.Name = "hbox1";
@@ -78,8 +64,8 @@ namespace Moscrif.IDE.Controls.SqlLite
 			this.cbFieldType = global::Gtk.ComboBox.NewText ();
 			this.cbFieldType.Name = "cbFieldType";
 			this.hbox1.Add (this.cbFieldType);
-			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.cbFieldType]));
-			w5.Position = 0;
+			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.cbFieldType]));
+			w4.Position = 0;
 			// Container child hbox1.Gtk.Box+BoxChild
 			this.btnMyType = new global::Gtk.Button ();
 			this.btnMyType.CanFocus = true;
@@ -87,14 +73,28 @@ namespace Moscrif.IDE.Controls.SqlLite
 			this.btnMyType.UseUnderline = true;
 			this.btnMyType.Label = global::Mono.Unix.Catalog.GetString ("...");
 			this.hbox1.Add (this.btnMyType);
-			global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.btnMyType]));
-			w6.Position = 1;
-			w6.Expand = false;
-			w6.Fill = false;
+			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.btnMyType]));
+			w5.Position = 1;
+			w5.Expand = false;
+			w5.Fill = false;
 			this.table1.Add (this.hbox1);
-			global::Gtk.Table.TableChild w7 = ((global::Gtk.Table.TableChild)(this.table1 [this.hbox1]));
-			w7.TopAttach = ((uint)(1));
-			w7.BottomAttach = ((uint)(2));
+			global::Gtk.Table.TableChild w6 = ((global::Gtk.Table.TableChild)(this.table1 [this.hbox1]));
+			w6.TopAttach = ((uint)(1));
+			w6.BottomAttach = ((uint)(2));
+			w6.LeftAttach = ((uint)(1));
+			w6.RightAttach = ((uint)(2));
+			w6.YOptions = ((global::Gtk.AttachOptions)(4));
+			// Container child table1.Gtk.Table+TableChild
+			this.chbNulable = new global::Gtk.CheckButton ();
+			this.chbNulable.CanFocus = true;
+			this.chbNulable.Name = "chbNulable";
+			this.chbNulable.Label = global::Mono.Unix.Catalog.GetString ("Not NULL");
+			this.chbNulable.DrawIndicator = true;
+			this.chbNulable.UseUnderline = true;
+			this.table1.Add (this.chbNulable);
+			global::Gtk.Table.TableChild w7 = ((global::Gtk.Table.TableChild)(this.table1 [this.chbNulable]));
+			w7.TopAttach = ((uint)(2));
+			w7.BottomAttach = ((uint)(3));
 			w7.LeftAttach = ((uint)(1));
 			w7.RightAttach = ((uint)(2));
 			w7.YOptions = ((global::Gtk.AttachOptions)(4));

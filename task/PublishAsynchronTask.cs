@@ -576,7 +576,10 @@ namespace  Moscrif.IDE.Task
 
 				if (f.Extension == ".msc") continue;
 
-				filesList.Add( f.FullName );
+				int indx = -1;
+				indx = MainClass.Settings.IgnoresFiles.FindIndex(x => x.Folder == f.Name && x.IsForPublish);
+				if(indx <0) 
+					filesList.Add( f.FullName );
 				//string msg =String.Format("Add File all Files-> {0}",f.FullName);
 				//Tool.Logger.LogDebugInfo(msg,null);
 				//Console.WriteLine(msg);

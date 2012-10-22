@@ -3,6 +3,7 @@ using Gtk;
 using Moscrif.IDE.Workspace;
 using Moscrif.IDE.Settings;
 using Moscrif.IDE.Iface.Entities;
+using System.IO;
 
 namespace Moscrif.IDE.Controls.Properties
 {
@@ -23,25 +24,28 @@ namespace Moscrif.IDE.Controls.Properties
 			if (fiOld.ConditionValues == null)
 				fiOld.ConditionValues = new System.Collections.Generic.List<ConditionRule>();
 
+			string fullPath = MainClass.Workspace.GetFullPath(fiOld.FilePath);
 
-			Table mainTable = new Table(2,1,false);
+			string size = "0";
+			FileInfo fi = new FileInfo(fullPath);
+			if(fi.Exists){
+				size =((int)(fi.Length/1024)).ToString() + " KB";
+			}
+
+			Table mainTable = new Table(4,1,false);
 			Table propertyTable = new Table(5,2,false);
 
-			Label lblFN = new Label(System.IO.Path.GetFileName(fiOld.SystemFilePath));
-			lblFN.UseUnderline = false;
-			lblFN.Selectable = true;
-			lblFN.Xalign = 0;
+			Label lblFN =GetLabel(System.IO.Path.GetFileName(fiOld.SystemFilePath)); //new Label(System.IO.Path.GetFileName(fiOld.SystemFilePath));
+			Label lblSZ =GetLabel(System.IO.Path.GetFileName(size));// new Label(System.IO.Path.GetFileName(size));
 
 			Entry entr = new Entry(fiOld.SystemFilePath);
 			entr.IsEditable = false;
 
-			Entry entrFullPath = new Entry(MainClass.Workspace.GetFullPath(fiOld.FilePath));
+			Entry entrFullPath = new Entry(fullPath);
 			entrFullPath.IsEditable = false;
 
-			Label lblPrj = new Label(project.ProjectName);
-			lblPrj.UseUnderline = false;
-			lblPrj.Selectable = true;
-			lblPrj.Xalign = 0;
+			Label lblPrj =GetLabel(project.ProjectName);// new Label(project.ProjectName);
+
 
 			CheckButton chbExclude = new CheckButton("");
 			chbExclude.Active = fiOld.IsExcluded;
@@ -52,12 +56,11 @@ namespace Moscrif.IDE.Controls.Properties
 			};
 
 			AddControl(ref propertyTable,0,lblFN,"Name ");
-			AddControl(ref propertyTable,1,entr,"Relative Path ");
-			AddControl(ref propertyTable,2,entrFullPath,"Full Path ");
-			AddControl(ref propertyTable,3,lblPrj,"Project ");
-			AddControl(ref propertyTable,4,chbExclude,"Exclude ");
-
-			mainTable.Attach(propertyTable,0,1,0,1,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Fill,0,0);
+			AddControl(ref propertyTable,1,lblSZ,"Size ");
+			AddControl(ref propertyTable,2,entr,"Relative Path ");
+			AddControl(ref propertyTable,3,entrFullPath,"Full Path ");
+			AddControl(ref propertyTable,4,lblPrj,"Project ");
+			AddControl(ref propertyTable,5,chbExclude,"Exclude ");
 
 			int rowCount = project.ConditoinsDefine.Count;
 			Table conditionsTable = new Table((uint)(rowCount + 3),(uint)2,false);
@@ -69,7 +72,44 @@ namespace Moscrif.IDE.Controls.Properties
 				GenerateContent(ref conditionsTable, cd.Name, i, cd,false);
 				i++;
 			}
-			mainTable.Attach(conditionsTable,0,1,1,2,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Fill,0,0);
+
+			Expander exp1 = new Expander("General");
+			exp1.Expanded = true;
+			exp1.Add(propertyTable);
+			
+			Expander exp2 = new Expander("Conditions");
+			exp2.Expanded = true;
+			exp2.Add(conditionsTable);
+
+			mainTable.Attach(exp1,0,1,0,1,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Fill,0,0);
+			mainTable.Attach(exp2,0,1,1,2,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Fill,0,0);
+
+			string extension = System.IO.Path.GetExtension(fpd.Filename);
+			switch (extension) {
+			case ".png":
+			case ".jpg":
+			case ".jpeg":
+			case ".bmp":
+			case ".gif":
+			case ".tif":
+			case ".svg":{
+				Table ImageTable =GenerateImageControl();
+				if(ImageTable!= null){
+					Expander expImage = new Expander("Image");
+					expImage.Expanded = true;
+					expImage.Add(ImageTable);
+					mainTable.Attach(expImage,0,1,2,3,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Fill,0,0);
+				}
+				break;
+			}
+			case ".db":
+				//
+				break;
+			default:
+				//
+				break;
+			}
+
 
 			this.PackStart(mainTable,true,true,0);
 			this.ShowAll();
@@ -100,7 +140,7 @@ namespace Moscrif.IDE.Controls.Properties
 			cboxPlatform.PackStart(textRenderer, true);
 			cboxPlatform.AddAttribute(textRenderer, "text", 2);
 			
-			cboxPlatform.WidthRequest = 200;
+			//cboxPlatform.WidthRequest = 200;
 			cboxPlatform.Model = lstorePlatform;
 			cboxPlatform.Changed += delegate(object sender, EventArgs e) {
 				
@@ -154,7 +194,6 @@ namespace Moscrif.IDE.Controls.Properties
 			cboxPlatform.SetActiveIter(selectIter);
 		}
 
-
 		private void AddControl(ref Table tbl, int top, Widget ctrl, string label){
 			Label lbl = new Label(label);
 			lbl.Xalign = 1;
@@ -164,6 +203,54 @@ namespace Moscrif.IDE.Controls.Properties
 			tbl.Attach(lbl,0,1,(uint)top,(uint)(top+1),AttachOptions.Shrink,AttachOptions.Shrink,2,2);
 			tbl.Attach(ctrl,1,2,(uint)top,(uint)(top+1),AttachOptions.Fill|AttachOptions.Expand,AttachOptions.Fill,2,2);
 		}
+
+		private Label GetLabel(string text){
+			Label label = new Label(text);
+			label.UseUnderline = false;
+			label.Selectable = true;
+			label.Xalign = 0;
+			return label;
+		}
+
+		private Table GenerateImageControl(){
+			string imagePath = MainClass.Workspace.GetFullPath(fiOld.FilePath);
+			Table imageTable = new Table(4,2,false);
+			int height = 0;
+			int width = 0;
+
+			Gdk.Pixbuf bg;
+			try{
+				using (var fs = new System.IO.FileStream(imagePath, System.IO.FileMode.Open))
+					bg = new Gdk.Pixbuf(fs);
+				
+				//bg = bg.ApplyEmbeddedOrientation();
+				height = bg.Height;
+				width= bg.Width;
+			}catch(Exception ex){
+				Tool.Logger.Error(ex.Message,null);
+				Console.WriteLine(ex.Message);
+				return null;
+			}
+			Label lblDimensions = GetLabel(width.ToString()+ " x "+height.ToString());//new Label(width.ToString()+ " x "+height.ToString() );
+			Label lblWidth =GetLabel(width.ToString()+ " pixels"); //new Label();
+			Label lblHeight = GetLabel(height.ToString()+ " pixels");//new Label(height.ToString()+ " pixels");
+
+			Image img= new Image(imagePath);
+			img.Xalign = 0;
+
+			int newWidth =0;
+			int newHeight = 0;
+			MainClass.Tools.RecalculateImageSize(width,height,75,75,ref newWidth,ref newHeight);
+			img.Pixbuf = img.Pixbuf.ScaleSimple(newWidth,newHeight, Gdk.InterpType.Bilinear);
+
+			AddControl(ref imageTable,0,lblDimensions,"Dimensions ");
+			AddControl(ref imageTable,1,lblWidth,"Width ");
+			AddControl(ref imageTable,2,lblHeight,"Height ");
+			AddControl(ref imageTable,3,img,"Preview ");
+		
+			return imageTable;
+		}
+
 	}
 }
 

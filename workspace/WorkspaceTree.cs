@@ -630,8 +630,11 @@ namespace Moscrif.IDE.Workspace
 				}
 			}
 			
-			foreach (FileInfo f in di.GetFiles())
+			foreach (FileInfo f in di.GetFiles()){
 
+				int indx = -1;
+				indx = MainClass.Settings.IgnoresFiles.FindIndex(x => x.Folder == f.Name && x.IsForIde);
+				if(indx >-1)continue;
 
 				if (!MainClass.Tools.IsIgnoredExtension(f.Extension)) {
 					
@@ -651,6 +654,7 @@ namespace Moscrif.IDE.Workspace
 					
 					rootStore.AppendValues(parent, MainClass.Tools.GetIconFromStock(stockIcon, Gtk.IconSize.SmallToolbar), f.Name, f.FullName, TypeFile.SourceFile);
 				}
+			}
 		}
 
 		/*private Menu GetPopUp(){

@@ -8,7 +8,7 @@ public partial class MainWindow
 	private global::Gtk.HBox hbMenu;
 	private global::Gtk.VPaned vpMenuLeft;
 	private global::Gtk.VBox vbMenuMidle;
-	private global::Gtk.VPaned vpMenuRight;
+	private global::Gtk.Table tblMenuRight;
 	private global::Gtk.VPaned vpBody;
 	private global::Gtk.HPaned hpBodyMidle;
 	private global::Gtk.HPaned hpOutput;
@@ -58,13 +58,13 @@ public partial class MainWindow
 		global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.hbMenu [this.vbMenuMidle]));
 		w3.Position = 1;
 		// Container child hbMenu.Gtk.Box+BoxChild
-		this.vpMenuRight = new global::Gtk.VPaned ();
-		this.vpMenuRight.WidthRequest = 385;
-		this.vpMenuRight.CanFocus = true;
-		this.vpMenuRight.Name = "vpMenuRight";
-		this.vpMenuRight.Position = 1;
-		this.hbMenu.Add (this.vpMenuRight);
-		global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.hbMenu [this.vpMenuRight]));
+		this.tblMenuRight = new global::Gtk.Table (((uint)(2)), ((uint)(2)), false);
+		this.tblMenuRight.WidthRequest = 385;
+		this.tblMenuRight.Name = "tblMenuRight";
+		this.tblMenuRight.RowSpacing = ((uint)(6));
+		this.tblMenuRight.ColumnSpacing = ((uint)(6));
+		this.hbMenu.Add (this.tblMenuRight);
+		global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.hbMenu [this.tblMenuRight]));
 		w4.Position = 2;
 		w4.Expand = false;
 		this.vbMain.Add (this.hbMenu);
@@ -80,7 +80,7 @@ public partial class MainWindow
 		this.hpBodyMidle = new global::Gtk.HPaned ();
 		this.hpBodyMidle.CanFocus = true;
 		this.hpBodyMidle.Name = "hpBodyMidle";
-		this.hpBodyMidle.Position = 179;
+		this.hpBodyMidle.Position = 200;
 		this.vpBody.Add (this.hpBodyMidle);
 		global::Gtk.Paned.PanedChild w6 = ((global::Gtk.Paned.PanedChild)(this.vpBody [this.hpBodyMidle]));
 		w6.Resize = false;

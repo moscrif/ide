@@ -31,29 +31,21 @@ namespace Moscrif.IDE.Controls.Properties
 			Table mainTable = new Table(2,1,false);
 			Table propertyTable = new Table(5,2,false);
 			
-			Label lblFN = new Label(System.IO.Path.GetFileName(fiOld.SystemFilePath));
-			lblFN.UseUnderline = false;
-			lblFN.Selectable = true;
-			lblFN.Xalign = 0;
-			
+			Label lblFN =GetLabel(System.IO.Path.GetFileName(fiOld.SystemFilePath)); // new Label(System.IO.Path.GetFileName(fiOld.SystemFilePath));
+
 			Entry entr = new Entry(fiOld.SystemFilePath);
 			entr.IsEditable = false;
 
 			Entry entrFullPath = new Entry(MainClass.Workspace.GetFullPath(fiOld.SystemFilePath));
 			entrFullPath.IsEditable = false;
 
-			Label lblPrj = new Label(project.ProjectName);
-			lblPrj.UseUnderline = false;
-			lblPrj.Selectable = true;
-			lblPrj.Xalign = 0;
+			Label lblPrj = GetLabel(project.ProjectName); //new Label(project.ProjectName);
 		
 			AddControl(ref propertyTable,0,lblFN,"Name ");
 			AddControl(ref propertyTable,1,entr,"Relative Path ");
 			AddControl(ref propertyTable,2,entrFullPath,"Full Path ");
 			AddControl(ref propertyTable,3,lblPrj,"Project ");
 
-			mainTable.Attach(propertyTable,0,1,0,1,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Fill,0,0);
-			
 			int rowCount = project.ConditoinsDefine.Count;
 			Table conditionsTable = new Table((uint)(rowCount + 3),(uint)2,false);
 			
@@ -64,7 +56,16 @@ namespace Moscrif.IDE.Controls.Properties
 				GenerateContent(ref conditionsTable, cd.Name, i, cd,false);
 				i++;
 			}
-			mainTable.Attach(conditionsTable,0,1,1,2,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Fill,0,0);
+			Expander exp1 = new Expander("General");
+			exp1.Expanded = true;
+			exp1.Add(propertyTable);
+
+			Expander exp2 = new Expander("Conditions");
+			exp2.Expanded = true;
+			exp2.Add(conditionsTable);
+
+			mainTable.Attach(exp1,0,1,0,1,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Fill,0,0);
+			mainTable.Attach(exp2,0,1,1,2,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Fill,0,0);
 			
 			this.PackStart(mainTable,true,true,0);
 			this.ShowAll();
@@ -95,7 +96,7 @@ namespace Moscrif.IDE.Controls.Properties
 			cboxPlatform.PackStart(textRenderer, true);
 			cboxPlatform.AddAttribute(textRenderer, "text", 2);
 			
-			cboxPlatform.WidthRequest = 200;
+			//cboxPlatform.WidthRequest = 200;
 			cboxPlatform.Model = lstorePlatform;
 
 			tableSystem.Attach(lblPlatform, 0, 1, (uint)(xPos - 1), (uint)xPos, AttachOptions.Shrink, AttachOptions.Shrink, 2, 2);
@@ -154,6 +155,14 @@ namespace Moscrif.IDE.Controls.Properties
 			};
 		}
 
+		private Label GetLabel(string text){
+			Label label = new Label(text);
+			label.UseUnderline = false;
+			label.Selectable = true;
+			label.Xalign = 0;
+			return label;
+		}
+
 		private void setConditionsRecursive(string path,int condId, int ruleId)
 		{
 			if (!Directory.Exists(path))
@@ -171,6 +180,7 @@ namespace Moscrif.IDE.Controls.Properties
 						fi = new FileItem(relativePath, false);
 						fi.ConditionValues = new List<ConditionRule>();
 						fi.IsDirectory = true;
+						project.FilesProperty.Add(fi);
 					}
 
 
@@ -194,156 +204,42 @@ namespace Moscrif.IDE.Controls.Properties
 				}
 			}
 			
-			foreach (FileInfo f in di.GetFiles())
-			if (!MainClass.Tools.IsIgnoredExtension(f.Extension)) {
+			foreach (FileInfo f in di.GetFiles()){
+				if (!MainClass.Tools.IsIgnoredExtension(f.Extension)) {
 				
-				string relativePath = MainClass.Workspace.GetRelativePath(f.FullName);
-				FileItem fi = project.FilesProperty.Find(x => x.SystemFilePath == relativePath);
-				if (fi == null) {
-					fi = new FileItem(relativePath, false);
-					fi.ConditionValues = new List<ConditionRule>();
-
-				}
-
-				if(fi.ConditionValues == null)
-					fi.ConditionValues = new List<ConditionRule>();
-				
-				ConditionRule cr = fi.ConditionValues.Find(x => x.ConditionId == condId);
-				if (ruleId != 0){
-					if (cr != null)
-						cr.RuleId = ruleId;
-					else
-						fi.ConditionValues.Add(new ConditionRule(condId,ruleId));
-				}
-				else {
-					if (cr != null){
-						fi.ConditionValues.Remove(cr);
-					}
-				}
-				
-			}
-		}
+					int indx = -1;
+					indx = MainClass.Settings.IgnoresFiles.FindIndex(x => x.Folder == f.Name && x.IsForIde);
+					if(indx >-1)continue; 
 
 
-		private void setConditionsRecursive(string path,ConditionRule cr, bool remove)
-		{
-			if (!Directory.Exists(path))
-				return;
-			
-			DirectoryInfo di = new DirectoryInfo(path);
-			
-			foreach (DirectoryInfo d in di.GetDirectories()){
-				int indx = -1;
-				indx = MainClass.Settings.IgnoresFolders.FindIndex(x => x.Folder == d.Name && x.IsForIde);
-				if(indx<0){
-					string relativePath = MainClass.Workspace.GetRelativePath(d.FullName);
+					string relativePath = MainClass.Workspace.GetRelativePath(f.FullName);
 					FileItem fi = project.FilesProperty.Find(x => x.SystemFilePath == relativePath);
-					if (fi != null) {
-						if(fi.ConditionValues == null)
-							fi.ConditionValues = new List<ConditionRule>();
-
-						ConditionRule cr2 = fi.ConditionValues.Find(x=>x.ConditionId == cr.ConditionId);
-						if(cr2 == null){
-							if(!remove){
-								fi.ConditionValues.Add(cr);
-							}
-						} else if(cr2 != null){
-							if(remove){
-								fi.ConditionValues.Remove(cr2);
-							}
-							else {
-								cr2.RuleId = cr.RuleId;
-							}
-						}
-
-					} else {
+					if (fi == null) {
 						fi = new FileItem(relativePath, false);
 						fi.ConditionValues = new List<ConditionRule>();
-						if(!remove)
-							fi.ConditionValues.Add(cr);
-						fi.IsDirectory = true;
 						project.FilesProperty.Add(fi);
 					}
-					setConditionsRecursive(d.FullName,cr,remove);
-				}
-			}
-			
-			foreach (FileInfo f in di.GetFiles())
-			if (!MainClass.Tools.IsIgnoredExtension(f.Extension)) {
-				
-				string relativePath = MainClass.Workspace.GetRelativePath(f.FullName);
-				FileItem fi = project.FilesProperty.Find(x => x.SystemFilePath == relativePath);
-				
-				if (fi != null) {
+
 					if(fi.ConditionValues == null)
 						fi.ConditionValues = new List<ConditionRule>();
-
-					ConditionRule cr2 = fi.ConditionValues.Find(x=>x.ConditionId == cr.ConditionId);
-					if(cr2 == null){
-						if(!remove){
-							fi.ConditionValues.Add(cr);
-						}
-					} else if(fi != null){
-						if(remove){
-							fi.ConditionValues.Remove(cr2);
+					
+					ConditionRule cr = fi.ConditionValues.Find(x => x.ConditionId == condId);
+					if (ruleId != 0){
+						if (cr != null)
+							cr.RuleId = ruleId;
+						else
+							fi.ConditionValues.Add(new ConditionRule(condId,ruleId));
+					}
+					else {
+						if (cr != null){
+							fi.ConditionValues.Remove(cr);
 						}
 					}
-				} else {
-					fi = new FileItem(relativePath, false);
-					fi.ConditionValues = new List<ConditionRule>();
-					if(!remove)
-						fi.ConditionValues.Add(cr);
-					fi.IsDirectory = false;
-					project.FilesProperty.Add(fi);
-				}
 				
+				}
 			}
 		}
-		/*
-		private void setConditionsRecursive(string path)
-		{
-			if (!Directory.Exists(path))
-				return;
-			
-			DirectoryInfo di = new DirectoryInfo(path);
-			
-			foreach (DirectoryInfo d in di.GetDirectories()){
-				int indx = -1;
-				indx = MainClass.Settings.IgnoresFolders.FindIndex(x => x.Folder == d.Name && x.IsForIde);
-				if(indx<0){
-					string relativePath = MainClass.Workspace.GetRelativePath(d.FullName);
-					FileItem fi = project.FilesProperty.Find(x => x.SystemFilePath == relativePath);
-					if (fi != null) {
-						fi.ConditionValues = conditionRules;
-					} else {
-						fi = new FileItem(relativePath, false);
-						fi.ConditionValues = new List<ConditionRule>();
-						fi.ConditionValues.AddRange(conditionRules.ToArray());
-						fi.IsDirectory = true;
-						project.FilesProperty.Add(fi);
-					}
-					setConditionsRecursive(d.FullName);
-				}
-			}
-			
-			foreach (FileInfo f in di.GetFiles())
-			if (!MainClass.Tools.IsIgnoredExtension(f.Extension)) {
-				
-				string relativePath = MainClass.Workspace.GetRelativePath(f.FullName);
-				FileItem fi = project.FilesProperty.Find(x => x.SystemFilePath == relativePath);
-				
-				if (fi != null) {
-					fi.ConditionValues = conditionRules;
-				} else {
-					fi = new FileItem(relativePath, false);
-					fi.ConditionValues = new List<ConditionRule>();
-					fi.ConditionValues.AddRange(conditionRules.ToArray());
-					project.FilesProperty.Add(fi);
-				}
-				
-			}
-		}*/
-		
+
 		private void AddControl(ref Table tbl, int top, Widget ctrl, string label){
 			Label lbl = new Label(label);
 			lbl.Xalign = 1;

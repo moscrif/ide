@@ -784,15 +784,15 @@ namespace Moscrif.IDE.Task
 			}
 
 			foreach (FileInfo f in di.GetFiles()) {
-
 				//if (f.Extension == ".ms") continue;
-
-				filesList.Add( f.FullName );
+				int indx = -1;
+				indx = MainClass.Settings.IgnoresFiles.FindIndex(x => x.Folder == f.Name && x.IsForPublish);
+				if(indx <0) 
+					filesList.Add( f.FullName );
 			}
-
 		}
 
-		private void RestoreBackup(string hashAppPath, string bakAppPath){
+		private string RestoreBackup(string hashAppPath, string bakAppPath){
 			try{
 				File.Delete(project.AbsolutAppFilePath);
 				File.Copy(bakAppPath,project.AbsolutAppFilePath);
@@ -803,7 +803,9 @@ namespace Moscrif.IDE.Task
 				Moscrif.IDE.Tool.Logger.Error("Restore backup App file FAILED.");
 				Moscrif.IDE.Tool.Logger.Error(ex.Message);
 				Console.WriteLine(ex.Message);
+				ShowError(ex.Message,"Restore backup App file FAILED.");
 			}
+			return "";
 		}
 
 		private string LastSeparator(string path){
@@ -1244,11 +1246,17 @@ namespace Moscrif.IDE.Task
 					FileInfo fiCompile = new FileInfo(fileCompile);
 					// len tie ms ktorych datum upravy je vetsi, ako datum upravy msc subory
 					//if(f.LastWriteTime > fiCompile.LastWriteTime){
-					list.Add(f.FullName);
+					int indx = -1;
+					indx = MainClass.Settings.IgnoresFiles.FindIndex(x => x.Folder == f.Name && x.IsForPublish);
+					if(indx <0) 
+						list.Add(f.FullName);
 					//}
 					
 				} else {
-					list.Add(f.FullName);
+					int indx = -1;
+					indx = MainClass.Settings.IgnoresFiles.FindIndex(x => x.Folder == f.Name && x.IsForPublish);
+					if(indx <0) 
+						list.Add(f.FullName);
 				}
 			}
 		}

@@ -17,6 +17,7 @@ namespace Moscrif.IDE.Settings
 		private global::Gtk.Label label3;
 		private global::Gtk.Label label4;
 		private global::Gtk.Label label6;
+		private global::Gtk.Notebook notebook1;
 		private global::Gtk.Frame frame1;
 		private global::Gtk.Alignment GtkAlignment2;
 		private global::Gtk.HBox hbox1;
@@ -28,7 +29,21 @@ namespace Moscrif.IDE.Settings
 		private global::Gtk.Button btnEditIF;
 		private global::Gtk.Button btnDeleteIF;
 		private global::Gtk.Button button8;
-		private global::Gtk.Label GtkLabel6;
+		private global::Gtk.Label GtkLabel11;
+		private global::Gtk.Label label7;
+		private global::Gtk.Frame frame2;
+		private global::Gtk.Alignment GtkAlignment3;
+		private global::Gtk.HBox hbox2;
+		private global::Gtk.Label labelFi;
+		private global::Gtk.ScrolledWindow GtkScrolledWindow2;
+		private global::Gtk.TreeView tvIgnoreFiles;
+		private global::Gtk.VButtonBox vbuttonbox2;
+		private global::Gtk.Button btnAddIFi;
+		private global::Gtk.Button btnEditIFi;
+		private global::Gtk.Button btnDeleteIFi;
+		private global::Gtk.Button btnResetIFi;
+		private global::Gtk.Label GtkLabel16;
+		private global::Gtk.Label label8;
 		
 		protected virtual void Build ()
 		{
@@ -194,6 +209,11 @@ namespace Moscrif.IDE.Settings
 			global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.table1]));
 			w12.Position = 0;
 			// Container child vbox3.Gtk.Box+BoxChild
+			this.notebook1 = new global::Gtk.Notebook ();
+			this.notebook1.CanFocus = true;
+			this.notebook1.Name = "notebook1";
+			this.notebook1.CurrentPage = 1;
+			// Container child notebook1.Gtk.Notebook+NotebookChild
 			this.frame1 = new global::Gtk.Frame ();
 			this.frame1.Name = "frame1";
 			this.frame1.BorderWidth = ((uint)(1));
@@ -283,16 +303,127 @@ namespace Moscrif.IDE.Settings
 			w20.Fill = false;
 			this.GtkAlignment2.Add (this.hbox1);
 			this.frame1.Add (this.GtkAlignment2);
-			this.GtkLabel6 = new global::Gtk.Label ();
-			this.GtkLabel6.Name = "GtkLabel6";
-			this.GtkLabel6.LabelProp = global::Mono.Unix.Catalog.GetString ("<b>Ignore Folder</b>");
-			this.GtkLabel6.UseMarkup = true;
-			this.frame1.LabelWidget = this.GtkLabel6;
-			this.vbox3.Add (this.frame1);
-			global::Gtk.Box.BoxChild w23 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.frame1]));
-			w23.Position = 1;
-			w23.Expand = false;
-			w23.Fill = false;
+			this.GtkLabel11 = new global::Gtk.Label ();
+			this.GtkLabel11.Name = "GtkLabel11";
+			this.GtkLabel11.LabelProp = global::Mono.Unix.Catalog.GetString ("<b>Ignore Folder</b>");
+			this.GtkLabel11.UseMarkup = true;
+			this.frame1.LabelWidget = this.GtkLabel11;
+			this.notebook1.Add (this.frame1);
+			// Notebook tab
+			this.label7 = new global::Gtk.Label ();
+			this.label7.Name = "label7";
+			this.label7.LabelProp = global::Mono.Unix.Catalog.GetString ("Ignore Folder");
+			this.notebook1.SetTabLabel (this.frame1, this.label7);
+			this.label7.ShowAll ();
+			// Container child notebook1.Gtk.Notebook+NotebookChild
+			this.frame2 = new global::Gtk.Frame ();
+			this.frame2.Name = "frame2";
+			this.frame2.BorderWidth = ((uint)(1));
+			// Container child frame2.Gtk.Container+ContainerChild
+			this.GtkAlignment3 = new global::Gtk.Alignment (0F, 0F, 1F, 1F);
+			this.GtkAlignment3.Name = "GtkAlignment3";
+			this.GtkAlignment3.LeftPadding = ((uint)(12));
+			// Container child GtkAlignment3.Gtk.Container+ContainerChild
+			this.hbox2 = new global::Gtk.HBox ();
+			this.hbox2.HeightRequest = 102;
+			this.hbox2.Name = "hbox2";
+			this.hbox2.Spacing = 6;
+			// Container child hbox2.Gtk.Box+BoxChild
+			this.labelFi = new global::Gtk.Label ();
+			this.labelFi.Name = "labelFi";
+			this.labelFi.Xalign = 1F;
+			this.labelFi.LabelProp = global::Mono.Unix.Catalog.GetString ("Ignored :");
+			this.hbox2.Add (this.labelFi);
+			global::Gtk.Box.BoxChild w24 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.labelFi]));
+			w24.Position = 0;
+			w24.Expand = false;
+			w24.Fill = false;
+			// Container child hbox2.Gtk.Box+BoxChild
+			this.GtkScrolledWindow2 = new global::Gtk.ScrolledWindow ();
+			this.GtkScrolledWindow2.Name = "GtkScrolledWindow2";
+			this.GtkScrolledWindow2.ShadowType = ((global::Gtk.ShadowType)(1));
+			// Container child GtkScrolledWindow2.Gtk.Container+ContainerChild
+			this.tvIgnoreFiles = new global::Gtk.TreeView ();
+			this.tvIgnoreFiles.CanFocus = true;
+			this.tvIgnoreFiles.Name = "tvIgnoreFiles";
+			this.GtkScrolledWindow2.Add (this.tvIgnoreFiles);
+			this.hbox2.Add (this.GtkScrolledWindow2);
+			global::Gtk.Box.BoxChild w26 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.GtkScrolledWindow2]));
+			w26.Position = 1;
+			// Container child hbox2.Gtk.Box+BoxChild
+			this.vbuttonbox2 = new global::Gtk.VButtonBox ();
+			this.vbuttonbox2.Name = "vbuttonbox2";
+			this.vbuttonbox2.Spacing = -1;
+			this.vbuttonbox2.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(3));
+			// Container child vbuttonbox2.Gtk.ButtonBox+ButtonBoxChild
+			this.btnAddIFi = new global::Gtk.Button ();
+			this.btnAddIFi.CanFocus = true;
+			this.btnAddIFi.Name = "btnAddIFi";
+			this.btnAddIFi.UseUnderline = true;
+			this.btnAddIFi.Label = global::Mono.Unix.Catalog.GetString ("Add");
+			this.vbuttonbox2.Add (this.btnAddIFi);
+			global::Gtk.ButtonBox.ButtonBoxChild w27 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.vbuttonbox2 [this.btnAddIFi]));
+			w27.Expand = false;
+			w27.Fill = false;
+			// Container child vbuttonbox2.Gtk.ButtonBox+ButtonBoxChild
+			this.btnEditIFi = new global::Gtk.Button ();
+			this.btnEditIFi.CanFocus = true;
+			this.btnEditIFi.Name = "btnEditIFi";
+			this.btnEditIFi.UseUnderline = true;
+			this.btnEditIFi.Label = global::Mono.Unix.Catalog.GetString ("Edit");
+			this.vbuttonbox2.Add (this.btnEditIFi);
+			global::Gtk.ButtonBox.ButtonBoxChild w28 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.vbuttonbox2 [this.btnEditIFi]));
+			w28.Position = 1;
+			w28.Expand = false;
+			w28.Fill = false;
+			// Container child vbuttonbox2.Gtk.ButtonBox+ButtonBoxChild
+			this.btnDeleteIFi = new global::Gtk.Button ();
+			this.btnDeleteIFi.CanFocus = true;
+			this.btnDeleteIFi.Name = "btnDeleteIFi";
+			this.btnDeleteIFi.UseUnderline = true;
+			this.btnDeleteIFi.Label = global::Mono.Unix.Catalog.GetString ("Delete");
+			this.vbuttonbox2.Add (this.btnDeleteIFi);
+			global::Gtk.ButtonBox.ButtonBoxChild w29 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.vbuttonbox2 [this.btnDeleteIFi]));
+			w29.Position = 2;
+			w29.Expand = false;
+			w29.Fill = false;
+			// Container child vbuttonbox2.Gtk.ButtonBox+ButtonBoxChild
+			this.btnResetIFi = new global::Gtk.Button ();
+			this.btnResetIFi.CanFocus = true;
+			this.btnResetIFi.Name = "btnResetIFi";
+			this.btnResetIFi.UseUnderline = true;
+			this.btnResetIFi.Label = global::Mono.Unix.Catalog.GetString ("Reset");
+			this.vbuttonbox2.Add (this.btnResetIFi);
+			global::Gtk.ButtonBox.ButtonBoxChild w30 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.vbuttonbox2 [this.btnResetIFi]));
+			w30.Position = 3;
+			w30.Expand = false;
+			w30.Fill = false;
+			this.hbox2.Add (this.vbuttonbox2);
+			global::Gtk.Box.BoxChild w31 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.vbuttonbox2]));
+			w31.Position = 2;
+			w31.Expand = false;
+			w31.Fill = false;
+			this.GtkAlignment3.Add (this.hbox2);
+			this.frame2.Add (this.GtkAlignment3);
+			this.GtkLabel16 = new global::Gtk.Label ();
+			this.GtkLabel16.Name = "GtkLabel16";
+			this.GtkLabel16.LabelProp = global::Mono.Unix.Catalog.GetString ("<b>Ignore Files</b>");
+			this.GtkLabel16.UseMarkup = true;
+			this.frame2.LabelWidget = this.GtkLabel16;
+			this.notebook1.Add (this.frame2);
+			global::Gtk.Notebook.NotebookChild w34 = ((global::Gtk.Notebook.NotebookChild)(this.notebook1 [this.frame2]));
+			w34.Position = 1;
+			// Notebook tab
+			this.label8 = new global::Gtk.Label ();
+			this.label8.Name = "label8";
+			this.label8.LabelProp = global::Mono.Unix.Catalog.GetString ("Ignore Files");
+			this.notebook1.SetTabLabel (this.frame2, this.label8);
+			this.label8.ShowAll ();
+			this.vbox3.Add (this.notebook1);
+			global::Gtk.Box.BoxChild w35 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.notebook1]));
+			w35.Position = 1;
+			w35.Expand = false;
+			w35.Fill = false;
 			this.Add (this.vbox3);
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
@@ -302,6 +433,10 @@ namespace Moscrif.IDE.Settings
 			this.btnEditIF.Clicked += new global::System.EventHandler (this.OnBtnEditIFClicked);
 			this.btnDeleteIF.Clicked += new global::System.EventHandler (this.OnBtnDeleteIFClicked);
 			this.button8.Clicked += new global::System.EventHandler (this.OnButton8Clicked);
+			this.btnAddIFi.Clicked += new global::System.EventHandler (this.OnBtnAddIFiClicked);
+			this.btnEditIFi.Clicked += new global::System.EventHandler (this.OnBtnEditIFiClicked);
+			this.btnDeleteIFi.Clicked += new global::System.EventHandler (this.OnBtnDeleteIFiClicked);
+			this.btnResetIFi.Clicked += new global::System.EventHandler (this.OnBtnResetIFiClicked);
 		}
 	}
 }

@@ -165,9 +165,9 @@ namespace  Moscrif.IDE.Settings
 		public List<IgnoreFolder> IgnoresFolders;
 		//public List<string> IgnoreFolders;
 
-		/*[XmlArrayAttribute("ignoresFiles")]
+		[XmlArrayAttribute("ignoresFiles")]
 		[XmlArrayItem("file")]
-		public List<IgnoreFolder> IgnoresFiles;*/
+		public List<IgnoreFolder> IgnoresFiles;
 
 		[XmlArray("logicalViews")]
 		[XmlArrayItem("view")]
@@ -398,14 +398,6 @@ namespace  Moscrif.IDE.Settings
 			FilePath = System.IO.Path.Combine(paths.SettingDir, "moscrif.mss");
 			if (Platform == null) GeneratePlatform();
 			if (Resolution == null) GenerateResolution();
-			//if (LibsDefine == null) GenerateLibs();
-			//if (Orientation == null) GenerateOrientation();
-			/*if ((LogicalSort == null) || ((LogicalSort.Count <1 )) ) {
-				LogicalSort = LogicalSystem.GetDefaultLogicalSystem();
-			}
-			if (IgnoreFolder == null) GenerateIgnoreFolder();
-			 */
-			//if (IgnoreFolder == null) GenerateIgnoreFolder();
 		}
 
 		public Settings(string filePath)
@@ -418,7 +410,7 @@ namespace  Moscrif.IDE.Settings
 			}
 
 			if ((IgnoresFolders == null)) GenerateIgnoreFolder();
-			//if ((IgnoresFiles == null)) GenerateIgnoresFiles();
+			if ((IgnoresFiles == null)) GenerateIgnoreFiles();
 
 			if ((DisplayOrientations == null)) GenerateOrientations();
 			if ((InstallLocations == null)) GenerateInstallLocation();
@@ -470,9 +462,9 @@ namespace  Moscrif.IDE.Settings
 						if ((s.IgnoresFolders == null) || (s.IgnoresFolders.Count<1)){
 							s.GenerateIgnoreFolder();
 						}
-						/*if ((s.IgnoresFiles == null) || (s.IgnoresFiles.Count<1)){
-							s.GenerateIgnoresFiles();
-						}*/
+						if ((s.IgnoresFiles == null) || (s.IgnoresFiles.Count<1)){
+							s.GenerateIgnoreFiles();
+						}
 
 						if ((s.Platform == null) || (s.Platform.Rules.Count < 1)){
 							s.GeneratePlatform();
@@ -530,14 +522,10 @@ namespace  Moscrif.IDE.Settings
 							s.VersionSetting = 121001;
 						}
 
-						if (s.VersionSetting < 121009){ //year, month, day
+						if (s.VersionSetting < 121017){ //year, month, day
 							s.GenerateResolution();
 							s.GeneratePlatformResolutions();
-							s.VersionSetting = 121009;
-						}
-						if (s.VersionSetting < 121015){ //year, month, day
-							s.GenerateResolution();
-							s.VersionSetting = 121015;
+							s.VersionSetting = 121017;
 						}
 
 						return s;
@@ -729,6 +717,7 @@ namespace  Moscrif.IDE.Settings
 			prIos.AllowResolution.Add(-7);
 			prIos.AllowResolution.Add(-8);
 			prIos.AllowResolution.Add(-15);
+			prIos.AllowResolution.Add(-17);
 			PlatformResolutions.Add(prIos);
 
 			PlatformResolution prBada10 = new PlatformResolution((int)DeviceType.Bada_1_0);
@@ -810,6 +799,7 @@ namespace  Moscrif.IDE.Settings
 			Resolution.Rules.Add(new Rule(-14,"WSVGA","wsvga",600,1024));
 			Resolution.Rules.Add(new Rule(-15,"QXGA","qxga",1536,2048));
 			Resolution.Rules.Add(new Rule(-16,"HD720","hd720",720,1280));
+			Resolution.Rules.Add(new Rule(-17,"WDVGA","wdvga",640,1136));
 		}
 
 		public void GenerateOrientations(){
@@ -881,11 +871,11 @@ namespace  Moscrif.IDE.Settings
 		}
 
 
-		/*public void GenerateIgnoresFiles(){
-			IgnoresFolders = new List<IgnoreFolder>();
-			IgnoresFolders.Add(new IgnoreFolder(".DS_Store",true,true));
-			IgnoresFolders.Add(new IgnoreFolder("Thumbs.db",true,true));
-		}*/
+		public void GenerateIgnoreFiles(){
+			IgnoresFiles = new List<IgnoreFolder>();
+			IgnoresFiles.Add(new IgnoreFolder(".DS_Store",true,true));
+			IgnoresFiles.Add(new IgnoreFolder("Thumbs.db",true,true));
+		}
 
 
 		public void GenerateIgnoreFolder(){

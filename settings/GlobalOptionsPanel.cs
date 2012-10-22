@@ -49,8 +49,11 @@ namespace Moscrif.IDE.Settings
 
 	internal partial class  GlobalOptionsWidget2 : Gtk.Bin
 	{
-		ListStore storeIF = new ListStore(typeof(string),typeof(bool),typeof(bool), typeof(IgnoreFolder));
-		private List<IgnoreFolder> ignoreFiles;
+		ListStore storeIFo = new ListStore(typeof(string),typeof(bool),typeof(bool), typeof(IgnoreFolder));
+		ListStore storeIFi = new ListStore(typeof(string),typeof(bool),typeof(bool), typeof(IgnoreFolder));
+		private List<IgnoreFolder> ignoreFolder;
+		private List<IgnoreFolder> ignoreFile;
+
 		Gtk.Menu popupColor = new Gtk.Menu();
 		Gtk.Window parentWindow;
 
@@ -101,20 +104,20 @@ namespace Moscrif.IDE.Settings
 			cbBackground.Color = new Gdk.Color(MainClass.Settings.BackgroundColor.Red,
 				MainClass.Settings.BackgroundColor.Green,MainClass.Settings.BackgroundColor.Blue);
 
-			ignoreFiles = new List<IgnoreFolder>( MainClass.Settings.IgnoresFolders.ToArray());
+			ignoreFolder = new List<IgnoreFolder>( MainClass.Settings.IgnoresFolders.ToArray());
 
 			tvIgnoreFolder.AppendColumn(MainClass.Languages.Translate("name"), new Gtk.CellRendererText(), "text", 0);
 
 			CellRendererToggle crt = new CellRendererToggle();
 			crt.Activatable = true;
 			crt.Toggled += delegate(object o, ToggledArgs args) {
-					TreeIter iter;
-					if (storeIF.GetIter (out iter, new TreePath(args.Path))) {
-						bool old = (bool) storeIF.GetValue(iter,1);
-					 	IgnoreFolder iFol = (IgnoreFolder) storeIF.GetValue(iter,3);
-						iFol.IsForIde =!old;
+				TreeIter iter;
+				if (storeIFo.GetIter (out iter, new TreePath(args.Path))) {
+					bool old = (bool) storeIFo.GetValue(iter,1);
+					IgnoreFolder iFol = (IgnoreFolder) storeIFo.GetValue(iter,3);
+					iFol.IsForIde =!old;
 
-						storeIF.SetValue(iter,1,!old);
+					storeIFo.SetValue(iter,1,!old);
 				}
 			};
 
@@ -124,25 +127,65 @@ namespace Moscrif.IDE.Settings
 			crt2.Activatable = true;
 			crt2.Toggled += delegate(object o, ToggledArgs args) {
 					TreeIter iter;
-					if (storeIF.GetIter (out iter, new TreePath(args.Path))) {
-						bool old = (bool) storeIF.GetValue(iter,2);
-					 	IgnoreFolder iFol = (IgnoreFolder) storeIF.GetValue(iter,3);
+				if (storeIFo.GetIter (out iter, new TreePath(args.Path))) {
+					bool old = (bool) storeIFo.GetValue(iter,2);
+					IgnoreFolder iFol = (IgnoreFolder) storeIFo.GetValue(iter,3);
 						//CombinePublish cp =(CombinePublish) fontListStore.GetValue(iter,2);
 						//cp.IsSelected = !old;
 						iFol.IsForPublish =!old;
 
-						storeIF.SetValue(iter,2,!old);
+					storeIFo.SetValue(iter,2,!old);
 				}
 			};
 
 			tvIgnoreFolder.AppendColumn(MainClass.Languages.Translate("ignore_for_Pub"), crt2 , "active", 2);
-			tvIgnoreFolder.Model = storeIF;
+			tvIgnoreFolder.Model = storeIFo;
 
 			foreach (IgnoreFolder ignoref in MainClass.Settings.IgnoresFolders){
 
-				Gtk.TreeIter tir = storeIF.AppendValues(ignoref.Folder,ignoref.IsForIde,ignoref.IsForPublish,ignoref);
+				Gtk.TreeIter tir = storeIFo.AppendValues(ignoref.Folder,ignoref.IsForIde,ignoref.IsForPublish,ignoref);
 			}
 
+			/* Ignore Files */
+			ignoreFile = new List<IgnoreFolder>( MainClass.Settings.IgnoresFiles.ToArray());
+			
+			tvIgnoreFiles.AppendColumn(MainClass.Languages.Translate("name"), new Gtk.CellRendererText(), "text", 0);
+			
+			CellRendererToggle crtFi = new CellRendererToggle();
+			crtFi.Activatable = true;
+			crtFi.Toggled += delegate(object o, ToggledArgs args) {
+				TreeIter iter;
+				if (storeIFi.GetIter (out iter, new TreePath(args.Path))) {
+					bool old = (bool) storeIFi.GetValue(iter,1);
+					IgnoreFolder iFol = (IgnoreFolder) storeIFi.GetValue(iter,3);
+					iFol.IsForIde =!old;
+					
+					storeIFi.SetValue(iter,1,!old);
+				}
+			};
+			
+			tvIgnoreFiles.AppendColumn(MainClass.Languages.Translate("ignore_for_ide"), crtFi , "active", 1);
+			
+			CellRendererToggle crtFi2 = new CellRendererToggle();
+			crtFi2.Activatable = true;
+			crtFi2.Toggled += delegate(object o, ToggledArgs args) {
+				TreeIter iter;
+				if (storeIFi.GetIter (out iter, new TreePath(args.Path))) {
+					bool old = (bool) storeIFi.GetValue(iter,2);
+					IgnoreFolder iFol = (IgnoreFolder) storeIFi.GetValue(iter,3);
+					iFol.IsForPublish =!old;
+					storeIFi.SetValue(iter,2,!old);
+				}
+			};
+			
+			tvIgnoreFiles.AppendColumn(MainClass.Languages.Translate("ignore_for_Pub"), crtFi2 , "active", 2);
+			tvIgnoreFiles.Model = storeIFi;
+			
+			foreach (IgnoreFolder ignoref in MainClass.Settings.IgnoresFiles){
+				
+				Gtk.TreeIter tir = storeIFi.AppendValues(ignoref.Folder,ignoref.IsForIde,ignoref.IsForPublish,ignoref);
+			}
+			/**/
 
 			Gdk.Pixbuf default_pixbuf = null;
 			string file = System.IO.Path.Combine(MainClass.Paths.ResDir, "stock-menu.png");
@@ -219,7 +262,9 @@ namespace Moscrif.IDE.Settings
 			MainClass.Settings.BackgroundColor.Blue= (byte)cbBackground.Color.Blue;
 
 			MainClass.Settings.IgnoresFolders.Clear();
-			MainClass.Settings.IgnoresFolders = new List<IgnoreFolder>(ignoreFiles.ToArray());
+			MainClass.Settings.IgnoresFolders = new List<IgnoreFolder>(ignoreFolder.ToArray());
+			MainClass.Settings.IgnoresFiles.Clear();
+			MainClass.Settings.IgnoresFiles = new List<IgnoreFolder>(ignoreFile.ToArray());
 		}
 
 		protected virtual void OnBtnAddIFClicked (object sender, System.EventArgs e)
@@ -230,8 +275,8 @@ namespace Moscrif.IDE.Settings
 				if (!String.IsNullOrEmpty(ed.TextEntry) ){
 
 					IgnoreFolder ifol = new IgnoreFolder(ed.TextEntry,true,true);
-					storeIF.AppendValues(ed.TextEntry,true,true,ifol);
-					ignoreFiles.Add(ifol);
+					storeIFo.AppendValues(ed.TextEntry,true,true,ifol);
+					ignoreFolder.Add(ifol);
 				}
 			}
 			ed.Destroy();
@@ -257,7 +302,7 @@ namespace Moscrif.IDE.Settings
 				if (!String.IsNullOrEmpty(ed.TextEntry) ){
 
 					iFol.Folder =ed.TextEntry;
-					storeIF.SetValues(ti,ed.TextEntry,iFol.IsForIde,iFol.IsForPublish,iFol);
+					storeIFo.SetValues(ti,ed.TextEntry,iFol.IsForIde,iFol.IsForPublish,iFol);
 				}
 			}
 			ed.Destroy();
@@ -282,8 +327,8 @@ namespace Moscrif.IDE.Settings
 			if (result != (int)Gtk.ResponseType.Yes)
 				return;
 
-			ignoreFiles.Remove(iFol);
-			storeIF.Remove(ref ti);
+			ignoreFolder.Remove(iFol);
+			storeIFo.Remove(ref ti);
 
 		}
 
@@ -331,12 +376,93 @@ namespace Moscrif.IDE.Settings
 				return;
 
 			MainClass.Settings.GenerateIgnoreFolder();
-			storeIF.Clear();
+			storeIFo.Clear();
 
 			foreach (IgnoreFolder ignoref in MainClass.Settings.IgnoresFolders){
 				
-				Gtk.TreeIter tir = storeIF.AppendValues(ignoref.Folder,ignoref.IsForIde,ignoref.IsForPublish,ignoref);
+				Gtk.TreeIter tir = storeIFo.AppendValues(ignoref.Folder,ignoref.IsForIde,ignoref.IsForPublish,ignoref);
 			}
+		}
+
+		protected void OnBtnEditIFiClicked (object sender, EventArgs e)
+		{
+			TreeSelection ts = tvIgnoreFiles.Selection;
+			
+			TreeIter ti = new TreeIter();
+			ts.GetSelected(out ti);
+			
+			TreePath[] tp = ts.GetSelectedRows();
+			if (tp.Length < 1)
+				return ;
+			
+			IgnoreFolder iFol = (IgnoreFolder)tvIgnoreFiles.Model.GetValue(ti, 3);
+			if (String.IsNullOrEmpty(iFol.Folder) ) return;
+			
+			EntryDialog ed = new EntryDialog(iFol.Folder,MainClass.Languages.Translate("new_name"),parentWindow);
+			int result = ed.Run();
+			if (result == (int)ResponseType.Ok){
+				if (!String.IsNullOrEmpty(ed.TextEntry) ){
+					
+					iFol.Folder =ed.TextEntry;
+					storeIFi.SetValues(ti,ed.TextEntry,iFol.IsForIde,iFol.IsForPublish,iFol);
+				}
+			}
+			ed.Destroy();
+		}
+
+		protected void OnBtnDeleteIFiClicked (object sender, EventArgs e)
+		{
+			TreeSelection ts = tvIgnoreFiles.Selection;
+			
+			TreeIter ti = new TreeIter();
+			ts.GetSelected(out ti);
+			
+			TreePath[] tp = ts.GetSelectedRows();
+			if (tp.Length < 1)
+				return ;
+			
+			IgnoreFolder iFol = (IgnoreFolder)tvIgnoreFiles.Model.GetValue(ti, 3);
+			if (iFol == null ) return;
+			
+			MessageDialogs md = new MessageDialogs(MessageDialogs.DialogButtonType.YesNo,  MainClass.Languages.Translate("delete_resolution", iFol.Folder), "", Gtk.MessageType.Question,parentWindow);
+			int result = md.ShowDialog();
+			if (result != (int)Gtk.ResponseType.Yes)
+				return;
+			
+			ignoreFile.Remove(iFol);
+			storeIFi.Remove(ref ti);
+		}
+
+		protected void OnBtnResetIFiClicked (object sender, EventArgs e)
+		{
+			MessageDialogs md = new MessageDialogs(MessageDialogs.DialogButtonType.YesNo, MainClass.Languages.Translate("question_default_ignorelist"), "", Gtk.MessageType.Question,parentWindow);
+			int result = md.ShowDialog();
+			
+			if (result != (int)Gtk.ResponseType.Yes)
+				return;
+			
+			MainClass.Settings.GenerateIgnoreFiles();
+			storeIFi.Clear();
+			
+			foreach (IgnoreFolder ignoref in MainClass.Settings.IgnoresFiles){
+				
+				Gtk.TreeIter tir = storeIFi.AppendValues(ignoref.Folder,ignoref.IsForIde,ignoref.IsForPublish,ignoref);
+			}
+		}
+
+		protected void OnBtnAddIFiClicked (object sender, EventArgs e)
+		{
+			EntryDialog ed = new EntryDialog("",MainClass.Languages.Translate("name"),parentWindow);
+			int result = ed.Run();
+			if (result == (int)ResponseType.Ok){
+				if (!String.IsNullOrEmpty(ed.TextEntry) ){
+					
+					IgnoreFolder ifol = new IgnoreFolder(ed.TextEntry,true,true);
+					storeIFi.AppendValues(ed.TextEntry,true,true,ifol);
+					ignoreFile.Add(ifol);
+				}
+			}
+			ed.Destroy();
 		}
 	}
 }

@@ -110,6 +110,7 @@ namespace Moscrif.IDE.Settings
 	{
 		// ked n ieje adresar vpublis-dir tak znepristupnit !!!!!!
 		private DevicePropertyData dpd;
+		private SkinThemeControl skinThemeControl;
 
 		//displey name, full path, is selected, location (workspace,app), publish path
 		Gtk.ListStore fontListStore = new Gtk.ListStore(typeof(string), typeof(string), typeof(bool),typeof(string),typeof(string));
@@ -407,12 +408,17 @@ namespace Moscrif.IDE.Settings
 		List<SettingValue> securityIOs = new List<SettingValue>();
 		public DeviceWidget(DevicePropertyData dpd,Gtk.Window parent)
 		{
+
 			parentWindow = parent;
 			this.dpd = dpd;
 			this.Build();
 
+			skinThemeControl = new SkinThemeControl();
+			//table2.Attach(skinThemeControl,0,1,0,1,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Expand,0,0);
 			/*this.WidthRequest = 650;
 			this.HeightRequest = 500;*/
+			hbox1.PackStart(skinThemeControl,true,true,0);
+			//table2.Attach(skinThemeControl,0,2,0,1,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Expand,0,0);
 
 			if(dpd.Device.Devicetype == DeviceType.iOS_5_0)
 				GetIdentify();
@@ -942,12 +948,14 @@ namespace Moscrif.IDE.Settings
 					fontListStore.AppendValues(System.IO.Path.GetFileName(fi), fi,isSelect,MainClass.Languages.Translate("location_application"),fontPath);
 				}
 			}
-			skinThemeControl.ShowAll();
+
 			if(scrollToIter){
 				TreePath path = fontListStore.GetPath(firstSelectedTI);
 				nvFonts.ScrollToCell(path,null, false, 0, 0);
 			}
 
+
+			skinThemeControl.ShowAll();
 			//ShowWidget();
 			/*
 			Gtk.CellRendererText textRenderer2 = new Gtk.CellRendererText();

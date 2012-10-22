@@ -121,12 +121,7 @@ namespace Moscrif.IDE.Controls
 			w6.XOptions = ((global::Gtk.AttachOptions)(4));
 			w6.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table2.Gtk.Table+TableChild
-			this.linkbutton1 = new global::Moscrif.IDE.Components.LinkButton ();
-			this.linkbutton1.CanFocus = true;
-			this.linkbutton1.Name = "linkbutton1";
-			this.linkbutton1.UseUnderline = true;
-			this.linkbutton1.LinkUrl = "http://moscrif.com/request-new-password?returnUrl=/login";
-			this.linkbutton1.Label = "Forgot your password?";
+			this.linkbutton1 = null;
 			this.table2.Add (this.linkbutton1);
 			global::Gtk.Table.TableChild w7 = ((global::Gtk.Table.TableChild)(this.table2 [this.linkbutton1]));
 			w7.TopAttach = ((uint)(3));
