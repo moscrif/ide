@@ -2,6 +2,10 @@ using System;
 using System.IO;
 using Gtk;
 using Gdk;
+using System.Linq;
+using System.Xml;
+using System.Xml.Serialization;
+using Moscrif.IDE.Iface.Entities;
 
 namespace Moscrif.IDE.Components
 {
@@ -11,9 +15,11 @@ namespace Moscrif.IDE.Components
 		private TextView tvDescription;
 		private ComboBox cbType;
 		private ListStore projectModel;
+		private TypFeedback typeFeedback;
 
-		public FeedbackControl() : base(3,2,false)
+		public FeedbackControl(TypFeedback type) : base(3,2,false)
 		{
+			typeFeedback = type;
 			this.RowSpacing = 3;
 			this.ColumnSpacing = 3;
 			Label lblSubject =  GetLabel("Subject");
@@ -64,6 +70,48 @@ namespace Moscrif.IDE.Components
 			label.Xalign = 0;
 			return label;
 		}
+
+		public string GetData(){
+			FeedbackData fd = new FeedbackData ();
+			fd.Typ = (int)typeFeedback;
+			fd.Subject = entrSubject.Text;
+			fd.Product = cbType.ActiveText;
+
+			if(MainClass.Platform.IsWindows){
+				fd.System = "Windows 7 32bit";
+			} else if(MainClass.Platform.IsMac) {
+				fd.System = "Mac OS X 10.7 (Lion)";
+			} else if(MainClass.Platform.IsX11) {
+				fd.System = "X11";
+			} else {
+				fd.System = "Unknow";
+			}
+
+			string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+			string newVersion = MainClass.Tools.VersionConverter(version);
+
+			fd.Version = newVersion; //"2012q3a";
+
+			fd.Description =tvDescription.Buffer.Text; 
+			
+			XmlSerializer x_serial = new XmlSerializer( fd.GetType());
+			StringWriter textWriter = new StringWriter();
+			
+			x_serial.Serialize(textWriter, fd);
+			return textWriter.ToString();
+		}
+		public enum TypFeedback{
+			Issue = 2,
+			Question = 3,
+			FAQ = 4,
+			Suggestion = 5
+		}
+
+
+		/*  Issue = 2,
+  Question = 3,
+  FAQ = 4,
+  Suggestion = 5*/
 	}
 }
 

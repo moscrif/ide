@@ -30,13 +30,10 @@ public partial class MainWindow : Gtk.Window
 
 	public ActionManager ActionUiManager = new ActionManager();
 
-	//private ListStore projectModel = new ListStore(typeof(string), typeof(string));
 	DropDownButton.ComboItemSet projectItems = new DropDownButton.ComboItemSet ();
 	DropDownButton.ComboItemSet deviceItems = new DropDownButton.ComboItemSet ();
 	DropDownButton.ComboItemSet resolutionItems = new DropDownButton.ComboItemSet ();
 
-	//private ListStore resolutionModel = new ListStore(typeof(string), typeof(string));
-	//private ListStore deviceModel = new ListStore(typeof(string), typeof(int));
 	private bool runningEmulator = false;
 
 	Pixbuf pixbufGreen = null;
@@ -47,20 +44,19 @@ public partial class MainWindow : Gtk.Window
 		get { return runningEmulator; }
 		set { runningEmulator = value;}
 	}
-
-	//private ComboBox cbProject = new ComboBox();
+	
 	private DropDownButton ddbProject = new DropDownButton();
 	private DropDownButton ddbDevice = new DropDownButton();
 	private DropDownButton ddbResolution = new DropDownButton();
-
-	//private ComboBox cbDevice = new ComboBox();
-	//private ComboBox cbResolution = new ComboBox();
 
 	private MenuBar mainMenu = new MenuBar();
 	Toolbar toolbarLeft = new Toolbar();
 	Toolbar toolbarMiddle = new Toolbar();
 	Toolbar toolbarRight1 = new Toolbar();
 	Toolbar toolbarRight2 = new Toolbar();
+	Toolbar toolbarBanner = new Toolbar ();
+	LinkImageButton bannerButton = new LinkImageButton();
+
 	public EditorNotebook EditorNotebook = new EditorNotebook();
 	public Notebook FileNotebook = new Notebook();
 	public Notebook PropertisNotebook = new Notebook();
@@ -423,7 +419,6 @@ public partial class MainWindow : Gtk.Window
 			}else  if ((TypeFile)fileType == TypeFile.AppFile){
 				
 				string file = "";
-				string appfile = "";
 				int typ = -1;
 				Gtk.TreeIter ti = new Gtk.TreeIter();
 				WorkspaceTree.GetSelectedFile(out file, out typ, out ti);
@@ -498,9 +493,7 @@ public partial class MainWindow : Gtk.Window
 							sbError.AppendLine("ERROR: " + String.Format("unable to open file {0} exception was :\n{1}", file, e.ToString()));
 							Logger.Error(String.Format("unable to open file {0} exception was :\n{1}", file, e.ToString()));
 						}
-	
 					}
-	
 				}
 			}
 		};
@@ -513,13 +506,16 @@ public partial class MainWindow : Gtk.Window
 
 		//vpMenuRight.Parent.ParentWindow.GetGeometry(out x, out y, out w, out h, out d);
 		tblMenuRight.Parent.ParentWindow.GetGeometry(out x, out y, out w, out h, out d);
+		tblMenuRight.RowSpacing = 0;
+		tblMenuRight.ColumnSpacing = 0;
+		tblMenuRight.BorderWidth = 0;
 		if(w<1200){
 			//vpMenuRight.WidthRequest =125;
 			tblMenuRight.WidthRequest =220;
 		} else {
 			//if(MainClass.Platform.IsMac)
 			//	vpMenuRight.WidthRequest =385;
-			tblMenuRight.WidthRequest =385;
+			tblMenuRight.WidthRequest =320;
 			//else 
 			//	vpMenuRight.WidthRequest =355;
 		}
@@ -581,32 +577,83 @@ public partial class MainWindow : Gtk.Window
 		btnSocketServer.WidthRequest = btnSocketServer.HeightRequest =24;
 		btnSocketServer.Image = new Gtk.Image(pixbufRed);
 
-		Thread ExecEditorThreads = new Thread(new ThreadStart(ExecEditorThread));
+		Thread ExecEditorThreads = new Thread(new ThreadStart(ExecEditorThreadLoop));
 
 		ExecEditorThreads.Name = "ExecEditorThread";
 		ExecEditorThreads.IsBackground = true;
 		ExecEditorThreads.Start();
-		LoadBaner();
+		//LoadDefaultBanner();
+
+		toolbarBanner = new Toolbar ();
+		toolbarBanner.WidthRequest = 220;
+		tblMenuRight.Attach(toolbarBanner,0,1,0,2,AttachOptions.Fill,AttachOptions.Expand|AttachOptions.Fill,0,0);
+		toolbarBanner.Add(bannerButton);
+		toolbarBanner.ShowAll();
+		LoadDefaultBanner();
+
+		Thread BannerThread = new Thread(new ThreadStart(BannerThreadLoop));
+		
+		BannerThread.Name = "BannerThread";
+		BannerThread.IsBackground = true;
+		BannerThread.Start();
+
 	}
 	
-	private void LoadBaner(){
+	private void LoadDefaultBanner(){
 		//hbMenuRight
 		string bannerParth  = System.IO.Path.Combine(MainClass.Paths.ResDir,"banner");
 		bannerParth = System.IO.Path.Combine(bannerParth,"test.png");
 		if(File.Exists(bannerParth)){
 
-			LinkImageButton lib = new LinkImageButton();
-			lib.Icon = bannerParth;
-			lib.LinkUrl = "http://www.moscrif.com";
-			tblMenuRight.Attach(lib,0,1,0,2,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Expand,0,0);
-			//Gtk.Image img = new Gtk.Image(bannerParth);
-			//tblMenuRight.Attach(img,0,1,0,2,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Expand,0,0);
-			//hbMenuRight.PackStart(img,true,true,0);
-			lib.ShowAll();
-
+			//bannerButton = new LinkImageButton();
+			//bannerButton.Icon = bannerParth;
+			bannerButton.ImageIcon = new Gdk.Pixbuf(bannerParth);
+			bannerButton.LinkUrl = "http://www.moscrif.com";
+			bannerButton.ShowAll();
+			//bannerButton.QueueDraw();
 		}
 	}
+	private BannersSystem bannersSystem; 
+	private void BannerThreadLoop()
+	{
+		bannersSystem = new BannersSystem();
 
+		bool play = true;
+		bool isBussy = false;
+		try {
+			while (play) {
+				Thread.Sleep (10000);
+				if (!isBussy) {
+					isBussy = true;
+					Banner bnr = bannersSystem.NextBanner();
+					if(bnr != null){
+						Gtk.Application.Invoke(delegate{
+							string bannerParth  = System.IO.Path.Combine(MainClass.Paths.ResDir,"banner");
+							bannerParth = System.IO.Path.Combine(bannerParth,"test.png");
+							//bannerButton.ImageIcon =new Gdk.Pixbuf(bannerParth); 
+
+							bannerButton.ImageIcon =bnr.BannerPixbuf;
+							bannerButton.LinkUrl = bnr.Url;
+							bannerButton.ShowAll();
+							//while (Gtk.Application.EventsPending ())
+							//	Gtk.Application.RunIteration ();
+						});
+
+					} else {
+						Console.WriteLine("Banner is NUll");
+					}
+					isBussy = false;
+				}			
+			}
+		}catch(ThreadAbortException tae){
+			Thread.ResetAbort ();
+			Logger.Error("ERROR - Cannot run banner thread.");
+			Logger.Error(tae.Message);
+			LoadDefaultBanner();
+		}finally{
+			
+		}
+	}
 
 	private void RenderResolution (CellLayout cell_layout, CellRenderer cell, TreeModel model, TreeIter iter)
 	{
@@ -868,8 +915,6 @@ public partial class MainWindow : Gtk.Window
 	}
 
 	public void ReloadPanel(){
-
-
 		int x, y, w, h, d = 0;
 		hpOutput.Parent.ParentWindow.GetGeometry(out x, out y, out w, out h, out d);
 
@@ -887,16 +932,16 @@ public partial class MainWindow : Gtk.Window
 
 		hpRight.ParentWindow.GetGeometry(out x, out y, out w, out h, out d);
 		if(MainClass.Workspace.ShowRightPane){
-			//if ((hpBodyRightWidth != 0) &&(hpBodyRightWidth < w)){
-			//	hpRight.Position = w-hpBodyRightWidth;
-			//}else {
+			if ((hpBodyRightWidth != 0) &&(hpBodyRightWidth < w)){
+				hpRight.Position = w-hpBodyRightWidth;
+			}else {
 				hpRight.Position = w-450;
-			//}
+			}
 
 		}else {
 			hpRight.Position = w;//100;
 		}
-
+		Console.WriteLine("hpRight.Position"+hpRight.Position);
 
 		hpOutput.Parent.ParentWindow.GetGeometry(out x, out y, out w, out h, out d);
 		if(MainClass.Workspace.ShowLeftPane){
@@ -1080,12 +1125,12 @@ public partial class MainWindow : Gtk.Window
 	#endregion
 
 	#region Task
-
-	private void ExecEditorThread()
+	
+	private void ExecEditorThreadLoop()
     	{
 
-	bool play = true;
-	bool isBussy = false;
+		bool play = true;
+		bool isBussy = false;
 		try {
 	   		while (play) {
 				Thread.Sleep (2000);
@@ -2220,7 +2265,7 @@ public partial class MainWindow : Gtk.Window
 
 	private void ReloadDevice(bool setSelectedDevices){
 
-		//deviceModel.Clear();
+
 		ddbDevice.Clear();
 		foreach (Rule rl in MainClass.Settings.Platform.Rules) {
 			if( (rl.Tag == -1 ) && !MainClass.Settings.ShowUnsupportedDevices) continue;
@@ -2419,6 +2464,16 @@ public partial class MainWindow : Gtk.Window
 			cbIpAdress.Sensitive = false;
 			btnSocketServer.Image = new Gtk.Image(pixbufGreen);
 		}
+	}
+
+	protected void OnRealized (object sender, EventArgs e)
+	{
+
+	}
+
+	protected void OnShown (object sender, EventArgs e)
+	{
+
 	}
 
 }

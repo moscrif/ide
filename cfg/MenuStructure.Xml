@@ -13,6 +13,7 @@
 	    <toolitem name="ShowRightPane" action="showrightpane" />
 	</toolbar>
 	<toolbar name="toolbarRight2">	
+		<toolitem name="sendfeedback" action="sendfeedback" />
 		<toolitem name="About" action="about" />
 	    <toolitem name="Quit" action="quit" />
 	</toolbar>	

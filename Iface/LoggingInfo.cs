@@ -23,6 +23,7 @@ namespace Moscrif.IDE.Iface
 		string pingUrl = MainClass.Settings.pingUrl ;
 		string loggUrl = MainClass.Settings.loggUrl ;
 		string loginUrl = MainClass.Settings.loginUrl ;
+		string feedbackUrl = MainClass.Settings.feedbackUrl ;
 
 		private  string token;
 		private ActionId action;
@@ -222,7 +223,43 @@ namespace Moscrif.IDE.Iface
 
 		public delegate void LoginYesTaskHandler(object sender, Account account);
 		public delegate void LoginNoTaskHandler(object sender, string message);
-		
+
+		public bool SendFeedback(string xmlData,LoginYesTaskHandler loggYesTask,LoginNoTaskHandler loggNoTask){
+			
+			if((MainClass.Settings.Account == null) || (String.IsNullOrEmpty(MainClass.Settings.Account.Token))){
+				return false;
+			}
+			string token =MainClass.Settings.Account.Token; 
+			
+			string URL =feedbackUrl;
+			
+			WebClient client = new WebClient();
+			
+			if( !string.IsNullOrEmpty(token))
+				URL = String.Format(URL+"?token={0}&action={1}",token,(int)action);
+			else {
+				return false;
+			}
+			
+			string data = "";
+			try{
+
+				string resp = client.UploadString(new Uri(URL),xmlData);
+				Console.WriteLine(resp);
+				if(loggYesTask!= null) loggYesTask(null,null);
+				
+			}catch(Exception ex){
+				string statusDesc = "";
+				GetStatusCode(client,out statusDesc);
+				Console.WriteLine(ex.Message);
+				if(loggNoTask!= null) loggNoTask(null,ex.Message);
+				
+				return false;
+			}
+			return true;
+		}
+
+
 		public enum  ActionId {
 			IDELogin = 100,
 			IDEStart = 101,

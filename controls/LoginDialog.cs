@@ -112,12 +112,13 @@ namespace Moscrif.IDE.Controls
 
 		public LoginDialog(Gtk.Window parentWindows)
 		{
-			this.Build();
-			this.HeightRequest = 235;
 			if(parentWindows!=null)
 				this.TransientFor = parentWindows;
 			else
 				this.TransientFor = MainClass.MainWindow;
+
+			this.Build();
+			this.HeightRequest = 235;
 
 			this.Title = MainClass.Languages.Translate("moscrif_ide_title_f1");
 			btnInfo.Label = "Login";

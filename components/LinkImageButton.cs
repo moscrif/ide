@@ -69,12 +69,23 @@ namespace Moscrif.IDE.Components
 			get { return icon; }
 			set { icon = value; UpdateLabel (); }
 		}
+
+		public Gdk.Pixbuf ImageIcon {
+			get{
+				return null;
+			}
+			set { 	
+				Image = new Image(value);
+				Image.Visible = true; 
+			}
+		}
 		
 		void UpdateLabel ()
 		{
 			if (icon != null) {
 				Image = new Image(new Gdk.Pixbuf(icon));
 				Image.Visible = true;
+
 			} else {
 				Image.Visible = false;
 			}

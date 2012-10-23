@@ -78,7 +78,7 @@ namespace  Moscrif.IDE.Settings
 
 		[XmlAttribute("workspaceCount")]
 		public int WorkspaceCount = 1;
-		/*
+
 #if DEBUG 
 		//[XmlElement("signUrl")]
 		[XmlIgnore]
@@ -114,7 +114,14 @@ namespace  Moscrif.IDE.Settings
 		//[XmlElement("loginUrl")]
 		[XmlIgnore]
 		public String loginUrl = "http://rc.moscrif.com/ide/checkLogin.ashx"; 
-#else */
+
+		[XmlIgnore]
+		public String feedbackUrl = "http://rc.moscrif.com/ide/reportIssue.ashx"; 
+
+		[XmlIgnore]
+		public String bannerUrl = "http://rc.moscrif.com/ide/getBanner.ashx"; 
+	
+#else 
 		//[XmlElement("signUrl")]
 		[XmlIgnore]
 		public String signUrl = "http://moscrif.com/ide/signApp.ashx?t={0}&a={1}";
@@ -149,7 +156,13 @@ namespace  Moscrif.IDE.Settings
 		//[XmlElement("loginUrl")]
 		[XmlIgnore]
 		public String loginUrl = "http://moscrif.com/ide/checkLogin.ashx"; 
-//#endif
+
+		[XmlIgnore]
+		public String feedbackUrl = "http://moscrif.com/ide/reportIssue.ashx"; 
+
+		[XmlIgnore]
+		public String bannerUrl = "http://moscrif.com/ide/getBanner.ashx"; 
+#endif
 
 		[XmlElement("backgroundColor")]
 		public BackgroundColors BackgroundColor = null;

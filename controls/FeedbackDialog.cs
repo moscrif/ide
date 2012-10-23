@@ -12,9 +12,10 @@ namespace Moscrif.IDE.Controls
 	public partial class FeedbackDialog : Gtk.Dialog
 	{
 		Notebook notb = new Notebook();
-		FeedbackControl feedbackIssue = new  FeedbackControl();
-		FeedbackControl feedbackQuestion = new  FeedbackControl();
-		FeedbackControl feedbackSuggestion = new  FeedbackControl();
+
+		FeedbackControl feedbackIssue = new  FeedbackControl(FeedbackControl.TypFeedback.Issue);
+		FeedbackControl feedbackQuestion = new  FeedbackControl(FeedbackControl.TypFeedback.Question);
+		FeedbackControl feedbackSuggestion = new  FeedbackControl(FeedbackControl.TypFeedback.Suggestion);
 		public FeedbackDialog()
 		{
 			this.Build();
@@ -38,8 +39,10 @@ namespace Moscrif.IDE.Controls
 
 		public void LoginYesWrite(object sender, Account  account)
 		{
+
 			lblStatus.LabelProp = MainClass.Languages.Translate("feedback-send");
 			buttonOk.Sensitive = true;
+
 		}
 		
 		public void LoginNoWrite(object sender, string  message)
@@ -54,24 +57,32 @@ namespace Moscrif.IDE.Controls
 
 		protected void OnButtonOkClicked (object sender, EventArgs e)
 		{
+
 			string feedText = "";
 			switch (notb.Page){
 				case 0:
-					feedText = feedbackIssue.GetDescription();
+				feedText = feedbackIssue.GetData();
 					break;
 				case 1:
-					feedText = feedbackQuestion.GetDescription();
+				feedText = feedbackQuestion.GetData();
 					break;
 				case 2:
-					feedText = feedbackSuggestion.GetDescription();
+				feedText = feedbackSuggestion.GetData();
 					break;
 			}
+			Console.WriteLine(feedText);
+
+			if(MainClass.Settings.Account == null) 
+				Console.WriteLine("Account IS NULL");
+
+			if(String.IsNullOrEmpty(MainClass.Settings.Account.Token)) 
+				Console.WriteLine("Token IS NULL");
 
 			if((MainClass.Settings.Account == null) || (String.IsNullOrEmpty(MainClass.Settings.Account.Token))){
 				MessageDialogs md =
 					new MessageDialogs(MessageDialogs.DialogButtonType.Ok, MainClass.Languages.Translate("invalid_login_f1"),"", Gtk.MessageType.Error,this);
 				md.ShowDialog();
-
+				Console.WriteLine("IS NULL");
 				return ;
 			}
 
@@ -86,7 +97,8 @@ namespace Moscrif.IDE.Controls
 				Gtk.Application.RunIteration ();		
 
 			LoggingInfo log = new LoggingInfo();
-			log.LoggWebString (LoggingInfo.ActionId.IDERequestHelp,feedText,LoginYesWrite,LoginNoWrite);
+			log.SendFeedback (feedText,LoginYesWrite,LoginNoWrite);
+
 			//this.Respond(Gtk.ResponseType.Ok);
 		}
 	}

@@ -815,19 +815,19 @@ namespace Moscrif.IDE.Workspace
 					using (FileStream fs = File.OpenRead(filePath)) {
 						XmlSerializer serializer = new XmlSerializer(typeof(Project));
 
-					Project p = (Project)serializer.Deserialize(fs);
-						p.FilePath = filePath;
+						Project p = (Project)serializer.Deserialize(fs);
+							p.FilePath = filePath;
 
-					if(!System.IO.File.Exists(p.AbsolutAppFilePath)){
-							if(showError){
-								MessageDialogs md = new MessageDialogs(MessageDialogs.DialogButtonType.Ok, MainClass.Languages.Translate("project_is_corrupted_f2", filePath), "", Gtk.MessageType.Error,null);
-								md.ShowDialog();
-							} else if(throwError){
-								throw new Exception(MainClass.Languages.Translate("project_is_corrupted_f2", filePath));
-							}
-						return null;
-					}
-					return p;
+						if(!System.IO.File.Exists(p.AbsolutAppFilePath)){
+								if(showError){
+									MessageDialogs md = new MessageDialogs(MessageDialogs.DialogButtonType.Ok, MainClass.Languages.Translate("project_is_corrupted_f2", filePath), "", Gtk.MessageType.Error,null);
+									md.ShowDialog();
+								} else if(throwError){
+									throw new Exception(MainClass.Languages.Translate("project_is_corrupted_f2", filePath));
+								}
+							return null;
+						}
+						return p;
 					}
 				}catch(Exception ex){
 

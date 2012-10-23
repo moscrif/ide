@@ -8,7 +8,7 @@ namespace Moscrif.IDE.Actions
 {
 	public class SendFeedbackAction: Gtk.Action
 	{
-		public SendFeedbackAction(): base("sendfeedback", MainClass.Languages.Translate("menu_send_feedback"), MainClass.Languages.Translate("menu_send_feedback"),null)
+		public SendFeedbackAction(): base("sendfeedback", MainClass.Languages.Translate("menu_send_feedback"), MainClass.Languages.Translate("menu_send_feedback"),"about.png")
 		{
 		}
 

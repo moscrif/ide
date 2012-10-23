@@ -738,9 +738,9 @@ namespace Moscrif.IDE
 
 	void OnTest(object obj, EventArgs args)
 	{
-			Console.WriteLine("MainClass.MainWindow.hpRight.Position SW 1 -:"+MainClass.MainWindow.hpRight.Position );
+		Console.WriteLine("MainClass.MainWindow.hpRight.Position SW 1 -:"+MainClass.MainWindow.hpRight.Position );
 			//	throw new NotImplementedException();
-			return;
+		return;
 		/*PublishDialogWizzard npw = new PublishDialogWizzard();
 		int result = npw.Run();
 		if (result == (int)ResponseType.Ok) {
