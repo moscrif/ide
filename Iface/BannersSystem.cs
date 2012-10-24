@@ -24,12 +24,17 @@ namespace Moscrif.IDE.Iface
 			if(GetBanner() && !string.IsNullOrEmpty(bannerFile)){
 				//Console.WriteLine(bannerFile);
 				banners = Banners.LoadBanners(bannerFile);
+			} else {
+				banners = Banners.OpenBannerCache();
+			}
+			if(!banners.IsCache){
+				banners.SaveBannerCache();
 			}
 		}
 
 		private int cnt =0;
-		//private int tmp =1;
-		//private int ErrorCount = 0;
+
+		private int ErrorCount = 0;
 		public Banner NextBanner(){
 			if((banners.Items == null) || (banners.Items.Count== 0)){
 				return null;
@@ -40,21 +45,20 @@ namespace Moscrif.IDE.Iface
 				cnt++;
 				if(banner.BannerPixbuf == null){
 					try{
-						using (WebClient client = new WebClient())
-						{
-							/*string bannerParth  = System.IO.Path.Combine(MainClass.Paths.ResDir,"banner");
-							bannerParth = System.IO.Path.Combine(bannerParth,"test"+tmp.ToString()+".png");
-							tmp++;
-							if(tmp>3)
-								tmp =1;
-							*/
-							byte[] imageBuffer = client.DownloadData(banner.Image);
-
-							banner.BannerPixbuf =new Gdk.Pixbuf(imageBuffer);//imageBuffer);
+						if(!banners.IsCache){
+							banner.Load();							
+							/*banner.LoadFromUrl();
+							banner.SaveCache();
+							ErrorCount = 0;*/
+						} else {
+							banner.LoadFromCache();
 						}
 					}catch (Exception ex){
-						//ErrorCount ++;
-						//if(ErrorCount>=5)
+						ErrorCount ++;
+						if(ErrorCount>=3){
+							cnt++;
+							ErrorCount = 0;
+						}
 						return null;
 					}
 				}

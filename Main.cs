@@ -65,8 +65,8 @@ namespace Moscrif.IDE
 			if (Platform.IsWindows){
 				string themePath = Paths.DefaultTheme;
 				if (System.IO.File.Exists (themePath)){
-					//Gtk.Rc.AddDefaultFile(themePath);
-					//Gtk.Rc.Parse (themePath);
+					Gtk.Rc.AddDefaultFile(themePath);
+					Gtk.Rc.Parse (themePath);
 				}
 			}
 

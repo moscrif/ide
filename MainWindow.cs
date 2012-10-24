@@ -56,6 +56,7 @@ public partial class MainWindow : Gtk.Window
 	Toolbar toolbarRight2 = new Toolbar();
 	Toolbar toolbarBanner = new Toolbar ();
 	LinkImageButton bannerButton = new LinkImageButton();
+	BannerButton bannerImage = new BannerButton ();
 
 	public EditorNotebook EditorNotebook = new EditorNotebook();
 	public Notebook FileNotebook = new Notebook();
@@ -587,9 +588,12 @@ public partial class MainWindow : Gtk.Window
 		toolbarBanner = new Toolbar ();
 		toolbarBanner.WidthRequest = 220;
 		tblMenuRight.Attach(toolbarBanner,0,1,0,2,AttachOptions.Fill,AttachOptions.Expand|AttachOptions.Fill,0,0);
-		toolbarBanner.Add(bannerButton);
+
+		toolbarBanner.Add(bannerImage);//(bannerButton);
 		toolbarBanner.ShowAll();
 		LoadDefaultBanner();
+
+		bannerImage.GdkWindow.Cursor = new Gdk.Cursor(Gdk.CursorType.Hand2);
 
 		Thread BannerThread = new Thread(new ThreadStart(BannerThreadLoop));
 		
@@ -604,13 +608,12 @@ public partial class MainWindow : Gtk.Window
 		string bannerParth  = System.IO.Path.Combine(MainClass.Paths.ResDir,"banner");
 		bannerParth = System.IO.Path.Combine(bannerParth,"test.png");
 		if(File.Exists(bannerParth)){
-
-			//bannerButton = new LinkImageButton();
-			//bannerButton.Icon = bannerParth;
+			bannerImage.ImageIcon = new Gdk.Pixbuf(bannerParth);
+			bannerImage.LinkUrl = "http://www.moscrif.com";
+			/*
 			bannerButton.ImageIcon = new Gdk.Pixbuf(bannerParth);
 			bannerButton.LinkUrl = "http://www.moscrif.com";
-			bannerButton.ShowAll();
-			//bannerButton.QueueDraw();
+			bannerButton.ShowAll();*/
 		}
 	}
 	private BannersSystem bannersSystem; 
@@ -622,25 +625,23 @@ public partial class MainWindow : Gtk.Window
 		bool isBussy = false;
 		try {
 			while (play) {
-				Thread.Sleep (10000);
+				Thread.Sleep (15000);
 				if (!isBussy) {
 					isBussy = true;
 					Banner bnr = bannersSystem.NextBanner();
-					if(bnr != null){
+					if((bnr != null) && (bnr.BannerPixbuf != null)){
 						Gtk.Application.Invoke(delegate{
-							string bannerParth  = System.IO.Path.Combine(MainClass.Paths.ResDir,"banner");
-							bannerParth = System.IO.Path.Combine(bannerParth,"test.png");
-							//bannerButton.ImageIcon =new Gdk.Pixbuf(bannerParth); 
-
-							bannerButton.ImageIcon =bnr.BannerPixbuf;
+							bannerImage.ImageIcon = bnr.BannerPixbuf;
+							bannerImage.LinkUrl = bnr.Url;
+							/*bannerButton.ImageIcon = bnr.BannerPixbuf;
 							bannerButton.LinkUrl = bnr.Url;
-							bannerButton.ShowAll();
+							bannerButton.ShowAll();*/
 							//while (Gtk.Application.EventsPending ())
 							//	Gtk.Application.RunIteration ();
 						});
 
 					} else {
-						Console.WriteLine("Banner is NUll");
+						Console.WriteLine("Banner is NULL");
 					}
 					isBussy = false;
 				}			

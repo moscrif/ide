@@ -3,16 +3,30 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 
 namespace Moscrif.IDE.Iface.Entities
 {
 	[XmlRoot("banners")]
 	public class Banners
 	{
-		public Banners() {Items = new List<Banner>();}
+		public Banners() {
+			Items = new List<Banner>();
+			IsCache = false;
+		}
 
 		[XmlElement("banner")]
 		public List<Banner> Items {get;set;}
+
+		[XmlIgnore]
+		public bool IsCache {get;set;}
+
+		[XmlIgnore]
+		public string CacheFilePath {
+			get{
+				return System.IO.Path.Combine(MainClass.Paths.BannerCache,"banners.xml");
+			}
+		}
 
 		public static Banners LoadBanners(string data){
 			try {
@@ -27,13 +41,37 @@ namespace Moscrif.IDE.Iface.Entities
 			}
 		}
 
-		public string Save(){
+		public static Banners OpenBannerCache(){
+			string bannerCachePath = System.IO.Path.Combine(MainClass.Paths.BannerCache,"banners.xml");
+			if (File.Exists(bannerCachePath)){
+				using (FileStream fs = File.OpenRead(bannerCachePath)) {
+					XmlSerializer serializer = new XmlSerializer(typeof(Banners));
+					
+					Banners banners= (Banners)serializer.Deserialize(fs);
+					banners.IsCache = true;
+					return banners;
+				}
+			}
+			return new Banners();
 
-			XmlSerializer x_serial = new XmlSerializer(typeof(Banners));
-			StringWriter textWriter = new StringWriter();
-			
-			x_serial.Serialize(textWriter, this);
-			return textWriter.ToString();
+		}
+
+		public void SaveBannerCache(){
+			try{
+				XmlSerializer x_serial = new XmlSerializer(typeof(Banners));
+
+				using (XmlWriter wr = XmlWriter.Create( this.CacheFilePath )) {
+					x_serial.Serialize( wr, this );
+				}
+
+				/*StringWriter textWriter = new StringWriter();
+				
+				x_serial.Serialize(textWriter, this);
+				return textWriter.ToString();*/
+
+			}catch(Exception ex){
+				Tool.Logger.Error(ex.Message);
+			}
 		}
 
 	}
@@ -56,6 +94,60 @@ namespace Moscrif.IDE.Iface.Entities
 
 		[XmlElement("image")]
 		public string Image;
+
+		[XmlIgnore]
+		public string CacheFilePath{
+			get{
+				return System.IO.Path.Combine(MainClass.Paths.BannerCache,CacheFileName);
+			}
+		}
+
+		[XmlIgnore]
+		public string CacheFileName{
+			get{
+				return  MainClass.Tools.GetMd5Sum(Image)+".png";
+			}
+		}
+
+		public void Load(){
+			try{
+				LoadFromUrl();
+				SaveCache();
+			} catch (Exception ex){
+				Console.WriteLine(ex.Message);
+				LoadFromCache();
+			}			
+		}
+
+		public void LoadFromCache(){
+			if(File.Exists(CacheFilePath))
+				this.BannerPixbuf =new Gdk.Pixbuf(CacheFilePath);
+			else 
+				this.BannerPixbuf = null;
+		}
+
+
+		public void LoadFromUrl(){
+			using (WebClientTimeout client = new WebClientTimeout(5000))
+			{
+				byte[] imageBuffer = client.DownloadData(this.Image);
+				this.BannerPixbuf =new Gdk.Pixbuf(imageBuffer);//imageBuffer);
+			}
+		}
+
+		public void SaveCache(){
+			try{
+				if(File.Exists(CacheFilePath)){
+					File.Delete(CacheFilePath);
+				}
+				if(BannerPixbuf!= null){
+					BannerPixbuf.Save(CacheFilePath,"png");
+				}
+			}catch(Exception ex){
+				Tool.Logger.Error(ex.Message);
+			}
+
+		}
 
 		[XmlIgnore]
 		public Gdk.Pixbuf BannerPixbuf{

@@ -132,6 +132,21 @@ namespace Moscrif.IDE.Iface
 			}
 		}
 
+		private string bannerCache;
+		public string BannerCache
+		{
+			get {
+				if (String.IsNullOrEmpty(bannerCache)){
+	
+					bannerCache = System.IO.Path.Combine(SettingDir,".Banners");
+					if (!Directory.Exists(bannerCache))
+						 Directory.CreateDirectory(bannerCache);
+	
+				}
+				return bannerCache;
+			}
+		}
+
 
 		private string tempDir;
 		public string TempDir

@@ -315,7 +315,6 @@
     <Compile Include="components\ImageToolsControl.cs" />
     <Compile Include="settings\ImageEditorPanel.cs" />
     <Compile Include="SplashScreen.cs" />
-    <Compile Include="components\LinkImageButton.cs" />
     <Compile Include="actions\GenerateAutoCompleteWords.cs" />
     <Compile Include="settings\CompletedCache.cs" />
     <Compile Include="controls\FileExplorer.cs" />
@@ -468,6 +467,9 @@
     <Compile Include="Iface\Entities\FeedbackData.cs" />
     <Compile Include="Iface\BannersSystem.cs" />
     <Compile Include="Iface\Entities\Banners.cs" />
+    <Compile Include="components\BannerButton.cs" />
+    <Compile Include="components\LinkImageButton.cs" />
+    <Compile Include="Iface\WebClientTimeout.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
