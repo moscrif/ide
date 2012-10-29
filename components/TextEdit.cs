@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Moscrif.IDE.Iface.Entities;
 
+
 namespace Moscrif.IDE.Components
 {
 	public class TextEdit : Mono.TextEditor.TextEditor,ICompletionWidget
@@ -286,7 +287,26 @@ namespace Moscrif.IDE.Components
 		protected override bool OnFocusOutEvent (Gdk.EventFocus evnt)
 		{
 			CompletionWindowManager.HideWindow ();
+			ParameterInformationWindowManager.HideWindow (this);
 			return base.OnFocusOutEvent (evnt); 
+		}
+
+		[GLib.ConnectBefore]
+		protected override bool OnButtonReleaseEvent(Gdk.EventButton e)
+		{
+			int offset =this.Document.LocationToOffset(this.Caret.Location);
+			int lineNumber= this.Document.OffsetToLineNumber(offset);
+			LineSegment lineSegment = this.Document.GetLine(lineNumber);
+			
+			string lineText =this.Document.GetTextBetween(lineSegment.Offset,offset);
+			
+			
+			int countBrackets1 = lineText.Count(c => c == '(');
+			int countBrackets2 = lineText.Count(c => c == ')');
+			if(countBrackets1<=countBrackets2){
+				ParameterInformationWindowManager.HideWindow(this);
+			}
+			return base.OnButtonReleaseEvent(e);
 		}
 
 		[GLib.ConnectBefore]
@@ -316,6 +336,12 @@ namespace Moscrif.IDE.Components
 						return true;
 				}
 			//}
+
+			if (ParameterInformationWindowManager.IsWindowVisible) {
+				if (ParameterInformationWindowManager.ProcessKeyEvent (this, evnt.Key, evnt.State))
+					return false;
+			}
+
 			if(CompletionWindowManager.IsTemplateModes){
 				return true;
 			}
@@ -328,7 +354,20 @@ namespace Moscrif.IDE.Components
 
 			completionType = CompletionTyp.allType;
 
-			if (evnt.State != Gdk.ModifierType.None) return result;
+			if ((evnt.State != Gdk.ModifierType.None) && charKey!='(' && charKey!=')') return result;
+
+			int offset =this.Document.LocationToOffset(this.Caret.Location);
+			int lineNumber= this.Document.OffsetToLineNumber(offset);
+			LineSegment lineSegment = this.Document.GetLine(lineNumber);
+			
+			string lineText =this.Document.GetTextBetween(lineSegment.Offset,offset);
+
+
+			int countBrackets1 = lineText.Count(c => c == '(');
+			int countBrackets2 = lineText.Count(c => c == ')');
+			if(countBrackets1<=countBrackets2){
+				ParameterInformationWindowManager.HideWindow(this);
+			}
 
 			if( ( (charKey == '\0') || (char.IsPunctuation(charKey)) &&
 						( char.IsSymbol(charKey) )
@@ -338,13 +377,14 @@ namespace Moscrif.IDE.Components
 						&& ( charKey!= '_')
 						&& ( charKey!= '.'))
 			{
+
 				return result;
 			}
 
-			int offset =this.Document.LocationToOffset(this.Caret.Location);
 
 			int endOffset = offset;
 			offset = FindPrevWordOffset(offset);
+
 			if ( offset > 0 || endOffset > 0 || offset < endOffset)
 			{
 				int offset2 =FindPrevWordOffsetStartSpace(offset);
@@ -356,11 +396,11 @@ namespace Moscrif.IDE.Components
 				//Console.WriteLine("previousWord-> {0}",previousWord);
 				//Console.WriteLine("previousWord-> {0}",previousWordDot);
 
-				int lineNumber= this.Document.OffsetToLineNumber(endOffset);
+				/*int lineNumber= this.Document.OffsetToLineNumber(endOffset);
 				LineSegment lineSegment = this.Document.GetLine(lineNumber);
 
 				string lineText =this.Document.GetTextBetween(lineSegment.Offset,endOffset);
-
+*/
 
 				if (!string.IsNullOrEmpty(lineText)){ // som za komentarom
 					if (lineText.Contains("//")) return result;
@@ -373,6 +413,26 @@ namespace Moscrif.IDE.Components
 				//int countComment = CountExpresion(""",docText);
 
 				int countSem = docText.Count(c => c == '"');
+
+				if(charKey=='('){
+					int offsetB = FindPrevWordOffsetWithoutBrackets(offset);
+					string  previousWordB = this.Document.GetTextBetween(offsetB,offset-1).Trim();
+					if ((charKey == '('  ) || (previousWordB.Trim().Contains('(')   )){
+						ParameterDataProvider pdp = new ParameterDataProvider(this,previousWordB.Trim());
+						/*IParameterDataProvider cp = null;
+					CodeCompletionContext ctx = CreateCodeCompletionContext (cpos);
+					cp = ParameterCompletionCommand (ctx);
+*/
+						ParameterInformationWindowManager.ShowWindow(this,pdp);
+						
+						return result;
+					}					
+					return result;					
+				}
+				if(charKey==')'){
+					ParameterInformationWindowManager.HideWindow(this);
+					return result;
+				}
 
 				/*if(lineText.Trim().StartsWith("include")){
 					completionType = CompletionTyp.includeType;
@@ -392,6 +452,8 @@ namespace Moscrif.IDE.Components
 
 				if (previousWord.Trim()=="new")
 					completionType = CompletionTyp.newType;
+
+
 
 				string word = this.Document.GetTextAt (offset, endOffset - offset).Trim();
 				if ((!IsKeyvord(previousWord.Trim()) && IsIdentifier(word)) ||
@@ -484,6 +546,22 @@ namespace Moscrif.IDE.Components
 				) ))
 				;
 
+			return ++offset;
+		}
+
+		private int FindPrevWordOffsetWithoutBrackets ( int offset)// MonoDevelop.Ide.Gui.TextEditor editor,
+		{
+			int endOffset = offset;
+			
+			while(--offset >= 0 && ( ( (!char.IsPunctuation(this.Document.GetCharAt (offset))) &&
+			                          ( !char.IsSymbol(this.Document.GetCharAt (offset)) ) &&
+			                          ( !char.IsWhiteSpace(this.Document.GetCharAt (offset)) )
+			                          || ( this.Document.GetCharAt (offset)== '#')
+			                          || ( this.Document.GetCharAt (offset)== '_')
+			                          || ( this.Document.GetCharAt (offset)== '(')
+			                          ) ))
+				;
+			
 			return ++offset;
 		}
 
@@ -607,17 +685,11 @@ namespace Moscrif.IDE.Components
 		        Stack<FoldSegment> foldSegments = new Stack<FoldSegment> ();
 
 			string allRegex =@"//\s*?@region.*|//\s*?@endregion\s*?";
-			//string allRegex =String.Format(@"//\s*?@region\s*?|//\s*?@endregion\s*?");
-			// (@"(//\s*?@region\s*?[\s0-9a-zA-Z\s]+$)|(//\s*?@endregion\s*?)");
-
 			Regex regexAll = new Regex(allRegex, RegexOptions.IgnorePatternWhitespace | RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
 
 			MatchCollection mcAll = regexAll.Matches(this.Document.Text);
 
-			/*foreach(Match m in mcAll){
-				Console.WriteLine("{0} ->{1}",m.Index, m.Value);
-			}*/
 			ParseFoldingRegion(mcAll,ref result, 0);
 
 			allRegex =@"{|}";
@@ -625,20 +697,12 @@ namespace Moscrif.IDE.Components
 
 			mcAll = regexBar.Matches(this.Document.Text);
 
-			/*foreach(Match m in mcAll){
-				Console.WriteLine("{0} ->{1}",m.Index, m.Value);
-			}*/
-
 			ParseFolding(mcAll,ref result, 0,"{","}");
 
 			allRegex =@"/\*|\*/";
 			Regex regexComentary = new Regex(allRegex, RegexOptions.IgnorePatternWhitespace | RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
 			mcAll = regexComentary.Matches(this.Document.Text);
-
-			/*foreach(Match m in mcAll){
-				Console.WriteLine("{0} ->{1}",m.Index, m.Value);
-			}*/
 
 			ParseFolding(mcAll,ref result, 0,"/*","*/");
 
@@ -817,6 +881,12 @@ namespace Moscrif.IDE.Components
 			
 			data.Document.CommitLineUpdate (data.Caret.Line);
 		}
+
+	/*	CodeCompletionContext ICompletionWidget.CurrentCodeCompletionContext {
+			get {
+				return ICompletionWidget.CreateCodeCompletionContext ();
+			}
+		}*/
 
 		CodeCompletionContext ICompletionWidget.CreateCodeCompletionContext() {
 

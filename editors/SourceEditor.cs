@@ -283,12 +283,9 @@ namespace Moscrif.IDE.Editors
 							act.Visible = false;
 
 							string caretWord =  editor.GetCarretWord();
+							//Console.WriteLine("caretWord ->"+caretWord );
 							if(!String.IsNullOrEmpty(caretWord)){
-
-								//int indx = MainClass.CompletedCache.ListTypes.FindIndex(x=>x == caretWord);
-
 								int indx = MainClass.CompletedCache.ListDataTypes.FindIndex(x=>x.DisplayText == caretWord);
-
 								if(indx>-1){
 									act.Visible = true;
 								}

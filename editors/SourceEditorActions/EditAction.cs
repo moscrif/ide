@@ -47,38 +47,30 @@ namespace  Moscrif.IDE.Editors.SourceEditorActions
 
 		public void GoToDefinition (object obj, EventArgs args)
 		{
-			//int posCaret = this.editor.Caret.Offset;
-
-			//int startWord =FindPrevWordOffset(posCaret);
-			//int endtWord =FindnextWordOffset(posCaret);
-
 			string  activeWord = this.editor.GetCarretWord();
+			if((activeWord == "ScrollView") || (activeWord == "StackLayout") 
+			   || (activeWord == "TextView") || (activeWord == "Window")){
+				activeWord = "Moscrif."+activeWord;
+			}
 
-			string linkUrl = String.Format("http://moscrif.com/api?class={0}",activeWord);
+			string linkUrl = String.Format("http://moscrif.com/userfiles/pages/developer/api/classes/{0}.html",activeWord);
 			if (!String.IsNullOrEmpty(linkUrl)){
 				System.Diagnostics.Process.Start(linkUrl);
 			}
-
 		}
 
 		public void CopyText(object obj, EventArgs args)
 		{
-			//ClipboardActions ca = new ClipboardActions();
-			//ClipboardActions.Copy(this.editor.GetTextEditorData());
-
-			//this.editor.Document.
 			if(this.editor== null) return;
 			if(String.IsNullOrEmpty(this.editor.SelectedText)) return;
 
 			Gtk.Clipboard clipboard = this.editor.GetClipboard(Gdk.Selection.Clipboard);
 			clipboard.Text=this.editor.SelectedText;  // RequestText (new Gtk.ClipboardTextReceivedFunc (PasteReceived));
-
 		}
 
 		public void CutText(object obj, EventArgs args)
 		{
 			ClipboardActions.Cut(this.editor.GetTextEditorData());
-
 		}
 
 		public void PasteText(object obj, EventArgs args)
@@ -100,8 +92,6 @@ namespace  Moscrif.IDE.Editors.SourceEditorActions
 
 				Caret caret = this.editor.Caret;
 				caret.Location = dl;
-
-				//editor.ScrollToCaret();
 
 			}else{
 				this.editor.InsertAtCaret(text);

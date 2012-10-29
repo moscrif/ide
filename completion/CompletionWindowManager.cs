@@ -118,7 +118,7 @@ namespace Moscrif.IDE.Completion
 					return false;
 				}
 			} finally {
-				//ParameterInformationWindowManager.UpdateWindow ();
+				ParameterInformationWindowManager.UpdateWindow (completionWidget);
 			}
 		}
 
@@ -137,9 +137,9 @@ namespace Moscrif.IDE.Completion
 			isTemplateModes = false;
 			if (wnd != null) {
 				wnd.Destroy ();
+				ParameterInformationWindowManager.UpdateWindow (wnd.CompletionWidget);
 				wnd = null;
-			}
-			//ParameterInformationWindowManager.UpdateWindow ();
+			}			;
 			OnWindowClosed (EventArgs.Empty);
 		}
 		

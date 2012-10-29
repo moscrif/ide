@@ -311,7 +311,7 @@ namespace Moscrif.IDE.Completion
 			curYPos = Y;
 			Move (X, Y);
 			UpdateDeclarationView ();
-			//ParameterInformationWindowManager.UpdateWindow ();
+			ParameterInformationWindowManager.UpdateWindow (CompletionWidget);
 		}
 		
 		//smaller lists get size reallocated after FillList, so we have to reposition them

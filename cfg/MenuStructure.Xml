@@ -101,9 +101,9 @@
 			<separator name="sep23" />
 			<menuitem name="unicodesequence" action="unicodesequence" /> 	
 			<menuitem name="idepreferences" action="idepreferences" />
-			<!--<menuitem name="settingplatform" action="settingplatform" />
-			<separator name="sep24" /> 
-			<menuitem name="generateAutoComplete" action="generateAutoComplete" />-->	 
+			<!--
+			<separator name="sep24" /> -->
+			<menuitem name="generateAutoComplete" action="generateAutoComplete" />	 
 			<menuitem name="Test" action="test" />	
 		</menu>	
 		<menu name="Help" action="HelpAction">

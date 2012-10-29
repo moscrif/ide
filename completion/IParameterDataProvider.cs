@@ -1,9 +1,9 @@
-// ICompletionWidget.cs
+// IParameterDataProvider.cs
 //
 // Author:
-//   Peter Johanson  <latexer@gentoo.org>
+//   Lluis Sanchez Gual <lluis@novell.com>
 //
-// Copyright (c) 2007 Peter Johanson
+// Copyright (c) 2007 Novell, Inc (http://www.novell.com)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -25,34 +25,34 @@
 //
 //
 
+
 using System;
-//using MonoDevelop.Projects;
-using Gtk;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Moscrif.IDE.Completion
 {
-	public interface ICompletionWidget
-	{
-		// XXX
-		/*CodeCompletionContext CurrentCodeCompletionContext {
-			get;
-		}
-*/
-		int TextLength { get; }
-		int SelectedLength { get; }
-		string GetText (int startOffset, int endOffset);
-		
-		char GetChar (int offset);
-		
-		void Replace (int offset, int count, string text);
-		
-		Gtk.Style GtkStyle { get; }
 
-		CodeCompletionContext CreateCodeCompletionContext ();//int triggerOffset
-		int GetCompletionTyp ();
-		string GetCompletionText (CodeCompletionContext ctx, bool full);
-		void SetCompletionText (CodeCompletionContext ctx, string partial_word, string complete_word);
+	public interface IParameterDataProvider
+	{
+		// Returns the number of methods
+		int OverloadCount { get; }
 		
-		event EventHandler CompletionContextChanged;
+		// Returns the index of the parameter where the cursor is currently positioned.
+		// -1 means the cursor is outside the method parameter list
+		// 0 means no parameter entered
+		// > 0 is the index of the parameter (1-based)
+		int GetCurrentParameterIndex (ICompletionWidget widget, CodeCompletionContext ctx);
+		
+		// Returns the markup to use to represent the specified method overload
+		// in the parameter information window.
+		string GetMethodMarkup (int overload, string[] parameterMarkup, int currentParameter);
+		
+		// Returns the text to use to represent the specified parameter
+		string GetParameterMarkup (int overload, int paramIndex);
+		
+		// Returns the number of parameters of the specified method
+		int GetParameterCount (int overload);
 	}
 }
+

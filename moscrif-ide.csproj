@@ -73,6 +73,9 @@
     </Reference>
     <Reference Include="Mono.Cairo" />
     <Reference Include="Mono.Posix" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>libs\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="gtk-gui\gui.stetic">
@@ -470,6 +473,10 @@
     <Compile Include="components\BannerButton.cs" />
     <Compile Include="components\LinkImageButton.cs" />
     <Compile Include="Iface\WebClientTimeout.cs" />
+    <Compile Include="completion\ParameterInformationWindow.cs" />
+    <Compile Include="completion\ParameterInformationWindowManager.cs" />
+    <Compile Include="completion\IParameterDataProvider.cs" />
+    <Compile Include="completion\ParameterDataProvider.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

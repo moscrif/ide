@@ -46,7 +46,8 @@ namespace Moscrif.IDE.Completion
 		newType,
 		dotType,
 		specificType,
-		includeType
+		includeType,
+		toolType,
 	}
 
 	public enum CompletionDataTyp  {

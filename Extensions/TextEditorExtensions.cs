@@ -14,6 +14,36 @@ namespace Moscrif.IDE.Extensions
 	public static class TextEditorExtensions
 	{
 		#region context
+
+		/// <summary>
+		/// Vrati viac autokompletion, do zoznamu neprida slova z dokumentu
+		/// </summary>
+		/// <returns>
+		/// Vrati viac jedine autocompletion zodpovedajuce poslednemu slovu v fullWord, odpovedajuce typu parenta slovu
+		/// </returns>
+		public static List<CompletionData> GetCompletionMemberData(this TextEditor editor ,string fullWord )
+		{
+			CompletionDataList listComplete = new CompletionDataList();
+			listComplete.CompletionSelectionMode = CompletionSelectionMode.OwnTextField;
+
+			string codestring = editor.Document.Text;
+			string type = "";
+			string parent = "";
+			
+			editor.ParseString(fullWord,out parent,out type);
+			
+			string[] words =  fullWord.Split('.');
+			string word =words[words.Length-1];
+			
+			Completion.CompletionData cd;
+			
+			if(!String.IsNullOrEmpty(type)){
+				return MainClass.CompletedCache.ListDataMembers.FindAll(x=>x.Parent == type && x.CompletionText == word);
+			}
+			
+			return MainClass.CompletedCache.ListDataMembers.FindAll(x=>x.CompletionText == word);
+		}
+
 		/// <summary>
 		/// Vrati jedno jedine autokompletion, do zoznamu neprida slova z dokumentu
 		/// </summary>
@@ -249,12 +279,12 @@ namespace Moscrif.IDE.Extensions
 						// find  var meno = new Typ() var app = new Windows();
 						string strRegex =String.Format(@"var\s*?{0}\s*?=\s*?new[\s0-9a-zA-Z\s]+\(.*?\)\s*?\;",parent);
 						Regex regex2 = new Regex(strRegex, RegexOptions.Compiled);
-	
+
 						type = parent;
 						MatchCollection mc = regex2.Matches(typeCode);
 		
 						foreach(Match m in mc){
-							//Console.WriteLine(m.Value);
+
 							string typeDef = m.Value;
 							string obj = m.Value;
 
@@ -272,9 +302,43 @@ namespace Moscrif.IDE.Extensions
 	
 							indx1 = indx1+3;
 							if(obj == parent){
-								if(indx1<indx2)
+								if(indx1<indx2){
 									type =typeDef.Substring(indx1,indx2-indx1).Trim();
-								break;
+									return;
+								}
+							}
+						}
+
+						strRegex =String.Format(@"var\s*?{0}\s*?=\s*?[\s0-9a-zA-Z\s]+\.",parent);
+						regex2 = new Regex(strRegex, RegexOptions.Compiled);
+
+						
+						type = parent;
+						mc = regex2.Matches(typeCode);
+						
+						foreach(Match m in mc){
+
+							string typeDef = m.Value;
+							string obj = m.Value;
+							
+							
+							int indx1 =typeDef.IndexOf("var");
+							int indx2 =typeDef.IndexOf("=");
+							
+							indx1 = indx1+3;
+							
+							if(indx1<indx2)
+								obj =typeDef.Substring(indx1,indx2-indx1).Trim();
+							
+							indx1 =typeDef.IndexOf("=");
+							indx2 =typeDef.IndexOf(".");
+							
+							indx1 = indx1+1;
+							if(obj == parent){
+								if(indx1<indx2){
+									type =typeDef.Substring(indx1,indx2-indx1).Trim();
+									break;
+								}
 							}
 						}
 					}catch(Exception ex){

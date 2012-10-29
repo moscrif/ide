@@ -3,8 +3,6 @@ using System.Text;
 using System.Xml.Serialization;
 using System.Web.Script.Serialization;
 using System.Collections.Generic;
-//using Newtonsoft.Json;
-//using Newtonsoft.Json.Serialization;
 using Moscrif.IDE.Workspace;
 using Moscrif.IDE.Iface.Entities;
 using System.Runtime.Serialization;

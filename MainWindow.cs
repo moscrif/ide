@@ -1351,24 +1351,32 @@ public partial class MainWindow : Gtk.Window
 	#region Project
 	private void ShowProject(Project project, bool addRecent)
 	{
+		// string aa = project.StartFile;
 		WorkspaceTree.LoadProject(project);
 		if(addRecent){
-
 			MainClass.Settings.RecentFiles.AddProject(project.FilePath, project.FilePath);
 		}
+
 	}
 
 	public void OpenProject(string filename, bool addRecent)
 	{
 		Project p = MainClass.Workspace.OpenProject(filename);
 
-		AddAndShowProject(p,addRecent);
+		AddAndShowProject(p,addRecent,false);
 	}
 
-	public void AddAndShowProject(Project p, bool addRecent){
+	public void AddAndShowProject(Project p, bool addRecent,bool showStartPage){
 		if (p != null) {
-			projectItems.Add(new DropDownButton.ComboItem(p.ProjectName,p));
+			DropDownButton.ComboItem ci = new DropDownButton.ComboItem(p.ProjectName,p);
+			projectItems.Add(ci);
+			ddbProject.SelectItem(projectItems,ci);
+
 			ShowProject(p,addRecent);
+
+			if(showStartPage){
+				OpenFile(MainClass.Workspace.GetFullPath(p.StartFile),false);
+			}
 		}
 	}
 
@@ -1383,14 +1391,14 @@ public partial class MainWindow : Gtk.Window
 			return ;
 		}
 		if(p!=null)
-			AddAndShowProject(p,true);
+			AddAndShowProject(p,true,true);
 
 	}
 
 	public void ConvertAppToProject(AppFile aplicationFile)
 	{
 		Project p = MainClass.Workspace.ConvertAppToProject(aplicationFile);
-		AddAndShowProject(p,true);
+		AddAndShowProject(p,true,true);
 	}
 
 	public void ImportProject(string destinationFile, bool isZipFile)

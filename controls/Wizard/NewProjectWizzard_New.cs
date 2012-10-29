@@ -449,7 +449,7 @@ namespace Moscrif.IDE.Controls.Wizard
 						return ;
 					}
 					UpdateMessage(tiPrj,1,"OK");
-					MainClass.MainWindow.AddAndShowProject(prj,true);
+					MainClass.MainWindow.AddAndShowProject(prj,true,true);
 					AddMessage(MainClass.Languages.Translate("wizzard_finish"),"",null);
 
 					if(entrProjectName.Text == prjDefaultName)
@@ -543,7 +543,7 @@ namespace Moscrif.IDE.Controls.Wizard
 
 					if(File.Exists(appPath)){
 						Project prj =  ImportProject(appPath,projectName,String.Empty,String.Empty);
-						MainClass.MainWindow.AddAndShowProject(prj,true);
+						MainClass.MainWindow.AddAndShowProject(prj,true,true);
 						AddMessage(MainClass.Languages.Translate("wizzard_finish"),"",null);
 					}
 				} else { // SELECT Custom
@@ -587,7 +587,7 @@ namespace Moscrif.IDE.Controls.Wizard
 
 					if(File.Exists(appPath)){
 						Project prj = ImportProject(appPath,projectName,libs, orientation.Trim());
-						MainClass.MainWindow.AddAndShowProject(prj,true);
+						MainClass.MainWindow.AddAndShowProject(prj,true,true);
 						AddMessage(MainClass.Languages.Translate("wizzard_finish"),"",null);
 					}
 				}			

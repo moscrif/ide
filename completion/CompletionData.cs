@@ -49,6 +49,7 @@ namespace Moscrif.IDE.Completion
 		public virtual string Signature { get; set; }
 
 		public virtual string Parent { get; set; }
+		public virtual string ReturnType { get; set; }
 		public virtual CompletionDataTyp ComTypes { get; set; }
 
 		private bool isOverloaded = false;
@@ -71,9 +72,9 @@ namespace Moscrif.IDE.Completion
 		}
 		public CompletionData (string text) : this (text, null, null) {}
 		public CompletionData (string text, string icon) : this (text, icon, null) {}
-		public CompletionData (string text, string icon, string description)  : this (text, icon, description,0,null) {} //this (text, icon, description, text) {}
+		public CompletionData (string text, string icon, string description)  : this (text, icon, description,0,null,null) {} //this (text, icon, description, text) {}
 
-		public CompletionData (string text, string icon, string description,int cct, string parent) : this (text, icon, description, text,cct,parent) {}
+		public CompletionData (string text, string icon, string description,int cct, string parent,string returnType) : this (text, icon, description, text,cct,parent,returnType) {}
 
 		public CompletionData (string displayText, string icon, string description, string completionText)
 		{
@@ -85,7 +86,7 @@ namespace Moscrif.IDE.Completion
 			this.Parent = "";
 		}
 
-		public CompletionData (string displayText, string icon, string description, string completionText,int cct, string parent)
+		public CompletionData (string displayText, string icon, string description, string completionText,int cct, string parent,string returnType)
 		{
 			this.DisplayText = displayText;
 			this.Icon = icon;
@@ -93,6 +94,7 @@ namespace Moscrif.IDE.Completion
 			this.CompletionText = completionText;
 			this.ComTypes = (CompletionDataTyp)cct;
 			this.Parent = parent;
+			this.ReturnType = returnType;
 		}
 		
 		public  string GetCurrentWord (CompletionListWindow window)//static

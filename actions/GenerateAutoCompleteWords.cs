@@ -9,6 +9,7 @@ using System.IO;
 using System.Xml;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using MessageDialogs = Moscrif.IDE.Controls.MessageDialog;
 using System.Linq;
 
@@ -16,6 +17,9 @@ using Mono.Data.Sqlite;
 
 using Moscrif.IDE.Tool;
 using Moscrif.IDE.Completion;
+
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 
 namespace Moscrif.IDE.Actions
@@ -51,7 +55,7 @@ namespace Moscrif.IDE.Actions
 				sqlLiteDal.RunSqlScalar(sql);
 			}
 
-			sql = "CREATE TABLE completed (id INTEGER PRIMARY KEY, name TEXT, signature TEXT, type NUMERIC, parent TEXT,summary TEXT ) ;";
+			sql = "CREATE TABLE completed (id INTEGER PRIMARY KEY, name TEXT, signature TEXT, type NUMERIC, parent TEXT,summary TEXT ,returnType TEXT ) ;";
 			sqlLiteDal.RunSqlScalar(sql);
 
 			SyntaxMode mode = new SyntaxMode();
@@ -63,7 +67,7 @@ namespace Moscrif.IDE.Actions
 
 				progressDialog.Update(kw.ToString());
 				foreach (string wrd in kw.Words){
-						insertNewRow(wrd,wrd,(int)CompletionDataTyp.keywords,"","");
+					insertNewRow(wrd,wrd,(int)CompletionDataTyp.keywords,"","","");
 
 						//sql = String.Format("INSERT INTO completed (name,signature,type) values ( {0} , {0} ,K ) ;",wrd);
 						//sqlLiteDal.RunSqlScalar(sql);
@@ -71,6 +75,112 @@ namespace Moscrif.IDE.Actions
 			}
 
 
+			Gtk.FileChooserDialog fc = new Gtk.FileChooserDialog("data.json", null, FileChooserAction.Open, "Cancel", ResponseType.Cancel, "Open", ResponseType.Accept);
+			fc.TransientFor = MainClass.MainWindow;
+			fc.SetCurrentFolder(@"d:\Work\docs-api\output\");
+
+			if (fc.Run() != (int)ResponseType.Accept) {
+				return;
+			}
+			string json ;
+			string fileName = fc.Filename;
+			progressDialog.Destroy();
+			fc.Destroy();
+			progressDialog = new ProgressDialog("Generated...",ProgressDialog.CancelButtonType.None,100 ,MainClass.MainWindow);
+
+			using (StreamReader file = new StreamReader(fileName)) {
+				json = file.ReadToEnd();
+				file.Close();
+				file.Dispose();
+			}
+
+			//XmlDocument doc = (XmlDocument)JsonConvert.DeserializeXmlNode(json);
+			//doc.Save(fileName+"xml");
+			JObject jDoc= JObject.Parse(json);
+			//classes
+			Console.WriteLine("o.Count->"+jDoc.Count);
+
+			foreach (JProperty jp in jDoc.Properties()){
+				Console.WriteLine(jp.Name);
+			}
+			Console.WriteLine("------------");
+			JObject classes = (JObject)jDoc["classes"];
+			foreach (JProperty jp in classes.Properties()){
+				Console.WriteLine(jp.Name);
+				JObject classDefin = (JObject)classes[jp.Name];
+				string name = (string)classDefin["name"];
+				string shortname = (string)classDefin["shortname"];
+				string description = (string)classDefin["description"];
+				//string type = (string)classDefin["type"];
+				insertNewRow(name,name,(int)CompletionDataTyp.types,"",description,name);
+			}
+			Console.WriteLine("------------");
+
+			JArray classitems = (JArray)jDoc["classitems"];
+			foreach (JObject classitem in classitems){
+
+				string name = (string)classitem["name"];
+				Console.WriteLine(name);
+
+				string description = (string)classitem["description"];
+				string itemtype = (string)classitem["itemtype"];
+				string classParent = (string)classitem["class"];
+				string signature = (string)classitem["name"];
+				CompletionDataTyp type = CompletionDataTyp.noting;
+				string returnType= classParent;
+
+				switch (itemtype){
+					case "method":{
+						JArray paramsArray = (JArray)classitem["params"];
+						signature = signature+ GetParams(paramsArray);	
+						type = CompletionDataTyp.members;
+						JObject returnJO =(JObject)classitem["return"] ;
+						if(returnJO!=null){
+							returnType = (string)returnJO["type"];
+						}
+
+						break;
+					}
+					case "property":{
+						
+						string tmpType = (string)classitem["type"];
+						if(!String.IsNullOrEmpty(tmpType)){
+							returnType=tmpType.Replace("{","").Replace("}","");
+						}
+						type = CompletionDataTyp.properties;
+						break;
+					}
+					case "event":{
+						JArray paramsArray = (JArray)classitem["params"];
+						signature = signature+ GetParams(paramsArray);
+						type = CompletionDataTyp.events;
+						break;
+					}
+					case "attribute":{
+						continue;
+						break;
+					} 
+					default:{
+						type = CompletionDataTyp.noting;
+						break;
+					}
+
+				}
+
+				insertNewRow(name,signature,(int)type,classParent,description,returnType);
+			}
+			//classitems
+
+//			string name = (string)o["project"]["name"];
+//			Console.WriteLine(name);
+
+			progressDialog.Destroy();
+			
+			md = new MessageDialogs(MessageDialogs.DialogButtonType.Ok, "Done", "", Gtk.MessageType.Info);
+			md.ShowDialog();
+
+			return;
+			/*
 
 			Gtk.FileChooserDialog fc = new Gtk.FileChooserDialog("Select DOC Directory (with xml)", null, FileChooserAction.SelectFolder, "Cancel", ResponseType.Cancel, "Open", ResponseType.Accept);
 			FileInfo[] xmls = new FileInfo[]{};
@@ -104,7 +214,7 @@ namespace Moscrif.IDE.Actions
 			progressDialog.Destroy();
 
 			md = new MessageDialogs(MessageDialogs.DialogButtonType.Ok, "Done", "", Gtk.MessageType.Info);
-			md.ShowDialog();
+			md.ShowDialog();*/
 		}
 
 		private void getObject(string file ){
@@ -174,7 +284,7 @@ namespace Moscrif.IDE.Actions
 
 							if(name.StartsWith("T:")){
 								parent =signature;
-								insertNewRow(signature,signature,(int)CompletionDataTyp.types,"",summary);
+								insertNewRow(signature,signature,(int)CompletionDataTyp.types,"",summary,"");
 
 							}
 
@@ -189,14 +299,14 @@ namespace Moscrif.IDE.Actions
 									if(tmp.Length<2)
 										continue;
 
-									insertNewRow(tmp,signature,(int)CompletionDataTyp.properties,parent,summary);
+									insertNewRow(tmp,signature,(int)CompletionDataTyp.properties,parent,summary,"");
 									//listMemberSignature.Add(tmp);
 									continue;
 								}
 								if(signature.Length<2)
 										continue;
 
-								insertNewRow(signature,signature,(int)CompletionDataTyp.properties,parent,summary);
+								insertNewRow(signature,signature,(int)CompletionDataTyp.properties,parent,summary,"");
 
 							} else if(name.StartsWith("M:")){
 								int indx = signature.IndexOf("(");
@@ -206,23 +316,23 @@ namespace Moscrif.IDE.Actions
 									if(tmp.Length<2)
 										continue;
 
-									insertNewRow(tmp,signature,(int)CompletionDataTyp.members,parent,summary);
+									insertNewRow(tmp,signature,(int)CompletionDataTyp.members,parent,summary,"");
 									continue;
 								}
 								if(signature.Length<2)
 										continue;
-								insertNewRow(signature,signature,(int)CompletionDataTyp.members,parent,summary);
+								insertNewRow(signature,signature,(int)CompletionDataTyp.members,parent,summary,"");
 
 							} else if(name.StartsWith("E:")){
 								int indx = signature.IndexOf("(");
 								if(indx>0){
 									string tmp = signature.Substring(0,indx);
 
-									insertNewRow(tmp,signature,(int)CompletionDataTyp.events,parent,summary);
+									insertNewRow(tmp,signature,(int)CompletionDataTyp.events,parent,summary,"");
 
 									continue;
 								}
-								insertNewRow(signature,signature,(int)CompletionDataTyp.events,parent,summary);
+								insertNewRow(signature,signature,(int)CompletionDataTyp.events,parent,summary,"");
 							}
 
 
@@ -237,7 +347,6 @@ namespace Moscrif.IDE.Actions
 				Console.WriteLine(ex.Message);
 			}
 		}
-
 
 		private string GetSummary (XmlNode nodeItem){
 
@@ -254,17 +363,69 @@ namespace Moscrif.IDE.Actions
 			return "";
 		}
 
-		private void insertNewRow(string name,string signature,int type,string  parent,string summary){
+		private string GetParams(JArray paramsArray){
+			if(paramsArray == null)
+				return "()";
+			string paramsString = "(";
+			foreach (JObject jo in paramsArray){
+				StringBuilder param = new StringBuilder();
+				string name = (string)jo["name"];
+				string description = (string)jo["description"];
+				string type = (string)jo["type"];
+
+				JValue optionalStr = (JValue)jo["optional"];
+				bool optional = false;
+				if(optionalStr!=null){
+					if (!bool.TryParse(optionalStr.ToString(),out optional)){
+						optional = false;
+					}
+				}
+
+				string optdefault = (string)jo["optdefault"];
+
+				JValue multipleStr = (JValue)jo["multiple"];
+				bool multiple = false;
+				if(multipleStr!=null){
+					if (!bool.TryParse(multipleStr.ToString(),out multiple)){
+						multiple = false;
+					}
+				}
+
+
+				//if (optional)
+				//	param.Append("[");
+				param.Append(name);
+
+				if(!String.IsNullOrEmpty(optdefault))
+					param.Append("="+optdefault);
+				if((optional) && (String.IsNullOrEmpty(optdefault)))
+				   	param.Append("=undefined");
+				/*if(String.IsNullOrEmpty(type))
+					param.Append(":"+type);	*/
+				if(multiple)
+					param.Append(",..");
+
+				paramsString = paramsString + param.ToString()+",";
+			}
+			paramsString = paramsString.TrimEnd(',');
+			paramsString = paramsString+ ")";
+
+			return paramsString;
+
+		}
+
+		private void insertNewRow(string name,string signature,int type,string  parent,string summary,string returnType){
 
 			string	sql;
 
 			signature = signature.Replace("'", "" );
-			summary = summary.Replace("'", "" );
+			if(!String.IsNullOrEmpty(summary))
+				summary = summary.Replace("'", "" );
 
 			if(String.IsNullOrEmpty(parent))
-				sql = String.Format("INSERT INTO completed (name,signature,type,summary) values ( '{0}' , '{1}' , '{2}', '{3}' ) ;",name,signature,type,summary);
+				sql = String.Format("INSERT INTO completed (name,signature,type,summary,returnType) values ( '{0}' , '{1}' , '{2}', '{3}','{4}' ) ;",name,signature,type,summary,returnType);
 			else
-				sql = String.Format("INSERT INTO completed (name,signature,type, parent,summary) values ( '{0}' , '{3}.{1}' , '{2}', '{3}', '{4}' ) ;",name,signature,type,parent,summary);
+				sql = String.Format("INSERT INTO completed (name,signature,type, parent,summary,returnType) values ( '{0}' , '{3}.{1}' , '{2}', '{3}', '{4}','{5}' ) ;",name,signature,type,parent,summary,returnType);
 
 			sqlLiteDal.RunSqlScalar(sql);
 

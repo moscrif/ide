@@ -117,11 +117,15 @@ namespace Moscrif.IDE.Settings
 					int type=  reader.GetInt32(3);
 					string parent= reader.GetValue(4).ToString();
 					string summary = "";
+					string returnType = "";
 					if(numberCollumns >=6)
 						summary= reader.GetValue(5).ToString();
 
+					if(numberCollumns >=7)
+						returnType= reader.GetValue(6).ToString();
+
 					string[] obj = new string[numberCollumns];
-					cd = new CompletionData(name,null,signature,name,1,parent);
+					cd = new CompletionData(name,null,signature,name,1,parent,returnType);
 
 					cd.Signature =signature;
 
