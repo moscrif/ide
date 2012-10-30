@@ -19,7 +19,7 @@ namespace Moscrif.IDE.Components
 {
 	public partial class StartEventControl : Gtk.EventBox
 	{
-		Pixbuf logoPixbuf;
+		Pixbuf logoPixbuf ;
 		Pixbuf bgPixbuf;
 		Thread filllStartPageThread;
 		string webCacheName =System.IO.Path.Combine(MainClass.Paths.SettingDir, ".webcache");
@@ -30,7 +30,8 @@ namespace Moscrif.IDE.Components
 		{
 			try{
 				string file = System.IO.Path.Combine(MainClass.Paths.ResDir, "background.png");
-				bgPixbuf = new Gdk.Pixbuf (file);
+				if(File.Exists(file))
+					bgPixbuf = new Gdk.Pixbuf (file);
 	
 				this.Build();
 	
@@ -40,7 +41,9 @@ namespace Moscrif.IDE.Components
 				this.ModifyBg (Gtk.StateType.Normal, Style.White);
 	
 				string file2 = System.IO.Path.Combine(MainClass.Paths.ResDir, "moscrif_background.png"); //"moscrif.png");
-				logoPixbuf = new Gdk.Pixbuf (file2);
+
+				if(File.Exists(file2))
+					logoPixbuf = new Gdk.Pixbuf (file2);
 	
 				webCacheFile = WebCache.OpenWebCache(webCacheName);
 	
@@ -272,7 +275,7 @@ namespace Moscrif.IDE.Components
 		//public void Expose(object o, Gtk.ExposeEventArgs args)
 		protected override bool OnExposeEvent (EventExpose evnt)
 		{
-			if (bgPixbuf != null) {
+			if ((bgPixbuf != null)&& logoPixbuf != null) {
 				var gc = Style.BackgroundGC ( State);
 				var lRect = new Rectangle (Allocation.X, Allocation.Y, logoPixbuf.Width, logoPixbuf.Height);
 				if (evnt.Region.RectIn (lRect) != OverlapType.Out)
@@ -302,27 +305,6 @@ namespace Moscrif.IDE.Components
 		}
 		//
 
-		/*protected override bool OnExposeEvent (EventExpose evnt)
-		{
-			if (logoPixbuf != null) {
-				var gc = Style.BackgroundGC (State);
-				var lRect = new Rectangle (Allocation.X, Allocation.Y, logoPixbuf.Width, logoPixbuf.Height);
-				if (evnt.Region.RectIn (lRect) != OverlapType.Out)
-					GdkWindow.DrawPixbuf (gc, logoPixbuf, 0, 0, lRect.X, lRect.Y, lRect.Width, lRect.Height, RgbDither.None, 0, 0);
-
-				var bgRect = new Rectangle (Allocation.X + logoPixbuf.Width, Allocation.Y, Allocation.Width - logoPixbuf.Width, bgPixbuf.Height);
-				if (evnt.Region.RectIn (bgRect) != OverlapType.Out)
-					for (int x = bgRect.X; x < bgRect.Right; x += bgPixbuf.Width)
-						GdkWindow.DrawPixbuf (gc, bgPixbuf, 0, 0, x, bgRect.Y, bgPixbuf.Width, bgRect.Height, RgbDither.None, 0, 0);
-			}
-
-			foreach (Widget widget in Children)
-				PropagateExpose (widget, evnt);
-
-			return true;
-		}*/
-
-
 		private List<WebObject> listTwet = new List<WebObject>();
 		private void getTweet(){
 
@@ -330,9 +312,6 @@ namespace Moscrif.IDE.Components
 			XmlNode nodeRss = new XmlDocument();
 			XmlNode nodeChannel = new XmlDocument();
 			XmlNode nodeItem;
-
-			//while (Application.EventsPending ())
-			//	Application.RunIteration ();
 
 			int no = 0;
 
