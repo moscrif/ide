@@ -29,6 +29,12 @@ namespace Moscrif.IDE.Controls.Wizard
 		//PublishAsynchronTask pt;
 		ListStore storeOutput;
 
+		private DropDownButton ddbTypPublish = new DropDownButton();
+		private DropDownButton ddbTypRemote = new DropDownButton();
+		DropDownButton.ComboItemSet publishItems = new DropDownButton.ComboItemSet ();
+		DropDownButton.ComboItemSet remoteItems = new DropDownButton.ComboItemSet ();
+		Label lblRemote = new Label("Remote: ");
+
 		private bool runningPublish = false;
 
 		public PublishDialogWizzard()
@@ -38,9 +44,87 @@ namespace Moscrif.IDE.Controls.Wizard
 			this.Build();
 			btnResetMatrix.Label = MainClass.Languages.Translate("reset_matrix");
 
+			chbSignApp= new CheckButton( MainClass.Languages.Translate("sign_app"));
+			chbSignApp.Toggled += new EventHandler(OnChbSignAppToggled);
+			chbSignApp.Sensitive = true;//MainClass.Settings.SignAllow;
+
 			notebook1.ShowTabs = false;
 			notebook1.ShowBorder = false;
 			notebook1.Page = 0;
+
+			Table tblHeader = new Table(1,4,false);
+			
+			ddbTypPublish = new DropDownButton();
+			ddbTypPublish.Changed+= delegate(object sender, DropDownButton.ChangedEventArgs e)
+			{
+				if(e.Item !=null){
+					int selTyp = (int)e.Item;
+					if(selTyp == 0){
+						lblRemote.Visible = true;
+						ddbTypRemote.Visible = true;
+						chbSignApp.Sensitive= false;
+					} else {
+						lblRemote.Visible = false;
+						ddbTypRemote.Visible = false;
+						chbSignApp.Sensitive= true;
+					}
+
+					MainClass.Workspace.ActualProject.TypPublish = selTyp;
+				}
+			};
+			ddbTypPublish.WidthRequest = 175;
+			ddbTypPublish.SetItemSet(publishItems);
+			
+			ddbTypRemote = new DropDownButton();
+			ddbTypRemote.Changed+= delegate(object sender, DropDownButton.ChangedEventArgs e)
+			{
+				if(e.Item !=null){
+					string ipAdress = (string)e.Item;
+					MainClass.Workspace.ActualProject.RemoteIpAdress = ipAdress;
+				}
+			};
+
+			ddbTypRemote.WidthRequest = 175;
+			ddbTypRemote.SetItemSet(remoteItems);
+			
+			DropDownButton.ComboItem addTyp0 = new DropDownButton.ComboItem(MainClass.Languages.Translate("device_testing"),0);
+			publishItems.Add(addTyp0);
+			
+			DropDownButton.ComboItem addTyp1 = new DropDownButton.ComboItem(MainClass.Languages.Translate("market_distribution"),1);
+			publishItems.Add(addTyp1);
+
+			if(MainClass.Workspace.ActualProject.TypPublish ==1)
+				ddbTypPublish.SelectItem(publishItems,addTyp1);
+			else 
+				ddbTypPublish.SelectItem(publishItems,addTyp0);
+
+			DropDownButton.ComboItem addRemote0 = new DropDownButton.ComboItem(MainClass.Languages.Translate("remote_none"),"0");
+			remoteItems.Add(addRemote0);
+
+
+			bool findSelect = false;
+			List<string> listIp = Moscrif.IDE.Tool.Network.GetIpAdress();
+			foreach (string ip in listIp){
+				DropDownButton.ComboItem addIP = new DropDownButton.ComboItem(ip,ip);
+				remoteItems.Add(addIP);
+				if(ip== MainClass.Workspace.ActualProject.RemoteIpAdress){
+					ddbTypRemote.SelectItem(remoteItems,addIP);
+					findSelect = true;
+				}
+			}
+			if(!findSelect){
+				ddbTypRemote.SelectItem(remoteItems,addRemote0);;
+			}
+
+			
+			tblHeader.Attach(new Label("Publish: "),0,1,0,1,AttachOptions.Fill,AttachOptions.Fill,5,0);
+			tblHeader.Attach(ddbTypPublish,1,2,0,1,AttachOptions.Fill,AttachOptions.Fill,0,0);
+			
+			tblHeader.Attach(lblRemote,2,3,0,1,AttachOptions.Fill,AttachOptions.Fill,5,0);
+			tblHeader.Attach(ddbTypRemote,3,4,0,1,AttachOptions.Fill,AttachOptions.Fill,0,0);
+			
+			this.vbox2.PackStart(tblHeader,false,false,0);
+
 
 			storeOutput = new ListStore (typeof (string), typeof (string), typeof (Gdk.Pixbuf),typeof (bool));
 			
@@ -111,9 +195,6 @@ namespace Moscrif.IDE.Controls.Wizard
 			
 			this.vbox2.PackEnd(vbox1,false,false,0);
 
-			chbSignApp= new CheckButton( MainClass.Languages.Translate("sign_app"));
-			chbSignApp.Toggled += new EventHandler(OnChbSignAppToggled);
-			chbSignApp.Sensitive = true;//MainClass.Settings.SignAllow;
 
 			VBox hbox = new VBox();
 			hbox.PackStart(chbSignApp,false,false,0);
@@ -633,12 +714,27 @@ namespace Moscrif.IDE.Controls.Wizard
 			
 			LoggingInfo log = new LoggingInfo();
 			log.LoggWebThread(LoggingInfo.ActionId.IDEPublish,project.ProjectName);
-			
-			if(!MainClass.Workspace.SignApp){
+
+			int selectTyp =  (int)ddbTypPublish.CurrentItem;
+
+			if((selectTyp == 0) || (!MainClass.Workspace.SignApp)){
 				
 				tlpublish = new TaskList();
 				tlpublish.TasksList = new System.Collections.Generic.List<Moscrif.IDE.Task.ITask>();
-				
+
+				string selectRemote =  (string)ddbTypRemote.CurrentItem;
+				Console.WriteLine("selectRemote-"+selectRemote);
+				if(selectRemote != "0"){
+					AppFile appF = MainClass.Workspace.ActualProject.AppFile;
+					appF.Remote_Console =selectRemote+":"+MainClass.Settings.SocetServerPort;
+					appF.Save();
+					Console.WriteLine("MainClass.Workspace.ActualProject.AppFile.Remote_Console-"+MainClass.Workspace.ActualProject.AppFile.Remote_Console);
+				} else {
+					AppFile appF = MainClass.Workspace.ActualProject.AppFile;
+					appF.Remote_Console ="";
+					appF.Save();
+				}
+
 				PublishAsynchronTask pt = new PublishAsynchronTask();
 				pt.ParentWindow = this;
 				pt.EndTaskWrite+= MainClass.MainWindow.EndTaskWritte;
@@ -646,6 +742,11 @@ namespace Moscrif.IDE.Controls.Wizard
 				pt.EndTaskWrite+= delegate(object sender, string name, string status, List<TaskMessage> errors) {
 					runningPublish = false;
 					btnCancel.Label = "_Close";
+					if(selectRemote != "0"){
+						AppFile appF = MainClass.Workspace.ActualProject.AppFile;
+						appF.Remote_Console ="";
+						appF.Save();
+					}
 				};
 
 				pt.ErrorWrite+= MainClass.MainWindow.ErrorTaskWritte;
@@ -697,9 +798,7 @@ namespace Moscrif.IDE.Controls.Wizard
 				secondTaskThread.IsBackground = true;
 				runningPublish = true;
 				btnCancel.Label = "_Cancel";
-				secondTaskThread.Start();
-
-
+				secondTaskThread.Start();			
 			}
 		}
 

@@ -281,6 +281,12 @@ namespace Moscrif.IDE.Workspace
 		[XmlAttribute("facebookAppID")]
 		public string FacebookAppID;
 
+		[XmlElement("publishTyp")]
+		public int TypPublish = 0;
+
+		[XmlElement("remoteIpAdress")]
+		public string RemoteIpAdress ;
+
 		[XmlIgnore]
 		public string OutputMaskToFullPath{
 

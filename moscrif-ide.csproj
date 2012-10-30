@@ -477,6 +477,8 @@
     <Compile Include="completion\ParameterInformationWindowManager.cs" />
     <Compile Include="completion\IParameterDataProvider.cs" />
     <Compile Include="completion\ParameterDataProvider.cs" />
+    <Compile Include="settings\SecuritySample.cs" />
+    <Compile Include="tool\Network.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

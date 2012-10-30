@@ -23,6 +23,8 @@ namespace Moscrif.IDE.Controls
 		private CheckButton chbIncludeAllResolution;
 		private CheckButton chbDebugLog;
 
+
+
 		protected virtual void OnButtonOkClicked (object sender, System.EventArgs e)
 		{
 
@@ -90,9 +92,10 @@ namespace Moscrif.IDE.Controls
 
 			this.TransientFor = MainClass.MainWindow;
 			this.Build();
-			btnResetMatrix.Label = MainClass.Languages.Translate("reset_matrix");
 
+			btnResetMatrix.Label = MainClass.Languages.Translate("reset_matrix");
 			this.Title = MainClass.Languages.Translate("publish_title" , project.ProjectName);
+
 
 			if(project.ProjectUserSetting.CombinePublish == null || project.ProjectUserSetting.CombinePublish.Count==0){
 				project.GeneratePublishCombination();

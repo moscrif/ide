@@ -14,6 +14,18 @@ namespace  Moscrif.IDE.Tool
 	        {
 	            return MD5Hash(text, String.Empty);
 	        }
+
+		/*public string GetMd5Sum(string str) {
+			
+			byte[] input = ASCIIEncoding.ASCII.GetBytes(str);
+			byte[] output = MD5.Create().ComputeHash(input);
+			StringBuilder sb = new StringBuilder();
+			
+			for(int i=0;i<output.Length;i++) {
+				sb.Append(output[i].ToString("X2"));
+			}
+			return sb.ToString();
+		}*/
 	
 	        public static string MD5Hash(string text, string salt)
 	        {

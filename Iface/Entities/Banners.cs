@@ -105,7 +105,8 @@ namespace Moscrif.IDE.Iface.Entities
 		[XmlIgnore]
 		public string CacheFileName{
 			get{
-				return  MainClass.Tools.GetMd5Sum(Image)+".png";
+				//MainClass.Tools.GetMd5Sum
+				return  Moscrif.IDE.Tool.Cryptographer.MD5Hash(Image)+".png";
 			}
 		}
 

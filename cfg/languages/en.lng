@@ -34,6 +34,10 @@ property_ios_icon = The main icon, size {0}x{1}.
 property_ios_splash =The launch image (splash), size {0}x{1} for portrait mode, {1}x{0} for landscape mode.
 property_ios_icon_4s = The same as iPhone 4(S).
 
+device_testing = Device - Testing
+market_distribution = Market - Distribution
+remote_none = none
+
 logs = Logs
 garbage_collector = Garbage Collector ({0})
 monitor = Monitor

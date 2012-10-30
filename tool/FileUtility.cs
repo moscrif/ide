@@ -99,7 +99,6 @@ namespace Moscrif.IDE.Tool
 		/// </remarks>
 		public static string AbsoluteToRelativePath(string baseDirectoryPath, string absPath)
 		{
-
 			//absPath = absPath.Replace('/',Path.DirectorySeparatorChar);
 			//absPath = absPath.Replace('\\',Path.DirectorySeparatorChar);
 
@@ -273,104 +272,9 @@ namespace Moscrif.IDE.Tool
 			return result;
 		}
 
-//   public static Dictionary<int,string> ReplaceInFile(string filePath, string expresion,string replaceExpresion, bool caseSensitve, bool wholeWorlds ){
-//
-//	    if (!System.IO.File.Exists(filePath))
-//			return null;
-//
-//	Dictionary<int,string> result = new Dictionary<int,string>();
-//	StreamReader reader = new StreamReader( filePath );
-//	StringBuilder sb = new StringBuilder();
-//	bool isChanged = false;
-//	char[] separators = { '\n',',','.',' ',';','\t' };
-//	int indx = 0;
-//	do
-//	{
-//		string line = reader.ReadLine() ;
-//		string lineUpper = line.ToUpper();
-//
-//		var comparison = caseSensitve ? StringComparison.Ordinal : StringComparison.OrdinalIgnoreCase;
-//		int idx = 0;
-//		int delta = 0;
-//
-//		while ((idx = line.IndexOf (expresion, idx, line.Length - idx, comparison)) >= 0) {
-//			if (!wholeWorlds || IsWholeWordAt (line, idx, pattern.Length)) {
-//				if (replaceExpresion != null) {
-//					Replace (idx + delta, pattern.Length, replacePattern);
-//					//yield return new SearchResult (provider, idx + delta, replacePattern.Length);
-//					result.Add(indx,tmp);
-//					delta += replaceExpresion.Length - expresion.Length;
-//				} else {
-//					result.Add(indx,tmp);
-//					//yield return new SearchResult (provider, idx, pattern.Length);
-//				}
-//			}
-//			idx += expresion.Length;
-//		}
-//
-//		/*if(caseSensitve && !wholeWorlds){
-//			string tmp =line.Replace(expresion,replaceExpresion);
-//
-//			if(tmp.Contains(expresion) )
-//				result.Add(indx,line);
-//			int i  = tmp.IndexOf(expresion);
-//			if(i>-1)
-//				result.Add(indx,tmp);
-//			sb.Append(tmp);
-//
-//		} else if(!caseSensitve && !wholeWorlds ){
-//
-//			if(lineUpper.Contains(expresion.ToUpper()) )
-//				result.Add(indx,line);
-//
-//		} else if(!caseSensitve && wholeWorlds){
-//			if(lineUpper.Split(separators).Contains(expresion.ToUpper()))
-//				result.Add(indx,line);
-//
-//		} else if(caseSensitve && wholeWorlds){
-//
-//			//if(line.Split(separators).Contains(expresion))
-//			//	result.Add(indx,line);
-//		}*/
-//
-//		//line.Contains("string", StringComparison.CurrentCultureIgnoreCase);
-//		indx++;
-//
-//	} while (reader.Peek() != -1);
-//	reader.Close();
-//
-//	try{
-//		StreamWriter writer = new StreamWriter( filePath );
-//		writer.Write( sb.ToString() );
-//		writer.Close();
-//	} catch(Exception ex){
-//		Tool.Logger.Error(ex.Message);
-//	}
-//
-//	return result;
-//    }
-
 		public static bool IsWordSeparator(char ch)
 		{
 			return !Char.IsLetterOrDigit(ch) && ch != '_';
-		}
-
-		private static bool IsWholeWordAt(string text, int offset, int length)
-		{
-			return (offset <= 0 || IsWordSeparator(text [offset - 1])) &&
-			   (offset + length >= text.Length || IsWordSeparator(text [offset + length]));
-		}
-
-		private static void Replace(ref string text, int offset, int length, string replacement)
-		{
-			text = text.Remove(offset, length);
-			text = text.Insert(offset, replacement);
-			/*if (document != null) {
-			Gtk.Application.Invoke (delegate {
-				document.Editor.Replace (offset, length, replacement);
-			});
-			return;
-		}*/
 		}
 
 		public static bool ContainsPath(string baseDirectoryPath, string secondPath)
@@ -423,7 +327,6 @@ namespace Moscrif.IDE.Tool
 			}
 
 		}
-
 
 		public static string DeleteItem(string fileName, bool isDir)
 		{
@@ -555,6 +458,26 @@ namespace Moscrif.IDE.Tool
 				}
 			}
 		}
+
+		#region private
+		private static bool IsWholeWordAt(string text, int offset, int length)
+		{
+			return (offset <= 0 || IsWordSeparator(text [offset - 1])) &&
+				(offset + length >= text.Length || IsWordSeparator(text [offset + length]));
+		}
+		
+		private static void Replace(ref string text, int offset, int length, string replacement)
+		{
+			text = text.Remove(offset, length);
+			text = text.Insert(offset, replacement);
+			/*if (document != null) {
+			Gtk.Application.Invoke (delegate {
+				document.Editor.Replace (offset, length, replacement);
+			});
+			return;
+		}*/
+		}
+		#endregion
 
 	}
 }

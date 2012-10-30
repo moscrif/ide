@@ -17,7 +17,6 @@ public partial class MainWindow
 	private global::Gtk.Label lblMessage1;
 	private global::Gtk.Table table1;
 	private global::Gtk.Button btnSocketServer;
-	private global::Gtk.ComboBox cbIpAdress;
 	private global::Gtk.Label lblMessage2;
 	private global::Gtk.Label lblPort;
 	private global::Gtk.ProgressBar pbProgress;
@@ -146,60 +145,49 @@ public partial class MainWindow
 		w18.XOptions = ((global::Gtk.AttachOptions)(4));
 		w18.YOptions = ((global::Gtk.AttachOptions)(4));
 		// Container child table1.Gtk.Table+TableChild
-		this.cbIpAdress = global::Gtk.ComboBox.NewText ();
-		this.cbIpAdress.Name = "cbIpAdress";
-		this.table1.Add (this.cbIpAdress);
-		global::Gtk.Table.TableChild w19 = ((global::Gtk.Table.TableChild)(this.table1 [this.cbIpAdress]));
-		w19.LeftAttach = ((uint)(1));
-		w19.RightAttach = ((uint)(2));
-		w19.XOptions = ((global::Gtk.AttachOptions)(4));
-		w19.YOptions = ((global::Gtk.AttachOptions)(4));
-		// Container child table1.Gtk.Table+TableChild
 		this.lblMessage2 = new global::Gtk.Label ();
 		this.lblMessage2.WidthRequest = 175;
 		this.lblMessage2.Name = "lblMessage2";
 		this.lblMessage2.LabelProp = global::Mono.Unix.Catalog.GetString ("lblMessage2");
 		this.table1.Add (this.lblMessage2);
-		global::Gtk.Table.TableChild w20 = ((global::Gtk.Table.TableChild)(this.table1 [this.lblMessage2]));
-		w20.XOptions = ((global::Gtk.AttachOptions)(4));
-		w20.YOptions = ((global::Gtk.AttachOptions)(4));
+		global::Gtk.Table.TableChild w19 = ((global::Gtk.Table.TableChild)(this.table1 [this.lblMessage2]));
+		w19.XOptions = ((global::Gtk.AttachOptions)(4));
+		w19.YOptions = ((global::Gtk.AttachOptions)(4));
 		// Container child table1.Gtk.Table+TableChild
 		this.lblPort = new global::Gtk.Label ();
 		this.lblPort.Name = "lblPort";
 		this.table1.Add (this.lblPort);
-		global::Gtk.Table.TableChild w21 = ((global::Gtk.Table.TableChild)(this.table1 [this.lblPort]));
-		w21.LeftAttach = ((uint)(2));
-		w21.RightAttach = ((uint)(3));
-		w21.XOptions = ((global::Gtk.AttachOptions)(4));
-		w21.YOptions = ((global::Gtk.AttachOptions)(4));
+		global::Gtk.Table.TableChild w20 = ((global::Gtk.Table.TableChild)(this.table1 [this.lblPort]));
+		w20.LeftAttach = ((uint)(2));
+		w20.RightAttach = ((uint)(3));
+		w20.XOptions = ((global::Gtk.AttachOptions)(4));
+		w20.YOptions = ((global::Gtk.AttachOptions)(4));
 		this.hbox1.Add (this.table1);
-		global::Gtk.Box.BoxChild w22 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.table1]));
-		w22.Position = 1;
-		w22.Expand = false;
-		w22.Fill = false;
+		global::Gtk.Box.BoxChild w21 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.table1]));
+		w21.Position = 1;
 		// Container child hbox1.Gtk.Box+BoxChild
 		this.pbProgress = new global::Gtk.ProgressBar ();
 		this.pbProgress.Name = "pbProgress";
 		this.hbox1.Add (this.pbProgress);
-		global::Gtk.Box.BoxChild w23 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.pbProgress]));
-		w23.Position = 2;
+		global::Gtk.Box.BoxChild w22 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.pbProgress]));
+		w22.Position = 2;
 		this.statusbar1.Add (this.hbox1);
-		global::Gtk.Box.BoxChild w24 = ((global::Gtk.Box.BoxChild)(this.statusbar1 [this.hbox1]));
-		w24.Position = 1;
+		global::Gtk.Box.BoxChild w23 = ((global::Gtk.Box.BoxChild)(this.statusbar1 [this.hbox1]));
+		w23.Position = 1;
 		// Container child statusbar1.Gtk.Box+BoxChild
 		this.loginlogoutcontrol1 = new global::Moscrif.IDE.Components.LoginLogoutControl ();
 		this.loginlogoutcontrol1.Events = ((global::Gdk.EventMask)(256));
 		this.loginlogoutcontrol1.Name = "loginlogoutcontrol1";
 		this.statusbar1.Add (this.loginlogoutcontrol1);
-		global::Gtk.Box.BoxChild w25 = ((global::Gtk.Box.BoxChild)(this.statusbar1 [this.loginlogoutcontrol1]));
+		global::Gtk.Box.BoxChild w24 = ((global::Gtk.Box.BoxChild)(this.statusbar1 [this.loginlogoutcontrol1]));
+		w24.Position = 2;
+		w24.Expand = false;
+		w24.Fill = false;
+		this.vbMain.Add (this.statusbar1);
+		global::Gtk.Box.BoxChild w25 = ((global::Gtk.Box.BoxChild)(this.vbMain [this.statusbar1]));
 		w25.Position = 2;
 		w25.Expand = false;
 		w25.Fill = false;
-		this.vbMain.Add (this.statusbar1);
-		global::Gtk.Box.BoxChild w26 = ((global::Gtk.Box.BoxChild)(this.vbMain [this.statusbar1]));
-		w26.Position = 2;
-		w26.Expand = false;
-		w26.Fill = false;
 		this.Add (this.vbMain);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();

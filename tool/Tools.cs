@@ -15,36 +15,14 @@ namespace Moscrif.IDE.Tool
 {
 	public class Tools
 	{
-		public void RecalculateImageSize(int imageWidth, int imageHeight, int maxWidth, int maxHeight, ref int width, ref int height)
-		{
-			if (maxWidth > imageWidth && maxHeight > imageHeight)
-			{
-				width = imageWidth;
-				height = imageHeight;
-				return;
-			}
-			
-			int imageW = imageWidth;
-			int imageH = imageHeight;
-			
-			double wIndex = (double)imageWidth / (double)maxWidth;
-			double hIndex = (double)imageHeight / (double)maxHeight;
-			
-			if (hIndex > wIndex)
-			{
-				height = maxHeight;
-				width = (int)((imageW * height) / imageH);
-			}
-			else
-			{
-				width = maxWidth;
-				height = (int)((imageH * width) / imageW);
-			}
-		}
-
 		private List<string> validExtension = new List<string>(new string[]{".xml",".ms",".mso",".txt",".db",".png",".jpg",".bmp",".tab",".app",".msp",".msw",".mss"});
 		private ProgressDialog progressDialog;
 
+		/// <summary>
+		/// Get icon for extension
+		/// </summary>
+		/// <param name="extension">Extension.</param>
+		/// <returns>Return icon name</returns>
 		public string GetIconForExtension(string extension)
 		{
 			string stockIcon = "";
@@ -92,6 +70,10 @@ namespace Moscrif.IDE.Tool
 
 		}
 
+		/// <summary>
+		/// Open folder in system explorel.
+		/// </summary>
+		/// <param name="path">Folder.</param>
 		public void OpenFolder(string path){
 			try {
 				if (MainClass.Platform.IsWindows) {
@@ -187,113 +169,48 @@ namespace Moscrif.IDE.Tool
 				}
 		}
 
-		private static string CreateLinksUnix(string Src, string Dst, bool ignoreDotDirectory, bool onlySrc)
+		/// <summary>
+		/// Recalculate Image Size
+		/// </summary>
+		/// <param name="imageWidth">Image width.</param>
+		/// <param name="imageHeight">Image height</param>
+		/// <param name="maxWidth">Max new  width</param>
+		/// <param name="maxHeight">Max new  height</param>
+		/// <param name="width">New width</param>
+		/// <param name="height">New height</param>
+		public void RecalculateImageSize(int imageWidth, int imageHeight, int maxWidth, int maxHeight, ref int width, ref int height)
 		{
-			string path = System.IO.Path.Combine(Dst, "link" + DateTime.Now.ToString("yyyymmddhhMMss") + ".sh");
-
-			String[] Files;
-			if (Dst [Dst.Length - 1] != Path.DirectorySeparatorChar)
-				Dst += Path.DirectorySeparatorChar;
-
-			if (!Directory.Exists(Dst))
-				Directory.CreateDirectory(Dst);
-
-			if(onlySrc)
-				Files = new string[] {Src};
-			else
-				Files = Directory.GetFileSystemEntries(Src);
-
-			try {
-				using (StreamWriter file = new StreamWriter(path)) {
-					file.WriteLine("#!/bin/bash"); ///bin/bash    //sh
-					//file.WriteLine("echo It worked!");
-					foreach (string Element in Files) {
-						string destPath = System.IO.Path.Combine(Dst, Path.GetFileName(Element));
-						if (Directory.Exists(Element)) {
-							if (ignoreDotDirectory)	// "."
-							if (Path.GetFileName(Element) [0] == '.')
-								continue;
-							//ln -s {0} {1} symbolic
-							//ln {0} {1} symbolic
-							file.WriteLine(String.Format("ln -s {0} {1}", Element, destPath ));
-						} else{
-							file.WriteLine(String.Format("cp {0} {1}", Element, destPath ));
-							//file.WriteLine(String.Format("ln -s {0} {1}", Element, destPath ));
-						}
-					}
-					file.Close();
-					file.Dispose();
-				}
-			} catch (Exception ex) {
-				throw ex;
-				//return false;
-				//path = "";
+			if (maxWidth > imageWidth && maxHeight > imageHeight)
+			{
+				width = imageWidth;
+				height = imageHeight;
+				return;
 			}
-			return path;
+			
+			int imageW = imageWidth;
+			int imageH = imageHeight;
+			
+			double wIndex = (double)imageWidth / (double)maxWidth;
+			double hIndex = (double)imageHeight / (double)maxHeight;
+			
+			if (hIndex > wIndex)
+			{
+				height = maxHeight;
+				width = (int)((imageW * height) / imageH);
+			}
+			else
+			{
+				width = maxWidth;
+				height = (int)((imageH * width) / imageW);
+			}
 		}
 
-		private static string CreateLinks(string Src, string Dst, bool ignoreDotDirectory, string exeFile,bool onlySrc)
-		{
-			string path = System.IO.Path.Combine(Dst, "link" + DateTime.Now.ToString("yyyymmddhhMMss") + ".bat");
-
-			String[] Files;
-			if (Dst [Dst.Length - 1] != Path.DirectorySeparatorChar)
-				Dst += Path.DirectorySeparatorChar;
-
-			if (!Directory.Exists(Dst))
-				Directory.CreateDirectory(Dst);
-
-			if(onlySrc)
-				Files = new string[] {Src};
-			else
-				Files = Directory.GetFileSystemEntries(Src);
-
-			try {
-				using (StreamWriter file = new StreamWriter(path)) {
-					foreach (string Element in Files) {
-						string destPath = System.IO.Path.Combine(Dst, Path.GetFileName(Element));
-						Tool.Logger.Debug(Element+"->" );
-
-						if (Directory.Exists(Element)) {
-							Tool.Logger.Debug("Link" );
-							if (ignoreDotDirectory)
-								if (Path.GetFileName(Element) [0] == '.')
-									continue;
-							file.WriteLine(String.Format("\"{0}\" /accepteula \"{1}\" \"{2}\"",exeFile, destPath, Element));//mklink /J
-
-							//file.WriteLine(String.Format("FSUTIL hardlink create {0} {1}", destPath, Element));//mklink /J
-						} else{
-							Tool.Logger.Debug("Copy" );
-							//file.WriteLine(String.Format("{0} /accepteula {1} {2}",exeFile, destPath, Element));
-							//file.WriteLine(String.Format("if not exist \"{0}\" (copy \"{1}\" \"{0}\")", destPath, Element));
-							file.WriteLine(String.Format("copy \"{1}\" \"{0}\"", destPath, Element));
-						}
-							//file.WriteLine(String.Format("FSUTIL hardlink create {0} {1}", destPath, Element));
-					}
-					file.Close();
-					file.Dispose();
-				}
-			} catch (Exception ex) {
-				throw ex;
-				//return false;
-				//path = "";
-			}
-			return path;
-		}
-
-
-		public string GetMd5Sum(string str) {
-
-			byte[] input = ASCIIEncoding.ASCII.GetBytes(str);
-        		byte[] output = MD5.Create().ComputeHash(input);
-        		StringBuilder sb = new StringBuilder();
-
-			for(int i=0;i<output.Length;i++) {
-            			sb.Append(output[i].ToString("X2"));
-        		}
-        		return sb.ToString();
-    		}
-
+		/// <summary>
+		/// Unzip File to output directory.
+		/// </summary>
+		/// <param name="zippPath">Path zip file.</param>
+		/// <param name="outputPath">Output directory path.</param>
+		/// <returns>Return tlist uzipped files</returns>
 		public List<string> UnzipFile(string zippPath,string outputPath){
 
 			ProgressDialog pd = new ProgressDialog("",ProgressDialog.CancelButtonType.None,1,MainClass.MainWindow);
@@ -370,44 +287,11 @@ namespace Moscrif.IDE.Tool
 			return listFile;
 		}
 
-		private void CopyDirectory(string src, string dst, bool ignoreDotDirectory)
-		{
-			String[] Files;
-			
-			if (dst[dst.Length - 1] != Path.DirectorySeparatorChar)
-				dst += Path.DirectorySeparatorChar;
-			if (!Directory.Exists(dst))
-				Directory.CreateDirectory(dst);
-			Files = Directory.GetFileSystemEntries(src);
-			
-			foreach (string Element in Files){
-
-				if (progressDialog != null){
-					MainClass.MainWindow.ProgressStep();
-					progressDialog.Update (Element);
-				}
-
-				string destPath= System.IO.Path.Combine( dst ,Path.GetFileName(Element));
-
-				if (Directory.Exists(Element)) {
-					if (ignoreDotDirectory)	// "."
-					{
-						int indx = MainClass.Settings.IgnoresFolders.FindIndex(x => x.Folder == Path.GetFileName(Element) && x.IsForIde);
-							if (indx > -1) continue;
-					}
-						//if (Path.GetFileName(Element)[0] == '.')continue;
-					CopyDirectory(Element,destPath, ignoreDotDirectory);
-				} else {
-					int indx = -1;
-					indx = MainClass.Settings.IgnoresFiles.FindIndex(x => x.Folder == Path.GetFileName(Element) && x.IsForIde);
-					
-					if(indx >-1) continue;
-
-					File.Copy(Element, destPath, true);
-				}
-			}
-		}
-
+		/// <summary>
+		/// Remove diacritics from text
+		/// </summary>
+		/// <param name="s">text.</param>
+		/// <returns>Return text without diacritics</returns>
 		public string RemoveDiacritics(string s)
 		{
 			s = s.Normalize(NormalizationForm.FormD);
@@ -419,6 +303,11 @@ namespace Moscrif.IDE.Tool
 			return report.Normalize(NormalizationForm.FormC);
 		}
 
+		/// <summary>
+		/// Remove diacritics and non letter and non digit char from text
+		/// </summary>
+		/// <param name="s">text.</param>
+		/// <returns>Return Text</returns>
 		public string RemoveDiacriticsAndOther(string s)
 		{
 			s = s.Normalize(NormalizationForm.FormD);
@@ -435,6 +324,12 @@ namespace Moscrif.IDE.Tool
 
 		}
 
+		/// <summary>
+		/// Create Pixbuf from stockId.
+		/// </summary>
+		/// <param name="iconName">Image stock id.</param>
+		/// <param name="size">Icon Size.</param>
+		/// <returns>Return Pixbuf</returns>
 		public Gdk.Pixbuf GetIconFromStock(string iconName, Gtk.IconSize size)
 		{
 			string stockid = iconName;
@@ -448,7 +343,12 @@ namespace Moscrif.IDE.Tool
 			return null;
 		}
 
-
+		/// <summary>
+		/// Create component stockImage and Label
+		/// </summary>
+		/// <param name="stockId">Image stock id.</param>
+		/// <param name="lab">Label.</param>
+		/// <returns>Return HBox widget</returns>
 		public Gtk.HBox CreatePicLabelWidget(string stockId, string lab) {
 		      Gtk.HBox hb = new Gtk.HBox();
 
@@ -458,7 +358,11 @@ namespace Moscrif.IDE.Tool
 		      return hb;
 	    	}
 
-
+		/// <summary>
+		/// Checks whether extension ignored 
+		/// </summary>
+		/// <param name="extension">Extension to check.</param>
+		/// <returns>True is ignored.</returns>
 		public bool IsIgnoredExtension(string extension){
 
 			List<string> systemIgnoreExtension = new List<string>();
@@ -472,19 +376,10 @@ namespace Moscrif.IDE.Tool
 
 		}
 
-		/*public Gdk.Pixbuf GetIconFromStock(string iconName, Gtk.IconSize size)
-		{
-			string stockid = iconName;
-			if (stockid != null) {
-				Gtk.IconSet iconset = Gtk.IconFactory.LookupDefault(stockid);
-				if (iconset != null) {
-					return iconset.RenderIcon(Gtk.Widget.DefaultStyle, Gtk.TextDirection.None, Gtk.StateType.Normal, Gtk.IconSize.Invalid, null, null);
-				}
-			}
-
-			return null;
-		}*/
-
+		/// <summary>
+		/// Return new empty path
+		/// </summary>
+		/// <returns>Return new empty path.</returns>
 		public string GetEmptyPath ()
     		{
         		string bpath = "temp", path = "temp";
@@ -494,6 +389,11 @@ namespace Moscrif.IDE.Tool
 			return path;
     		}
 
+		/// <summary>
+		/// Return Publis tool directory for device
+		/// </summary>
+		/// <param name="platformSpecific">Identifi device.</param>
+		/// <returns>Return publish directory with publish tool.</returns>
 		public string GetPublishDirectory(string platformSpecific){
 
 			if (String.IsNullOrEmpty(platformSpecific)) return null;
@@ -502,6 +402,11 @@ namespace Moscrif.IDE.Tool
 
 		}
 
+		/// <summary>
+		/// Check exist publish directory with publish tool
+		/// </summary>
+		/// <param name="platformSpecific">Identifi device.</param>
+		/// <returns>return true if dir exist  directory with publish tool.</returns>
 		public bool CheckPublishDirectory(string platformSpecific){
 			string platformDir = GetPublishDirectory(platformSpecific);
 
@@ -511,6 +416,11 @@ namespace Moscrif.IDE.Tool
 
 		}
 
+		/// <summary>
+		/// Clone List.
+		/// </summary>
+		/// <param name="listToClone">List To Clone.</param>
+		/// <returns>Return clone list.</returns>
 		public List<T> Clone<T>(List<T> listToClone) where T: ICloneable
 		{
 			List<T> newList = new List<T>(listToClone.Count);
@@ -522,6 +432,11 @@ namespace Moscrif.IDE.Tool
 			return newList;
 		}
 
+		/// <summary>
+		/// Convert assembly version to Moscrif version
+		/// </summary>
+		/// <param name="version">Assembly version (2012.3.0.0)</param>
+		/// <returns>Return Moscrif version (2012q1.125) </returns>
 		public string VersionConverter(string version){
 			
 			string[] versions = version.Split('.');
@@ -544,6 +459,143 @@ namespace Moscrif.IDE.Tool
 			string webVersion = String.Format("{0}q{1}{2}", versions[0], versions[1],sFix);
 			return webVersion;			
 		}
+	
+		#region private
+
+		private static string CreateLinksUnix(string Src, string Dst, bool ignoreDotDirectory, bool onlySrc)
+		{
+			string path = System.IO.Path.Combine(Dst, "link" + DateTime.Now.ToString("yyyymmddhhMMss") + ".sh");
+			
+			String[] Files;
+			if (Dst [Dst.Length - 1] != Path.DirectorySeparatorChar)
+				Dst += Path.DirectorySeparatorChar;
+			
+			if (!Directory.Exists(Dst))
+				Directory.CreateDirectory(Dst);
+			
+			if(onlySrc)
+			Files = new string[] {Src};
+			else
+				Files = Directory.GetFileSystemEntries(Src);
+			
+			try {
+				using (StreamWriter file = new StreamWriter(path)) {
+					file.WriteLine("#!/bin/bash"); ///bin/bash    //sh
+					//file.WriteLine("echo It worked!");
+					foreach (string Element in Files) {
+						string destPath = System.IO.Path.Combine(Dst, Path.GetFileName(Element));
+						if (Directory.Exists(Element)) {
+							if (ignoreDotDirectory)	// "."
+								if (Path.GetFileName(Element) [0] == '.')
+									continue;
+							//ln -s {0} {1} symbolic
+							//ln {0} {1} symbolic
+							file.WriteLine(String.Format("ln -s {0} {1}", Element, destPath ));
+						} else{
+							file.WriteLine(String.Format("cp {0} {1}", Element, destPath ));
+							//file.WriteLine(String.Format("ln -s {0} {1}", Element, destPath ));
+						}
+					}
+					file.Close();
+					file.Dispose();
+				}
+			} catch (Exception ex) {
+				throw ex;
+				//return false;
+				//path = "";
+			}
+			return path;
+		}
+		
+		private static string CreateLinks(string Src, string Dst, bool ignoreDotDirectory, string exeFile,bool onlySrc)
+		{
+			string path = System.IO.Path.Combine(Dst, "link" + DateTime.Now.ToString("yyyymmddhhMMss") + ".bat");
+			
+			String[] Files;
+			if (Dst [Dst.Length - 1] != Path.DirectorySeparatorChar)
+				Dst += Path.DirectorySeparatorChar;
+			
+			if (!Directory.Exists(Dst))
+				Directory.CreateDirectory(Dst);
+			
+			if(onlySrc)
+			Files = new string[] {Src};
+			else
+				Files = Directory.GetFileSystemEntries(Src);
+			
+			try {
+				using (StreamWriter file = new StreamWriter(path)) {
+					foreach (string Element in Files) {
+						string destPath = System.IO.Path.Combine(Dst, Path.GetFileName(Element));
+						Tool.Logger.Debug(Element+"->" );
+						
+						if (Directory.Exists(Element)) {
+							Tool.Logger.Debug("Link" );
+							if (ignoreDotDirectory)
+								if (Path.GetFileName(Element) [0] == '.')
+									continue;
+							file.WriteLine(String.Format("\"{0}\" /accepteula \"{1}\" \"{2}\"",exeFile, destPath, Element));//mklink /J
+							
+							//file.WriteLine(String.Format("FSUTIL hardlink create {0} {1}", destPath, Element));//mklink /J
+						} else{
+							Tool.Logger.Debug("Copy" );
+							//file.WriteLine(String.Format("{0} /accepteula {1} {2}",exeFile, destPath, Element));
+							//file.WriteLine(String.Format("if not exist \"{0}\" (copy \"{1}\" \"{0}\")", destPath, Element));
+							file.WriteLine(String.Format("copy \"{1}\" \"{0}\"", destPath, Element));
+						}
+						//file.WriteLine(String.Format("FSUTIL hardlink create {0} {1}", destPath, Element));
+					}
+					file.Close();
+					file.Dispose();
+				}
+			} catch (Exception ex) {
+				throw ex;
+				//return false;
+				//path = "";
+			}
+			return path;
+		}
+		
+		private void CopyDirectory(string src, string dst, bool ignoreDotDirectory)
+		{
+			String[] Files;
+			
+			if (dst[dst.Length - 1] != Path.DirectorySeparatorChar)
+				dst += Path.DirectorySeparatorChar;
+			if (!Directory.Exists(dst))
+				Directory.CreateDirectory(dst);
+			Files = Directory.GetFileSystemEntries(src);
+			
+			foreach (string Element in Files){
+				
+				if (progressDialog != null){
+					MainClass.MainWindow.ProgressStep();
+					progressDialog.Update (Element);
+				}
+				
+				string destPath= System.IO.Path.Combine( dst ,Path.GetFileName(Element));
+				
+				if (Directory.Exists(Element)) {
+					if (ignoreDotDirectory)	// "."
+					{
+						int indx = MainClass.Settings.IgnoresFolders.FindIndex(x => x.Folder == Path.GetFileName(Element) && x.IsForIde);
+						if (indx > -1) continue;
+					}
+					//if (Path.GetFileName(Element)[0] == '.')continue;
+					CopyDirectory(Element,destPath, ignoreDotDirectory);
+				} else {
+					int indx = -1;
+					indx = MainClass.Settings.IgnoresFiles.FindIndex(x => x.Folder == Path.GetFileName(Element) && x.IsForIde);
+					
+					if(indx >-1) continue;
+					
+					File.Copy(Element, destPath, true);
+				}
+			}
+		}
+		
+
+		#endregion
 	}
 	
 }
