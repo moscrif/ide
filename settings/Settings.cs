@@ -120,6 +120,10 @@ namespace  Moscrif.IDE.Settings
 
 		[XmlIgnore]
 		public String bannerUrl = "http://rc.moscrif.com/ide/getBanner.ashx"; 
+
+		[XmlIgnore]
+		public String licenceUrl = "http://rc.moscrif.com/ide/getLicenses.ashx"; 
+
 	
 #else 
 		//[XmlElement("signUrl")]
@@ -162,6 +166,9 @@ namespace  Moscrif.IDE.Settings
 
 		[XmlIgnore]
 		public String bannerUrl = "http://moscrif.com/ide/getBanner.ashx"; 
+
+		[XmlIgnore]
+		public String licenceUrl = "http://moscrif.com/ide/getLicenses.ashx"; 
 #endif
 
 		[XmlElement("backgroundColor")]

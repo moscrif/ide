@@ -60,10 +60,7 @@ namespace Moscrif.IDE.Controls
 			w2.RightAttach = ((uint)(2));
 			w2.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table2b.Gtk.Table+TableChild
-			this.feRoot = new global::Moscrif.IDE.Components.FileEntry ();
-			this.feRoot.Name = "feRoot";
-			this.feRoot.IsFolder = true;
-			this.feRoot.BrowserTitle = "Root Directory";
+			this.feRoot = null;
 			this.table2b.Add (this.feRoot);
 			global::Gtk.Table.TableChild w3 = ((global::Gtk.Table.TableChild)(this.table2b [this.feRoot]));
 			w3.TopAttach = ((uint)(1));

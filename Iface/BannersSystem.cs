@@ -67,7 +67,7 @@ namespace Moscrif.IDE.Iface
 				cnt = 0;
 				return NextBanner ();
 			}
-			return null;
+			//return null;
 		}
 
 		public bool GetBanner(){

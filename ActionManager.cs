@@ -738,6 +738,18 @@ namespace Moscrif.IDE
 
 	void OnTest(object obj, EventArgs args)
 	{
+			LicensesSystem ls = new LicensesSystem();
+
+			foreach(License lc in ls.Licenses.Items){
+				Console.WriteLine(lc.Name);
+			}
+
+			LicenceDialog ld = new LicenceDialog();
+			if(ld.Run() == (int)ResponseType.Ok){
+				
+			}
+			ld.Destroy();
+
 		Console.WriteLine("MainClass.MainWindow.hpRight.Position SW 1 -:"+MainClass.MainWindow.hpRight.Position );
 			//	throw new NotImplementedException();
 		return;

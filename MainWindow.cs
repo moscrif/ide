@@ -33,7 +33,7 @@ public partial class MainWindow : Gtk.Window
 	DropDownButton.ComboItemSet projectItems = new DropDownButton.ComboItemSet ();
 	DropDownButton.ComboItemSet deviceItems = new DropDownButton.ComboItemSet ();
 	DropDownButton.ComboItemSet resolutionItems = new DropDownButton.ComboItemSet ();
-	DropDownButton.ComboItemSet socketIPItems = new DropDownButton.ComboItemSet ();
+	//DropDownButton.ComboItemSet socketIPItems = new DropDownButton.ComboItemSet ();
 
 
 	private bool runningEmulator = false;
@@ -50,7 +50,7 @@ public partial class MainWindow : Gtk.Window
 	private DropDownButton ddbProject = new DropDownButton();
 	private DropDownButton ddbDevice = new DropDownButton();
 	private DropDownButton ddbResolution = new DropDownButton();
-	private DropDownButton ddbSocketIP = new DropDownButton();
+	//private DropDownButton ddbSocketIP = new DropDownButton();
 
 	private MenuBar mainMenu = new MenuBar();
 	Toolbar toolbarLeft = new Toolbar();
@@ -501,7 +501,7 @@ public partial class MainWindow : Gtk.Window
 				}
 			}
 		};
-		table1.Attach(ddbSocketIP,2,3,0,1,AttachOptions.Shrink,AttachOptions.Shrink,0,0);
+		//table1.Attach(ddbSocketIP,2,3,0,1,AttachOptions.Shrink,AttachOptions.Shrink,0,0);
 		this.ShowAll();
 		this.Maximize();
 
@@ -550,17 +550,17 @@ public partial class MainWindow : Gtk.Window
 		List<string> listIp = Moscrif.IDE.Tool.Network.GetIpAdress();
 		int indx = 0;
 		foreach (string ip in listIp){
-			//cbIpAdress.AppendText(ip);
+			cbIpAdress.AppendText(ip);
 
-			DropDownButton.ComboItem ddi =new DropDownButton.ComboItem(ip,ip);
+			/*DropDownButton.ComboItem ddi =new DropDownButton.ComboItem(ip,ip);
 			socketIPItems.Add(ddi);
 			if(indx==0)
 				ddbSocketIP.SelectItem(socketIPItems,ddi);
-			indx++;
+			indx++;*/
 		}
 
-		/*if(listIp!= null && listIp.Count>0)
-			cbIpAdress.Active = 0;*/
+		if(listIp!= null && listIp.Count>0)
+			cbIpAdress.Active = 0;
 
 		Moscrif.IDE.Iface.SocketServer.OutputClientChanged+= delegate(object sndr, string message) {
 			Gtk.Application.Invoke(delegate{
@@ -2469,16 +2469,19 @@ public partial class MainWindow : Gtk.Window
 	protected void OnBtnSocketServerClicked (object sender, EventArgs e)
 	{	
 
-		//if(String.IsNullOrEmpty(cbIpAdress.ActiveText)) return;
-		string ipAdrress = (string) ddbSocketIP.CurrentItem;
+		if(String.IsNullOrEmpty(cbIpAdress.ActiveText)) return;
+		string ipAdrress = cbIpAdress.ActiveText;
+		//string ipAdrress = (string) ddbSocketIP.CurrentItem;
 
 		if(Moscrif.IDE.Iface.SocketServer.Running){
 			Moscrif.IDE.Iface.SocketServer.CloseSockets();
-			ddbSocketIP.Sensitive = true;
+			cbIpAdress.Sensitive = true;
+			//ddbSocketIP.Sensitive = true;
 			btnSocketServer.Image = new Gtk.Image(pixbufRed);
 		} else {
 			string ip = Moscrif.IDE.Iface.SocketServer.StartListen(ipAdrress, MainClass.Settings.SocetServerPort);
-			ddbSocketIP.Sensitive = false;
+			cbIpAdress.Sensitive = false;
+			//ddbSocketIP.Sensitive = false;
 			btnSocketServer.Image = new Gtk.Image(pixbufGreen);
 		}
 	}

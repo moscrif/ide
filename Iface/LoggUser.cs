@@ -108,7 +108,7 @@ namespace Moscrif.IDE.Iface
 
 			string data = String.Format("{0}\n{1}",name,GetMd5Sum(password+SALT)); //\n{2}\n{3}",name,GetMd5Sum(password+SALT),Environment.MachineName,Environment.UserName);
 			try{
-				string result =  client.UploadString(new Uri(URL),data);
+				string result =  client. UploadString(new Uri(URL),data);
 				Account ac = CreateAccount(result);
 				if( ac!= null ){
 					ac.Login = name ;
