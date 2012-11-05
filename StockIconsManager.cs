@@ -97,7 +97,10 @@ namespace Moscrif.IDE
 			"emulator-skin.png",
 			"workspace-right.png",
 			"workspace-left.png",
-			"workspace-bottom.png"
+			"workspace-bottom.png",
+			"garbage-collector.png",
+			"resolution.png",
+			"emulator.png"
 		};
 
 		public static void Initialize()

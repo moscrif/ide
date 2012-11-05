@@ -11,6 +11,7 @@ using System.IO;
 using System.Timers;
 using System.Threading;
 using Moscrif.IDE.Settings;
+using Moscrif.IDE.Iface.Entities;
 
 namespace Moscrif.IDE.Iface
 {
@@ -61,6 +62,7 @@ namespace Moscrif.IDE.Iface
 
 		public bool Ping(string token){
       			string URL =pingUrl;
+			string result;
 
 			WebClient client = new WebClient();
 
@@ -70,7 +72,16 @@ namespace Moscrif.IDE.Iface
 				return false;
 			}			
 			try{
-				string aaa = client.DownloadString(new Uri(URL));
+				result = client.DownloadString(new Uri(URL));
+
+				if(!string.IsNullOrEmpty(result)){
+					Licenses lc = Licenses.LoadLicenses(result);
+					MainClass.User.Licenses = lc;
+					if(lc!= null && lc.Items.Count>0){
+						MainClass.User.LicenseId = lc.Items[0].Typ;
+					}
+				}
+
 			}catch(Exception ex){
 				string statusDesc = "";
 				GetStatusCode(client,out statusDesc);
@@ -80,7 +91,6 @@ namespace Moscrif.IDE.Iface
 				return false;
 			}
 			return true;
-
 		}
 		
 		private static int GetStatusCode(WebClient client, out string statusDescription)
@@ -108,10 +118,32 @@ namespace Moscrif.IDE.Iface
 
 			string data = String.Format("{0}\n{1}",name,GetMd5Sum(password+SALT)); //\n{2}\n{3}",name,GetMd5Sum(password+SALT),Environment.MachineName,Environment.UserName);
 			try{
-				string result =  client. UploadString(new Uri(URL),data);
-				Account ac = CreateAccount(result);
+				string result =  client.UploadString(new Uri(URL),data);
+				int indx = result.IndexOf("<token>");
+				int indxLast = result.LastIndexOf("</token>");
+				//Console.WriteLine(result);
+				string token = "";
+				if((indx>-1)&&(indxLast>-1)){
+					//result = result.Substring(
+					Regex regx = new Regex("<token>.*?</token>");
+					MatchCollection mc = regx.Matches(result);
+					if(mc.Count>0){
+						token = mc[0].Value;
+						token= token.Replace("<token>",string.Empty);
+						token= token.Replace("</token>",string.Empty);
+					}
+					result = regx.Replace(result,String.Empty);
+				}
+				Account ac = CreateAccount(token);
+
 				if( ac!= null ){
 					ac.Login = name ;
+					Licenses lsl = Licenses.LoadLicenses(result);
+					ac.Licenses = lsl;
+					if(lsl!= null && lsl.Items.Count>0){
+						ac.LicenseId = lsl.Items[0].Typ;
+					}
+
 					if(loggYesTask!= null) loggYesTask(null,ac);
 				} else {
 					if(loggNoTask!= null) loggNoTask(null,"Wrong username or password.");
@@ -125,7 +157,8 @@ namespace Moscrif.IDE.Iface
 				return;
 			}
 
-		}	
+		}
+		/*	
 		public void CheckLoginII(string name, string password,LoginYesTaskHandler loggYesTask,LoginNoTaskHandler loggNoTask){
       			string URL = loginUrl;
 
@@ -155,10 +188,15 @@ namespace Moscrif.IDE.Iface
 
 			client.UploadStringAsync(new Uri(URL),data);
 		}
-		
+		*/
 		private Account CreateAccount(string response){
 
 			if(!String.IsNullOrEmpty(response)){
+				//Console.WriteLine(response);
+				/*License lcs = License.LoadLicense(response);
+				Account a = new Account();
+				a.Token = lcs.Token;
+				return a;*/
 				string[] responses = response.Replace('\r', '\0').Split('\n');
 				Account a = new Account();
 				a.Token = responses[0];

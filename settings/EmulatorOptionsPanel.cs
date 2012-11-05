@@ -44,7 +44,7 @@ namespace Moscrif.IDE.Settings
 		}
 
 		public override string Icon {
-			get { return "emulator-skin.png"; }
+			get { return "emulator.png"; }//emulator-skin.png
 		}
 		
 	}

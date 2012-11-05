@@ -33,6 +33,19 @@ namespace Moscrif.IDE.Iface.Entities
 			get;
 			set;
 		}
+
+		[XmlAttribute("licence")]
+		public string LicenseId{
+			get;
+			set;
+		}
+
+		//[XmlAttribute("licences")]
+		[XmlIgnore]
+		public Licenses Licenses{
+			get;
+			set;
+		}
 	}
 }
 

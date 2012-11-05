@@ -15,10 +15,17 @@ namespace Moscrif.IDE.Controls
 
 		bool hoveringOverLink = false;
 		Gdk.Cursor handCursor, regularCursor;
-
+		License lcs = null;
 		public LicenceDialog()
 		{
 			this.Build();
+
+			string typ ="-100";
+			if(MainClass.User!=null)
+				typ =MainClass.User.LicenseId;
+			
+			lcs = MainClass.LicencesSystem.GetNextLicence(typ);
+
 			handCursor = new Gdk.Cursor (Gdk.CursorType.Hand2);
 			regularCursor = new Gdk.Cursor (Gdk.CursorType.Xterm);
 					
@@ -60,14 +67,24 @@ namespace Moscrif.IDE.Controls
 			int x = 0;
 			Table tbl = new Table( (uint)MainClass.Settings.LibsDefine.Count,1,false);
 
-			foreach(string sv in MainClass.Settings.LibsDefine){
+			if(lcs!= null){
+				foreach(Feature ftv in lcs.Featutes){
+					CheckButton chb = new CheckButton(ftv.Name);
+					chb.Name = ftv.Name;
+					chb.Active = true;
+					chb.Sensitive = false;
+					tbl.Attach(chb,0,1,(uint)x,(uint)(x+1),AttachOptions.Fill,AttachOptions.Fill,5,0);
+					x++;
+				}
+			}
+			/*foreach(string sv in MainClass.Settings.LibsDefine){
 				CheckButton chb = new CheckButton(sv);
 				chb.Name = sv;
 				chb.Active = true;
 				chb.Sensitive = false;
 				tbl.Attach(chb,0,1,(uint)x,(uint)(x+1),AttachOptions.Fill,AttachOptions.Fill,5,0);
 				x++;
-			}
+			}*/
 			textView.AddChildAtAnchor (tbl, tableAnchor);
 
 			/*
@@ -154,10 +171,10 @@ namespace Moscrif.IDE.Controls
 			
 			TextIter insertIter = buffer.StartIter;
 			//buffer.InsertPixbuf (ref insertIter, pixbuf);
-			buffer.InsertWithTagsByName (ref insertIter, "Moscrif <Model> \n", "heading");
+			buffer.InsertWithTagsByName (ref insertIter, String.Format("Moscrif {0} \n",lcs.Name), "heading");
 
 			buffer.Insert (ref insertIter,
-			               "The <FEATURE NAME> is available for Moscrif <MODEL> license. Please purchase an upgrade to unlock this Buying Moscrif <MODEL> License you also unlock:\n\n");
+			               String.Format("The <FEATURE NAME> is available for Moscrif {0} license. Please purchase an upgrade to unlock this Buying Moscrif {0} License you also unlock:\n\n",lcs.Name));
 
 			tableAnchor = buffer.CreateChildAnchor (ref insertIter);
 

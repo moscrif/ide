@@ -78,9 +78,14 @@ namespace Moscrif.IDE
 				ld.Run();
 				ld.Destroy();
 			} else {
+				LoggUser lu = new LoggUser();
+				lu.Ping(MainClass.Settings.Account.Token);
+
 				LoggingInfo log = new LoggingInfo();
 				log.LoggWebThread(LoggingInfo.ActionId.IDEStart);
 			}
+			/*LoggUser lu2 = new LoggUser();
+			lu2.Ping(MainClass.User.Token);*/
 
 			if (!String.IsNullOrEmpty(Paths.TempDir))
 			{
@@ -279,6 +284,19 @@ namespace Moscrif.IDE
 				if ((account == null) || (account.Remember)){
 					MainClass.Settings.Account = account;
 				}
+			}
+		}
+
+		static LicensesSystem licencesSystem = null;
+		static internal LicensesSystem LicencesSystem{
+			get{
+				if(licencesSystem==null){
+					licencesSystem = new LicensesSystem();
+				}
+				return licencesSystem;
+			}
+			set{
+				licencesSystem = value;
 			}
 		}
 	}

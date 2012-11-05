@@ -82,18 +82,38 @@ namespace Moscrif.IDE.Iface.Entities
 		{
 		}
 		private Gdk.Pixbuf bannerPixbuf;
-		
+
+		public static License LoadLicense(string data){
+			try {
+				//Console.WriteLine(data);
+				XmlSerializer serializer = new XmlSerializer(typeof(License));//,xRoot);
+				
+				License banners= (License)serializer.Deserialize((new StringReader(data) ));
+				return banners;
+			}catch(Exception ex){
+				Moscrif.IDE.Tool.Logger.Error(ex.Message);
+				Console.WriteLine(ex.Message);
+				return new License();
+			}
+		}
+
+		[XmlElement("token")]
+		public string Token;
+
 		[XmlElement("name")]
 		public string Name ;
 		
 		[XmlElement("code")]
 		public string Code;
 		
-		[XmlElement("typ")]
+		[XmlElement("type")]
 		public string Typ;
 		
-		[XmlElement("featutes")]
+		[XmlArray("featutes")]
+		[XmlArrayItem("feature")]
 		public List<Feature> Featutes {get;set;}
+
+
 		
 	}
 
@@ -120,10 +140,10 @@ namespace Moscrif.IDE.Iface.Entities
 		public string Type;
 
 		[XmlElement("mobile")]
-		public bool Mobile;
+		public string Mobile;
 
-		[XmlElement("value")]
-		public int Value;
+		[XmlElement("value",IsNullable=true)]
+		public string Value;
 	}
 
 }

@@ -122,7 +122,7 @@
               <widget class="Gtk.HPaned" id="hpOutput">
                 <property name="MemberName" />
                 <property name="CanFocus">True</property>
-                <property name="Position">509</property>
+                <property name="Position">507</property>
                 <child>
                   <placeholder />
                 </child>

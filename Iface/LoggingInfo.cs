@@ -241,7 +241,7 @@ namespace Moscrif.IDE.Iface
 				return false;
 			}
 			
-			string data = "";
+			//string data = "";
 			try{
 
 				string resp = client.UploadString(new Uri(URL),xmlData);

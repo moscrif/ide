@@ -286,7 +286,7 @@ public partial class MainWindow : Gtk.Window
 		Gtk.Menu gcMenu = new Gtk.Menu();
 		GetOutputMenu(ref gcMenu, LogGarbageCollector);
 
-		garbageColectorLabel =new NotebookMenuLabel("log.png",MainClass.Languages.Translate("garbage_collector",0),gcMenu);
+		garbageColectorLabel =new NotebookMenuLabel("garbage-collector.png",MainClass.Languages.Translate("garbage_collector",0),gcMenu);
 
 		OutputNotebook.AppendPage(LogGarbageCollector,garbageColectorLabel );
 
@@ -624,6 +624,7 @@ public partial class MainWindow : Gtk.Window
 	private BannersSystem bannersSystem; 
 	private void BannerThreadLoop()
 	{
+		MainClass.LicencesSystem.LoadFromWeb();
 		bannersSystem = new BannersSystem();
 
 		bool play = true;

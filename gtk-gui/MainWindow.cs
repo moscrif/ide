@@ -88,7 +88,7 @@ public partial class MainWindow
 		this.hpOutput = new global::Gtk.HPaned ();
 		this.hpOutput.CanFocus = true;
 		this.hpOutput.Name = "hpOutput";
-		this.hpOutput.Position = 509;
+		this.hpOutput.Position = 507;
 		this.vpBody.Add (this.hpOutput);
 		this.vbMain.Add (this.vpBody);
 		global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.vbMain [this.vpBody]));

@@ -19,18 +19,33 @@ namespace Moscrif.IDE.Iface
 		private string licenceFile ;
 		public Licenses Licenses;
 
+		public License GetLicence(string typ){
+			return	Licenses.Items.Find(x=>x.Typ==typ);
+		}
+
+		public License GetNextLicence(string typ){
+			string newTyp = typ;
+			int iTyp =0;
+			if(Int32.TryParse(typ,out iTyp)){
+				iTyp = iTyp-100;
+			}
+
+			return	Licenses.Items.Find(x=>x.Typ==iTyp.ToString());
+		}
+
 		public LicensesSystem()
 		{
+			Licenses = Licenses.OpenLicensesCache();
+		}
+
+		public void LoadFromWeb(){
 			if(GetLicenses() && !string.IsNullOrEmpty(licenceFile)){
-				//Console.WriteLine(bannerFile);
 				Licenses = Licenses.LoadLicenses(licenceFile);
-			} else {
-				Licenses = Licenses.OpenLicensesCache();
-			}
+			} 
 			if(!Licenses.IsCache){
 				Licenses.SaveLicensesCache();
 			}
-		}
+		} 
 
 		public bool GetLicenses(){
 			
