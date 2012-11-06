@@ -73,9 +73,6 @@
     </Reference>
     <Reference Include="Mono.Cairo" />
     <Reference Include="Mono.Posix" />
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>libs\Newtonsoft.Json.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="gtk-gui\gui.stetic">

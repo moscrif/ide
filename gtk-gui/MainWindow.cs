@@ -75,7 +75,7 @@ public partial class MainWindow
 		this.vpBody = new global::Gtk.VPaned ();
 		this.vpBody.CanFocus = true;
 		this.vpBody.Name = "vpBody";
-		this.vpBody.Position = 311;
+		this.vpBody.Position = 417;
 		// Container child vpBody.Gtk.Paned+PanedChild
 		this.hpBodyMidle = new global::Gtk.HPaned ();
 		this.hpBodyMidle.CanFocus = true;

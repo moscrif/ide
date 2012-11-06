@@ -605,7 +605,6 @@ public partial class MainWindow : Gtk.Window
 		BannerThread.Name = "BannerThread";
 		BannerThread.IsBackground = true;
 		BannerThread.Start();
-
 	}
 	
 	private void LoadDefaultBanner(){
@@ -624,6 +623,18 @@ public partial class MainWindow : Gtk.Window
 	private BannersSystem bannersSystem; 
 	private void BannerThreadLoop()
 	{
+		if((MainClass.Settings.Account != null) || (!String.IsNullOrEmpty(MainClass.Settings.Account.Token))){
+			LoggUser lu = new LoggUser();
+			if(!lu.Ping(MainClass.Settings.Account.Token))
+			{
+				Gtk.Application.Invoke(delegate{
+					LoginDialog ld = new LoginDialog(null);
+					ld.Run();
+					ld.Destroy();
+				});
+			}
+		}
+
 		MainClass.LicencesSystem.LoadFromWeb();
 		bannersSystem = new BannersSystem();
 

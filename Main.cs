@@ -78,8 +78,8 @@ namespace Moscrif.IDE
 				ld.Run();
 				ld.Destroy();
 			} else {
-				LoggUser lu = new LoggUser();
-				lu.Ping(MainClass.Settings.Account.Token);
+				//LoggUser lu = new LoggUser();
+				//lu.Ping(MainClass.Settings.Account.Token);
 
 				LoggingInfo log = new LoggingInfo();
 				log.LoggWebThread(LoggingInfo.ActionId.IDEStart);

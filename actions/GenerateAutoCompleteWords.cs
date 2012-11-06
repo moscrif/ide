@@ -18,8 +18,8 @@ using Mono.Data.Sqlite;
 using Moscrif.IDE.Tool;
 using Moscrif.IDE.Completion;
 
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+//using Newtonsoft.Json;
+//using Newtonsoft.Json.Linq;
 
 
 namespace Moscrif.IDE.Actions
@@ -67,10 +67,7 @@ namespace Moscrif.IDE.Actions
 
 				progressDialog.Update(kw.ToString());
 				foreach (string wrd in kw.Words){
-					insertNewRow(wrd,wrd,(int)CompletionDataTyp.keywords,"","","");
-
-						//sql = String.Format("INSERT INTO completed (name,signature,type) values ( {0} , {0} ,K ) ;",wrd);
-						//sqlLiteDal.RunSqlScalar(sql);
+						insertNewRow(wrd,wrd,(int)CompletionDataTyp.keywords,"","","");
 					}
 			}
 
@@ -96,7 +93,8 @@ namespace Moscrif.IDE.Actions
 
 			//XmlDocument doc = (XmlDocument)JsonConvert.DeserializeXmlNode(json);
 			//doc.Save(fileName+"xml");
-			JObject jDoc= JObject.Parse(json);
+
+			/*JObject jDoc= JObject.Parse(json);
 			//classes
 			Console.WriteLine("o.Count->"+jDoc.Count);
 
@@ -168,7 +166,7 @@ namespace Moscrif.IDE.Actions
 				}
 
 				insertNewRow(name,signature,(int)type,classParent,description,returnType);
-			}
+			}*/
 			//classitems
 
 //			string name = (string)o["project"]["name"];
@@ -362,7 +360,7 @@ namespace Moscrif.IDE.Actions
 			}
 			return "";
 		}
-
+		/*
 		private string GetParams(JArray paramsArray){
 			if(paramsArray == null)
 				return "()";
@@ -391,17 +389,13 @@ namespace Moscrif.IDE.Actions
 					}
 				}
 
-
-				//if (optional)
-				//	param.Append("[");
 				param.Append(name);
 
 				if(!String.IsNullOrEmpty(optdefault))
 					param.Append("="+optdefault);
 				if((optional) && (String.IsNullOrEmpty(optdefault)))
 				   	param.Append("=undefined");
-				/*if(String.IsNullOrEmpty(type))
-					param.Append(":"+type);	*/
+
 				if(multiple)
 					param.Append(",..");
 
@@ -413,7 +407,7 @@ namespace Moscrif.IDE.Actions
 			return paramsString;
 
 		}
-
+		*/
 		private void insertNewRow(string name,string signature,int type,string  parent,string summary,string returnType){
 
 			string	sql;

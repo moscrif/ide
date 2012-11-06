@@ -101,7 +101,7 @@
           <widget class="Gtk.VPaned" id="vpBody">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
-            <property name="Position">311</property>
+            <property name="Position">417</property>
             <child>
               <widget class="Gtk.HPaned" id="hpBodyMidle">
                 <property name="MemberName" />
