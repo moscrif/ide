@@ -52,7 +52,7 @@ namespace Moscrif.IDE.Components
 				lblName.LabelProp = MainClass.User.Login;
 				btnState.Label = MainClass.Languages.Translate("log_out");
 			}else{				;
-				lblName.LabelProp = MainClass.Languages.Translate("open_source");
+				lblName.LabelProp = MainClass.Languages.Translate("free_license");
 				btnState.Label = MainClass.Languages.Translate("login");
 			}
 

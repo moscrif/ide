@@ -4,30 +4,23 @@ namespace Moscrif.IDE.Components
 {
 	public partial class StartEventControl
 	{
-		private global::Gtk.HBox hbox2;
 		private global::Gtk.Table table1;
-		private global::Gtk.Frame frame1;
 		private global::Gtk.Table tblAction;
-		private global::Gtk.Label GtkLabel4;
-		private global::Gtk.Frame frame2;
-		private global::Gtk.Table tblRecentWork;
-		private global::Gtk.Label GtkLabel5;
-		private global::Gtk.Frame frmRss;
-		private global::Gtk.Alignment GtkAlignment3;
-		private global::Gtk.Table tblRss;
-		private global::Gtk.Button btnRssLoad;
-		private global::Gtk.Label GtkLabel7;
-		private global::Gtk.Frame frmSamples;
-		private global::Gtk.Alignment GtkAlignment4;
-		private global::Gtk.VBox vbox2;
+		private global::Gtk.HBox hbox1;
+		private global::Gtk.Image imgActions;
+		private global::Gtk.Label lblActions;
+		private global::Gtk.Label lblAccount;
+		private global::Gtk.Label lblProject;
+		private global::Gtk.Label lblWorkspace;
+		private global::Gtk.Label lbRecent;
 		private global::Gtk.Table tblSamples;
-		private global::Gtk.HBox hbMorSample;
-		private global::Gtk.Label GtkLabel8;
-		private global::Gtk.Frame frmTweet;
-		private global::Gtk.Alignment GtkAlignment2;
+		private global::Gtk.HBox hbox2;
+		private global::Gtk.Image imgSamples;
+		private global::Gtk.Label lblSamples;
 		private global::Gtk.Table tblTwitt;
 		private global::Gtk.Button btnTwitLoad;
-		private global::Gtk.Label GtkLabel6;
+		private global::Gtk.Image imgTwiter;
+		private global::Gtk.Label lblTwiter;
 		
 		protected virtual void Build ()
 		{
@@ -36,153 +29,141 @@ namespace Moscrif.IDE.Components
 			global::Stetic.BinContainer.Attach (this);
 			this.Name = "Moscrif.IDE.Components.StartEventControl";
 			// Container child Moscrif.IDE.Components.StartEventControl.Gtk.Container+ContainerChild
-			this.hbox2 = new global::Gtk.HBox ();
-			this.hbox2.Name = "hbox2";
-			this.hbox2.Spacing = 6;
-			this.hbox2.BorderWidth = ((uint)(4));
-			// Container child hbox2.Gtk.Box+BoxChild
-			this.table1 = new global::Gtk.Table (((uint)(2)), ((uint)(2)), false);
+			this.table1 = new global::Gtk.Table (((uint)(3)), ((uint)(3)), false);
 			this.table1.Name = "table1";
 			this.table1.RowSpacing = ((uint)(6));
 			this.table1.ColumnSpacing = ((uint)(6));
 			// Container child table1.Gtk.Table+TableChild
-			this.frame1 = new global::Gtk.Frame ();
-			this.frame1.Name = "frame1";
-			this.frame1.ShadowType = ((global::Gtk.ShadowType)(0));
-			// Container child frame1.Gtk.Container+ContainerChild
-			this.tblAction = new global::Gtk.Table (((uint)(5)), ((uint)(1)), false);
+			this.tblAction = new global::Gtk.Table (((uint)(6)), ((uint)(5)), false);
 			this.tblAction.Name = "tblAction";
 			this.tblAction.RowSpacing = ((uint)(6));
 			this.tblAction.ColumnSpacing = ((uint)(6));
-			this.frame1.Add (this.tblAction);
-			this.GtkLabel4 = new global::Gtk.Label ();
-			this.GtkLabel4.Name = "GtkLabel4";
-			this.GtkLabel4.Xalign = 0F;
-			this.GtkLabel4.LabelProp = global::Mono.Unix.Catalog.GetString ("<b><u>Action</u></b>");
-			this.GtkLabel4.UseMarkup = true;
-			this.frame1.LabelWidget = this.GtkLabel4;
-			this.table1.Add (this.frame1);
-			global::Gtk.Table.TableChild w2 = ((global::Gtk.Table.TableChild)(this.table1 [this.frame1]));
-			w2.XPadding = ((uint)(3));
-			w2.YPadding = ((uint)(3));
-			w2.XOptions = ((global::Gtk.AttachOptions)(4));
-			// Container child table1.Gtk.Table+TableChild
-			this.frame2 = new global::Gtk.Frame ();
-			this.frame2.Name = "frame2";
-			this.frame2.ShadowType = ((global::Gtk.ShadowType)(0));
-			// Container child frame2.Gtk.Container+ContainerChild
-			this.tblRecentWork = new global::Gtk.Table (((uint)(6)), ((uint)(1)), false);
-			this.tblRecentWork.Name = "tblRecentWork";
-			this.tblRecentWork.RowSpacing = ((uint)(6));
-			this.tblRecentWork.ColumnSpacing = ((uint)(6));
-			this.frame2.Add (this.tblRecentWork);
-			this.GtkLabel5 = new global::Gtk.Label ();
-			this.GtkLabel5.Name = "GtkLabel5";
-			this.GtkLabel5.LabelProp = global::Mono.Unix.Catalog.GetString ("<b><u>Recent Workspaces</u></b>");
-			this.GtkLabel5.UseMarkup = true;
-			this.frame2.LabelWidget = this.GtkLabel5;
-			this.table1.Add (this.frame2);
-			global::Gtk.Table.TableChild w4 = ((global::Gtk.Table.TableChild)(this.table1 [this.frame2]));
+			// Container child tblAction.Gtk.Table+TableChild
+			this.hbox1 = new global::Gtk.HBox ();
+			this.hbox1.Name = "hbox1";
+			this.hbox1.Spacing = 6;
+			// Container child hbox1.Gtk.Box+BoxChild
+			this.imgActions = new global::Gtk.Image ();
+			this.imgActions.WidthRequest = 24;
+			this.imgActions.HeightRequest = 24;
+			this.imgActions.Name = "imgActions";
+			this.hbox1.Add (this.imgActions);
+			global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.imgActions]));
+			w1.Position = 0;
+			w1.Expand = false;
+			w1.Fill = false;
+			// Container child hbox1.Gtk.Box+BoxChild
+			this.lblActions = new global::Gtk.Label ();
+			this.lblActions.Name = "lblActions";
+			this.lblActions.Xalign = 0F;
+			this.lblActions.LabelProp = global::Mono.Unix.Catalog.GetString ("Actions");
+			this.hbox1.Add (this.lblActions);
+			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.lblActions]));
+			w2.Position = 1;
+			w2.Expand = false;
+			w2.Fill = false;
+			this.tblAction.Add (this.hbox1);
+			global::Gtk.Table.TableChild w3 = ((global::Gtk.Table.TableChild)(this.tblAction [this.hbox1]));
+			w3.RightAttach = ((uint)(5));
+			w3.XOptions = ((global::Gtk.AttachOptions)(4));
+			w3.YOptions = ((global::Gtk.AttachOptions)(4));
+			// Container child tblAction.Gtk.Table+TableChild
+			this.lblAccount = new global::Gtk.Label ();
+			this.lblAccount.Name = "lblAccount";
+			this.lblAccount.LabelProp = global::Mono.Unix.Catalog.GetString ("Account");
+			this.tblAction.Add (this.lblAccount);
+			global::Gtk.Table.TableChild w4 = ((global::Gtk.Table.TableChild)(this.tblAction [this.lblAccount]));
 			w4.TopAttach = ((uint)(1));
 			w4.BottomAttach = ((uint)(2));
-			w4.XPadding = ((uint)(3));
+			w4.LeftAttach = ((uint)(3));
+			w4.RightAttach = ((uint)(4));
 			w4.XOptions = ((global::Gtk.AttachOptions)(4));
-			// Container child table1.Gtk.Table+TableChild
-			this.frmRss = new global::Gtk.Frame ();
-			this.frmRss.Name = "frmRss";
-			this.frmRss.ShadowType = ((global::Gtk.ShadowType)(0));
-			// Container child frmRss.Gtk.Container+ContainerChild
-			this.GtkAlignment3 = new global::Gtk.Alignment (0F, 0F, 1F, 1F);
-			this.GtkAlignment3.Name = "GtkAlignment3";
-			this.GtkAlignment3.LeftPadding = ((uint)(12));
-			// Container child GtkAlignment3.Gtk.Container+ContainerChild
-			this.tblRss = new global::Gtk.Table (((uint)(6)), ((uint)(1)), false);
-			this.tblRss.Name = "tblRss";
-			this.tblRss.RowSpacing = ((uint)(6));
-			this.tblRss.ColumnSpacing = ((uint)(6));
-			// Container child tblRss.Gtk.Table+TableChild
-			this.btnRssLoad = new global::Gtk.Button ();
-			this.btnRssLoad.WidthRequest = 250;
-			this.btnRssLoad.Sensitive = false;
-			this.btnRssLoad.CanFocus = true;
-			this.btnRssLoad.Name = "btnRssLoad";
-			this.btnRssLoad.UseUnderline = true;
-			this.btnRssLoad.Relief = ((global::Gtk.ReliefStyle)(2));
-			this.btnRssLoad.Label = "";
-			this.tblRss.Add (this.btnRssLoad);
-			global::Gtk.Table.TableChild w5 = ((global::Gtk.Table.TableChild)(this.tblRss [this.btnRssLoad]));
+			w4.YOptions = ((global::Gtk.AttachOptions)(4));
+			// Container child tblAction.Gtk.Table+TableChild
+			this.lblProject = new global::Gtk.Label ();
+			this.lblProject.Name = "lblProject";
+			this.lblProject.LabelProp = global::Mono.Unix.Catalog.GetString ("Project");
+			this.tblAction.Add (this.lblProject);
+			global::Gtk.Table.TableChild w5 = ((global::Gtk.Table.TableChild)(this.tblAction [this.lblProject]));
+			w5.TopAttach = ((uint)(1));
+			w5.BottomAttach = ((uint)(2));
+			w5.LeftAttach = ((uint)(1));
+			w5.RightAttach = ((uint)(2));
 			w5.XOptions = ((global::Gtk.AttachOptions)(4));
 			w5.YOptions = ((global::Gtk.AttachOptions)(4));
-			this.GtkAlignment3.Add (this.tblRss);
-			this.frmRss.Add (this.GtkAlignment3);
-			this.GtkLabel7 = new global::Gtk.Label ();
-			this.GtkLabel7.Name = "GtkLabel7";
-			this.GtkLabel7.LabelProp = global::Mono.Unix.Catalog.GetString ("<b><u>RSS</u></b>");
-			this.GtkLabel7.UseMarkup = true;
-			this.frmRss.LabelWidget = this.GtkLabel7;
-			this.table1.Add (this.frmRss);
-			global::Gtk.Table.TableChild w8 = ((global::Gtk.Table.TableChild)(this.table1 [this.frmRss]));
+			// Container child tblAction.Gtk.Table+TableChild
+			this.lblWorkspace = new global::Gtk.Label ();
+			this.lblWorkspace.Name = "lblWorkspace";
+			this.lblWorkspace.LabelProp = global::Mono.Unix.Catalog.GetString ("Workspace");
+			this.tblAction.Add (this.lblWorkspace);
+			global::Gtk.Table.TableChild w6 = ((global::Gtk.Table.TableChild)(this.tblAction [this.lblWorkspace]));
+			w6.TopAttach = ((uint)(1));
+			w6.BottomAttach = ((uint)(2));
+			w6.XOptions = ((global::Gtk.AttachOptions)(4));
+			w6.YOptions = ((global::Gtk.AttachOptions)(4));
+			// Container child tblAction.Gtk.Table+TableChild
+			this.lbRecent = new global::Gtk.Label ();
+			this.lbRecent.Name = "lbRecent";
+			this.lbRecent.LabelProp = global::Mono.Unix.Catalog.GetString ("Recent");
+			this.tblAction.Add (this.lbRecent);
+			global::Gtk.Table.TableChild w7 = ((global::Gtk.Table.TableChild)(this.tblAction [this.lbRecent]));
+			w7.TopAttach = ((uint)(1));
+			w7.BottomAttach = ((uint)(2));
+			w7.LeftAttach = ((uint)(2));
+			w7.RightAttach = ((uint)(3));
+			w7.XOptions = ((global::Gtk.AttachOptions)(4));
+			w7.YOptions = ((global::Gtk.AttachOptions)(4));
+			this.table1.Add (this.tblAction);
+			global::Gtk.Table.TableChild w8 = ((global::Gtk.Table.TableChild)(this.table1 [this.tblAction]));
 			w8.TopAttach = ((uint)(1));
 			w8.BottomAttach = ((uint)(2));
-			w8.LeftAttach = ((uint)(1));
 			w8.RightAttach = ((uint)(2));
+			w8.XPadding = ((uint)(10));
 			w8.XOptions = ((global::Gtk.AttachOptions)(4));
+			w8.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
-			this.frmSamples = new global::Gtk.Frame ();
-			this.frmSamples.WidthRequest = 250;
-			this.frmSamples.Name = "frmSamples";
-			this.frmSamples.ShadowType = ((global::Gtk.ShadowType)(0));
-			// Container child frmSamples.Gtk.Container+ContainerChild
-			this.GtkAlignment4 = new global::Gtk.Alignment (0F, 0F, 1F, 1F);
-			this.GtkAlignment4.Name = "GtkAlignment4";
-			this.GtkAlignment4.LeftPadding = ((uint)(12));
-			// Container child GtkAlignment4.Gtk.Container+ContainerChild
-			this.vbox2 = new global::Gtk.VBox ();
-			this.vbox2.Name = "vbox2";
-			this.vbox2.Spacing = 6;
-			// Container child vbox2.Gtk.Box+BoxChild
-			this.tblSamples = new global::Gtk.Table (((uint)(3)), ((uint)(3)), false);
+			this.tblSamples = new global::Gtk.Table (((uint)(2)), ((uint)(6)), false);
 			this.tblSamples.Name = "tblSamples";
 			this.tblSamples.RowSpacing = ((uint)(6));
 			this.tblSamples.ColumnSpacing = ((uint)(6));
-			this.vbox2.Add (this.tblSamples);
-			global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.tblSamples]));
-			w9.Position = 0;
-			// Container child vbox2.Gtk.Box+BoxChild
-			this.hbMorSample = new global::Gtk.HBox ();
-			this.hbMorSample.Name = "hbMorSample";
-			this.hbMorSample.Spacing = 6;
-			this.vbox2.Add (this.hbMorSample);
-			global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.hbMorSample]));
-			w10.Position = 1;
-			this.GtkAlignment4.Add (this.vbox2);
-			this.frmSamples.Add (this.GtkAlignment4);
-			this.GtkLabel8 = new global::Gtk.Label ();
-			this.GtkLabel8.Name = "GtkLabel8";
-			this.GtkLabel8.LabelProp = global::Mono.Unix.Catalog.GetString ("<b><u>Samples</u></b>");
-			this.GtkLabel8.UseMarkup = true;
-			this.frmSamples.LabelWidget = this.GtkLabel8;
-			this.table1.Add (this.frmSamples);
-			global::Gtk.Table.TableChild w13 = ((global::Gtk.Table.TableChild)(this.table1 [this.frmSamples]));
-			w13.LeftAttach = ((uint)(1));
-			w13.RightAttach = ((uint)(2));
-			w13.YPadding = ((uint)(3));
-			w13.XOptions = ((global::Gtk.AttachOptions)(4));
-			this.hbox2.Add (this.table1);
-			global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.table1]));
-			w14.Position = 0;
-			w14.Expand = false;
-			w14.Fill = false;
+			// Container child tblSamples.Gtk.Table+TableChild
+			this.hbox2 = new global::Gtk.HBox ();
+			this.hbox2.Name = "hbox2";
+			this.hbox2.Spacing = 6;
 			// Container child hbox2.Gtk.Box+BoxChild
-			this.frmTweet = new global::Gtk.Frame ();
-			this.frmTweet.Name = "frmTweet";
-			this.frmTweet.ShadowType = ((global::Gtk.ShadowType)(0));
-			// Container child frmTweet.Gtk.Container+ContainerChild
-			this.GtkAlignment2 = new global::Gtk.Alignment (0F, 0F, 1F, 1F);
-			this.GtkAlignment2.Name = "GtkAlignment2";
-			this.GtkAlignment2.LeftPadding = ((uint)(12));
-			// Container child GtkAlignment2.Gtk.Container+ContainerChild
-			this.tblTwitt = new global::Gtk.Table (((uint)(6)), ((uint)(1)), false);
+			this.imgSamples = new global::Gtk.Image ();
+			this.imgSamples.WidthRequest = 24;
+			this.imgSamples.HeightRequest = 24;
+			this.imgSamples.Name = "imgSamples";
+			this.hbox2.Add (this.imgSamples);
+			global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.imgSamples]));
+			w9.Position = 0;
+			w9.Expand = false;
+			w9.Fill = false;
+			// Container child hbox2.Gtk.Box+BoxChild
+			this.lblSamples = new global::Gtk.Label ();
+			this.lblSamples.Name = "lblSamples";
+			this.lblSamples.Xalign = 0F;
+			this.lblSamples.LabelProp = global::Mono.Unix.Catalog.GetString ("Samples");
+			this.hbox2.Add (this.lblSamples);
+			global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.lblSamples]));
+			w10.Position = 1;
+			w10.Expand = false;
+			w10.Fill = false;
+			this.tblSamples.Add (this.hbox2);
+			global::Gtk.Table.TableChild w11 = ((global::Gtk.Table.TableChild)(this.tblSamples [this.hbox2]));
+			w11.RightAttach = ((uint)(6));
+			w11.YOptions = ((global::Gtk.AttachOptions)(4));
+			this.table1.Add (this.tblSamples);
+			global::Gtk.Table.TableChild w12 = ((global::Gtk.Table.TableChild)(this.table1 [this.tblSamples]));
+			w12.TopAttach = ((uint)(2));
+			w12.BottomAttach = ((uint)(3));
+			w12.RightAttach = ((uint)(2));
+			w12.XPadding = ((uint)(10));
+			w12.XOptions = ((global::Gtk.AttachOptions)(4));
+			// Container child table1.Gtk.Table+TableChild
+			this.tblTwitt = new global::Gtk.Table (((uint)(6)), ((uint)(2)), false);
+			this.tblTwitt.WidthRequest = 0;
 			this.tblTwitt.Name = "tblTwitt";
 			this.tblTwitt.RowSpacing = ((uint)(6));
 			this.tblTwitt.ColumnSpacing = ((uint)(6));
@@ -196,26 +177,41 @@ namespace Moscrif.IDE.Components
 			this.btnTwitLoad.Relief = ((global::Gtk.ReliefStyle)(2));
 			this.btnTwitLoad.Label = "";
 			this.tblTwitt.Add (this.btnTwitLoad);
-			global::Gtk.Table.TableChild w15 = ((global::Gtk.Table.TableChild)(this.tblTwitt [this.btnTwitLoad]));
-			w15.XOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w13 = ((global::Gtk.Table.TableChild)(this.tblTwitt [this.btnTwitLoad]));
+			w13.TopAttach = ((uint)(1));
+			w13.BottomAttach = ((uint)(2));
+			w13.RightAttach = ((uint)(2));
+			w13.XOptions = ((global::Gtk.AttachOptions)(4));
+			w13.YOptions = ((global::Gtk.AttachOptions)(4));
+			// Container child tblTwitt.Gtk.Table+TableChild
+			this.imgTwiter = new global::Gtk.Image ();
+			this.imgTwiter.WidthRequest = 24;
+			this.imgTwiter.HeightRequest = 24;
+			this.imgTwiter.Name = "imgTwiter";
+			this.tblTwitt.Add (this.imgTwiter);
+			global::Gtk.Table.TableChild w14 = ((global::Gtk.Table.TableChild)(this.tblTwitt [this.imgTwiter]));
+			w14.XOptions = ((global::Gtk.AttachOptions)(0));
+			w14.YOptions = ((global::Gtk.AttachOptions)(0));
+			// Container child tblTwitt.Gtk.Table+TableChild
+			this.lblTwiter = new global::Gtk.Label ();
+			this.lblTwiter.Name = "lblTwiter";
+			this.lblTwiter.Xalign = 0F;
+			this.lblTwiter.LabelProp = global::Mono.Unix.Catalog.GetString ("Twitter");
+			this.tblTwitt.Add (this.lblTwiter);
+			global::Gtk.Table.TableChild w15 = ((global::Gtk.Table.TableChild)(this.tblTwitt [this.lblTwiter]));
+			w15.LeftAttach = ((uint)(1));
+			w15.RightAttach = ((uint)(2));
 			w15.YOptions = ((global::Gtk.AttachOptions)(4));
-			this.GtkAlignment2.Add (this.tblTwitt);
-			this.frmTweet.Add (this.GtkAlignment2);
-			this.GtkLabel6 = new global::Gtk.Label ();
-			this.GtkLabel6.Name = "GtkLabel6";
-			this.GtkLabel6.LabelProp = global::Mono.Unix.Catalog.GetString ("<b><u>Twitter</u></b>");
-			this.GtkLabel6.UseMarkup = true;
-			this.frmTweet.LabelWidget = this.GtkLabel6;
-			this.hbox2.Add (this.frmTweet);
-			global::Gtk.Box.BoxChild w18 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.frmTweet]));
-			w18.Position = 1;
-			w18.Expand = false;
-			w18.Fill = false;
-			this.Add (this.hbox2);
+			this.table1.Add (this.tblTwitt);
+			global::Gtk.Table.TableChild w16 = ((global::Gtk.Table.TableChild)(this.table1 [this.tblTwitt]));
+			w16.XPadding = ((uint)(10));
+			w16.YPadding = ((uint)(10));
+			w16.XOptions = ((global::Gtk.AttachOptions)(0));
+			w16.YOptions = ((global::Gtk.AttachOptions)(4));
+			this.Add (this.table1);
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
-			this.frmRss.Hide ();
 			this.Hide ();
 		}
 	}

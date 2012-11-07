@@ -58,7 +58,7 @@ public partial class MainWindow : Gtk.Window
 	Toolbar toolbarRight1 = new Toolbar();
 	Toolbar toolbarRight2 = new Toolbar();
 	Toolbar toolbarBanner = new Toolbar ();
-	LinkImageButton bannerButton = new LinkImageButton();
+
 	BannerButton bannerImage = new BannerButton ();
 
 	public EditorNotebook EditorNotebook = new EditorNotebook();
@@ -598,7 +598,7 @@ public partial class MainWindow : Gtk.Window
 		toolbarBanner.ShowAll();
 		LoadDefaultBanner();
 
-		bannerImage.GdkWindow.Cursor = new Gdk.Cursor(Gdk.CursorType.Hand2);
+		//bannerImage.GdkWindow.Cursor = new Gdk.Cursor(Gdk.CursorType.Hand2);
 
 		Thread BannerThread = new Thread(new ThreadStart(BannerThreadLoop));
 		
@@ -620,10 +620,11 @@ public partial class MainWindow : Gtk.Window
 			bannerButton.ShowAll();*/
 		}
 	}
+
 	private BannersSystem bannersSystem; 
 	private void BannerThreadLoop()
 	{
-		if((MainClass.Settings.Account != null) || (!String.IsNullOrEmpty(MainClass.Settings.Account.Token))){
+		if((MainClass.Settings.Account != null) && (!String.IsNullOrEmpty(MainClass.Settings.Account.Token))){
 			LoggUser lu = new LoggUser();
 			if(!lu.Ping(MainClass.Settings.Account.Token))
 			{
@@ -636,7 +637,7 @@ public partial class MainWindow : Gtk.Window
 		}
 
 		MainClass.LicencesSystem.LoadFromWeb();
-		bannersSystem = new BannersSystem();
+		bannersSystem = MainClass.BannersSystem;
 
 		bool play = true;
 		bool isBussy = false;
@@ -2218,10 +2219,10 @@ public partial class MainWindow : Gtk.Window
 				}
 				toolbarMiddle.Insert(tic2, 0);
 				toolbarMiddle.Insert(til2, 0);
-				toolbarMiddle.Insert(new SeparatorToolItem(), 0);
+				//toolbarMiddle.Insert(new SeparatorToolItem(), 0);
 				toolbarMiddle.Insert(tic3, 0);
 				toolbarMiddle.Insert(til3, 0);
-				toolbarMiddle.Insert(new SeparatorToolItem(), 0);
+				//toolbarMiddle.Insert(new SeparatorToolItem(), 0);
 				toolbarMiddle.Insert(tic, 0);
 				toolbarMiddle.Insert(til1, 0);
 

@@ -21,7 +21,7 @@ namespace Moscrif.IDE.Iface
 		private Banners banners;
 
 		public BannersSystem() {
-			if(GetBanner() && !string.IsNullOrEmpty(bannerFile)){
+			if(GetBannerFromWeb() && !string.IsNullOrEmpty(bannerFile)){
 				//Console.WriteLine(bannerFile);
 				banners = Banners.LoadBanners(bannerFile);
 			} else {
@@ -69,8 +69,40 @@ namespace Moscrif.IDE.Iface
 			}
 			//return null;
 		}
+		public int GetCount{
+			get{
+				if((banners.Items == null) || (banners.Items.Count== 0)){
+					return 0;
+				}
+				return banners.Items.Count; 
+			}
+		}
 
-		public bool GetBanner(){
+		public Banner GetBanner(int bnr){
+			if((banners.Items == null) || (banners.Items.Count== 0)){
+				return null;
+			}
+			
+			if(banners.Items.Count>bnr){
+				Banner banner =  banners.Items[bnr];
+				if(banner.BannerPixbuf == null){
+					try{
+						if(!banners.IsCache){
+							banner.Load();							
+						} else {
+							banner.LoadFromCache();
+						}
+					}catch (Exception ex){
+						return null;
+					}
+				}
+				return banner;
+			} else {
+				return null;
+			}
+		}
+
+		public bool GetBannerFromWeb(){
 			
 			string URL =bannerUrl;		
 			WebClient client = new WebClient();

@@ -339,8 +339,6 @@ namespace Moscrif.IDE.Editors
 			DateTime now = DateTime.Now;
 			TimeSpan ts = now.Subtract(lastPrecompile);
 			
-			//Console.WriteLine("OnTimeElapsed ->" + ts.TotalMilliseconds);
-			
 			if (ts.TotalMilliseconds > 5000) {
 				timer.Enabled = false;
 				TaskList tl = new TaskList();

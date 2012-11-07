@@ -49,7 +49,7 @@ namespace  Moscrif.IDE.Settings
 		public string SamplesBaseUrl = "http://moscrif.com/samples?source=IDE" ;
 
 		[XmlAttribute("maxRssTweetMessageCount")]
-		public int MaxRssTweetMessageCount =5;	
+		public int MaxRssTweetMessageCount =3;	
 		
 		[XmlAttribute("stopCompilationOnError")]
 		public bool FirstErrorStopCompile = false;
@@ -547,6 +547,13 @@ namespace  Moscrif.IDE.Settings
 							s.GeneratePlatformResolutions();
 							s.VersionSetting = 121017;
 						}
+						if (s.VersionSetting < 121106){ //year, month, day
+							s.MaxRssTweetMessageCount = 3;
+							s.VersionSetting = 121106;
+						}
+
+
+
 
 						return s;
 					}

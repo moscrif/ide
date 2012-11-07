@@ -352,6 +352,7 @@ filed_typ =  Field type
 log_out = Log Out
 login =  Login
 open_source = Open Source
+free_license = Free
 browse = _Browse...
 chose_workspace_open = Choose workspace to open
 insert_path_mask = Insert Path Mask

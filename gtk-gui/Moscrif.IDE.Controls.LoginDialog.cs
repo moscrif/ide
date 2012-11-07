@@ -31,7 +31,7 @@ namespace Moscrif.IDE.Controls
 		{
 			global::Stetic.Gui.Initialize (this);
 			// Widget Moscrif.IDE.Controls.LoginDialog
-			this.HeightRequest = 300;
+			this.HeightRequest = 340;
 			this.Name = "Moscrif.IDE.Controls.LoginDialog";
 			this.WindowPosition = ((global::Gtk.WindowPosition)(3));
 			this.BorderWidth = ((uint)(10));
@@ -48,7 +48,7 @@ namespace Moscrif.IDE.Controls
 			this.notebook1 = new global::Gtk.Notebook ();
 			this.notebook1.CanFocus = true;
 			this.notebook1.Name = "notebook1";
-			this.notebook1.CurrentPage = 0;
+			this.notebook1.CurrentPage = 1;
 			this.notebook1.BorderWidth = ((uint)(1));
 			// Container child notebook1.Gtk.Notebook+NotebookChild
 			this.table2 = new global::Gtk.Table (((uint)(5)), ((uint)(2)), false);
@@ -121,7 +121,12 @@ namespace Moscrif.IDE.Controls
 			w6.XOptions = ((global::Gtk.AttachOptions)(4));
 			w6.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table2.Gtk.Table+TableChild
-			this.linkbutton1 = null;
+			this.linkbutton1 = new global::Moscrif.IDE.Components.LinkButton ();
+			this.linkbutton1.CanFocus = true;
+			this.linkbutton1.Name = "linkbutton1";
+			this.linkbutton1.UseUnderline = true;
+			this.linkbutton1.LinkUrl = "http://moscrif.com/request-new-password?returnUrl=/login";
+			this.linkbutton1.Label = "Forgot your password?";
 			this.table2.Add (this.linkbutton1);
 			global::Gtk.Table.TableChild w7 = ((global::Gtk.Table.TableChild)(this.table2 [this.linkbutton1]));
 			w7.TopAttach = ((uint)(3));
@@ -258,6 +263,10 @@ namespace Moscrif.IDE.Controls
 			this.notebook1.SetTabLabel (this.table3, this.lblRegister);
 			this.lblRegister.ShowAll ();
 			this.table1.Add (this.notebook1);
+			global::Gtk.Table.TableChild w18 = ((global::Gtk.Table.TableChild)(this.table1 [this.notebook1]));
+			w18.TopAttach = ((uint)(1));
+			w18.BottomAttach = ((uint)(2));
+			w18.XOptions = ((global::Gtk.AttachOptions)(4));
 			w1.Add (this.table1);
 			global::Gtk.Box.BoxChild w19 = ((global::Gtk.Box.BoxChild)(w1 [this.table1]));
 			w19.Position = 0;
@@ -293,8 +302,8 @@ namespace Moscrif.IDE.Controls
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
-			this.DefaultWidth = 315;
-			this.DefaultHeight = 300;
+			this.DefaultWidth = 300;
+			this.DefaultHeight = 375;
 			this.Show ();
 			this.notebook1.SwitchPage += new global::Gtk.SwitchPageHandler (this.OnNotebook1SwitchPage);
 			this.entrPassword.KeyReleaseEvent += new global::Gtk.KeyReleaseEventHandler (this.OnEntrPasswordKeyReleaseEvent);

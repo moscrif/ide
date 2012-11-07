@@ -180,9 +180,10 @@ namespace Moscrif.IDE.Extensions
 				foreach ( CompletionData cd in lst){
 					string expres =cd.Parent+".on";
 					if(cd.Signature.StartsWith(expres) ){
-						expres = cd.Signature.Replace(cd.Parent+".", cd.DisplayText +" =function ");
-						cd.DisplayDescription =expres;
-						cd.CompletionText =expres;
+						//expres = cd.Signature.Replace(cd.Parent+".", cd.DisplayText +" = function ");
+						expres = cd.Signature.Replace(cd.Parent+"."+ cd.DisplayText, cd.DisplayText +" = function ");
+						cd.DisplayDescription =expres+"{}";
+						cd.CompletionText =expres+"{"+Environment.NewLine+"}";
 					}
 
 				}

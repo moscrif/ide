@@ -100,7 +100,11 @@ namespace Moscrif.IDE
 			"workspace-bottom.png",
 			"garbage-collector.png",
 			"resolution.png",
-			"emulator.png"
+			"emulator.png",
+			"feedback.png",
+			"actions24.png",
+			"twitter24.png",
+			"twitter12.png"
 		};
 
 		public static void Initialize()

@@ -299,6 +299,19 @@ namespace Moscrif.IDE
 				licencesSystem = value;
 			}
 		}
+
+		static BannersSystem bannersSystem = null;
+		static internal BannersSystem BannersSystem{
+			get{
+				if(bannersSystem==null){
+					bannersSystem = new BannersSystem();
+				}
+				return bannersSystem;
+			}
+			set{
+				bannersSystem = value;
+			}
+		}
 	}
 }
 

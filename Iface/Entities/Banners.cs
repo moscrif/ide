@@ -156,6 +156,7 @@ namespace Moscrif.IDE.Iface.Entities
 				return bannerPixbuf;
 			}
 			set {
+				//bannerPixbuf.AddAlpha(
 				if(value.Width>200 || value.Height>40){
 					bannerPixbuf = value.ScaleSimple(200,40, Gdk.InterpType.Bilinear);
 				} else {

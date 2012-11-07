@@ -1,12 +1,17 @@
 using System;
 using System.Net;
 using System.Text;
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Collections.Specialized;
 using MessageDialogs = Moscrif.IDE.Controls.MessageDialog;
 using Moscrif.IDE.Iface.Entities;
 using Moscrif.IDE.Settings;
 using Moscrif.IDE.Iface;
+using Moscrif.IDE.Components;
+using System.Threading;
+using Gtk;
+using Moscrif.IDE.Tool;
 
 namespace Moscrif.IDE.Controls
 {
@@ -15,6 +20,8 @@ namespace Moscrif.IDE.Controls
 		public event EventHandler LogginSucces;
 
 		bool exitTrue = false;
+		BannerButton bannerImage = new BannerButton ();
+
 		private void Login()
 		{
 			if (String.IsNullOrEmpty(entrLogin.Text)){
@@ -44,6 +51,57 @@ namespace Moscrif.IDE.Controls
 					LogginSucces(this,null);
 				}
 				this.Respond(Gtk.ResponseType.Ok);
+			}
+		}
+
+		private void LoadDefaultBanner(){
+			//hbMenuRight
+			string bannerParth  = System.IO.Path.Combine(MainClass.Paths.ResDir,"banner");
+			bannerParth = System.IO.Path.Combine(bannerParth,"test.png");
+			if(File.Exists(bannerParth)){
+				bannerImage.ImageIcon = new Gdk.Pixbuf(bannerParth);
+				bannerImage.LinkUrl = "http://www.moscrif.com";
+			}
+		}
+		
+		private BannersSystem bannersSystem; 
+		private void BannerThreadLoop()
+		{
+			bannersSystem = MainClass.BannersSystem;
+			
+			bool play = true;
+			bool isBussy = false;
+			int bnrIndex = 0;
+			try {
+				while (play) {
+					Thread.Sleep (15000);
+					if (!isBussy) {
+						isBussy = true;
+						Banner bnr = bannersSystem.GetBanner(bnrIndex);
+						if((bnr != null) && (bnr.BannerPixbuf != null)){
+							Gtk.Application.Invoke(delegate{
+								bannerImage.ImageIcon = bnr.BannerPixbuf;
+								bannerImage.LinkUrl = bnr.Url;
+							});
+							
+						} else {
+							Console.WriteLine("Banner is NULL");
+						}
+						if(bnrIndex< bannersSystem.GetCount-1)
+							bnrIndex++;
+						else 
+							bnrIndex=0;
+						
+						isBussy = false;
+					}			
+				}
+			}catch(ThreadAbortException tae){
+				Thread.ResetAbort ();
+				Logger.Error("ERROR - Cannot run banner thread.");
+				Logger.Error(tae.Message);
+				LoadDefaultBanner();
+			}finally{
+				
 			}
 		}
 
@@ -118,7 +176,7 @@ namespace Moscrif.IDE.Controls
 				this.TransientFor = MainClass.MainWindow;
 
 			this.Build();
-			this.HeightRequest = 235;
+			this.HeightRequest = 275;
 
 			this.Title = MainClass.Languages.Translate("moscrif_ide_title_f1");
 			btnInfo.Label = "Login";
@@ -129,7 +187,19 @@ namespace Moscrif.IDE.Controls
 				chbRemember.Active =MainClass.Settings.Account.Remember;
 			}
 
-			entrLogin.GrabFocus();
+			table1.Attach(bannerImage,0,1,0,1,AttachOptions.Fill,AttachOptions.Shrink,0,0);
+			
+			LoadDefaultBanner();
+			
+			Thread BannerThread = new Thread(new ThreadStart(BannerThreadLoop));
+			
+			BannerThread.Name = "BannerThread";
+			BannerThread.IsBackground = true;
+			BannerThread.Start();
+			table1.ShowAll();
+
+			entrPassword.GrabFocus();
+			//entrLogin.GrabFocus();
 		}
 
 		/*

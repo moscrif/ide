@@ -7,7 +7,6 @@ namespace Moscrif.IDE.Components
 		private global::Gtk.HBox hbox2;
 		private global::Gtk.Label lblName;
 		private global::Gtk.Button btnState;
-		private global::Gtk.Button btnAction;
 		
 		protected virtual void Build ()
 		{
@@ -40,25 +39,12 @@ namespace Moscrif.IDE.Components
 			w2.Position = 1;
 			w2.Expand = false;
 			w2.Fill = false;
-			// Container child hbox2.Gtk.Box+BoxChild
-			this.btnAction = new global::Gtk.Button ();
-			this.btnAction.CanFocus = true;
-			this.btnAction.Name = "btnAction";
-			this.btnAction.UseUnderline = true;
-			this.btnAction.Relief = ((global::Gtk.ReliefStyle)(2));
-			this.btnAction.Label = global::Mono.Unix.Catalog.GetString ("Upgrade");
-			this.hbox2.Add (this.btnAction);
-			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.btnAction]));
-			w3.Position = 2;
-			w3.Expand = false;
-			w3.Fill = false;
 			this.Add (this.hbox2);
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
 			this.Hide ();
 			this.btnState.Clicked += new global::System.EventHandler (this.OnBtnStateClicked);
-			this.btnAction.Clicked += new global::System.EventHandler (this.OnBtnActionClicked);
 		}
 	}
 }
