@@ -530,14 +530,14 @@ namespace  Moscrif.IDE.Task
 				return false;
 			} if(stopProcess){
 				this.stateTask = StateEnum.CANCEL;
-				ShowInfo(MainClass.Languages.Translate("Canceled")," ");
+				ShowInfo(MainClass.Languages.Translate("Canceled")," ",-1);
 
 				return false;
 			}
 			else {
 				this.stateTask = StateEnum.OK;
 
-				ShowInfo(" ",MainClass.Languages.Translate("publish_successfully_done"));
+				ShowInfo(" ",MainClass.Languages.Translate("publish_successfully_done"),1);
 
 				/*if(MainClass.Settings.OpenOutputAfterPublish){
 					if (!String.IsNullOrEmpty(project.ProjectOutput)){
@@ -688,20 +688,22 @@ namespace  Moscrif.IDE.Task
 
 		private void ShowError(string error1, string error2){
 			if(WriteStep!=null){
-				WriteStep(this,new StepEventArgs(error2,error1,true));
+				WriteStep(this,new StepEventArgs(error2,error1,true,0));
 			}
 			/*MessageDialogs md = new MessageDialogs(MessageDialogs.DialogButtonType.Ok,error1, error2, Gtk.MessageType.Error,ParentWindow);
 			md.ShowDialog();*/
 
 		}
-
 		private void ShowInfo(string error1, string error2){
 			if(WriteStep!=null){
-				WriteStep(this,new StepEventArgs(error1,error2,false));
+				WriteStep(this,new StepEventArgs(error1,error2,false,0));
 			}
-			/*MessageDialogs md = new MessageDialogs(MessageDialogs.DialogButtonType.Ok,error1, error2, Gtk.MessageType.Info,ParentWindow);
-			md.ShowDialog();*/
+		}
 
+		private void ShowInfo(string error1, string error2,int state){
+			if(WriteStep!=null){
+				WriteStep(this,new StepEventArgs(error1,error2,false,state));
+			}
 		}
 
 		public void OnEndTaskWrite(object sender, string name, string status, List<TaskMessage> errors){

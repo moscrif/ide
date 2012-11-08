@@ -594,6 +594,9 @@ public partial class MainWindow : Gtk.Window
 		toolbarBanner.WidthRequest = 220;
 		tblMenuRight.Attach(toolbarBanner,0,1,0,2,AttachOptions.Fill,AttachOptions.Expand|AttachOptions.Fill,0,0);
 
+		bannerImage.WidthRequest = 200;
+		bannerImage.HeightRequest = 40;
+
 		toolbarBanner.Add(bannerImage);//(bannerButton);
 		toolbarBanner.ShowAll();
 		LoadDefaultBanner();
@@ -643,13 +646,12 @@ public partial class MainWindow : Gtk.Window
 		bool isBussy = false;
 		try {
 			while (play) {
-				Thread.Sleep (15000);
 				if (!isBussy) {
 					isBussy = true;
 					Banner bnr = bannersSystem.NextBanner();
 					if((bnr != null) && (bnr.BannerPixbuf != null)){
 						Gtk.Application.Invoke(delegate{
-							bannerImage.ImageIcon = bnr.BannerPixbuf;
+							bannerImage.ImageIcon = bnr.BannerPixbufResized200;
 							bannerImage.LinkUrl = bnr.Url;
 							/*bannerButton.ImageIcon = bnr.BannerPixbuf;
 							bannerButton.LinkUrl = bnr.Url;
@@ -662,7 +664,8 @@ public partial class MainWindow : Gtk.Window
 						Console.WriteLine("Banner is NULL");
 					}
 					isBussy = false;
-				}			
+				}
+				Thread.Sleep (15001);
 			}
 		}catch(ThreadAbortException tae){
 			Thread.ResetAbort ();

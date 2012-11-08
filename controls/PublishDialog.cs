@@ -617,7 +617,7 @@ namespace Moscrif.IDE.Controls
 			LoggingInfo log = new LoggingInfo();
 			log.LoggWebThread(LoggingInfo.ActionId.IDEEnd,project.ProjectName);
 
-			if(!MainClass.Workspace.SignApp){
+			if((!MainClass.Workspace.SignApp) ){
 
 				TaskList tlpublish = new TaskList();
 				tlpublish.TasksList = new System.Collections.Generic.List<Moscrif.IDE.Task.ITask>();

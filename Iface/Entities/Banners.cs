@@ -156,14 +156,34 @@ namespace Moscrif.IDE.Iface.Entities
 				return bannerPixbuf;
 			}
 			set {
-				//bannerPixbuf.AddAlpha(
-				if(value.Width>200 || value.Height>40){
-					bannerPixbuf = value.ScaleSimple(200,40, Gdk.InterpType.Bilinear);
-				} else {
-					bannerPixbuf = value;
-				}
+				/**/
+				bannerPixbuf = value;
 			}
 		}
+
+
+		[XmlIgnore]
+		public Gdk.Pixbuf BannerPixbufResized200{
+			get{
+				Gdk.Pixbuf bannerPixbufResize = bannerPixbuf.Copy();
+				if(bannerPixbufResize.Width>200 || bannerPixbufResize.Height>40){
+					bannerPixbufResize = bannerPixbufResize.ScaleSimple(200,40, Gdk.InterpType.Bilinear);
+				} 
+				return bannerPixbufResize;
+			}
+		}
+
+		[XmlIgnore]
+		public Gdk.Pixbuf BannerPixbufResized400{
+			get{
+				Gdk.Pixbuf bannerPixbufResize = bannerPixbuf.Copy();
+				if(bannerPixbufResize.Width>400 || bannerPixbufResize.Height>120){
+					bannerPixbufResize = bannerPixbufResize.ScaleSimple(400,120, Gdk.InterpType.Bilinear);
+				} 
+				return bannerPixbufResize;
+			}
+		}
+
 	}
 }
 

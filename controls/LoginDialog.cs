@@ -71,16 +71,16 @@ namespace Moscrif.IDE.Controls
 			
 			bool play = true;
 			bool isBussy = false;
-			int bnrIndex = 0;
+			int bnrIndex = 1;
 			try {
 				while (play) {
-					Thread.Sleep (15000);
 					if (!isBussy) {
 						isBussy = true;
+						//Banner bnr = bannersSystem.NextBanner();
 						Banner bnr = bannersSystem.GetBanner(bnrIndex);
 						if((bnr != null) && (bnr.BannerPixbuf != null)){
 							Gtk.Application.Invoke(delegate{
-								bannerImage.ImageIcon = bnr.BannerPixbuf;
+								bannerImage.ImageIcon = bnr.BannerPixbufResized400;
 								bannerImage.LinkUrl = bnr.Url;
 							});
 							
@@ -91,9 +91,9 @@ namespace Moscrif.IDE.Controls
 							bnrIndex++;
 						else 
 							bnrIndex=0;
-						
 						isBussy = false;
-					}			
+					}
+					Thread.Sleep (15003);
 				}
 			}catch(ThreadAbortException tae){
 				Thread.ResetAbort ();
@@ -176,7 +176,7 @@ namespace Moscrif.IDE.Controls
 				this.TransientFor = MainClass.MainWindow;
 
 			this.Build();
-			this.HeightRequest = 275;
+			this.HeightRequest = 420;
 
 			this.Title = MainClass.Languages.Translate("moscrif_ide_title_f1");
 			btnInfo.Label = "Login";
@@ -186,6 +186,8 @@ namespace Moscrif.IDE.Controls
 				entrLogin.Text = MainClass.Settings.Account.Login;
 				chbRemember.Active =MainClass.Settings.Account.Remember;
 			}
+			bannerImage.WidthRequest = 400;
+			bannerImage.HeightRequest = 120;
 
 			table1.Attach(bannerImage,0,1,0,1,AttachOptions.Fill,AttachOptions.Shrink,0,0);
 			

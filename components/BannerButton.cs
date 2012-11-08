@@ -48,8 +48,6 @@ namespace Moscrif.IDE.Components
 			image.Xalign = 0.5F;
 			image.Yalign = 0.5F;
 
-			this.WidthRequest = 200;
-			this.HeightRequest = 40;
 			this.Add(image);
 			this.ShowAll();
 			image.Realized += delegate {

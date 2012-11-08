@@ -36,6 +36,7 @@ namespace Moscrif.IDE.Controls.Wizard
 		Label lblRemote = new Label("Remote: ");
 
 		private bool runningPublish = false;
+		int status = 0;
 
 		public PublishDialogWizzard()
 		{
@@ -696,8 +697,9 @@ namespace Moscrif.IDE.Controls.Wizard
 					md.ShowDialog();
 					return;
 				}
+				int selectTyp =  (int)ddbTypPublish.CurrentItem;
 
-				if(MainClass.Workspace.SignApp){
+				if((selectTyp != 0) && (MainClass.Workspace.SignApp)){
 					if(!LogginAndVerification()){
 						return;
 					}
@@ -753,6 +755,9 @@ namespace Moscrif.IDE.Controls.Wizard
 				pt.LogWrite+= MainClass.MainWindow.LogTaskWritte;
 				pt.WriteStep+=  delegate(object sender, StepEventArgs e) {
 					TreeIter ti =  storeOutput.AppendValues(e.Message1,e.Message2,null,e.IsError);
+
+					if(status!=1)
+						status = e.Status;
 					while (Gtk.Application.EventsPending ())
 						Gtk.Application.RunIteration ();
 					//return ti;
@@ -785,6 +790,8 @@ namespace Moscrif.IDE.Controls.Wizard
 				pt.LogWrite+= MainClass.MainWindow.LogTaskWritte;
 				pt.WriteStep+=  delegate(object sender, StepEventArgs e) {
 					TreeIter ti =  storeOutput.AppendValues(e.Message1,e.Message2,null,e.IsError);
+					if(status!=1)
+						status = e.Status;
 					while (Gtk.Application.EventsPending ())
 						Gtk.Application.RunIteration ();
 					//return ti;
@@ -823,17 +830,12 @@ namespace Moscrif.IDE.Controls.Wizard
 					storeOutput.AppendValues(MainClass.Languages.Translate("waiting_cancel"),"",null,false);
 					tlpublish.StopAsynchronTask();
 				}
-				/*if(secondTaskThread!= null){
-					secondTaskThread.Abort();
-
-				}*/
-
 				return;
 			}
 
 
 			if(notebook1.Page == 1){
-				if(MainClass.Settings.OpenOutputAfterPublish){
+				if((MainClass.Settings.OpenOutputAfterPublish) && (status==1) ){
 					if (!String.IsNullOrEmpty(project.ProjectOutput)){
 						MainClass.Tools.OpenFolder(project.OutputMaskToFullPath);
 					}

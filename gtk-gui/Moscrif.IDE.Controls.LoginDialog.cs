@@ -31,7 +31,7 @@ namespace Moscrif.IDE.Controls
 		{
 			global::Stetic.Gui.Initialize (this);
 			// Widget Moscrif.IDE.Controls.LoginDialog
-			this.HeightRequest = 340;
+			this.HeightRequest = 420;
 			this.Name = "Moscrif.IDE.Controls.LoginDialog";
 			this.WindowPosition = ((global::Gtk.WindowPosition)(3));
 			this.BorderWidth = ((uint)(10));
@@ -48,7 +48,7 @@ namespace Moscrif.IDE.Controls
 			this.notebook1 = new global::Gtk.Notebook ();
 			this.notebook1.CanFocus = true;
 			this.notebook1.Name = "notebook1";
-			this.notebook1.CurrentPage = 1;
+			this.notebook1.CurrentPage = 0;
 			this.notebook1.BorderWidth = ((uint)(1));
 			// Container child notebook1.Gtk.Notebook+NotebookChild
 			this.table2 = new global::Gtk.Table (((uint)(5)), ((uint)(2)), false);
@@ -66,7 +66,6 @@ namespace Moscrif.IDE.Controls
 			global::Gtk.Table.TableChild w2 = ((global::Gtk.Table.TableChild)(this.table2 [this.entrLogin]));
 			w2.LeftAttach = ((uint)(1));
 			w2.RightAttach = ((uint)(2));
-			w2.XOptions = ((global::Gtk.AttachOptions)(4));
 			w2.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table2.Gtk.Table+TableChild
 			this.entrPassword = new global::Gtk.Entry ();
@@ -81,7 +80,6 @@ namespace Moscrif.IDE.Controls
 			w3.BottomAttach = ((uint)(2));
 			w3.LeftAttach = ((uint)(1));
 			w3.RightAttach = ((uint)(2));
-			w3.XOptions = ((global::Gtk.AttachOptions)(4));
 			w3.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table2.Gtk.Table+TableChild
 			this.chbRemember = new global::Gtk.CheckButton ();
@@ -133,7 +131,6 @@ namespace Moscrif.IDE.Controls
 			w7.BottomAttach = ((uint)(4));
 			w7.LeftAttach = ((uint)(1));
 			w7.RightAttach = ((uint)(2));
-			w7.XOptions = ((global::Gtk.AttachOptions)(4));
 			w7.YOptions = ((global::Gtk.AttachOptions)(4));
 			this.notebook1.Add (this.table2);
 			global::Gtk.Notebook.NotebookChild w8 = ((global::Gtk.Notebook.NotebookChild)(this.notebook1 [this.table2]));
@@ -302,8 +299,8 @@ namespace Moscrif.IDE.Controls
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
-			this.DefaultWidth = 300;
-			this.DefaultHeight = 375;
+			this.DefaultWidth = 364;
+			this.DefaultHeight = 420;
 			this.Show ();
 			this.notebook1.SwitchPage += new global::Gtk.SwitchPageHandler (this.OnNotebook1SwitchPage);
 			this.entrPassword.KeyReleaseEvent += new global::Gtk.KeyReleaseEventHandler (this.OnEntrPasswordKeyReleaseEvent);

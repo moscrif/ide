@@ -35,6 +35,7 @@ namespace Moscrif.IDE.Components
 	
 				this.Build();
 				tblTwitt.WidthRequest = 500;
+				tblTwitt.HeightRequest = 130;
 
 				lblWorkspace.ModifyFg (Gtk.StateType.Normal, new Color(125,125,125));
 				lblProject.ModifyFg (Gtk.StateType.Normal, new Color(125,125,125));
@@ -67,23 +68,25 @@ namespace Moscrif.IDE.Components
 	
 				webCacheFile = WebCache.OpenWebCache(webCacheName);
 	
+				bannerImage.WidthRequest = 400;
+				bannerImage.HeightRequest = 120;
 				table1.Attach(bannerImage,1,2,0,1,AttachOptions.Fill,AttachOptions.Shrink,0,0);
 				LoadDefaultBanner();
 
 				//imgLogo.Pixbuf = logoPixbuf;
 	
-				LinkButton lb2 = new LinkButton();
+				WebButton lb2 = new WebButton();
 				lb2.Label = MainClass.Languages.Translate("new_workspace");
-				lb2.Description =MainClass.Languages.Translate("create_new_workspace");
+				//lb2.Description =MainClass.Languages.Translate("create_new_workspace");
 				lb2.WidthRequest = 150;
 				lb2.Clicked+= delegate(object sender, EventArgs e) {
 					new NewWorkspaceAction().Activate();
 				};
 				tblAction.Attach(lb2,0,1,2,3,AttachOptions.Fill,AttachOptions.Shrink,0,0);
 
-				LinkButton lb1 = new LinkButton();
+				WebButton lb1 = new WebButton();
 				lb1.Label = MainClass.Languages.Translate("open_workspace");
-				lb1.Description = MainClass.Languages.Translate("open_exist_workspace");
+				//lb1.Description = MainClass.Languages.Translate("open_exist_workspace");
 				lb1.WidthRequest = 150;
 				lb1.Clicked+= delegate(object sender, EventArgs e) {
 					new OpenWorkspace().Activate();
@@ -91,18 +94,18 @@ namespace Moscrif.IDE.Components
 				tblAction.Attach(lb1,0,1,3,4,AttachOptions.Fill,AttachOptions.Shrink,0,0);
 	
 		//
-				LinkButton lb3 = new LinkButton();
+				WebButton lb3 = new WebButton();
 				lb3.Label = MainClass.Languages.Translate("new_project");
-				lb3.Description = MainClass.Languages.Translate("create_new_file");
+				//lb3.Description = MainClass.Languages.Translate("create_new_file");
 				lb3.WidthRequest = 150;
 				lb3.Clicked+= delegate(object sender, EventArgs e) {
 					new NewProjectWizzardAction().Activate();
 				};
 				tblAction.Attach(lb3,1,2,2,3,AttachOptions.Fill,AttachOptions.Shrink,0,0);
 	
-				LinkButton lb31 = new LinkButton();
+				WebButton lb31 = new WebButton();
 				lb31.Label = MainClass.Languages.Translate("import_project");
-				lb31.Description = MainClass.Languages.Translate("import_project_f1");
+				//lb31.Description = MainClass.Languages.Translate("import_project_f1");
 				lb31.WidthRequest = 150;
 				lb31.Clicked+= delegate(object sender, EventArgs e) {
 					new ImportZipProjectAction().Activate();
@@ -110,18 +113,18 @@ namespace Moscrif.IDE.Components
 				tblAction.Attach(lb31,1,2,3,4,AttachOptions.Fill,AttachOptions.Shrink,0,0);
 	
 	
-				LinkButton lb4 = new LinkButton();
+				WebButton lb4 = new WebButton();
 				lb4.Label = MainClass.Languages.Translate("open_file");
-				lb4.Description = MainClass.Languages.Translate("open_exist_file");
+				//lb4.Description = MainClass.Languages.Translate("open_exist_file");
 				lb4.WidthRequest = 150;
 				lb4.Clicked+= delegate(object sender, EventArgs e) {
 					new OpenAction().Activate();
 				};
 				tblAction.Attach(lb4,1,2,4,5,AttachOptions.Fill,AttachOptions.Shrink,0,0);
 	
-				LinkButton lb5 = new LinkButton();
+				WebButton lb5 = new WebButton();
 				lb5.Label = MainClass.Languages.Translate("login_logout");
-				lb5.Description = MainClass.Languages.Translate("login_logout");
+				//lb5.Description = MainClass.Languages.Translate("login_logout");
 				lb5.WidthRequest = 150;
 				lb5.Clicked+= delegate(object sender, EventArgs e) {
 					MainClass.MainWindow.LoginLogout();
@@ -175,16 +178,16 @@ namespace Moscrif.IDE.Components
 			
 			bool play = true;
 			bool isBussy = false;
-			int bnrIndex = 0;
+			int bnrIndex = 2;
 			try {
 				while (play) {
-					Thread.Sleep (15000);
 					if (!isBussy) {
 						isBussy = true;
 						Banner bnr = bannersSystem.GetBanner(bnrIndex);
+						//Banner bnr = bannersSystem.NextBanner();
 						if((bnr != null) && (bnr.BannerPixbuf != null)){
 							Gtk.Application.Invoke(delegate{
-								bannerImage.ImageIcon = bnr.BannerPixbuf;
+								bannerImage.ImageIcon = bnr.BannerPixbufResized400;
 								bannerImage.LinkUrl = bnr.Url;
 							});
 							
@@ -195,9 +198,9 @@ namespace Moscrif.IDE.Components
 							bnrIndex++;
 						else 
 							bnrIndex=0;
-
 						isBussy = false;
-					}			
+					}
+					Thread.Sleep (15002);
 				}
 			}catch(ThreadAbortException tae){
 				Thread.ResetAbort ();
@@ -215,10 +218,10 @@ namespace Moscrif.IDE.Components
 			int no =0;
 			foreach(RecentFile rf in lRecentProjects){
 
-				LinkButton lb = new LinkButton();
+				WebButton lb = new WebButton();
 				lb.Label = System.IO.Path.GetFileName(rf.DisplayName);
 				lb.HoverMessage =rf.DisplayName;
-				lb.Description=" ";
+				//lb.Description=" ";
 				lb.WidthRequest = 150;
 				string fileName = rf.FileName;
 				lb.Clicked+= delegate(object sender, EventArgs e) {
@@ -237,15 +240,15 @@ namespace Moscrif.IDE.Components
 			
 			DirectoryInfo dir = new DirectoryInfo(MainClass.Paths.SampleDir);
 			
-			LinkButton lbGM = new LinkButton();
+			WebButton lbGM = new WebButton();
 			lbGM.Label =MainClass.Languages.Translate("more_sample_label");
 			lbGM.LinkUrl =MainClass.Settings.SamplesBaseUrl;
-			lbGM.Description =MainClass.Languages.Translate("more_sample_tt");
+			//lbGM.Description =MainClass.Languages.Translate("more_sample_tt");
 			
-			LinkButton lbOS = new LinkButton();
+			WebButton lbOS = new WebButton();
 			lbOS.Label =MainClass.Languages.Translate("open_sample_label");
 			lbOS.LinkUrl =MainClass.Paths.SampleDir;
-			lbOS.Description =MainClass.Languages.Translate("open_sample_tt");
+			//lbOS.Description =MainClass.Languages.Translate("open_sample_tt");
 			
 			if (!dir.Exists ){
 				tblSamples.Attach(lbGM,(uint)0,(uint)1,(uint)(0),(uint)(1),AttachOptions.Fill,AttachOptions.Shrink,0,0);
@@ -453,11 +456,18 @@ namespace Moscrif.IDE.Components
 				btnTwitLoad.Destroy();
 
 				for(int i = 0 ; i< webCacheFile.ListTweet.Count;i++){
-					LinkButton lb = new LinkButton();
-					lb.Label =webCacheFile.ListTweet[i].Title;
+					WebButton lb = new WebButton();
+					//lb.Label =webCacheFile.ListTweet[i].Title;
 					lb.LinkUrl =webCacheFile.ListTweet[i].Url;
-					//lb.Description =webCacheFile.ListTweet[i].HoverMessage;
+					lb.HoverMessage = webCacheFile.ListTweet[i].Title;
+					////lb.Description =webCacheFile.ListTweet[i].HoverMessage;
+					string label = webCacheFile.ListTweet[i].Title;
+							
+					if (label.Length >55) {						
+						label = label.Substring(0,55)+"...";
+					}
 
+					lb.Label =label;
 					//Pixbuf pbx = 
 					Gtk.Image img = new Gtk.Image(MainClass.Tools.GetIconFromStock("twitter12.png",IconSize.Menu));
 

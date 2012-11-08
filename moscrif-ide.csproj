@@ -480,6 +480,7 @@
     <Compile Include="gtk-gui\Moscrif.IDE.Controls.LicenceDialog.cs" />
     <Compile Include="Iface\LicensesSystem.cs" />
     <Compile Include="Iface\Entities\Licenses.cs" />
+    <Compile Include="components\WebButton.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

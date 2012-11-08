@@ -5299,9 +5299,9 @@ All Open Project</property>
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Dialog" id="Moscrif.IDE.Controls.LoginDialog" design-size="300 375">
+  <widget class="Gtk.Dialog" id="Moscrif.IDE.Controls.LoginDialog" design-size="364 420">
     <property name="MemberName" />
-    <property name="HeightRequest">340</property>
+    <property name="HeightRequest">420</property>
     <property name="WindowPosition">CenterAlways</property>
     <property name="BorderWidth">10</property>
     <property name="AllowGrow">False</property>
@@ -5323,7 +5323,7 @@ All Open Project</property>
               <widget class="Gtk.Notebook" id="notebook1">
                 <property name="MemberName" />
                 <property name="CanFocus">True</property>
-                <property name="CurrentPage">1</property>
+                <property name="CurrentPage">0</property>
                 <property name="BorderWidth">1</property>
                 <signal name="SwitchPage" handler="OnNotebook1SwitchPage" />
                 <child>
@@ -5357,10 +5357,9 @@ All Open Project</property>
                       <packing>
                         <property name="LeftAttach">1</property>
                         <property name="RightAttach">2</property>
-                        <property name="AutoSize">True</property>
-                        <property name="XOptions">Fill</property>
+                        <property name="AutoSize">False</property>
                         <property name="YOptions">Fill</property>
-                        <property name="XExpand">False</property>
+                        <property name="XExpand">True</property>
                         <property name="XFill">True</property>
                         <property name="XShrink">False</property>
                         <property name="YExpand">False</property>
@@ -5382,10 +5381,9 @@ All Open Project</property>
                         <property name="BottomAttach">2</property>
                         <property name="LeftAttach">1</property>
                         <property name="RightAttach">2</property>
-                        <property name="AutoSize">True</property>
-                        <property name="XOptions">Fill</property>
+                        <property name="AutoSize">False</property>
                         <property name="YOptions">Fill</property>
-                        <property name="XExpand">False</property>
+                        <property name="XExpand">True</property>
                         <property name="XFill">True</property>
                         <property name="XShrink">False</property>
                         <property name="YExpand">False</property>
@@ -5472,10 +5470,9 @@ All Open Project</property>
                         <property name="BottomAttach">4</property>
                         <property name="LeftAttach">1</property>
                         <property name="RightAttach">2</property>
-                        <property name="AutoSize">True</property>
-                        <property name="XOptions">Fill</property>
+                        <property name="AutoSize">False</property>
                         <property name="YOptions">Fill</property>
-                        <property name="XExpand">False</property>
+                        <property name="XExpand">True</property>
                         <property name="XFill">True</property>
                         <property name="XShrink">False</property>
                         <property name="YExpand">False</property>
