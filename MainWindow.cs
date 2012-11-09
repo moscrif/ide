@@ -231,6 +231,7 @@ public partial class MainWindow : Gtk.Window
 		hpBodyMidle.ResizeMode = ResizeMode.Queue;
 
 		try {
+			ActionUiManager.SocetServerMenu();
 			ActionUiManager.RecentAll(MainClass.Settings.RecentFiles.GetFiles(),
 			                          MainClass.Settings.RecentFiles.GetProjects(),
 			                                          MainClass.Settings.RecentFiles.GetWorkspace());
@@ -544,44 +545,13 @@ public partial class MainWindow : Gtk.Window
 
 		OutputConsole.WriteError(sbError.ToString());
 
-		lblPort.Text =MainClass.Settings.SocetServerPort;
-
-
-		List<string> listIp = Moscrif.IDE.Tool.Network.GetIpAdress();
-		int indx = 0;
-		foreach (string ip in listIp){
-			cbIpAdress.AppendText(ip);
-
-			/*DropDownButton.ComboItem ddi =new DropDownButton.ComboItem(ip,ip);
-			socketIPItems.Add(ddi);
-			if(indx==0)
-				ddbSocketIP.SelectItem(socketIPItems,ddi);
-			indx++;*/
-		}
-
-		if(listIp!= null && listIp.Count>0)
-			cbIpAdress.Active = 0;
-
 		Moscrif.IDE.Iface.SocketServer.OutputClientChanged+= delegate(object sndr, string message) {
 			Gtk.Application.Invoke(delegate{
-				this.OutputConsole.WriteText(message);
-				Console.WriteLine(message);
-			});
+					this.OutputConsole.WriteText(message);
+					Console.WriteLine(message);
+				});
 		};
 
-		string fileRed = System.IO.Path.Combine(MainClass.Paths.ResDir, "socket-red.png");
-		string fileGreen = System.IO.Path.Combine(MainClass.Paths.ResDir, "socket-green.png");
-
-		if (System.IO.File.Exists(fileRed)) {
-			pixbufRed = new Pixbuf(fileRed);
-		}
-		if (System.IO.File.Exists(fileGreen)) {
-			pixbufGreen = new Pixbuf(fileGreen);
-		}
-		btnSocketServer.Relief = ReliefStyle.None;
-		btnSocketServer.CanFocus = false;
-		btnSocketServer.WidthRequest = btnSocketServer.HeightRequest =24;
-		btnSocketServer.Image = new Gtk.Image(pixbufRed);
 
 		Thread ExecEditorThreads = new Thread(new ThreadStart(ExecEditorThreadLoop));
 
@@ -2293,6 +2263,33 @@ public partial class MainWindow : Gtk.Window
 
 	#endregion
 
+	public void StartSocetServer(string ipAdress){
+
+		if(String.IsNullOrEmpty(ipAdress)) return;
+		if(Moscrif.IDE.Iface.SocketServer.Running){
+			Moscrif.IDE.Iface.SocketServer.CloseSockets();
+			Logger.Debug("Stop Socket server ");
+			Console.WriteLine("Stop Socket server" );
+		} 	
+		if(!Moscrif.IDE.Iface.SocketServer.Running){
+			string ip = Moscrif.IDE.Iface.SocketServer.StartListen(ipAdress, MainClass.Settings.SocetServerPort);
+			OutputConsole.WriteText( MainClass.Languages.Translate("remote_console_start"));
+			Logger.Debug("Start Socket server :"+ip);
+			Console.WriteLine("Start Socket server :"+ip);
+		}
+
+	}
+
+	public void StopSocetServer(){
+		if(Moscrif.IDE.Iface.SocketServer.Running){
+			Moscrif.IDE.Iface.SocketServer.CloseSockets();
+			OutputConsole.WriteText( MainClass.Languages.Translate("remote_console_stop"));
+			Logger.Debug("Stop Socket server ");
+			Console.WriteLine("Stop Socket server" );
+		}
+	}
+
+
 	private void ReloadDevice(bool setSelectedDevices){
 
 
@@ -2482,29 +2479,11 @@ public partial class MainWindow : Gtk.Window
 		a.RetVal = true;
 	}
 
-	protected void OnBtnSocketServerClicked (object sender, EventArgs e)
-	{	
-
-		if(String.IsNullOrEmpty(cbIpAdress.ActiveText)) return;
-		string ipAdrress = cbIpAdress.ActiveText;
-		//string ipAdrress = (string) ddbSocketIP.CurrentItem;
-
-		if(Moscrif.IDE.Iface.SocketServer.Running){
-			Moscrif.IDE.Iface.SocketServer.CloseSockets();
-			cbIpAdress.Sensitive = true;
-			//ddbSocketIP.Sensitive = true;
-			btnSocketServer.Image = new Gtk.Image(pixbufRed);
-		} else {
-			string ip = Moscrif.IDE.Iface.SocketServer.StartListen(ipAdrress, MainClass.Settings.SocetServerPort);
-			cbIpAdress.Sensitive = false;
-			//ddbSocketIP.Sensitive = false;
-			btnSocketServer.Image = new Gtk.Image(pixbufGreen);
-		}
-	}
-
 	protected void OnRealized (object sender, EventArgs e)
 	{
-
+		if(!String.IsNullOrEmpty(MainClass.Settings.RemoteIpAdress)){
+			StartSocetServer(MainClass.Settings.RemoteIpAdress);
+		}
 	}
 
 	protected void OnShown (object sender, EventArgs e)

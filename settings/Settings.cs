@@ -79,6 +79,9 @@ namespace  Moscrif.IDE.Settings
 		[XmlAttribute("workspaceCount")]
 		public int WorkspaceCount = 1;
 
+		[XmlElement("remoteIpAdress")]
+		public string RemoteIpAdress ;
+
 #if DEBUG 
 		//[XmlElement("signUrl")]
 		[XmlIgnore]

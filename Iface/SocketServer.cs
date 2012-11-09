@@ -28,17 +28,7 @@ namespace Moscrif.IDE.Iface
 		public static string StartListen(string IPadress,string portStr){
 			try
 			{
-			        /*IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());			 
-				IPAddress ipAddress = ipHostInfo.AddressList[0];
-				Tool.Logger.Debug("Default IP - >"+ipAddress.ToString());
 
-				foreach (IPAddress ip in ipHostInfo.AddressList){
-					if (ip.AddressFamily == AddressFamily.InterNetwork){
-						ipAddress = ip;
-						Tool.Logger.Debug("InterNetwork IP- >"+ipAddress.ToString());
-						break;
-					}
-				}*/
 				IPAddress ipAddress = IPAddress.Parse(IPadress);
 
 				int port = System.Convert.ToInt32(portStr);

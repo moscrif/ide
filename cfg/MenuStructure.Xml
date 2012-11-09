@@ -94,8 +94,10 @@
 	    	<separator name="sep6" />    	
 	    	<menuitem name="Clear" action="clear" />  	
 		</menu>	
-		<menu name="Tools" action="ToolsAction">
-
+		<menu name="ToolsAction" action="ToolsAction">
+			<menu name="remoteconsole" action="remoteconsole">
+   			</menu>  				
+			<separator name="sep23" />
 	    	<menuitem name="showstartpage" action="showstartpage" />
 			<!--<menuitem name="checkversion" action="checkversion" /> --> 
 			<separator name="sep23" />

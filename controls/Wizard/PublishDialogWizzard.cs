@@ -81,7 +81,7 @@ namespace Moscrif.IDE.Controls.Wizard
 			{
 				if(e.Item !=null){
 					string ipAdress = (string)e.Item;
-					MainClass.Workspace.ActualProject.RemoteIpAdress = ipAdress;
+					MainClass.Settings.RemoteIpAdress = ipAdress;
 				}
 			};
 
@@ -108,7 +108,7 @@ namespace Moscrif.IDE.Controls.Wizard
 			foreach (string ip in listIp){
 				DropDownButton.ComboItem addIP = new DropDownButton.ComboItem(ip,ip);
 				remoteItems.Add(addIP);
-				if(ip== MainClass.Workspace.ActualProject.RemoteIpAdress){
+				if(ip== MainClass.Settings.RemoteIpAdress){
 					ddbTypRemote.SelectItem(remoteItems,addIP);
 					findSelect = true;
 				}

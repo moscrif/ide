@@ -89,6 +89,7 @@ namespace Moscrif.IDE
 			new ActionEntry("showBreakpointProperties", "mobil.png", "Show Breakpoint Properties", null, "Show Breakpoint Properties", new EventHandler(OnActivate)),
 
 			new ActionEntry("ToolsAction", null, "Tools", null, null, null),
+				new ActionEntry("remoteconsole", null, "Remote Console", null, null, null),	
 			new ActionEntry("test", "mobil.png", "Test", null, "test", new EventHandler(OnTest))
 			});
 
@@ -258,8 +259,82 @@ namespace Moscrif.IDE
 		}
 	}
 
+	#region SocetServer
+		uint mergeIdSocket = 1;
+		ActionGroup dynGroupSocket = new ActionGroup("SocketMenu");
 
-		#region RecentFileALL
+		public void SocetServerMenu()
+		{
+			ui.InsertActionGroup(dynGroupSocket, 0);
+			mergeIdSocket = ui.NewMergeId();
+			
+			string nameStopC = "StopConsole";
+			string labelStopC = String.Format("Stop Remote Console");
+			Gtk.Action actionStopC = new Gtk.Action(nameStopC, labelStopC);
+			actionStopC.Activated += delegate(object sender, EventArgs e) { 
+				MainClass.MainWindow.StopSocetServer();
+			};
+			dynGroupSocket.Add(actionStopC);
+			ui.AddUi(mergeIdSocket, "/menubar/ToolsAction/remoteconsole", nameStopC, nameStopC, UIManagerItemType.Menuitem, false);
+
+			string nameStartC = "StartConsole";
+			string labelStartC = String.Format("Start Remote Console");
+			Gtk.Action actionStartC = new Gtk.Action(nameStartC, labelStartC );
+			actionStartC.Activated += delegate(object sender, EventArgs e) { 
+				MainClass.MainWindow.StartSocetServer(MainClass.Settings.RemoteIpAdress);
+			};
+			dynGroupSocket.Add(actionStartC);
+			ui.AddUi(mergeIdSocket, "/menubar/ToolsAction/remoteconsole", nameStartC, nameStartC, UIManagerItemType.Menuitem, false);
+
+
+			/*string nameRestarC = "RestartConsole";
+			string labelRestartC = String.Format("Restart Remote Console");
+			Gtk.Action actionRestartC = new Gtk.Action(nameRestarC, labelRestartC);
+			actionRestartC.Activated += delegate(object sender, EventArgs e) { 
+				MainClass.MainWindow.StopSocetServer();
+				MainClass.MainWindow.StartSocetServer(MainClass.Settings.RemoteIpAdress);
+			};
+			dynGroupSocket.Add(actionRestartC);
+			ui.AddUi(mergeIdSocket, "/menubar/ToolsAction/remoteconsole", nameRestarC, nameRestarC, UIManagerItemType.Menuitem, false);
+*/
+			ui.AddUi(mergeIdSocket, "/menubar/ToolsAction/remoteconsole", null, null, UIManagerItemType.Separator, false);
+			List<string> listIp = Moscrif.IDE.Tool.Network.GetIpAdress();
+
+			int i=0;
+			int indxIP = 0;
+
+			List<RadioActionEntry> listIP = new List<RadioActionEntry>();
+			foreach (string ip in listIp){
+				string name = "ipAdress" + ip;
+				string label = String.Format("{0}",  ip);
+				RadioActionEntry rae = new RadioActionEntry(name,null,label,null,null,i);
+				listIP.Add(rae);
+				ui.AddUi(mergeIdSocket, "/menubar/ToolsAction/remoteconsole", name, name, UIManagerItemType.Menuitem, false);
+
+				if(MainClass.Settings.RemoteIpAdress == ip){
+					indxIP =i;
+				}
+				i++;
+			}
+
+			RadioActionEntry[] ipEntries =listIP.ToArray();
+			dynGroupSocket.Add(ipEntries,indxIP, new ChangedHandler (RadioActionActivated));
+
+			MainClass.Settings.RemoteIpAdress = listIP[indxIP].label;
+		}
+
+
+		private void RadioActionActivated (object sender, ChangedArgs args)
+		{
+			MainClass.MainWindow.StopSocetServer();
+			Console.WriteLine("Ip Address -"+args.Current.Label);
+			MainClass.Settings.RemoteIpAdress = args.Current.Label;
+			//MainClass.MainWindow.StartSocetServer(MainClass.Settings.RemoteIpAdress);
+		}
+	#endregion
+
+	
+	#region RecentFileALL
 	uint mergeIdAll = 1;
 	ActionGroup dynGroupAll = new ActionGroup("RecentAll");
 	public void RecentAll(IList<RecentFile> lRecentFile,IList<RecentFile> lRecentProject,IList<RecentFile> lRecentWorkspace)

@@ -25,6 +25,8 @@ errors = Errors
 error = Error
 error_error = Couldn't sent the error!
 error_feedback = Couldn't sent the feedback.
+remote_console_start = Remote Console running.
+remote_console_stop = Remote Console stopping.
 
 waiting_cancel = Waiting for Cancelation.
 
