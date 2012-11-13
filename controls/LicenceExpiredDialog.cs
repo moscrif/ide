@@ -21,7 +21,7 @@ namespace Moscrif.IDE.Controls
 		{
 			this.Build();
 
-			 Gtk.Image image1 = new Gtk.Image(MainClass.Tools.GetIconFromStock("logo-s.png", Gtk.IconSize.Dialog));
+			Gtk.Image image1 = new Gtk.Image(MainClass.Tools.GetIconFromStock("logo74.png", Gtk.IconSize.Dialog));
 
 
 			image1.SetPadding(2,2);

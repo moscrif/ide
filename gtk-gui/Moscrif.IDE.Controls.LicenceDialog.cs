@@ -5,8 +5,8 @@ namespace Moscrif.IDE.Controls
 	public partial class LicenceDialog
 	{
 		private global::Gtk.Table table1;
-		private global::Gtk.Button btnBuyNow;
 		private global::Gtk.Button buttonCancel;
+		private global::Gtk.Button btnBuyNow;
 		
 		protected virtual void Build ()
 		{
@@ -29,19 +29,10 @@ namespace Moscrif.IDE.Controls
 			// Internal child Moscrif.IDE.Controls.LicenceDialog.ActionArea
 			global::Gtk.HButtonBox w3 = this.ActionArea;
 			w3.Name = "dialog1_ActionArea";
+			w3.Homogeneous = true;
 			w3.Spacing = 10;
 			w3.BorderWidth = ((uint)(5));
-			w3.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
-			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
-			this.btnBuyNow = new global::Gtk.Button ();
-			this.btnBuyNow.CanFocus = true;
-			this.btnBuyNow.Name = "btnBuyNow";
-			this.btnBuyNow.UseUnderline = true;
-			this.btnBuyNow.Label = global::Mono.Unix.Catalog.GetString ("Buy Now");
-			this.AddActionWidget (this.btnBuyNow, 0);
-			global::Gtk.ButtonBox.ButtonBoxChild w4 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w3 [this.btnBuyNow]));
-			w4.Expand = false;
-			w4.Fill = false;
+			w3.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(1));
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
 			this.buttonCancel = new global::Gtk.Button ();
 			this.buttonCancel.CanDefault = true;
@@ -51,7 +42,17 @@ namespace Moscrif.IDE.Controls
 			this.buttonCancel.UseUnderline = true;
 			this.buttonCancel.Label = "gtk-cancel";
 			this.AddActionWidget (this.buttonCancel, -6);
-			global::Gtk.ButtonBox.ButtonBoxChild w5 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w3 [this.buttonCancel]));
+			global::Gtk.ButtonBox.ButtonBoxChild w4 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w3 [this.buttonCancel]));
+			w4.Expand = false;
+			w4.Fill = false;
+			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
+			this.btnBuyNow = new global::Gtk.Button ();
+			this.btnBuyNow.CanFocus = true;
+			this.btnBuyNow.Name = "btnBuyNow";
+			this.btnBuyNow.UseUnderline = true;
+			this.btnBuyNow.Label = global::Mono.Unix.Catalog.GetString ("Buy Now");
+			this.AddActionWidget (this.btnBuyNow, 0);
+			global::Gtk.ButtonBox.ButtonBoxChild w5 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w3 [this.btnBuyNow]));
 			w5.Position = 1;
 			w5.Expand = false;
 			w5.Fill = false;
@@ -60,6 +61,7 @@ namespace Moscrif.IDE.Controls
 			}
 			this.DefaultWidth = 559;
 			this.DefaultHeight = 443;
+			w3.Hide ();
 			this.Show ();
 			this.btnBuyNow.Clicked += new global::System.EventHandler (this.OnBtnBuyNowClicked);
 		}

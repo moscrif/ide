@@ -9,12 +9,14 @@ namespace Moscrif.IDE.Components
 	public class LinkImageButton:  Gtk.Button
 	{
 		string hoverMessage = null;
-		//Label label;
-		//Gtk.Image image;
+
+		Label label;
+		Gtk.Image image;
+
 		string text;
-		string desc;
+		//string desc;
 		string icon;
-		//bool onlyImage = false;
+
 
 		protected override void OnClicked ()
 		{
@@ -28,23 +30,21 @@ namespace Moscrif.IDE.Components
 
 		public LinkImageButton () : base ()
 		{
-			/*this.onlyImage = onlyImage;
+			label = new Label ();
+			label.Xalign = 0;
+			label.Xpad = 0;
+			label.Ypad = 0;
 			image = new Gtk.Image ();
-
-			image.Xalign = 0.5F;
-			image.Yalign = 0.5F;
-			//image.Xpad = 0;
-			//image.Ypad = 0;
-
-			//Add(image);
-			HBox box = new HBox (false, 0);
-
-			box.PackEnd (image, true, true, 0);
-			Add (box);*/
+			
+			VBox box = new VBox (false, 6);
+			box.PackStart (label, true, true, 0);
+			box.PackStart (image, false, false, 0);
+			Add (box);
 			Relief = ReliefStyle.None;
+
+			/*Relief = ReliefStyle.None;
 			Xalign = 0.5F;
-			Yalign = 0.5F;
-			//this.
+			Yalign = 0.5F;*/
 		}
 			
 		public string HoverMessage {
@@ -60,17 +60,17 @@ namespace Moscrif.IDE.Components
 			set { text = value; UpdateLabel (); }
 		}
 		
-		public string Description {
+		/*public string Description {
 			get { return desc; }
 			set { desc = value; UpdateLabel (); }
-		}
+		}*/
 		
 		public string Icon {
 			get { return icon; }
 			set { icon = value; UpdateLabel (); }
 		}
 
-		public Gdk.Pixbuf ImageIcon {
+		/*public Gdk.Pixbuf ImageIcon {
 			get{
 				return null;
 			}
@@ -78,22 +78,21 @@ namespace Moscrif.IDE.Components
 				Image = new Image(value);
 				Image.Visible = true; 
 			}
-		}
+		}*/
 		
 		void UpdateLabel ()
 		{
 			if (icon != null) {
-				Image = new Image(new Gdk.Pixbuf(icon));
-				Image.Visible = true;
+				image.Pixbuf = new Gdk.Pixbuf(icon);
+				image.Visible = true;
 
 			} else {
-				Image.Visible = false;
+				image.Visible = false;
 			}
-			/*string markup = string.Format ("<span underline=\"single\" foreground=\"#5a7ac7\">{0}</span>", text);
-			if (!string.IsNullOrEmpty (desc))
-				markup += string.Format("\n<span size=\"small\">{0}</span>",desc);
+			string markup = string.Format ("<span foreground=\"#697077\">{0}</span>", text);
+
 			label.Wrap= true;
-			label.Markup = markup;*/
+			label.Markup = markup;
 		}
 		
 		string linkUrl;

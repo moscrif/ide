@@ -94,7 +94,7 @@ namespace Moscrif.IDE.Controls.Wizard
 			ivSelectTyp.TooltipColumn = COL_DISPLAY_TEXT;
 			ivSelectTyp.AddAttribute(rendererSelectTyp, "sensitive", 5);
 
-			Gdk.Pixbuf icon0 = MainClass.Tools.GetIconFromStock("file-new.png",IconSize.LargeToolbar);
+			Gdk.Pixbuf icon0 = MainClass.Tools.GetIconFromStock("project.png",IconSize.LargeToolbar);
 			storeTyp.AppendValues ("New Empty Project", "Create empty application", icon0, "", null,true);
 
 			DirectoryInfo[] diTemplates = GetDirectory(MainClass.Paths.FileTemplateDir);

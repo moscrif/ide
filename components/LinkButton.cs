@@ -15,7 +15,7 @@ namespace Moscrif.IDE.Components
 		string desc;
 		string icon;
 		//bool onlyImage = false;
-
+		private  bool usWebStile = true;
 		protected override void OnClicked ()
 		{
 			if (!String.IsNullOrEmpty(linkUrl)){
@@ -38,6 +38,7 @@ namespace Moscrif.IDE.Components
 			box.PackStart (label, true, true, 0);
 			Add (box);
 			Relief = ReliefStyle.None;
+			this.HeightRequest = 25;
 
 			//this.GdkWindow.Cursor = new Gdk.Cursor(Gdk.CursorType.Hand1);
 		}
@@ -65,20 +66,29 @@ namespace Moscrif.IDE.Components
 			get { return icon; }
 			set { icon = value; UpdateLabel (); }
 		}
-		
+
+		public bool UseWebStile{
+			get { return usWebStile; }
+			set { usWebStile = value; UpdateLabel (); }
+		}
+
 		void UpdateLabel ()
 		{
 			if (icon != null) {
-				image.Pixbuf = new Gdk.Pixbuf(icon);//MainClass.Tools.GetIconFromStock (icon, Gtk.IconSize.Menu);
+				image.Pixbuf = MainClass.Tools.GetIconFromStock (icon, Gtk.IconSize.Menu);//new Gdk.Pixbuf(icon);
 				image.Visible = true;
 			} else {
 				image.Visible = false;
 			}
-			string markup = string.Format ("<span underline=\"single\" foreground=\"#5a7ac7\">{0}</span>", text);
+			string markup = string.Format ("<span foreground=\"#697077\"><b>{0}</b></span>", text);
+			if(usWebStile){
+				 markup = string.Format ("<span underline=\"single\" foreground=\"#5a7ac7\">{0}</span>", text);
+			}
 			if (!string.IsNullOrEmpty (desc))
 				markup += string.Format("\n<span size=\"small\">{0}</span>",desc);
 			label.Wrap= true;
 			label.Markup = markup;
+			
 		}
 		
 		string linkUrl;

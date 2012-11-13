@@ -19,7 +19,9 @@ namespace Moscrif.IDE.Controls
 		public LicenceDialog()
 		{
 			this.Build();
+			btnBuyNow.ModifyBg(StateType.Normal,new Color(109,158,24));
 
+			this.ModifyBg (Gtk.StateType.Normal, Style.White);
 			string typ ="-100";
 			if(MainClass.User!=null)
 				typ =MainClass.User.LicenseId;
@@ -47,18 +49,19 @@ namespace Moscrif.IDE.Controls
 
 			CreateTags (buffer);
 			InsertText (buffer);
-			AttachWidgets(view1);
+		//	AttachWidgets(view1);
 
 			this.ShowAll();
 			view1.ModifyBase(StateType.Normal,this.Style.Background(StateType.Normal));
 		}
 		private TextChildAnchor tableAnchor;
-		private TextChildAnchor buttonAnchor;
+		private TextChildAnchor animationAnchor;
+		//private TextChildAnchor buttonAnchor;
 		/*private TextChildAnchor menuAnchor;
 		private TextChildAnchor scaleAnchor;
 		private TextChildAnchor animationAnchor;
 		private TextChildAnchor entryAnchor;*/
-
+		/*
 		private void AttachWidgets (TextView textView)
 		{
 			// This is really different from the C version, but the
@@ -77,42 +80,21 @@ namespace Moscrif.IDE.Controls
 					x++;
 				}
 			}
-			/*foreach(string sv in MainClass.Settings.LibsDefine){
-				CheckButton chb = new CheckButton(sv);
-				chb.Name = sv;
-				chb.Active = true;
-				chb.Sensitive = false;
-				tbl.Attach(chb,0,1,(uint)x,(uint)(x+1),AttachOptions.Fill,AttachOptions.Fill,5,0);
-				x++;
-			}*/
+			//foreach(string sv in MainClass.Settings.LibsDefine){
+			//	CheckButton chb = new CheckButton(sv);
+			//	chb.Name = sv;
+			//	chb.Active = true;
+			//	chb.Sensitive = false;
+			//	tbl.Attach(chb,0,1,(uint)x,(uint)(x+1),AttachOptions.Fill,AttachOptions.Fill,5,0);
+			//	x++;
+			//}
 			textView.AddChildAtAnchor (tbl, tableAnchor);
 
-			/*
-			Button button = new Button ("Click Me");
-			textView.AddChildAtAnchor (button, buttonAnchor);
-			button.ShowAll ();
-			
-			ComboBox combo = ComboBox.NewText ();
-			combo.AppendText ("Option 1");
-			combo.AppendText ("Option 2");
-			combo.AppendText ("Option 3");
-			
-			textView.AddChildAtAnchor (combo, menuAnchor);
-			
-			HScale scale = new HScale (null);
-			scale.SetRange (0,100);
-			scale.SetSizeRequest (70, -1);
-			textView.AddChildAtAnchor (scale, scaleAnchor);
-			scale.ShowAll ();
-			
-			Gtk.Image image = Gtk.Image.LoadFromResource ("floppybuddy.gif");
-			textView.AddChildAtAnchor (image, animationAnchor);
-			image.ShowAll ();
-			
-			Entry entry = new Entry ();
-			textView.AddChildAtAnchor (entry, entryAnchor);
-			entry.ShowAll ();*/
-		}
+			//Gtk.Image image = Gtk.Image(MainClass.Tools.GetIconFromStock("file-ms.png")); //LoadFromResource ("floppybuddy.gif");
+			//textView.AddChildAtAnchor (image, animationAnchor);
+			//image.ShowAll ();
+		
+		}*/
 
 		private void CreateTags (TextBuffer buffer)
 		{
@@ -137,8 +119,9 @@ namespace Moscrif.IDE.Controls
 			TextTag tag  = new TextTag ("heading");
 			tag.Weight = Pango.Weight.Bold;
 			tag.Size = (int) Pango.Scale.PangoScale * 15;
-			tag.Justification = Justification.Center;
+			//tag.Justification = Justification.Center;
 			tag.Editable = false;
+			tag.Foreground= "#5A646E";
 			buffer.TagTable.Add (tag);
 			
 			// The C gtk-demo passes NULL for the drawable param, which isn't
@@ -149,35 +132,46 @@ namespace Moscrif.IDE.Controls
 			
 			tag  = new TextTag ("background_stipple");
 			tag.BackgroundStipple = stipple;
+			tag.Editable = false;
 			buffer.TagTable.Add (tag);
 			
 			tag  = new TextTag ("foreground_stipple");
 			tag.ForegroundStipple = stipple;
+			tag.Editable = false;
 			buffer.TagTable.Add (tag);
 
 			tag  = new TextTag ("word_wrap");
 			tag.WrapMode = WrapMode.Word;
+			tag.Editable = false;
 			buffer.TagTable.Add (tag);
 
 		}
 
 		private void InsertText (TextBuffer buffer)
 		{
-			Pixbuf pixbuf = MainClass.Tools.GetIconFromStock("logo-s.png",IconSize.Dialog);
+			Pixbuf pixbuf = MainClass.Tools.GetIconFromStock("logo74.png",IconSize.Dialog);
 			pixbuf = pixbuf.ScaleSimple (32, 32, InterpType.Bilinear);
 
+			Pixbuf pixbuf2 = MainClass.Tools.GetIconFromStock("file-ms.png",IconSize.Menu);
 			// get start of buffer; each insertion will revalidate the
 			// iterator to point to just after the inserted text.
 			
 			TextIter insertIter = buffer.StartIter;
-			//buffer.InsertPixbuf (ref insertIter, pixbuf);
-			buffer.InsertWithTagsByName (ref insertIter, String.Format("Moscrif {0} \n",lcs.Name), "heading");
+
+			buffer.InsertWithTagsByName (ref insertIter, String.Format("Moscrif {0} ",lcs.Name), "heading");
+			buffer.Insert (ref insertIter,"\n\n");
 
 			buffer.Insert (ref insertIter,
 			               String.Format("The <FEATURE NAME> is available for Moscrif {0} license. Please purchase an upgrade to unlock this Buying Moscrif {0} License you also unlock:\n\n",lcs.Name));
 
-			tableAnchor = buffer.CreateChildAnchor (ref insertIter);
-
+			//tableAnchor = buffer.CreateChildAnchor (ref insertIter);
+			if(lcs!= null){
+				foreach(Feature ftv in lcs.Featutes){
+					buffer.Insert (ref insertIter," ");
+					buffer.InsertPixbuf (ref insertIter, pixbuf2);
+					buffer.Insert (ref insertIter, String.Format(" {0} \n", ftv.Name));
+				}
+			}
 			//buttonAnchor = buffer.CreateChildAnchor (ref insertIter);
 
 			buffer.Insert (ref insertIter,"\n");

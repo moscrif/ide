@@ -165,9 +165,17 @@ namespace Moscrif.IDE.Iface.Entities
 		[XmlIgnore]
 		public Gdk.Pixbuf BannerPixbufResized200{
 			get{
+										
 				Gdk.Pixbuf bannerPixbufResize = bannerPixbuf.Copy();
+
 				if(bannerPixbufResize.Width>200 || bannerPixbufResize.Height>40){
-					bannerPixbufResize = bannerPixbufResize.ScaleSimple(200,40, Gdk.InterpType.Bilinear);
+
+					int newWidth = 200; 
+					int newHeight = 40;
+					MainClass.Tools.RecalculateImageSize(bannerPixbufResize.Width,bannerPixbufResize.Height
+					                                     ,200,40,ref newWidth,ref newHeight);
+
+					bannerPixbufResize = bannerPixbufResize.ScaleSimple(newWidth,newHeight, Gdk.InterpType.Bilinear);
 				} 
 				return bannerPixbufResize;
 			}
@@ -177,8 +185,15 @@ namespace Moscrif.IDE.Iface.Entities
 		public Gdk.Pixbuf BannerPixbufResized400{
 			get{
 				Gdk.Pixbuf bannerPixbufResize = bannerPixbuf.Copy();
+
 				if(bannerPixbufResize.Width>400 || bannerPixbufResize.Height>120){
-					bannerPixbufResize = bannerPixbufResize.ScaleSimple(400,120, Gdk.InterpType.Bilinear);
+					int newWidth = 400;
+					int newHeight = 120;
+
+					MainClass.Tools.RecalculateImageSize(bannerPixbufResize.Width,bannerPixbufResize.Height
+					                                     ,400,120,ref newWidth,ref newHeight);
+
+					bannerPixbufResize = bannerPixbufResize.ScaleSimple(newWidth,newHeight, Gdk.InterpType.Bilinear);
 				} 
 				return bannerPixbufResize;
 			}

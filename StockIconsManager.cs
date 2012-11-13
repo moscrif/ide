@@ -78,7 +78,8 @@ namespace Moscrif.IDE
 			"log.png",
 			"home.png",
 			"libs.png",
-			"logo-s.png",
+			"logo74.png",
+			"logo96.png",
 			"barier-add.png",
 			"barier-delete.png",
 			"barier-show.png",
@@ -104,7 +105,12 @@ namespace Moscrif.IDE
 			"feedback.png",
 			"actions24.png",
 			"twitter24.png",
-			"twitter12.png"
+			"twitter12.png",
+			"tutorial.png",
+			"video.png",
+			"showcase.png",
+			"api.png",
+			"content.png"
 		};
 
 		public static void Initialize()

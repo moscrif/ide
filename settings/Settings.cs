@@ -45,9 +45,6 @@ namespace  Moscrif.IDE.Settings
 		[XmlAttribute("tweetBaseUrl")]
 		public string TweetBaseUrl = "http://twitter.com/mothiva/statuses/" ;
 		
-		[XmlAttribute("samplesBaseUrl")]
-		public string SamplesBaseUrl = "http://moscrif.com/samples?source=IDE" ;
-
 		[XmlAttribute("maxRssTweetMessageCount")]
 		public int MaxRssTweetMessageCount =3;	
 		
@@ -82,6 +79,26 @@ namespace  Moscrif.IDE.Settings
 		[XmlElement("remoteIpAdress")]
 		public string RemoteIpAdress ;
 
+		[XmlElement("samplesBaseUrl")]
+		public string SamplesBaseUrl = "http://moscrif.com/samples?source=IDE" ;
+
+		[XmlElement("showcaseBaseUrl")]
+		public string ShowcaseBaseUrl = "http://moscrif.com/showcase?source=IDE" ;		
+
+		[XmlElement("apiBaseUrl")]
+		public string ApiBaseUrl = "http://moscrif.com/userfiles/pages/developer/api/index.html" ;	
+
+		[XmlElement("videosBaseUrl")]
+		public string VideosBaseUrl = "http://moscrif.com/videos?source=IDE" ;
+
+		[XmlElement("tutorialsBaseUrl")]
+		public string TutorialsBaseUrl = "http://moscrif.com/tutorials?source=IDE" ;
+
+		[XmlElement("demosBaseUrl")]
+		public string DemosBaseUrl = "http://moscrif.com/demos?source=IDE" ;
+
+		[XmlElement("documentsBaseUrl")]
+		public string DocumentsBaseUrl = "http://moscrif.com/documents?source=IDE" ;
 #if DEBUG 
 		//[XmlElement("signUrl")]
 		[XmlIgnore]

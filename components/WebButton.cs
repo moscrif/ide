@@ -27,6 +27,7 @@ namespace Moscrif.IDE.Components
 			label.Xalign = 0;
 			label.Xpad = 0;
 			label.Ypad = 0;
+			label.Wrap = true;
 
 			HBox box = new HBox (false, 6);
 			box.PackStart (label, true, true, 0);
@@ -45,6 +46,11 @@ namespace Moscrif.IDE.Components
 				this.TooltipText = hoverMessage;
 			}
 		}
+		public bool useSmall=false;
+		public bool UseSmall {
+			get { return useSmall; }
+			set { useSmall = value; UpdateLabel (); }
+		}
 
 		public new string Label {
 			get { return text; }
@@ -55,7 +61,11 @@ namespace Moscrif.IDE.Components
 		{
 
 			string markup = string.Format ("<span  foreground=\"#697077\"><b>{0}</b></span>", text);
-			//label.Wrap= true;
+			if(useSmall){
+				markup = string.Format ("<span size=\"smaller\" foreground=\"#697077\">{0}</span>", text);
+				label.Wrap = true;
+			}
+
 			label.Markup = markup;
 		}
 		

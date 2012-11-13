@@ -34,13 +34,26 @@ namespace Moscrif.IDE.Components
 					bgPixbuf = new Gdk.Pixbuf (file);
 	
 				this.Build();
+				bannerImage.WidthRequest = 400;
+				bannerImage.HeightRequest = 120;
+				table1.Attach(bannerImage,1,2,0,1,AttachOptions.Fill,AttachOptions.Shrink,0,0);
+				LoadDefaultBanner();
+				
+				Thread BannerThread = new Thread(new ThreadStart(BannerThreadLoop));
+				
+				BannerThread.Name = "BannerThread";
+				BannerThread.IsBackground = true;
+				BannerThread.Start();
+
+
 				tblTwitt.WidthRequest = 500;
 				tblTwitt.HeightRequest = 130;
 
-				lblWorkspace.ModifyFg (Gtk.StateType.Normal, new Color(125,125,125));
-				lblProject.ModifyFg (Gtk.StateType.Normal, new Color(125,125,125));
-				lblAccount.ModifyFg (Gtk.StateType.Normal, new Color(125,125,125));
-				lbRecent.ModifyFg (Gtk.StateType.Normal, new Color(125,125,125));
+				lblWorkspace.ModifyFg (Gtk.StateType.Normal, new Color(90,100,110));
+				lblProject.ModifyFg (Gtk.StateType.Normal, new Color(90,100,110));
+				lblAccount.ModifyFg (Gtk.StateType.Normal, new Color(90,100,110));
+				lbRecent.ModifyFg (Gtk.StateType.Normal, new Color(90,100,110));
+
 
 				Pango.FontDescription customFont = lblTwiter.Style.FontDescription.Copy();//  Pango.FontDescription.FromString(MainClass.Settings.ConsoleTaskFont);
 				customFont.Size = 24;
@@ -49,17 +62,19 @@ namespace Moscrif.IDE.Components
 				lblTwiter.ModifyFont(customFont);
 				lblActions.ModifyFont(customFont);
 				lblSamples.ModifyFont(customFont);
-				lblTwiter.ModifyFg (Gtk.StateType.Normal, new Color(125,125,125));
-				lblActions.ModifyFg (Gtk.StateType.Normal, new Color(125,125,125));
-				lblSamples.ModifyFg (Gtk.StateType.Normal, new Color(125,125,125));
+				lblContent.ModifyFont(customFont);
+				lblTwiter.ModifyFg (Gtk.StateType.Normal, new Color(90,100,110));
+				lblActions.ModifyFg (Gtk.StateType.Normal, new Color(90,100,110));
+				lblSamples.ModifyFg (Gtk.StateType.Normal, new Color(90,100,110));
+				lblContent.ModifyFg (Gtk.StateType.Normal, new Color(90,100,110));
 
-				imgSamples.Pixbuf = MainClass.Tools.GetIconFromStock("logo-s.png",IconSize.Button);
+				imgSamples.Pixbuf = MainClass.Tools.GetIconFromStock("logo74.png",IconSize.Button);
 				imgTwiter.Pixbuf = MainClass.Tools.GetIconFromStock("twitter24.png",IconSize.Button);
 				imgActions.Pixbuf = MainClass.Tools.GetIconFromStock("actions24.png",IconSize.Button);
-			
+				imgContent.Pixbuf = MainClass.Tools.GetIconFromStock("content.png",IconSize.Button);
 
 				btnTwitLoad.Label = MainClass.Languages.Translate("loading");
-					this.ModifyBg (Gtk.StateType.Normal, Style.White);
+				this.ModifyBg (Gtk.StateType.Normal, Style.White);
 	
 				string file2 = System.IO.Path.Combine(MainClass.Paths.ResDir, "moscrif_background.png"); //"moscrif.png");
 
@@ -67,14 +82,7 @@ namespace Moscrif.IDE.Components
 					logoPixbuf = new Gdk.Pixbuf (file2);
 	
 				webCacheFile = WebCache.OpenWebCache(webCacheName);
-	
-				bannerImage.WidthRequest = 400;
-				bannerImage.HeightRequest = 120;
-				table1.Attach(bannerImage,1,2,0,1,AttachOptions.Fill,AttachOptions.Shrink,0,0);
-				LoadDefaultBanner();
 
-				//imgLogo.Pixbuf = logoPixbuf;
-	
 				WebButton lb2 = new WebButton();
 				lb2.Label = MainClass.Languages.Translate("new_workspace");
 				//lb2.Description =MainClass.Languages.Translate("create_new_workspace");
@@ -93,7 +101,6 @@ namespace Moscrif.IDE.Components
 				};
 				tblAction.Attach(lb1,0,1,3,4,AttachOptions.Fill,AttachOptions.Shrink,0,0);
 	
-		//
 				WebButton lb3 = new WebButton();
 				lb3.Label = MainClass.Languages.Translate("new_project");
 				//lb3.Description = MainClass.Languages.Translate("create_new_file");
@@ -128,7 +135,6 @@ namespace Moscrif.IDE.Components
 				lb5.WidthRequest = 150;
 				lb5.Clicked+= delegate(object sender, EventArgs e) {
 					MainClass.MainWindow.LoginLogout();
-	
 				};
 				tblAction.Attach(lb5,3,4,2,3,AttachOptions.Fill,AttachOptions.Shrink,0,0);
 	
@@ -141,13 +147,44 @@ namespace Moscrif.IDE.Components
 				filllStartPageThread.IsBackground = true;
 				filllStartPageThread.Start();
 
-				Thread BannerThread = new Thread(new ThreadStart(BannerThreadLoop));
-				
-				BannerThread.Name = "BannerThread";
-				BannerThread.IsBackground = true;
-				BannerThread.Start();
+				LinkButton lbTutorial = new LinkButton();
+				lbTutorial.Icon ="tutorial.png";
+				lbTutorial.UseWebStile = false;
+				lbTutorial.Label = "Tutorials";
+				lbTutorial.WidthRequest = 150;
+				lbTutorial.HeightRequest = 25;
+				lbTutorial.LinkUrl = MainClass.Settings.TutorialsBaseUrl;
 
-				//bannerImage.GdkWindow.Cursor = new Gdk.Cursor(Gdk.CursorType.Hand2);
+				LinkButton lbVideos = new LinkButton();
+				lbVideos.Icon ="video.png";
+				lbVideos.UseWebStile = false;
+				lbVideos.Label = "Videos";
+				lbVideos.WidthRequest = 150;
+				lbVideos.HeightRequest = 25;
+				lbVideos.LinkUrl = MainClass.Settings.VideosBaseUrl;
+
+				LinkButton lbApi = new LinkButton();
+				lbApi.Icon ="api.png";
+				lbApi.UseWebStile = false;
+				lbApi.Label = "Api";
+				lbApi.WidthRequest = 150;
+				lbApi.HeightRequest = 25;
+				lbApi.LinkUrl = MainClass.Settings.ApiBaseUrl;
+
+				LinkButton lbShowcase = new LinkButton();
+				lbShowcase.Icon ="showcase.png";
+				lbShowcase.UseWebStile = false;
+				lbShowcase.Label = "Showcase";
+				lbShowcase.WidthRequest = 150;
+				lbShowcase.HeightRequest = 25;
+				lbShowcase.LinkUrl = MainClass.Settings.ShowcaseBaseUrl;
+
+				tblContent.WidthRequest = 500;
+				tblContent.Attach(lbTutorial,0,1,1,2,AttachOptions.Fill|AttachOptions.Expand,AttachOptions.Shrink,0,0);
+				tblContent.Attach(lbVideos,1,2,1,2,AttachOptions.Fill|AttachOptions.Expand,AttachOptions.Shrink,0,0);
+				tblContent.Attach(lbApi,2,3,1,2,AttachOptions.Fill|AttachOptions.Expand,AttachOptions.Shrink,0,0);
+				tblContent.Attach(lbShowcase,3,4,1,2,AttachOptions.Fill|AttachOptions.Expand,AttachOptions.Shrink,0,0);
+				tblContent.ShowAll();
 
 			} catch(Exception ex){
 				Tool.Logger.Error(ex.Message,null);
@@ -237,12 +274,15 @@ namespace Moscrif.IDE.Components
 		}
 
 		private void getSamples(){
-			
+			string defailtIcon =  System.IO.Path.Combine(MainClass.Paths.ResDir,"logo96.png");
 			DirectoryInfo dir = new DirectoryInfo(MainClass.Paths.SampleDir);
 			
-			WebButton lbGM = new WebButton();
+			LinkImageButton lbGM = new LinkImageButton();
+
+			lbGM.Icon = defailtIcon;
 			lbGM.Label =MainClass.Languages.Translate("more_sample_label");
 			lbGM.LinkUrl =MainClass.Settings.SamplesBaseUrl;
+			lbGM.WidthRequest = 53;
 			//lbGM.Description =MainClass.Languages.Translate("more_sample_tt");
 			
 			WebButton lbOS = new WebButton();
@@ -281,10 +321,10 @@ namespace Moscrif.IDE.Components
 				//FileInfo[] pngFile = di.GetFiles(di.Name+".png",SearchOption.TopDirectoryOnly);
 				
 				//if (zipFile.Length < 1 ) continue;
-				
+
 				LinkImageButton lb = new LinkImageButton();
-				//lb.Label = System.IO.Path.GetFileName(di.Name);
-				
+				lb.Label = System.IO.Path.GetFileName(di.Name);
+
 				//if (txtFile.Length > 0){
 				if(File.Exists(txtFile)){
 					string descr = "";
@@ -311,10 +351,12 @@ namespace Moscrif.IDE.Components
 						lb.HoverMessage =hover;
 					}
 				}
-				
-				if (pngFile.Length > 0)
+			
+				if (pngFile.Length > 0){
+
+					//btn.Image = new Gtk.Image(pngFile);
 					lb.Icon =pngFile;
-				
+				}
 				lb.WidthRequest = 53;
 				string fileName = zipFile;
 				lb.Clicked+= delegate(object sender, EventArgs e) {
@@ -343,7 +385,7 @@ namespace Moscrif.IDE.Components
 			//hbMorSample.PackStart(lbGM,true,true,0);
 			//hbMorSample.PackStart(lbOS,true,true,0);
 			//tblSamples.Attach(lbGM,(uint)0,(uint)1,(uint)(no),(uint)(no+1),AttachOptions.Fill|AttachOptions.Expand,AttachOptions.Shrink,0,0);
-			
+			tblSamples.ShowAll();
 		}
 
 		private void FilllStartPage(){
@@ -463,10 +505,10 @@ namespace Moscrif.IDE.Components
 					////lb.Description =webCacheFile.ListTweet[i].HoverMessage;
 					string label = webCacheFile.ListTweet[i].Title;
 							
-					if (label.Length >55) {						
+					/*if (label.Length >115) {						
 						label = label.Substring(0,55)+"...";
-					}
-
+					}*/
+					lb.UseSmall = true;
 					lb.Label =label;
 					//Pixbuf pbx = 
 					Gtk.Image img = new Gtk.Image(MainClass.Tools.GetIconFromStock("twitter12.png",IconSize.Menu));

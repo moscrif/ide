@@ -17,7 +17,7 @@ namespace Moscrif.IDE.Actions
 		{
 			base.OnActivated();
 
-			string linkUrl = String.Format("http://moscrif.com/samples");
+			string linkUrl = MainClass.Settings.SamplesBaseUrl;//String.Format("http://moscrif.com/samples");
 			if (!String.IsNullOrEmpty(linkUrl)){
 				System.Diagnostics.Process.Start(linkUrl);
 			}
