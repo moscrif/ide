@@ -174,6 +174,13 @@ namespace Moscrif.IDE.Settings
 
 			entrName.Text= projectArtefact;
 			entrFacebookApi.Text= project.FacebookAppID ;
+			entrFacebookApi.KeyPressEvent+= delegate(object o, KeyPressEventArgs args) {
+
+				if(!MainClass.LicencesSystem.CheckFunction("facebook",parentWindow)){
+					entrFacebookApi.Text= project.FacebookAppID ; 
+					return;
+				}
+			};
 
 			entrName.Changed+= delegate(object sender, EventArgs e) {
 				if(checkChange)

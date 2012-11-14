@@ -233,29 +233,7 @@ namespace Moscrif.IDE.Workspace
 					if (key.StartsWith("x-"))
 						XValues[key] = val;
 				}
-			//if (String.IsNullOrEmpty(Id))
-			//	throw new Exception(String.Format("Application file '{0}' does not have ID!", ApplicationFile));
-			//Pogram.MainForm.PrintLn(String.Format("Project '{0}' loaded succesfully...", ApplicationFile));
 		}
-
-		/*     public static Project Open(string fileName)
-        {
-            using (WaitCursor wait = new WaitCursor())
-            {
-                Project prj = null;
-                try
-                {
-                    prj = new Project(fileName);
-                }
-                catch (Exception ex)
-                {
-                    Program.PrintErrorLn(String.Format("Error loading application!\n{0}", ex.Message));
-                }
-                if (prj != null)
-                    Program.Workspace.Projects.Add(prj);
-                return prj;
-            }
-        }*/
 
 		public void Save()
 		{

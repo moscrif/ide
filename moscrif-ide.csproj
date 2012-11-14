@@ -476,11 +476,11 @@
     <Compile Include="completion\ParameterDataProvider.cs" />
     <Compile Include="settings\SecuritySample.cs" />
     <Compile Include="tool\Network.cs" />
-    <Compile Include="controls\LicenceDialog.cs" />
-    <Compile Include="gtk-gui\Moscrif.IDE.Controls.LicenceDialog.cs" />
     <Compile Include="Iface\LicensesSystem.cs" />
     <Compile Include="Iface\Entities\Licenses.cs" />
     <Compile Include="components\WebButton.cs" />
+    <Compile Include="controls\BuyDialog.cs" />
+    <Compile Include="components\tempBanner.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -1080,6 +1080,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="resources\video.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\btnBuy.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\btnCancel.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

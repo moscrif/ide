@@ -174,6 +174,10 @@ namespace Moscrif.IDE.Settings
 
 		protected virtual void OnBtnAddCondClicked (object sender, System.EventArgs e)
 		{
+			if(!MainClass.LicencesSystem.CheckFunction("conditions",parentWindow)){
+				return;
+			}
+
 			EntryDialog ed = new EntryDialog("",MainClass.Languages.Translate("new_conditions"),parentWindow);
 			int result = ed.Run();
 			if (result == (int)ResponseType.Ok){
@@ -202,6 +206,10 @@ namespace Moscrif.IDE.Settings
 		
 		protected virtual void OnBtnDeleteCondClicked (object sender, System.EventArgs e)
 		{
+			if(!MainClass.LicencesSystem.CheckFunction("conditions",parentWindow)){
+				return;
+			}
+
 			TreeSelection ts = tvConditions.Selection;
 
 			TreeIter ti = new TreeIter();
@@ -227,6 +235,10 @@ namespace Moscrif.IDE.Settings
 		
 		protected virtual void OnBtnEditCondClicked (object sender, System.EventArgs e)
 		{
+			if(!MainClass.LicencesSystem.CheckFunction("conditions",parentWindow)){
+				return;
+			}
+
 			TreeSelection ts = tvConditions.Selection;
 
 			TreeIter ti = new TreeIter();
@@ -277,6 +289,10 @@ namespace Moscrif.IDE.Settings
 
 		protected virtual void OnBtnAddRulesClicked  (object sender, System.EventArgs e)
 		{
+			if(!MainClass.LicencesSystem.CheckFunction("conditions",parentWindow)){
+				return;
+			}
+
 			TreeSelection ts = tvConditions.Selection;
 
 			TreeIter ti = new TreeIter();
@@ -328,6 +344,10 @@ namespace Moscrif.IDE.Settings
 
 		protected virtual void OnBtnDeleteCond1Clicked(object sender, System.EventArgs e)
 		{
+			if(!MainClass.LicencesSystem.CheckFunction("conditions",parentWindow)){
+				return;
+			}
+
 			TreeSelection ts = tvConditions.Selection;
 
 			TreeIter ti = new TreeIter();
@@ -366,6 +386,9 @@ namespace Moscrif.IDE.Settings
 		
 		protected virtual void OnBtnEditCond1Clicked (object sender, System.EventArgs e)
 		{
+			if(!MainClass.LicencesSystem.CheckFunction("conditions",parentWindow)){
+				return;
+			}
 
 			TreeSelection ts = tvConditions.Selection;
 

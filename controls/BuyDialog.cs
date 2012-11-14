@@ -1,34 +1,37 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using Gtk;
 using Gdk;
 using Moscrif.IDE.Iface.Entities;
 using Moscrif.IDE.Components;
+
 
 namespace Moscrif.IDE.Controls
 {
 	public class BuyDialog: Dialog
 	{
 
-		TextView view1;
-		TextView view2;
-		TextView view3;
+		TextView viewHeader;
+		TextView viewFooter;
+		TextView viewTable;
 
 		bool hoveringOverLink = false;
 		Gdk.Cursor handCursor, regularCursor;
-		License lcs = null;
+		License featureLicence = null;
 		
 		string featureTitle;
-		int userTyp =-100;
+		int featureLicenceId =-100;
 
-		public BuyDialog(int userTyp,string featureTitle,Gtk.Window parent) : base ( )
+		public BuyDialog(int featureLicenceId,string featureTitle,Gtk.Window parent) : base ( )
 		{
 			this.featureTitle = featureTitle;
-			this.userTyp = userTyp;
+			this.featureLicenceId = featureLicenceId;
 			this.HasSeparator = false;
 			if(parent!=null)
 				this.TransientFor = parent;
 			this.WidthRequest = 570;
-			this.HeightRequest = 570;
+			this.HeightRequest = 450;
 			//btnBuyNow.ModifyBg(StateType.Normal,new Color(109,158,24));
 			
 			this.ModifyBg (Gtk.StateType.Normal, Style.White);
@@ -36,50 +39,59 @@ namespace Moscrif.IDE.Controls
 			if(MainClass.User!=null)
 				typ =MainClass.User.LicenseId;
 			
-			//lcs = MainClass.LicencesSystem.GetNextLicence(userTyp.ToString());
-			lcs = MainClass.LicencesSystem.GetLicence(userTyp.ToString());
+			string userLicenceId ="-100";
+			if(MainClass.User != null){
+				userLicenceId = MainClass.User.LicenseId;
+			}
+			
+			int iTyp =0;
+			if(!Int32.TryParse(userLicenceId,out iTyp)){
+				iTyp = -100;
+			}
+
+			featureLicence = MainClass.LicencesSystem.GetLicence(featureLicenceId.ToString());
 			
 			handCursor = new Gdk.Cursor (Gdk.CursorType.Hand2);
 			regularCursor = new Gdk.Cursor (Gdk.CursorType.Xterm);
 			
-			view1 = new TextView ();
-			TextBuffer buffer = view1.Buffer;
+			viewHeader = new TextView ();
+			TextBuffer buffer = viewHeader.Buffer;
 
-			view2 = new TextView ();
-			TextBuffer buffer2 = view2.Buffer;
-			view2.KeyPressEvent += new KeyPressEventHandler (KeyPress);
-			view2.WidgetEventAfter += new WidgetEventAfterHandler (EventAfter);
-			view2.MotionNotifyEvent += new MotionNotifyEventHandler (MotionNotify);
-			view2.HeightRequest = 15;
-			//view2.ModifyBg(StateType.Normal,new Color(255,0,0));//242,247,252
+			viewFooter = new TextView ();
+			TextBuffer buffer2 = viewFooter.Buffer;
+			viewFooter.KeyPressEvent += new KeyPressEventHandler (KeyPress);
+			viewFooter.WidgetEventAfter += new WidgetEventAfterHandler (EventAfter);
+			viewFooter.MotionNotifyEvent += new MotionNotifyEventHandler (MotionNotify);
+			viewFooter.HeightRequest = 15;
+			//viewFooter.ModifyBg(StateType.Normal,new Color(255,0,0));//242,247,252
 
-			view3 = new TextView ();
-			TextBuffer buffer3 = view3.Buffer;
+			viewTable = new TextView ();
+			TextBuffer buffer3 = viewTable.Buffer;
 
 
 			ScrolledWindow sw = new ScrolledWindow ();
 			sw.SetPolicy (PolicyType.Automatic, PolicyType.Automatic);
-			sw.HeightRequest = 100;
-			sw.Add (view1);
+			sw.HeightRequest = 115;
+			sw.Add (viewHeader);
 
 			ScrolledWindow sw2 = new ScrolledWindow ();
 			sw2.SetPolicy (PolicyType.Automatic, PolicyType.Automatic);
 			sw2.HeightRequest = 15;
-			sw2.Add (view2);
+			sw2.Add (viewFooter);
 
 			ScrolledWindow sw3 = new ScrolledWindow ();
 			sw3.SetPolicy (PolicyType.Automatic, PolicyType.Automatic);
-			sw3.Add (view3);
+			sw3.Add (viewTable);
 
 			CreateTags (buffer);
 			CreateTags (buffer2);
 			CreateTags (buffer3);
-			InsertText (buffer);
-			InsertText2 (buffer2);
-			InsertText3 (buffer3);
+			InsertTextHeader (buffer);
+			InsertTextFooter (buffer2);
+			InsertTextTable (buffer3);
 
 			this.ShowAll();
-			view1.ModifyBase(StateType.Normal,this.Style.Background(StateType.Normal));
+			//viewHeader.ModifyBase(StateType.Normal,this.Style.Background(StateType.Normal));
 
 			Table tbl = new Table(4,1,false);
 
@@ -135,17 +147,25 @@ namespace Moscrif.IDE.Controls
 			//btnCancel.ModifyBg(StateType.Normal,new Color(109,158,24));
 			//btnCancel.Xalign = 0.5F;
 			//btnCancel.Yalign =0.5F;
-			HBox h = new HBox ( );
+			Table tblButton = new Table (1,4,false);
+			tblButton.ColumnSpacing = 12;
+			tblButton.BorderWidth = 6;
+			tblButton.Attach(new Label(""),0,1,0,1,AttachOptions.Expand,AttachOptions.Expand,0,0);
+			tblButton.Attach(btnCancel,1,2,0,1,AttachOptions.Shrink,AttachOptions.Shrink,0,0);
+			tblButton.Attach(btnBuy,2,3,0,1,AttachOptions.Shrink,AttachOptions.Shrink,0,0);
+			tblButton.Attach(new Label(""),3,4,0,1,AttachOptions.Expand,AttachOptions.Expand,0,0);
+
+			/*HBox h = new HBox ( );
 			h.BorderWidth = 6;
 			h.Spacing = 12;
 			h.PackStart (btnCancel,false,false,0);
 			h.PackStart (btnBuy,false,false,0);
-			h.HeightRequest = 50;
+			h.HeightRequest = 50;*/
 
 			tbl.Attach(sw,0,1,0,1,AttachOptions.Fill,AttachOptions.Fill,0,0);
 
 			tbl.Attach(sw3,0,1,1,2,AttachOptions.Fill|AttachOptions.Expand,AttachOptions.Fill|AttachOptions.Expand,0,0);
-			tbl.Attach(h,0,1,2,3,AttachOptions.Fill,AttachOptions.Fill,0,0);
+			tbl.Attach(tblButton,0,1,2,3,AttachOptions.Fill,AttachOptions.Fill,0,0);
 			tbl.Attach(sw2,0,1,3,4,AttachOptions.Fill,AttachOptions.Shrink,0,0);
 
 			tbl.ShowAll();
@@ -196,7 +216,7 @@ namespace Moscrif.IDE.Controls
 			
 		}
 		
-		private void InsertText (TextBuffer buffer)
+		private void InsertTextHeader (TextBuffer buffer)
 		{
 			Pixbuf pixbuf = MainClass.Tools.GetIconFromStock("logo74.png",IconSize.Dialog);
 			pixbuf = pixbuf.ScaleSimple (32, 32, InterpType.Bilinear);
@@ -205,28 +225,16 @@ namespace Moscrif.IDE.Controls
 
 			TextIter insertIter = buffer.StartIter;
 			
-			buffer.InsertWithTagsByName (ref insertIter, String.Format("Moscrif {0} ",lcs.Name), "heading");
+			buffer.InsertWithTagsByName (ref insertIter, String.Format("Moscrif {0} ",featureLicence.Name), "heading");
 			buffer.Insert (ref insertIter,"\n\n");
 			
 			buffer.Insert (ref insertIter,
-			               String.Format("The \"{0}\" is available for Moscrif {1} license. Please purchase an upgrade to unlock this Buying Moscrif {1} License you also unlock:\n\n",featureTitle,lcs.Name));
+			               String.Format("The \"{0}\" is available for Moscrif {1} license. Please purchase an upgrade to unlock this Buying Moscrif {1} License you also unlock:\n\n",featureTitle,featureLicence.Name));
 			
-			//if(lcs!= null){
-			//	foreach(Feature ftv in lcs.Featutes){
-			//		buffer.Insert (ref insertIter," ");
-			//		buffer.InsertPixbuf (ref insertIter, pixbuf2);
-			//		buffer.Insert (ref insertIter, String.Format(" {0} \n", ftv.Name));
-			//	}
-			//}
-
-			//buffer.Insert (ref insertIter,"\n");
-			//buffer.Insert (ref insertIter,"More features area avalable in Pro License.");
-			//InsertLink (buffer, ref insertIter, "Buy Pro now!", 1);
-
 			buffer.ApplyTag ("word_wrap", buffer.StartIter, buffer.EndIter);
 		}
 
-		private void InsertText2 (TextBuffer buffer)
+		private void InsertTextFooter (TextBuffer buffer)
 		{
 
 			TextIter insertIter = buffer.StartIter;
@@ -237,7 +245,7 @@ namespace Moscrif.IDE.Controls
 			buffer.ApplyTag ("word_justification", buffer.StartIter, buffer.EndIter);
 		}
 
-		private void InsertText3 (TextBuffer buffer)
+		private void InsertTextTable (TextBuffer buffer)
 		{
 			Pixbuf pixbuf = MainClass.Tools.GetIconFromStock("logo74.png",IconSize.Dialog);
 			pixbuf = pixbuf.ScaleSimple (32, 32, InterpType.Bilinear);
@@ -245,8 +253,10 @@ namespace Moscrif.IDE.Controls
 
 			TextIter insertIter = buffer.StartIter;
 
-			if(lcs!= null){
-				foreach(Feature ftv in lcs.Featutes){
+			List<Feature> listDif = MainClass.LicencesSystem.GetUserDifferent(featureLicence);
+
+			if(listDif!= null){
+				foreach(Feature ftv in listDif){
 					buffer.Insert (ref insertIter," ");
 					buffer.InsertPixbuf (ref insertIter, pixbuf2);
 					buffer.Insert (ref insertIter, String.Format(" {0} \n", ftv.Name));
@@ -350,7 +360,7 @@ namespace Moscrif.IDE.Controls
 		{
 			foreach (TextTag tag in iter.Tags) {
 				if (tag.Underline ==  Pango.Underline.Single){
-					string url = "http://moscrif.com/download?t={0}";
+					string url = "http://moscrif.com/download";
 					if (MainClass.User!=null && (!String.IsNullOrEmpty(MainClass.User.Token))) {
 						url = string.Format(url,MainClass.User.Token);
 						

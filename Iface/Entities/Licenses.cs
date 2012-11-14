@@ -71,7 +71,6 @@ namespace Moscrif.IDE.Iface.Entities
 				}
 			}
 			return new Licenses();
-			
 		}
 		
 	}
@@ -112,10 +111,24 @@ namespace Moscrif.IDE.Iface.Entities
 		[XmlArray("featutes")]
 		[XmlArrayItem("feature")]
 		public List<Feature> Featutes {get;set;}
-
-
-		
 	}
+
+
+	
+	public class FeatureComparer : IEqualityComparer<Feature>
+	{
+		public bool Equals(Feature x, Feature y)	
+		{	
+			return x.Code == y.Code;	
+		}
+		
+
+		public int GetHashCode(Feature obj)
+		{
+			return obj.Name.GetHashCode();
+		}
+	}
+	
 
 	
 	public class Feature

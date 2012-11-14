@@ -5404,6 +5404,7 @@ All Open Project</property>
                         <property name="Type">TextOnly</property>
                         <property name="Label">Forgot your password?</property>
                         <property name="UseUnderline">True</property>
+                        <property name="UseWebStile">False</property>
                         <property name="LinkUrl">http://moscrif.com/request-new-password?returnUrl=/login</property>
                       </widget>
                       <packing>

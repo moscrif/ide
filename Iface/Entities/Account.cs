@@ -8,6 +8,7 @@ namespace Moscrif.IDE.Iface.Entities
 	{
 		public Account()
 		{
+			this.LicenseId = "-100";
 		}
 
 		[XmlAttribute("token")]
@@ -41,10 +42,15 @@ namespace Moscrif.IDE.Iface.Entities
 		}
 
 		//[XmlAttribute("licences")]
+		private License license;
 		[XmlIgnore]
-		public Licenses Licenses{
-			get;
-			set;
+		public License License{
+			get{
+				//if(licenses!=null)
+				//	return licenses;
+				license = MainClass.LicencesSystem.GetLicence(LicenseId);
+				return license;
+			}
 		}
 	}
 }

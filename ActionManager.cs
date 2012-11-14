@@ -813,20 +813,7 @@ namespace Moscrif.IDE
 
 	void OnTest(object obj, EventArgs args)
 	{
-			/*tempDialog d  = new tempDialog ("Catering request",
-			                            "This Is Function",
-			                            "Beware that government health advice suggests that " +
-			                            "fries are less healthy than carrots.");
-			ResponseType resp = (ResponseType) d.Run ( );
-			if (resp == ResponseType.Ok) {
-				Environment.Exit (0);
-			} else {
-				Environment.Exit (1);
-			}*/
-
-
-
-		LicenceDialog ld = new LicenceDialog();
+			BuyDialog ld = new BuyDialog(-100,"Test Feature",MainClass.MainWindow);
 		if(ld.Run() == (int)ResponseType.Ok){
 			
 		}

@@ -46,6 +46,10 @@ namespace Moscrif.IDE.Controls
 					string frameworkLibPath = (string) libstListStore.GetValue(iter,4);
 					string state = (string) libstListStore.GetValue(iter,1);
 
+					if(!MainClass.LicencesSystem.CheckFunction(libSelect,this)){
+						return;
+					}
+
 					int resultAction =0;
 
 					if(old){

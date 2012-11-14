@@ -221,7 +221,7 @@ namespace Moscrif.IDE.Settings
 			table.Attach(application,1,2,(uint)(xPos-1),(uint)xPos,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Expand,0,0);
 		}
 
-		private void GenerateComboBox(ref Table table, string name, string label, string selectVal,int xPos,List<SettingValue> list){
+		private void GenerateComboBox(ref Table table, string name, string label, string selectVal,int xPos,List<SettingValue> list,bool isAndroidSupportDevice){
 			xPos = xPos+3;
 			Label lblApp = new Label(label);
 			lblApp.Xalign = 1;
@@ -253,7 +253,16 @@ namespace Moscrif.IDE.Settings
 			}
 			if(cbe.Active <0)
 				cbe.Active =0;
-
+			if(isAndroidSupportDevice){
+				cbe.Changed+= delegate(object sender, EventArgs e) {
+					if(cbe.Active !=0){
+						if(!MainClass.LicencesSystem.CheckFunction("androidsupporteddevices",parentWindow)){
+							cbe.Active =0;
+							return;
+						}
+					}
+				};
+			}
 
 			table.Attach(lblApp,0,1,(uint)(xPos-1),(uint)xPos,AttachOptions.Fill,AttachOptions.Shrink,0,0);
 			table.Attach(cbe,1,2,(uint)(xPos-1),(uint)xPos,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Expand,0,0);
@@ -484,7 +493,7 @@ namespace Moscrif.IDE.Settings
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_SUPPORTEDDEVICES);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp = new PublishProperty(Project.KEY_SUPPORTEDDEVICES));
-				GenerateComboBox(ref table2,Project.KEY_SUPPORTEDDEVICES,MainClass.Languages.Translate("supportedDevices"),pp.PublishValue,5,MainClass.Settings.AndroidSupportedDevices);
+				GenerateComboBox(ref table2,Project.KEY_SUPPORTEDDEVICES,MainClass.Languages.Translate("supportedDevices"),pp.PublishValue,5,MainClass.Settings.AndroidSupportedDevices,true);
 
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_PERMISSION);
 				if (pp == null)
@@ -551,13 +560,13 @@ namespace Moscrif.IDE.Settings
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_SUPPORTEDDEVICES);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp = new PublishProperty(Project.KEY_SUPPORTEDDEVICES));
-				GenerateComboBox(ref table2,Project.KEY_SUPPORTEDDEVICES,MainClass.Languages.Translate("supportedDevices"),pp.PublishValue,5,MainClass.Settings.AndroidSupportedDevices);
+				GenerateComboBox(ref table2,Project.KEY_SUPPORTEDDEVICES,MainClass.Languages.Translate("supportedDevices"),pp.PublishValue,5,MainClass.Settings.AndroidSupportedDevices,true);
 
 
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_INSTALLOCATION);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp = new PublishProperty(Project.KEY_INSTALLOCATION));
-				GenerateComboBox(ref table2,Project.KEY_INSTALLOCATION,MainClass.Languages.Translate("installLocation"),pp.PublishValue,6,MainClass.Settings.InstallLocations);
+				GenerateComboBox(ref table2,Project.KEY_INSTALLOCATION,MainClass.Languages.Translate("installLocation"),pp.PublishValue,6,MainClass.Settings.InstallLocations,false);
 
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_PERMISSION);
 				if (pp == null)
@@ -684,7 +693,7 @@ namespace Moscrif.IDE.Settings
 				pp = FindPublishProperty(dpd.Device.PublishPropertisMask, Project.KEY_SUPPORTEDDEVICES);
 				if (pp == null)
 					dpd.Device.PublishPropertisMask.Add(pp = new PublishProperty(Project.KEY_SUPPORTEDDEVICES));
-				GenerateComboBox(ref table2,Project.KEY_SUPPORTEDDEVICES,MainClass.Languages.Translate("supportedDevices"),pp.PublishValue,3,MainClass.Settings.OSSupportedDevices);
+				GenerateComboBox(ref table2,Project.KEY_SUPPORTEDDEVICES,MainClass.Languages.Translate("supportedDevices"),pp.PublishValue,3,MainClass.Settings.OSSupportedDevices,false);
 
 				// iPhone4
 				Gtk.Expander expanderiPh4 = new Expander("iPhone 4(S)");

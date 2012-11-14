@@ -35,6 +35,9 @@ namespace Moscrif.IDE.Controls.Wizard
 		DropDownButton.ComboItemSet remoteItems = new DropDownButton.ComboItemSet ();
 		Label lblRemote = new Label("Remote: ");
 
+		DropDownButton.ComboItem ciDeviceTesting ;
+		DropDownButton.ComboItem ciDeviceDistribution;
+
 		private bool runningPublish = false;
 		int status = 0;
 
@@ -43,9 +46,14 @@ namespace Moscrif.IDE.Controls.Wizard
 			project  = MainClass.Workspace.ActualProject;
 			this.TransientFor = MainClass.MainWindow;
 			this.Build();
+
+			ciDeviceTesting = new DropDownButton.ComboItem(MainClass.Languages.Translate("device_testing"),0);
+			ciDeviceDistribution = new DropDownButton.ComboItem(MainClass.Languages.Translate("market_distribution"),1);
+
 			btnResetMatrix.Label = MainClass.Languages.Translate("reset_matrix");
 
 			chbSignApp= new CheckButton( MainClass.Languages.Translate("sign_app"));
+			chbSignApp.Active = MainClass.Workspace.SignApp;
 			chbSignApp.Toggled += new EventHandler(OnChbSignAppToggled);
 			chbSignApp.Sensitive = true;//MainClass.Settings.SignAllow;
 
@@ -65,6 +73,11 @@ namespace Moscrif.IDE.Controls.Wizard
 						ddbTypRemote.Visible = true;
 						chbSignApp.Sensitive= false;
 					} else {
+						if(!MainClass.LicencesSystem.CheckFunction("marketdistribution",this)){
+							ddbTypPublish.SelectItem(publishItems,ciDeviceTesting);
+							return;
+						}
+
 						lblRemote.Visible = false;
 						ddbTypRemote.Visible = false;
 						chbSignApp.Sensitive= true;
@@ -87,17 +100,16 @@ namespace Moscrif.IDE.Controls.Wizard
 
 			ddbTypRemote.WidthRequest = 175;
 			ddbTypRemote.SetItemSet(remoteItems);
-			
-			DropDownButton.ComboItem addTyp0 = new DropDownButton.ComboItem(MainClass.Languages.Translate("device_testing"),0);
-			publishItems.Add(addTyp0);
-			
-			DropDownButton.ComboItem addTyp1 = new DropDownButton.ComboItem(MainClass.Languages.Translate("market_distribution"),1);
-			publishItems.Add(addTyp1);
 
-			if(MainClass.Workspace.ActualProject.TypPublish ==1)
-				ddbTypPublish.SelectItem(publishItems,addTyp1);
+			publishItems.Add(ciDeviceTesting);
+			publishItems.Add(ciDeviceDistribution);
+
+			ddbTypPublish.SelectItem(publishItems,ciDeviceTesting);
+			/*if(MainClass.Workspace.ActualProject.TypPublish ==1)
+				ddbTypPublish.SelectItem(publishItems,ciDeviceDistribution);
 			else 
-				ddbTypPublish.SelectItem(publishItems,addTyp0);
+				ddbTypPublish.SelectItem(publishItems,ciDeviceTesting);*/
+
 
 			DropDownButton.ComboItem addRemote0 = new DropDownButton.ComboItem(MainClass.Languages.Translate("remote_none"),"0");
 			remoteItems.Add(addRemote0);
@@ -226,7 +238,7 @@ namespace Moscrif.IDE.Controls.Wizard
 			};
 			
 			chbOpenOutputDirectory.Active = MainClass.Settings.OpenOutputAfterPublish;
-			chbSignApp.Active = MainClass.Workspace.SignApp;
+
 			
 			notebook.CurrentPage =cpage;
 			btnNext.GrabFocus();
@@ -366,6 +378,13 @@ namespace Moscrif.IDE.Controls.Wizard
 				}
 				
 				crt.Toggled += delegate(object o, ToggledArgs args) {
+					if((deviceTyp == (int)DeviceType.Windows)||(deviceTyp == (int)DeviceType.MacOs)){
+						if(!MainClass.LicencesSystem.CheckFunction("windowsandmac",this)){
+							return;
+						} 
+					}
+
+
 					TreeIter iter;
 					if (ls.GetIter (out iter, new TreePath(args.Path))) {
 						bool old = (bool) ls.GetValue(iter,0);
@@ -546,6 +565,12 @@ namespace Moscrif.IDE.Controls.Wizard
 							
 							MenuItem miCheckAll = new MenuItem( MainClass.Languages.Translate("check_all" ));
 							miCheckAll.Activated+= delegate(object sender, EventArgs e) {
+								if((deviceTyp == (int)DeviceType.Windows)||(deviceTyp == (int)DeviceType.MacOs)){
+									if(!MainClass.LicencesSystem.CheckFunction("windowsandmac",this)){
+										return;
+									} 
+								}
+
 								int cnt = 0;
 								ls.Foreach((model, path, iterr) => {
 									CombinePublish cp =(CombinePublish) ls.GetValue(iterr,2);
@@ -644,7 +669,13 @@ namespace Moscrif.IDE.Controls.Wizard
 
 		protected virtual void OnChbSignAppToggled (object sender, System.EventArgs e)
 		{
-			MainClass.Workspace.SignApp = chbSignApp.Active;
+			if(chbSignApp.Active){
+				if(MainClass.LicencesSystem.CheckFunction("signapp",this)){
+					MainClass.Workspace.SignApp = chbSignApp.Active;
+				} else {
+					chbSignApp.Active = false;
+				}
+			}		
 		}
 		
 		protected virtual void OnChbOpenOutputDirectoryToggled (object sender, System.EventArgs e)

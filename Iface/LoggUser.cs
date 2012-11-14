@@ -76,7 +76,7 @@ namespace Moscrif.IDE.Iface
 
 				if(!string.IsNullOrEmpty(result)){
 					Licenses lc = Licenses.LoadLicenses(result);
-					MainClass.User.Licenses = lc;
+					//MainClass.User.Licenses = lc;
 					if(lc!= null && lc.Items.Count>0){
 						MainClass.User.LicenseId = lc.Items[0].Typ;
 					}
@@ -139,7 +139,7 @@ namespace Moscrif.IDE.Iface
 				if( ac!= null ){
 					ac.Login = name ;
 					Licenses lsl = Licenses.LoadLicenses(result);
-					ac.Licenses = lsl;
+					//ac.Licenses = lsl;
 					if(lsl!= null && lsl.Items.Count>0){
 						ac.LicenseId = lsl.Items[0].Typ;
 					}

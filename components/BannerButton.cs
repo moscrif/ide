@@ -3,13 +3,12 @@ using Gtk;
 using Gdk;
 using Cairo;
 
-
 namespace Moscrif.IDE.Components
 {
 
 	[System.ComponentModel.Category("Moscfift.Ide.Components")]
 	[System.ComponentModel.ToolboxItem(true)]
-	public class BannerButton:  EventBox
+	public class BannerButton: EventBox
 	{
 		private Gtk.Image image ;
 
@@ -31,6 +30,7 @@ namespace Moscrif.IDE.Components
 			else 
 				GdkWindow.Cursor = new Gdk.Cursor(Gdk.CursorType.Arrow);
 			*/
+			//GdkWindow.Cursor = new Gdk.Cursor(Gdk.CursorType.Hand2);
 			return base.OnMotionNotifyEvent(evnt);
 		} 
 
@@ -42,35 +42,22 @@ namespace Moscrif.IDE.Components
 		{
 			this.Events= Gdk.EventMask.AllEventsMask;
 			//this.VisibleWindow = false;
+			//this.Relief= ReliefStyle.None;
 
 			image = new Gtk.Image ();
 
 			image.Xalign = 0.5F;
 			image.Yalign = 0.5F;
 
-			this.Add(image);
+			HBox hb = new HBox();
+			hb.PackStart(image);
+
+			this.Add(hb);
 			this.ShowAll();
-			image.Realized += delegate {
-				image.GdkWindow.Cursor = new Gdk.Cursor(Gdk.CursorType.Hand2);
+			this.Realized += delegate {
+				this.GdkWindow.Cursor = new Gdk.Cursor(Gdk.CursorType.Hand2);
 			};
 		}
-
-
-		/*protected override bool OnExposeEvent(Gdk.EventExpose evnt)
-		{
-
-			if ((ImageIcon != null)) {
-				var gc = Style.BackgroundGC ( State);
-				var lRect = new Rectangle (Allocation.X, Allocation.Y, imageIcon.Width, imageIcon.Height);
-				//if (evnt.Region.RectIn (lRect) != OverlapType.Out)
-					GdkWindow.DrawPixbuf (gc, imageIcon, 0, 0, lRect.X, lRect.Y, lRect.Width, lRect.Height, RgbDither.None, 0, 0);	
-			}
-			
-			foreach (Widget widget in Children)
-				PropagateExpose (widget, evnt);
-			
-			return base.OnExposeEvent (evnt);
-		}*/
 			
 		public Gdk.Pixbuf ImageIcon {
 			get{
