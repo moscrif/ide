@@ -22,27 +22,14 @@ namespace Moscrif.IDE.Components
 
 		protected override bool OnMotionNotifyEvent(Gdk.EventMotion evnt)
 		{
-			/*int x, y;
-			Gdk.ModifierType state;
-			evnt.Window.GetPointer (out x, out y, out state);
-			if ((state & Gdk.ModifierType.Button1Mask) != 0)
-				GdkWindow.Cursor = new Gdk.Cursor(Gdk.CursorType.Hand2);
-			else 
-				GdkWindow.Cursor = new Gdk.Cursor(Gdk.CursorType.Arrow);
-			*/
 			//GdkWindow.Cursor = new Gdk.Cursor(Gdk.CursorType.Hand2);
 			return base.OnMotionNotifyEvent(evnt);
 		} 
-
-		/*bannerImage.MotionNotifyEvent+= delegate(object o, MotionNotifyEventArgs args) {
-
-		};*/
 
 		public BannerButton () : base ()
 		{
 			this.Events= Gdk.EventMask.AllEventsMask;
 			//this.VisibleWindow = false;
-			//this.Relief= ReliefStyle.None;
 
 			image = new Gtk.Image ();
 
@@ -61,12 +48,9 @@ namespace Moscrif.IDE.Components
 			
 		public Gdk.Pixbuf ImageIcon {
 			get{
-				//return imageIcon;
 				return this.image.Pixbuf;
 			}
 			set { 	
-				//if(GdkWindow!=null)
-				//	GdkWindow.InvalidateRect(new Gdk.Rectangle(0,0, imageIcon.Width, imageIcon.Height), false);
 				this.image.Pixbuf = value;
 			}
 		}
@@ -76,10 +60,6 @@ namespace Moscrif.IDE.Components
 			get { return linkUrl; }
 			set { linkUrl = value; }
 		}
-		
-		/*public Label InnerLabel {
-			get { return label; }
-		}*/
 	}
 }
 
