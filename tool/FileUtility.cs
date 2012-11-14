@@ -184,20 +184,34 @@ namespace Moscrif.IDE.Tool
 			if (!System.IO.File.Exists(filePath))
 				return null;
 
-			StreamReader reader = new StreamReader(filePath);
-			string content = reader.ReadToEnd();
-			reader.Close();
-			Regex regexBar = new Regex(expresion, RegexOptions.IgnorePatternWhitespace | RegexOptions.Compiled | RegexOptions.CultureInvariant);
+			FileAttributes fa = File.GetAttributes(filePath);
+			if ((fa & FileAttributes.ReadOnly) == FileAttributes.ReadOnly) {
+				return null;
+			}
 
-			MatchCollection mcAll = Regex.Matches(content, expresion);
+			try{
+				StreamReader reader = new StreamReader(filePath);
+				string content = reader.ReadToEnd();
+				reader.Close();
+				Regex regexBar = new Regex(expresion, RegexOptions.IgnorePatternWhitespace | RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
-			return mcAll;
+				MatchCollection mcAll = Regex.Matches(content, expresion);
+				
+				return mcAll;
+			}catch {
+				return null;
+			}
 		}
 
 		public static List<FindResult> FindInFile(string filePath, string expresion, bool caseSensitve, bool wholeWorlds, string replaceExpresion)
 		{
 			if (!System.IO.File.Exists(filePath))
 				return null;
+
+			FileAttributes fa = File.GetAttributes(filePath);
+			if ((fa & FileAttributes.ReadOnly) == FileAttributes.ReadOnly) {
+				return null;
+			}
 
 			List<FindResult> result = new List<FindResult>();
 			StreamReader reader = new StreamReader(filePath);
