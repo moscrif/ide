@@ -29,7 +29,7 @@ namespace Moscrif.IDE.Components
 		public BannerButton () : base ()
 		{
 			this.Events= Gdk.EventMask.AllEventsMask;
-			//this.VisibleWindow = false;
+			this.VisibleWindow = false;
 
 			image = new Gtk.Image ();
 
@@ -42,7 +42,7 @@ namespace Moscrif.IDE.Components
 			this.Add(hb);
 			this.ShowAll();
 			this.Realized += delegate {
-				this.GdkWindow.Cursor = new Gdk.Cursor(Gdk.CursorType.Hand2);
+				//this.GdkWindow.Cursor = new Gdk.Cursor(Gdk.CursorType.Hand2);
 			};
 		}
 			

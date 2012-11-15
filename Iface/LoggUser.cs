@@ -11,7 +11,6 @@ using System.IO;
 using System.Timers;
 using System.Threading;
 using Moscrif.IDE.Settings;
-using Moscrif.IDE.Iface.Entities;
 
 namespace Moscrif.IDE.Iface
 {
@@ -21,7 +20,7 @@ namespace Moscrif.IDE.Iface
 
 		}
 
-		string redgisterUrl = MainClass.Settings.checkVersion ;
+		string redgisterUrl = MainClass.Settings.redgisterUrl ;
 		string pingUrl = MainClass.Settings.pingUrl ;
 		string loggUrl = MainClass.Settings.loggUrl ;
 		string loginUrl = MainClass.Settings.loginUrl ;
@@ -46,7 +45,34 @@ namespace Moscrif.IDE.Iface
 				}
 				string result = e.Result;
 
-				Account ac = CreateAccount(result);
+				string token = "";
+				string licence = "";
+				ParseResult(result, ref token,ref licence);
+
+				if(String.IsNullOrEmpty(token)){
+					if(loggNoTask!= null) loggNoTask(null,"Register failed.");
+					return;
+				}
+
+				Account ac = CreateAccount(token);
+				
+				if( ac!= null ){
+					ac.Login = login ;
+					Licenses lsl = Licenses.LoadLicenses(licence);
+
+					if(lsl!= null && lsl.Items.Count>0){
+						ac.LicenseId = lsl.Items[0].Typ;
+					}else {
+						ac.LicenseId = "-100";
+					}
+					
+					if(loggYesTask!= null) loggYesTask(null,ac);
+				} else {
+					if(loggNoTask!= null) loggNoTask(null,"Register failed.");
+					return;
+				}
+
+				/*Account ac = CreateAccount(result);
 				if(ac!= null ){
 					ac.Login = login;
 					if(loggYesTask!= null) loggYesTask(null,ac);
@@ -54,7 +80,7 @@ namespace Moscrif.IDE.Iface
 				} else {
 					if(loggNoTask!= null) loggNoTask(null,"Login failed.");
 					return;
-				}
+				}*/
 
 			};
 			client.UploadStringAsync(new Uri(URL),data);
@@ -119,29 +145,25 @@ namespace Moscrif.IDE.Iface
 			string data = String.Format("{0}\n{1}",name,GetMd5Sum(password+SALT)); //\n{2}\n{3}",name,GetMd5Sum(password+SALT),Environment.MachineName,Environment.UserName);
 			try{
 				string result =  client.UploadString(new Uri(URL),data);
-				int indx = result.IndexOf("<token>");
-				int indxLast = result.LastIndexOf("</token>");
-				//Console.WriteLine(result);
 				string token = "";
-				if((indx>-1)&&(indxLast>-1)){
-					//result = result.Substring(
-					Regex regx = new Regex("<token>.*?</token>");
-					MatchCollection mc = regx.Matches(result);
-					if(mc.Count>0){
-						token = mc[0].Value;
-						token= token.Replace("<token>",string.Empty);
-						token= token.Replace("</token>",string.Empty);
-					}
-					result = regx.Replace(result,String.Empty);
+				string licence = "";
+				ParseResult(result, ref token,ref licence);
+					
+				if(String.IsNullOrEmpty(token)){
+					if(loggNoTask!= null) loggNoTask(null,"Wrong username or password.");
+					return;
 				}
+
 				Account ac = CreateAccount(token);
 
 				if( ac!= null ){
 					ac.Login = name ;
-					Licenses lsl = Licenses.LoadLicenses(result);
+					Licenses lsl = Licenses.LoadLicenses(licence);
 					//ac.Licenses = lsl;
 					if(lsl!= null && lsl.Items.Count>0){
 						ac.LicenseId = lsl.Items[0].Typ;
+					} else {
+						ac.LicenseId = "-100";
 					}
 
 					if(loggYesTask!= null) loggYesTask(null,ac);
@@ -158,6 +180,26 @@ namespace Moscrif.IDE.Iface
 			}
 
 		}
+
+		private void ParseResult (string input, ref string token, ref string licence){
+
+			int indx = input.IndexOf("<token>");
+			int indxLast = input.LastIndexOf("</token>");
+			//Console.WriteLine(result);
+
+			if((indx>-1)&&(indxLast>-1)){
+				//result = result.Substring(
+				Regex regx = new Regex("<token>.*?</token>");
+				MatchCollection mc = regx.Matches(input);
+				if(mc.Count>0){
+					token = mc[0].Value;
+					token= token.Replace("<token>",string.Empty);
+					token= token.Replace("</token>",string.Empty);
+				}
+				licence = regx.Replace(input,String.Empty);
+			}
+		}
+
 		/*	
 		public void CheckLoginII(string name, string password,LoginYesTaskHandler loggYesTask,LoginNoTaskHandler loggNoTask){
       			string URL = loginUrl;

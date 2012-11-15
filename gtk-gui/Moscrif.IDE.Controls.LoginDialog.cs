@@ -123,6 +123,7 @@ namespace Moscrif.IDE.Controls
 			this.linkbutton1.CanFocus = true;
 			this.linkbutton1.Name = "linkbutton1";
 			this.linkbutton1.UseUnderline = true;
+			this.linkbutton1.UseWebStile = true;
 			this.linkbutton1.LinkUrl = "http://moscrif.com/request-new-password?returnUrl=/login";
 			this.linkbutton1.Label = "Forgot your password?";
 			this.table2.Add (this.linkbutton1);

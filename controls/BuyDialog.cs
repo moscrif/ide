@@ -224,12 +224,17 @@ namespace Moscrif.IDE.Controls
 			Pixbuf pixbuf2 = MainClass.Tools.GetIconFromStock("file-ms.png",IconSize.Menu);
 
 			TextIter insertIter = buffer.StartIter;
-			
-			buffer.InsertWithTagsByName (ref insertIter, String.Format("Moscrif {0} ",featureLicence.Name), "heading");
+
+			string upgradeLicence = "";
+			if(featureLicence != null){
+				upgradeLicence = featureLicence.Name;
+			}
+
+			buffer.InsertWithTagsByName (ref insertIter, String.Format("Moscrif {0} ",upgradeLicence), "heading");
 			buffer.Insert (ref insertIter,"\n\n");
 			
 			buffer.Insert (ref insertIter,
-			               String.Format("The \"{0}\" is available for Moscrif {1} license. Please purchase an upgrade to unlock this Buying Moscrif {1} License you also unlock:\n\n",featureTitle,featureLicence.Name));
+			               String.Format("The \"{0}\" is available for Moscrif {1} license. Please purchase an upgrade to unlock this Buying Moscrif {1} License you also unlock:\n\n",featureTitle,upgradeLicence));
 			
 			buffer.ApplyTag ("word_wrap", buffer.StartIter, buffer.EndIter);
 		}

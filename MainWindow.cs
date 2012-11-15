@@ -133,9 +133,7 @@ public partial class MainWindow : Gtk.Window
 			} else{
 				Moscrif.IDE.Iface.KeyBindings.CreateKeyBindingsWin(file);
 			}
-
 			MainClass.Settings.SaveSettings();
-
 
 		} else {
 			if(showSplash)
@@ -585,7 +583,19 @@ public partial class MainWindow : Gtk.Window
 		string bannerParth  = System.IO.Path.Combine(MainClass.Paths.ResDir,"banner");
 		bannerParth = System.IO.Path.Combine(bannerParth,"test.png");
 		if(File.Exists(bannerParth)){
-			bannerImage.ImageIcon = new Gdk.Pixbuf(bannerParth);
+			Gdk.Pixbuf pxb = new Gdk.Pixbuf(bannerParth);
+
+			if(pxb.Width>200 || pxb.Height>40){
+				
+				int newWidth = 200; 
+				int newHeight = 40;
+				MainClass.Tools.RecalculateImageSize(pxb.Width,pxb.Height
+				                                     ,200,40,ref newWidth,ref newHeight);
+				
+				pxb = pxb.ScaleSimple(newWidth,newHeight, Gdk.InterpType.Bilinear);
+			} 
+
+			bannerImage.ImageIcon =pxb;
 			bannerImage.LinkUrl = "http://www.moscrif.com";
 			/*
 			bannerButton.ImageIcon = new Gdk.Pixbuf(bannerParth);
@@ -1328,15 +1338,15 @@ public partial class MainWindow : Gtk.Window
 
 
 	public void LoginLogout(){
-		loginlogoutcontrol1.LoginLogout();
+		llcLogin.LoginLogout();
 	}
 
 	public void ReLogin(){
-		loginlogoutcontrol1.LoginLogout();
+		llcLogin.LoginLogout();
 	}
 
 	public void SetLogin(){
-		loginlogoutcontrol1.SetLogin();
+		llcLogin.SetLogin();
 	}
 
 	#region Project

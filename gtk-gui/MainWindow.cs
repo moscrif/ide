@@ -18,7 +18,7 @@ public partial class MainWindow
 	private global::Gtk.Table table1;
 	private global::Gtk.Label lblMessage2;
 	private global::Gtk.ProgressBar pbProgress;
-	private global::Moscrif.IDE.Components.LoginLogoutControl loginlogoutcontrol1;
+	private global::Moscrif.IDE.Components.LoginLogoutControl llcLogin;
 	
 	protected virtual void Build ()
 	{
@@ -85,7 +85,7 @@ public partial class MainWindow
 		this.hpOutput = new global::Gtk.HPaned ();
 		this.hpOutput.CanFocus = true;
 		this.hpOutput.Name = "hpOutput";
-		this.hpOutput.Position = 507;
+		this.hpOutput.Position = 1;
 		this.vpBody.Add (this.hpOutput);
 		this.vbMain.Add (this.vpBody);
 		global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.vbMain [this.vpBody]));
@@ -137,12 +137,14 @@ public partial class MainWindow
 		global::Gtk.Box.BoxChild w13 = ((global::Gtk.Box.BoxChild)(this.statusbar1 [this.hbox1]));
 		w13.Position = 1;
 		// Container child statusbar1.Gtk.Box+BoxChild
-		this.loginlogoutcontrol1 = new global::Moscrif.IDE.Components.LoginLogoutControl ();
-		this.loginlogoutcontrol1.Events = ((global::Gdk.EventMask)(256));
-		this.loginlogoutcontrol1.Name = "loginlogoutcontrol1";
-		this.statusbar1.Add (this.loginlogoutcontrol1);
-		global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.statusbar1 [this.loginlogoutcontrol1]));
+		this.llcLogin = new global::Moscrif.IDE.Components.LoginLogoutControl ();
+		this.llcLogin.Events = ((global::Gdk.EventMask)(256));
+		this.llcLogin.Name = "llcLogin";
+		this.statusbar1.Add (this.llcLogin);
+		global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.statusbar1 [this.llcLogin]));
 		w14.Position = 2;
+		w14.Expand = false;
+		w14.Fill = false;
 		this.vbMain.Add (this.statusbar1);
 		global::Gtk.Box.BoxChild w15 = ((global::Gtk.Box.BoxChild)(this.vbMain [this.statusbar1]));
 		w15.Position = 2;

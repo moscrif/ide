@@ -35,8 +35,8 @@ namespace Moscrif.IDE.Iface.Entities
 				Licenses banners= (Licenses)serializer.Deserialize((new StringReader(data) ));
 				return banners;
 			}catch(Exception ex){
-				Moscrif.IDE.Tool.Logger.Error(ex.Message);
-				Console.WriteLine(ex.Message);
+				Moscrif.IDE.Tool.Logger.Error("Load License :" +ex.Message);
+				Console.WriteLine("Load License ->" + ex.Message);
 				return new Licenses();
 			}
 		}

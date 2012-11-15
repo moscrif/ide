@@ -122,7 +122,7 @@
               <widget class="Gtk.HPaned" id="hpOutput">
                 <property name="MemberName" />
                 <property name="CanFocus">True</property>
-                <property name="Position">507</property>
+                <property name="Position">1</property>
                 <child>
                   <placeholder />
                 </child>
@@ -196,7 +196,7 @@
                   </widget>
                   <packing>
                     <property name="Position">1</property>
-                    <property name="AutoSize">True</property>
+                    <property name="AutoSize">False</property>
                   </packing>
                 </child>
                 <child>
@@ -211,17 +211,19 @@
               </widget>
               <packing>
                 <property name="Position">1</property>
-                <property name="AutoSize">True</property>
+                <property name="AutoSize">False</property>
               </packing>
             </child>
             <child>
-              <widget class="Moscrif.IDE.Components.LoginLogoutControl" id="loginlogoutcontrol1">
+              <widget class="Moscrif.IDE.Components.LoginLogoutControl" id="llcLogin">
                 <property name="MemberName" />
                 <property name="Events">ButtonPressMask</property>
               </widget>
               <packing>
                 <property name="Position">2</property>
                 <property name="AutoSize">True</property>
+                <property name="Expand">False</property>
+                <property name="Fill">False</property>
               </packing>
             </child>
           </widget>
@@ -5404,7 +5406,7 @@ All Open Project</property>
                         <property name="Type">TextOnly</property>
                         <property name="Label">Forgot your password?</property>
                         <property name="UseUnderline">True</property>
-                        <property name="UseWebStile">False</property>
+                        <property name="UseWebStile">True</property>
                         <property name="LinkUrl">http://moscrif.com/request-new-password?returnUrl=/login</property>
                       </widget>
                       <packing>
@@ -5697,25 +5699,15 @@ All Open Project</property>
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Bin" id="Moscrif.IDE.Components.LoginLogoutControl" design-size="130 25">
+  <widget class="Gtk.Bin" id="Moscrif.IDE.Components.LoginLogoutControl" design-size="151 25">
     <property name="MemberName" />
     <property name="Visible">False</property>
     <child>
-      <widget class="Gtk.HBox" id="hbox2">
+      <widget class="Gtk.Table" id="table1">
         <property name="MemberName" />
-        <property name="Spacing">6</property>
-        <child>
-          <widget class="Gtk.Label" id="lblName">
-            <property name="MemberName" />
-            <property name="LabelProp" translatable="yes">Open Source</property>
-          </widget>
-          <packing>
-            <property name="Position">0</property>
-            <property name="AutoSize">True</property>
-            <property name="Expand">False</property>
-            <property name="Fill">False</property>
-          </packing>
-        </child>
+        <property name="NColumns">3</property>
+        <property name="RowSpacing">6</property>
+        <property name="ColumnSpacing">6</property>
         <child>
           <widget class="Gtk.Button" id="btnState">
             <property name="MemberName" />
@@ -5727,14 +5719,52 @@ All Open Project</property>
             <signal name="Clicked" handler="OnBtnStateClicked" />
           </widget>
           <packing>
-            <property name="Position">1</property>
+            <property name="LeftAttach">2</property>
+            <property name="RightAttach">3</property>
             <property name="AutoSize">True</property>
-            <property name="Expand">False</property>
-            <property name="Fill">False</property>
+            <property name="XOptions">Fill</property>
+            <property name="YOptions">Fill</property>
+            <property name="XExpand">False</property>
+            <property name="XFill">True</property>
+            <property name="XShrink">False</property>
+            <property name="YExpand">False</property>
+            <property name="YFill">True</property>
+            <property name="YShrink">False</property>
           </packing>
         </child>
         <child>
-          <placeholder />
+          <widget class="Gtk.Label" id="label1">
+            <property name="MemberName" />
+          </widget>
+          <packing>
+            <property name="AutoSize">False</property>
+            <property name="YOptions">Fill</property>
+            <property name="XExpand">True</property>
+            <property name="XFill">True</property>
+            <property name="XShrink">False</property>
+            <property name="YExpand">False</property>
+            <property name="YFill">True</property>
+            <property name="YShrink">False</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Label" id="lblName">
+            <property name="MemberName" />
+            <property name="LabelProp" translatable="yes">Open Source</property>
+          </widget>
+          <packing>
+            <property name="LeftAttach">1</property>
+            <property name="RightAttach">2</property>
+            <property name="AutoSize">True</property>
+            <property name="XOptions">Fill</property>
+            <property name="YOptions">Fill</property>
+            <property name="XExpand">False</property>
+            <property name="XFill">True</property>
+            <property name="XShrink">False</property>
+            <property name="YExpand">False</property>
+            <property name="YFill">True</property>
+            <property name="YShrink">False</property>
+          </packing>
         </child>
       </widget>
     </child>
@@ -10229,85 +10259,6 @@ All Open Project</property>
           </widget>
           <packing>
             <property name="Position">2</property>
-            <property name="Expand">False</property>
-            <property name="Fill">False</property>
-          </packing>
-        </child>
-      </widget>
-    </child>
-  </widget>
-  <widget class="Gtk.Dialog" id="Moscrif.IDE.Controls.LicenceDialog" design-size="559 443">
-    <property name="MemberName" />
-    <property name="WindowPosition">Center</property>
-    <property name="Buttons">2</property>
-    <property name="HelpButton">False</property>
-    <child internal-child="VBox">
-      <widget class="Gtk.VBox" id="dialog1_VBox">
-        <property name="MemberName" />
-        <property name="BorderWidth">2</property>
-        <child>
-          <widget class="Gtk.Table" id="table1">
-            <property name="MemberName" />
-            <property name="NRows">4</property>
-            <property name="RowSpacing">6</property>
-            <property name="ColumnSpacing">6</property>
-            <child>
-              <placeholder />
-            </child>
-            <child>
-              <placeholder />
-            </child>
-            <child>
-              <placeholder />
-            </child>
-            <child>
-              <placeholder />
-            </child>
-          </widget>
-          <packing>
-            <property name="Position">0</property>
-            <property name="AutoSize">True</property>
-          </packing>
-        </child>
-      </widget>
-    </child>
-    <child internal-child="ActionArea">
-      <widget class="Gtk.HButtonBox" id="dialog1_ActionArea">
-        <property name="MemberName" />
-        <property name="Visible">False</property>
-        <property name="Homogeneous">True</property>
-        <property name="Spacing">10</property>
-        <property name="BorderWidth">5</property>
-        <property name="Size">2</property>
-        <property name="LayoutStyle">Spread</property>
-        <child>
-          <widget class="Gtk.Button" id="buttonCancel">
-            <property name="MemberName" />
-            <property name="CanDefault">True</property>
-            <property name="CanFocus">True</property>
-            <property name="UseStock">True</property>
-            <property name="Type">StockItem</property>
-            <property name="StockId">gtk-cancel</property>
-            <property name="ResponseId">-6</property>
-            <property name="label">gtk-cancel</property>
-          </widget>
-          <packing>
-            <property name="Expand">False</property>
-            <property name="Fill">False</property>
-          </packing>
-        </child>
-        <child>
-          <widget class="Gtk.Button" id="btnBuyNow">
-            <property name="MemberName" />
-            <property name="CanFocus">True</property>
-            <property name="Type">TextOnly</property>
-            <property name="Label" translatable="yes">Buy Now</property>
-            <property name="UseUnderline">True</property>
-            <property name="ResponseId">0</property>
-            <signal name="Clicked" handler="OnBtnBuyNowClicked" />
-          </widget>
-          <packing>
-            <property name="Position">1</property>
             <property name="Expand">False</property>
             <property name="Fill">False</property>
           </packing>

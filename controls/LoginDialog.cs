@@ -115,13 +115,14 @@ namespace Moscrif.IDE.Controls
 		{
 			//Console.WriteLine("LoginYesWrite");
 			if( account!= null ){
-				account.Login = entrLogin.Text;
+				//account.Login = entrLogin.Text;
 				account.Remember = chbRemember.Active;
 				MainClass.User = account;
 				MainClass.MainWindow.SetLogin();
 				exitTrue = true;
 
 			} else {
+				MainClass.MainWindow.SetLogin();
 				ShowModalError(MainClass.Languages.Translate("login_failed"));
 				exitTrue = false;
 				return;
