@@ -185,7 +185,11 @@ namespace Moscrif.IDE.Tool
 				return null;
 
 			FileAttributes fa = File.GetAttributes(filePath);
-			if ((fa & FileAttributes.ReadOnly) == FileAttributes.System) {
+			if ((fa & FileAttributes.System) == FileAttributes.System) {
+				return null;
+			}
+
+			if ((fa & FileAttributes.ReadOnly) == FileAttributes.ReadOnly) {
 				return null;
 			}
 
@@ -209,7 +213,11 @@ namespace Moscrif.IDE.Tool
 				return null;
 
 			FileAttributes fa = File.GetAttributes(filePath);
-			if ((fa & FileAttributes.ReadOnly) == FileAttributes.System) {
+			if ((fa & FileAttributes.System) == FileAttributes.System) {
+				return null;
+			}
+
+			if ((fa & FileAttributes.ReadOnly) == FileAttributes.ReadOnly) {
 				return null;
 			}
 
