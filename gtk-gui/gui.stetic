@@ -1516,7 +1516,7 @@ All Open Project</property>
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Dialog" id="Moscrif.IDE.Controls.NewWorkspaceDialog" design-size="447 305">
+  <widget class="Gtk.Dialog" id="Moscrif.IDE.Controls.NewWorkspaceDialog" design-size="447 308">
     <property name="MemberName" />
     <property name="Title" translatable="yes">New Workspace</property>
     <property name="WindowPosition">CenterOnParent</property>
