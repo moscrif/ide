@@ -56,7 +56,7 @@ namespace Moscrif.IDE.Components
 
 
 				Pango.FontDescription customFont = lblTwiter.Style.FontDescription.Copy();//  Pango.FontDescription.FromString(MainClass.Settings.ConsoleTaskFont);
-				customFont.Size = 24;
+				customFont.Size = customFont.Size+(int)(customFont.Size/2);//24
 				customFont.Weight = Pango.Weight.Bold;
 
 				lblTwiter.ModifyFont(customFont);

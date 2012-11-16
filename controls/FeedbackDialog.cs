@@ -18,11 +18,11 @@ namespace Moscrif.IDE.Controls
 		FeedbackControl feedbackSuggestion = new  FeedbackControl(FeedbackControl.TypFeedback.Suggestion);
 		public FeedbackDialog()
 		{
-			this.Build();
 			this.TransientFor = MainClass.MainWindow;
+			this.Build();
 
 			Pango.FontDescription customFont = lblFeedback.Style.FontDescription.Copy();//  Pango.FontDescription.FromString(MainClass.Settings.ConsoleTaskFont);
-			customFont.Size = 24;
+			customFont.Size = customFont.Size+(int)(customFont.Size/2);
 			customFont.Weight = Pango.Weight.Bold;
 			lblFeedback.ModifyFont(customFont);
 			lblStatus.ModifyFont(customFont);

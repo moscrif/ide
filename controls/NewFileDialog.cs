@@ -200,7 +200,7 @@ namespace Moscrif.IDE.Controls
 
 				lblPrjName.LabelProp = FileName;
 				Pango.FontDescription customFont = lblPrjName.Style.FontDescription.Copy();//  Pango.FontDescription.FromString(MainClass.Settings.ConsoleTaskFont);
-				customFont.Size = 24;
+				customFont.Size = customFont.Size+(customFont.Size/2);
 				customFont.Weight = Pango.Weight.Bold;
 				lblPrjName.ModifyFont(customFont);
 

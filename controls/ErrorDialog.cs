@@ -18,7 +18,7 @@ namespace Moscrif.IDE.Controls
 			this.Build();
 			this.Title="Error";
 			Pango.FontDescription customFont = lblLabel.Style.FontDescription.Copy();//  Pango.FontDescription.FromString(MainClass.Settings.ConsoleTaskFont);
-			customFont.Size = 24;
+			customFont.Size = customFont.Size+(int)(customFont.Size/2);;
 			customFont.Weight = Pango.Weight.Bold;
 			lblLabel.ModifyFont(customFont);
 			//imgError.SetFromStock ("gtk-dialog-error", Gtk.IconSize.Dialog);
