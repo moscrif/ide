@@ -94,7 +94,10 @@ namespace Moscrif.IDE.Controls
 			//viewHeader.ModifyBase(StateType.Normal,this.Style.Background(StateType.Normal));
 
 			Table tbl = new Table(4,1,false);
-			tbl.BorderWidth=20;
+			if(MainClass.Platform.IsMac)
+				tbl.BorderWidth=20;
+			else 
+				tbl.BorderWidth=6;
 
 			//Button btnBuy = new Button();
 			BannerButton btnBuy = new BannerButton();

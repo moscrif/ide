@@ -152,7 +152,7 @@ namespace Moscrif.IDE.Components
 				lbTutorial.UseWebStile = false;
 				lbTutorial.Label = "Tutorials";
 				lbTutorial.WidthRequest = 150;
-				lbTutorial.HeightRequest = 25;
+				lbTutorial.HeightRequest = 27;
 				lbTutorial.LinkUrl = MainClass.Settings.TutorialsBaseUrl;
 
 				LinkButton lbVideos = new LinkButton();
@@ -160,7 +160,7 @@ namespace Moscrif.IDE.Components
 				lbVideos.UseWebStile = false;
 				lbVideos.Label = "Videos";
 				lbVideos.WidthRequest = 150;
-				lbVideos.HeightRequest = 25;
+				lbVideos.HeightRequest = 27;
 				lbVideos.LinkUrl = MainClass.Settings.VideosBaseUrl;
 
 				LinkButton lbApi = new LinkButton();
@@ -176,7 +176,7 @@ namespace Moscrif.IDE.Components
 				lbShowcase.UseWebStile = false;
 				lbShowcase.Label = "Showcase";
 				lbShowcase.WidthRequest = 150;
-				lbShowcase.HeightRequest = 25;
+				lbShowcase.HeightRequest = 27;
 				lbShowcase.LinkUrl = MainClass.Settings.ShowcaseBaseUrl;
 
 				tblContent.WidthRequest = 500;
