@@ -66,7 +66,7 @@
             <child>
               <widget class="Gtk.Table" id="tblMenuRight">
                 <property name="MemberName" />
-                <property name="WidthRequest">385</property>
+                <property name="WidthRequest">370</property>
                 <property name="NRows">2</property>
                 <property name="NColumns">2</property>
                 <property name="RowSpacing">6</property>

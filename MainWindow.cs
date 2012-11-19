@@ -517,11 +517,10 @@ public partial class MainWindow : Gtk.Window
 			//vpMenuRight.WidthRequest =125;
 			tblMenuRight.WidthRequest =220;
 		} else {
-			//if(MainClass.Platform.IsMac)
-			//	vpMenuRight.WidthRequest =385;
-			tblMenuRight.WidthRequest =320;
-			//else 
-			//	vpMenuRight.WidthRequest =355;
+			if(MainClass.Platform.IsMac)
+				tblMenuRight.WidthRequest =320;
+			else 
+				tblMenuRight.WidthRequest =300;
 		}
 
 		if (MainClass.Platform.IsMac) {
@@ -581,7 +580,7 @@ public partial class MainWindow : Gtk.Window
 	private void LoadDefaultBanner(){
 		//hbMenuRight
 		string bannerParth  = System.IO.Path.Combine(MainClass.Paths.ResDir,"banner");
-		bannerParth = System.IO.Path.Combine(bannerParth,"test.png");
+		bannerParth = System.IO.Path.Combine(bannerParth,"banner1.png");
 		if(File.Exists(bannerParth)){
 			Gdk.Pixbuf pxb = new Gdk.Pixbuf(bannerParth);
 
@@ -596,7 +595,7 @@ public partial class MainWindow : Gtk.Window
 			} 
 
 			bannerImage.ImageIcon =pxb;
-			bannerImage.LinkUrl = "http://www.moscrif.com";
+			bannerImage.LinkUrl = "http://moscrif.com/download";
 			/*
 			bannerButton.ImageIcon = new Gdk.Pixbuf(bannerParth);
 			bannerButton.LinkUrl = "http://www.moscrif.com";
@@ -641,7 +640,7 @@ public partial class MainWindow : Gtk.Window
 						});
 
 					} else {
-						Console.WriteLine("Banner is NULL");
+						//Console.WriteLine("Banner is NULL");
 					}
 					isBussy = false;
 				}
@@ -768,7 +767,7 @@ public partial class MainWindow : Gtk.Window
 
 
 	public void CreateWorkspace(string workspaceFile,string workspaceName,string workspaceOutput,string workspaceRoot,bool copyLibs){
-
+		ReloadDevice(true);
 		Workspace workspace = null;
 		try{
 			workspace = Workspace.CreateWorkspace(workspaceFile,workspaceName,workspaceOutput,workspaceRoot,copyLibs);
@@ -2277,13 +2276,16 @@ public partial class MainWindow : Gtk.Window
 
 		if(String.IsNullOrEmpty(ipAdress)) return;
 		if(Moscrif.IDE.Iface.SocketServer.Running){
+			return;
+			/*
 			Moscrif.IDE.Iface.SocketServer.CloseSockets();
 			Logger.Debug("Stop Socket server ");
 			Console.WriteLine("Stop Socket server" );
+			*/
 		} 	
 		if(!Moscrif.IDE.Iface.SocketServer.Running){
 			string ip = Moscrif.IDE.Iface.SocketServer.StartListen(ipAdress, MainClass.Settings.SocetServerPort);
-			OutputConsole.WriteText( MainClass.Languages.Translate("remote_console_start"));
+			OutputConsole.WriteText( MainClass.Languages.Translate("remote_console_start")+Environment.NewLine);
 			Logger.Debug("Start Socket server :"+ip);
 			Console.WriteLine("Start Socket server :"+ip);
 		}
@@ -2293,7 +2295,7 @@ public partial class MainWindow : Gtk.Window
 	public void StopSocetServer(){
 		if(Moscrif.IDE.Iface.SocketServer.Running){
 			Moscrif.IDE.Iface.SocketServer.CloseSockets();
-			OutputConsole.WriteText( MainClass.Languages.Translate("remote_console_stop"));
+			OutputConsole.WriteText( MainClass.Languages.Translate("remote_console_stop")+Environment.NewLine);
 			Logger.Debug("Stop Socket server ");
 			Console.WriteLine("Stop Socket server" );
 		}

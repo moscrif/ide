@@ -201,10 +201,10 @@ namespace Moscrif.IDE.Components
 		private void LoadDefaultBanner(){
 			//hbMenuRight
 			string bannerParth  = System.IO.Path.Combine(MainClass.Paths.ResDir,"banner");
-			bannerParth = System.IO.Path.Combine(bannerParth,"test.png");
+			bannerParth = System.IO.Path.Combine(bannerParth,"banner1.png");
 			if(File.Exists(bannerParth)){
 				bannerImage.ImageIcon = new Gdk.Pixbuf(bannerParth);
-				bannerImage.LinkUrl = "http://www.moscrif.com";
+				bannerImage.LinkUrl = "http://moscrif.com/download";
 			}
 		}
 
@@ -229,7 +229,7 @@ namespace Moscrif.IDE.Components
 							});
 							
 						} else {
-							Console.WriteLine("Banner is NULL");
+							//Console.WriteLine("Banner is NULL");
 						}
 						if(bnrIndex< bannersSystem.GetCount-1)
 							bnrIndex++;

@@ -222,13 +222,13 @@ namespace Moscrif.IDE
 	    //add a new group to the app menu, and add some items to it
 	    var appGroup = IgeMacMenu.AddAppMenuGroup();
 
-	    MenuItem miA = (MenuItem)this.GetWidget("/menubar/Tools/About");
+	    MenuItem miA = (MenuItem)this.GetWidget("/menubar/Help/About");
 	    appGroup.AddMenuItem(
 		miA,
 		MainClass.Languages.Translate("menu_about").Replace("_", "")
 	    );
 
-	    MenuItem miP = (MenuItem)this.GetWidget("/menubar/Tools/idepreferences");
+		MenuItem miP = (MenuItem)this.GetWidget("/menubar/ToolsAction/idepreferences");
 	    appGroup.AddMenuItem(
 		miP,
 		MainClass.Languages.Translate("menu_preferences").Replace("_", "")

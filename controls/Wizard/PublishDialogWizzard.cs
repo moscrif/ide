@@ -120,10 +120,10 @@ namespace Moscrif.IDE.Controls.Wizard
 			foreach (string ip in listIp){
 				DropDownButton.ComboItem addIP = new DropDownButton.ComboItem(ip,ip);
 				remoteItems.Add(addIP);
-				if(ip== MainClass.Settings.RemoteIpAdress){
+				/*if(ip== MainClass.Settings.RemoteIpAdress){
 					ddbTypRemote.SelectItem(remoteItems,addIP);
 					findSelect = true;
-				}
+				}*/
 			}
 			if(!findSelect){
 				ddbTypRemote.SelectItem(remoteItems,addRemote0);;

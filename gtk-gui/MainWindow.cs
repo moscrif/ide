@@ -56,7 +56,7 @@ public partial class MainWindow
 		w3.Position = 1;
 		// Container child hbMenu.Gtk.Box+BoxChild
 		this.tblMenuRight = new global::Gtk.Table (((uint)(2)), ((uint)(2)), false);
-		this.tblMenuRight.WidthRequest = 385;
+		this.tblMenuRight.WidthRequest = 370;
 		this.tblMenuRight.Name = "tblMenuRight";
 		this.tblMenuRight.RowSpacing = ((uint)(6));
 		this.tblMenuRight.ColumnSpacing = ((uint)(6));
