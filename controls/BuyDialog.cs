@@ -90,10 +90,11 @@ namespace Moscrif.IDE.Controls
 			InsertTextFooter (buffer2);
 			InsertTextTable (buffer3);
 
-			this.ShowAll();
+	
 			//viewHeader.ModifyBase(StateType.Normal,this.Style.Background(StateType.Normal));
 
 			Table tbl = new Table(4,1,false);
+			tbl.BorderWidth=20;
 
 			//Button btnBuy = new Button();
 			BannerButton btnBuy = new BannerButton();
@@ -170,6 +171,7 @@ namespace Moscrif.IDE.Controls
 
 			tbl.ShowAll();
 			this.VBox.Add (tbl);
+			this.ShowAll();
 			/*HBox h = new HBox ( );
 			h.BorderWidth = 6;
 			h.Spacing = 12;
