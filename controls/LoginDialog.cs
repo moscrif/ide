@@ -177,9 +177,9 @@ namespace Moscrif.IDE.Controls
 				this.TransientFor = MainClass.MainWindow;
 
 			this.Build();
+			this.HeightRequest = 390;
 
 			linkbutton1.HeightRequest=25;
-			this.HeightRequest = 390;
 
 			this.Title = MainClass.Languages.Translate("moscrif_ide_title_f1");
 			btnInfo.Label = "Login";

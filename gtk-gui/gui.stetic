@@ -5242,8 +5242,9 @@ All Open Project</property>
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Dialog" id="Moscrif.IDE.Controls.LoginDialog" design-size="420 420">
+  <widget class="Gtk.Dialog" id="Moscrif.IDE.Controls.LoginDialog" design-size="425 420">
     <property name="MemberName" />
+    <property name="WidthRequest">425</property>
     <property name="HeightRequest">420</property>
     <property name="WindowPosition">CenterAlways</property>
     <property name="BorderWidth">10</property>

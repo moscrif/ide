@@ -249,7 +249,9 @@
     <Compile Include="devices\ConditionDevice.cs" />
     <Compile Include="devices\PublishProperty.cs" />
     <Compile Include="controls\ProgressDialog.cs" />
-    <Compile Include="controls\LoginDialog.cs" />
+    <Compile Include="controls\LoginDialog.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="components\LoginLogoutControl.cs" />
     <Compile Include="actions\AddThemeAction.cs" />
     <Compile Include="actions\ViewFileAction.cs" />
@@ -1091,6 +1093,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="resources\banner\banner1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\twitter12.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\twitter24.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\actions24.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

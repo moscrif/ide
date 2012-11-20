@@ -31,6 +31,7 @@ namespace Moscrif.IDE.Controls
 		{
 			global::Stetic.Gui.Initialize (this);
 			// Widget Moscrif.IDE.Controls.LoginDialog
+			this.WidthRequest = 425;
 			this.HeightRequest = 420;
 			this.Name = "Moscrif.IDE.Controls.LoginDialog";
 			this.WindowPosition = ((global::Gtk.WindowPosition)(3));
@@ -301,7 +302,7 @@ namespace Moscrif.IDE.Controls
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
-			this.DefaultWidth = 420;
+			this.DefaultWidth = 425;
 			this.DefaultHeight = 420;
 			this.Show ();
 			this.notebook1.SwitchPage += new global::Gtk.SwitchPageHandler (this.OnNotebook1SwitchPage);

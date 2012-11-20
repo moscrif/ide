@@ -67,6 +67,7 @@ namespace Moscrif.IDE.Task
 				MainClass.MainWindow.ProgressStepInvoke();
 				string replaceExpression = searchPatern.ReplaceExpresion == null ? null : searchPatern.ReplaceExpresion.ToString();
 
+
 				List<FindResult> table  = Tool.FileUtility.FindInFile(file, searchPatern.Expresion.ToString(),searchPatern.CaseSensitive,searchPatern.WholeWorlds,replaceExpression);
 				if (table == null) continue;
 
