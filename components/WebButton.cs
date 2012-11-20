@@ -21,7 +21,7 @@ namespace Moscrif.IDE.Components
 			base.OnClicked ();
 		}
 
-		public WebButton () : base ()
+		 public WebButton () : base ()
 		{
 			label = new Label ();
 			label.Xalign = 0;

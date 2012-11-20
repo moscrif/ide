@@ -534,6 +534,8 @@ public partial class MainWindow : Gtk.Window
 		}
 		ReloadPanel();
 		Moscrif.IDE.Tool.Logger.LogDebugInfo(String.Format("splash.hide-{0}",DateTime.Now));
+		// Send message to close splash screen on win
+		Console.WriteLine(String.Format("splash.hide-{0}",DateTime.Now));
 
 		if(showSplash)
 			splash.HideAll();

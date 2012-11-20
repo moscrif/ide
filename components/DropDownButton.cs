@@ -79,7 +79,7 @@ namespace Moscrif.IDE.Components
 			label.Xalign = 0;
 			label.WidthRequest = 125;
 			label.Ellipsize = Pango.EllipsizeMode.End;
-			
+
 			hbox.PackStart (label, true, true, 3);
 			
 			hbox.PackEnd (new Gtk.Arrow (Gtk.ArrowType.Down, Gtk.ShadowType.None), false, false, 1);
@@ -101,12 +101,22 @@ namespace Moscrif.IDE.Components
 			}
 		}
 
+		public string MarkupFormat {
+			get ;
+			set ;
+		}
+
 		public string ActiveText {
 			get {
 				return label.Text;
 			}
 			set {
-				label.Text = value;
+				if(!String.IsNullOrEmpty(MarkupFormat)){
+					label.UseMarkup = true;
+					label.Markup = String.Format(MarkupFormat,value);
+				} else {
+					label.Text = value;
+				}
 			}
 		}
 		

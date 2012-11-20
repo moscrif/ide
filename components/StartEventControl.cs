@@ -180,10 +180,10 @@ namespace Moscrif.IDE.Components
 				lbShowcase.LinkUrl = MainClass.Settings.ShowcaseBaseUrl;
 
 				tblContent.WidthRequest = 500;
-				tblContent.Attach(lbTutorial,0,1,1,2,AttachOptions.Fill|AttachOptions.Expand,AttachOptions.Shrink,0,0);
-				tblContent.Attach(lbVideos,1,2,1,2,AttachOptions.Fill|AttachOptions.Expand,AttachOptions.Shrink,0,0);
-				tblContent.Attach(lbApi,2,3,1,2,AttachOptions.Fill|AttachOptions.Expand,AttachOptions.Shrink,0,0);
-				tblContent.Attach(lbShowcase,3,4,1,2,AttachOptions.Fill|AttachOptions.Expand,AttachOptions.Shrink,0,0);
+				tblContent.Attach(lbTutorial,0,1,1,2,AttachOptions.Fill|AttachOptions.Expand,AttachOptions.Fill,0,0);
+				tblContent.Attach(lbVideos,1,2,1,2,AttachOptions.Fill|AttachOptions.Expand,AttachOptions.Fill,0,0);
+				tblContent.Attach(lbApi,2,3,1,2,AttachOptions.Fill|AttachOptions.Expand,AttachOptions.Fill,0,0);
+				tblContent.Attach(lbShowcase,3,4,1,2,AttachOptions.Fill|AttachOptions.Expand,AttachOptions.Fill,0,0);
 				tblContent.ShowAll();
 
 			} catch(Exception ex){
@@ -269,17 +269,44 @@ namespace Moscrif.IDE.Components
 				tblAction.Attach(lb,(uint)2,(uint)3,(uint)(no+2),(uint)(no+3),AttachOptions.Fill,AttachOptions.Shrink,0,0);
 				//tblRecentWork.Attach(lb,(uint)0,(uint)1,(uint)(no),(uint)(no+1),AttachOptions.Fill,AttachOptions.Shrink,0,0);
 				no++;
-				if (no>=3) break;
+				if (no>=2) break;
+			}
+			if(lRecentProjects.Count>2){
+				DropDownButton.ComboItemSet otherSample = new DropDownButton.ComboItemSet ();
+
+				DropDownButton ddbSample = new DropDownButton();
+				ddbSample.Relief = ReliefStyle.None;
+				ddbSample.HeightRequest = 25;
+				ddbSample.MarkupFormat = "<span  foreground=\"#697077\"><b>{0}</b></span>";
+				ddbSample.WidthRequest = 150;
+				ddbSample.SetItemSet(otherSample);
+				for (int i = 3;i<lRecentProjects.Count;i++){
+					DropDownButton.ComboItem addComboItem = new DropDownButton.ComboItem(System.IO.Path.GetFileName(lRecentProjects[i].DisplayName)
+					                                                                   ,lRecentProjects[i].FileName);
+					otherSample.Add(addComboItem);
+					if(i==3){
+						ddbSample.SelectItem(otherSample,addComboItem);
+					}
+				}
+				ddbSample.Changed+= delegate(object sender, DropDownButton.ChangedEventArgs e) {
+					if(e.Item !=null){
+						string worksPath = (string)e.Item;
+						Workspace.Workspace workspace = Workspace.Workspace.OpenWorkspace(worksPath);
+						if (workspace != null)
+							MainClass.MainWindow.ReloadWorkspace(workspace,false,true);
+					}
+				};
+				tblAction.Attach(ddbSample,(uint)2,(uint)3,(uint)(no+2),(uint)(no+3),AttachOptions.Fill,AttachOptions.Fill,0,0);
 			}
 		}
 
 		private void getSamples(){
-			string defailtIcon =  System.IO.Path.Combine(MainClass.Paths.ResDir,"logo96.png");
+			string defaultIcon =  System.IO.Path.Combine(MainClass.Paths.ResDir,"logo96.png");
 			DirectoryInfo dir = new DirectoryInfo(MainClass.Paths.SampleDir);
 			
 			LinkImageButton lbGM = new LinkImageButton();
 
-			lbGM.Icon = defailtIcon;
+			lbGM.Icon = defaultIcon;
 			lbGM.Label =MainClass.Languages.Translate("more_sample_label");
 			lbGM.LinkUrl =MainClass.Settings.SamplesBaseUrl;
 			lbGM.WidthRequest = 53;
