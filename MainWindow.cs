@@ -613,7 +613,7 @@ public partial class MainWindow : Gtk.Window
 			if(!lu.Ping(MainClass.Settings.Account.Token))
 			{
 				Gtk.Application.Invoke(delegate{
-					LoginDialog ld = new LoginDialog(null);
+					LoginRegisterDialog ld = new LoginRegisterDialog(null);
 					ld.Run();
 					ld.Destroy();
 				});

@@ -482,6 +482,7 @@
     <Compile Include="Iface\Entities\Licenses.cs" />
     <Compile Include="components\WebButton.cs" />
     <Compile Include="controls\BuyDialog.cs" />
+    <Compile Include="controls\LoginRegisterDialog.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -175,28 +175,6 @@ namespace Moscrif.IDE.Controls
 			tbl.ShowAll();
 			this.VBox.Add (tbl);
 			this.ShowAll();
-			/*HBox h = new HBox ( );
-			h.BorderWidth = 6;
-			h.Spacing = 12;
-			
-			VBox v = new VBox ( );
-
-
-			v.PackStart (sw);
-
-			Button btnBuy = new Button();
-			btnBuy.ModifyBase(StateType.Normal,new Gdk.Color(109,158,24));
-			btnBuy.ModifyBg(StateType.Normal,new Color(109,158,24));
-			btnBuy.Label="Buy";
-
-			v.PackEnd (btnBuy);
-			
-			h.PackEnd (v);
-			h.ShowAll ( );
-			this.VBox.Add (h);*/
-			
-			//this.AddButton (Stock.Cancel, ResponseType.Cancel);  
-			//this.AddButton (Stock.Ok, ResponseType.Ok);
 		}
 
 		private void CreateTags (TextBuffer buffer)

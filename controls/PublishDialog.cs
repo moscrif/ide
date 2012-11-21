@@ -37,7 +37,7 @@ namespace Moscrif.IDE.Controls
 	
 				if((MainClass.User == null)||(string.IsNullOrEmpty(MainClass.User.Token))){
 	
-						LoginDialog ld = new LoginDialog(this);
+					LoginRegisterDialog ld = new LoginRegisterDialog(this);
 						int res = ld.Run();
 	
 						if (res == (int)Gtk.ResponseType.Cancel){
@@ -52,7 +52,7 @@ namespace Moscrif.IDE.Controls
 					MessageDialogs md = new MessageDialogs(MessageDialogs.DialogButtonType.Ok, MainClass.Languages.Translate("invalid_login_f1"), "", Gtk.MessageType.Error,this);
 					md.ShowDialog();
 
-					LoginDialog ld = new LoginDialog(this);
+					LoginRegisterDialog ld = new LoginRegisterDialog(this);
 					int res = ld.Run();
 					if (res == (int)Gtk.ResponseType.Cancel){
 						ld.Destroy();
@@ -76,7 +76,7 @@ namespace Moscrif.IDE.Controls
 		}
 
 		private void ShowLogin(){
-			LoginDialog ld = new LoginDialog(this);
+			LoginRegisterDialog ld = new LoginRegisterDialog(this);
 			int res = ld.Run();
 			if (res == (int)Gtk.ResponseType.Cancel){
 				ld.Destroy();
@@ -633,7 +633,7 @@ namespace Moscrif.IDE.Controls
 
 				if(MainClass.User == null){
 
-					LoginDialog ld = new LoginDialog(this);
+					LoginRegisterDialog ld = new LoginRegisterDialog(this);
 					int res = ld.Run();
 
 					if (res == (int)Gtk.ResponseType.Cancel){

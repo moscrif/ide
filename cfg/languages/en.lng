@@ -353,6 +353,15 @@ no_fileds_define = No fields defined.
 filed_typ =  Field type
 log_out = Log Out
 login =  Login
+
+loginDialog_login = Login :
+loginDialog_password = Password :
+loginDialog_reg_password1 = Password 1 :
+loginDialog_reg_password2 = Password 2 :
+loginDialog_reg_email = Email :
+loginDialog_remember = Remember Me
+loginDialog_forgot_password=Forgot your password?
+
 open_source = Open Source
 free_license = Free
 browse = _Browse...

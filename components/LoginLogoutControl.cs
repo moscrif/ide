@@ -25,7 +25,7 @@ namespace Moscrif.IDE.Components
 		public void LoginLogout(){
 
 			if (MainClass.User == null){
-				LoginDialog ld = new LoginDialog(null);
+				LoginRegisterDialog ld = new LoginRegisterDialog(null);
 				ld.Run();
 				ld.Destroy();
 			} else{
@@ -37,7 +37,7 @@ namespace Moscrif.IDE.Components
 		public bool Relogin(){
 			bool respons = false;
 
-			LoginDialog ld = new LoginDialog(null);
+			LoginRegisterDialog ld = new LoginRegisterDialog(null);
 			int res = ld.Run();
 			if (res == (int)Gtk.ResponseType.Ok)
 				respons = true;

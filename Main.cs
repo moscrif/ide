@@ -74,7 +74,7 @@ namespace Moscrif.IDE
 			MainWindow.Show();
 
 			if((MainClass.Settings.Account == null) || (String.IsNullOrEmpty(MainClass.Settings.Account.Token))){
-				LoginDialog ld = new LoginDialog(null);
+				LoginRegisterDialog ld = new LoginRegisterDialog(null);
 				ld.Run();
 				ld.Destroy();
 			} else {

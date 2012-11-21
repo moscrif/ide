@@ -813,7 +813,7 @@ namespace Moscrif.IDE
 
 	void OnTest(object obj, EventArgs args)
 	{
-			BuyDialog ld = new BuyDialog(-100,"Test Feature",MainClass.MainWindow);
+		LoginRegisterDialog ld = new LoginRegisterDialog(MainClass.MainWindow);
 		if(ld.Run() == (int)ResponseType.Ok){
 			
 		}
