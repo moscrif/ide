@@ -37,10 +37,6 @@ public partial class MainWindow : Gtk.Window
 
 
 	private bool runningEmulator = false;
-
-	Pixbuf pixbufGreen = null;
-	Pixbuf pixbufRed = null;
-
 	public bool RunningEmulator
 	{
 		get { return runningEmulator; }
@@ -99,6 +95,8 @@ public partial class MainWindow : Gtk.Window
 
 	public MainWindow(string[] arguments) : base(Gtk.WindowType.Toplevel)
 	{
+		this.Fullscreen();
+		this.Maximize();
 		bool showSplash = true;
 		bool openFileFromArg = false;
 		string openFileAgument = "";
@@ -159,10 +157,11 @@ public partial class MainWindow : Gtk.Window
 		if(showSplash)
 			splash.ShowAll();
 
-		//this.Maximize();
 		StockIconsManager.Initialize();
 		Moscrif.IDE.Tool.Logger.LogDebugInfo(String.Format("mainwindow.build.start-{0}",DateTime.Now));
 		Build();
+		this.Fullscreen();
+		//this.Maximize();
 		Moscrif.IDE.Tool.Logger.LogDebugInfo(String.Format("mainwindow.build.end-{0}",DateTime.Now));
 		//this.HideAll();
 
@@ -2504,5 +2503,19 @@ public partial class MainWindow : Gtk.Window
 	{
 
 	}
+
+	protected override bool OnWindowStateEvent(EventWindowState evnt)
+	{
+		if((evnt.ChangedMask & (Gdk.WindowState.Maximized | Gdk.WindowState.Fullscreen )) !=0)
+			statusbar1.HasResizeGrip = (evnt.NewWindowState & (Gdk.WindowState.Maximized | Gdk.WindowState.Fullscreen )) !=0 ;
+
+		return false;
+	} 
+
+	protected override void OnSizeRequested(ref Requisition requisition)
+	{
+		base.OnSizeRequested(ref requisition);
+	}
+
 
 }
