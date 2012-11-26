@@ -47,26 +47,26 @@
 		<menu name="Edit" action="EditAction">						
 			<menuitem name="Undo" action="undo" />
 	    	<menuitem name="Redo" action="redo" />
-			<separator name="sep42" />		
+			<separator name="sepEdit1" />		
 			<menuitem name="cutText" action="cutText" />			
 			<menuitem name="copyText" action="copyText" />			
 			<menuitem name="pasteText" action="pasteText" />
-			<separator name="sep40" />
+			<separator name="sepEdit2" />
 			<menuitem name="inserttemplate" action="inserttemplate" />
 			<menuitem name="insertcomplete" action="insertcomplete" />
-			<separator name="sep41" />
+			<separator name="sepEdit3" />
 			<menuitem name="commentUncomment" action="commentUncomment" />
-			<separator name="sep43" />
+			<separator name="sepEdit4" />
 	    	<menuitem name="gotoline" action="gotoline" />
 		</menu>	
 		<menu name="Search" action="SearchAction">
 			<menuitem name="Find" action="find" />
 			<menuitem name="FindNext" action="findnext" />
 			<menuitem name="FindPrevious" action="findprevious" />
-			<separator name="sep5" />
+			<separator name="sepSearch1" />
 			<menuitem name="PreviousBookmark" action="previouBookmark" />
 			<menuitem name="NextBookmark" action="nextBookmark" />		
-			<separator name="sep5" />
+			<separator name="sepSearch2" />
 			<menuitem name="ToggleBookmark" action="toggleBookmark" />
 			<menuitem name="PreviousBookmark" action="previouBookmark" />
 			<menuitem name="NextBookmark" action="nextBookmark" />				
@@ -76,14 +76,15 @@
 	    	<menuitem name="ShowLeftPane" action="showleftpane" />
 	    	<menuitem name="ShowBottonPane" action="showbottonpane" />		
 	    	<menuitem name="ShowRightPane" action="showrightpane" /> 	
+	    	<separator name="sepView1" /> 
 	    	<menuitem name="ShowFullscreen" action="showfullscreen" />
 		</menu>		
 	     <menu name="Project" action="Project">  
 	     	<menuitem name="NewProject" action="newproject" />	
-	    	<separator name="sep63" />		    		
+	    	<separator name="sepProject1" />		    		
 	    	<menuitem name="compileproject" action="compileproject" />	
 	    	<menuitem name="Publish" action="publish" />
-	    	<separator name="sep62" />		    		
+	    	<separator name="sepProject2" />		    		
 	    	<menuitem name="openoutput" action="openoutput" />		    	
 	    	<menuitem name="projectpreferences" action="projectpreferences" />  	    		    	
 		</menu>				
@@ -92,28 +93,27 @@
 	    	<menuitem name="runnowindow" action="runnowindow" />
 			<menuitem name="rundebug" action="rundebug" />
 			<menuitem name="stopemulator" action="stopemulator" />			
-	    	<separator name="sep6" />    	
+	    	<separator name="sepEmulator1" />    	
 	    	<menuitem name="Clear" action="clear" />  	
 		</menu>	
 		<menu name="ToolsAction" action="ToolsAction">
 			<menu name="remoteconsole" action="remoteconsole">
    			</menu>  				
-			<separator name="sep23" />
+			<separator name="sepTools1" />
 	    	<menuitem name="showstartpage" action="showstartpage" />
 			<!--<menuitem name="checkversion" action="checkversion" /> --> 
-			<separator name="sep23" />
+			<separator name="sepTools2" />
 			<menuitem name="unicodesequence" action="unicodesequence" /> 	
 			<menuitem name="idepreferences" action="idepreferences" />
 			<!--
-			<separator name="sep24" /> 
+			<separator name="sepTools3" /> 
 			<menuitem name="generateAutoComplete" action="generateAutoComplete" />	--> 
 			<menuitem name="Test" action="test" />	
 		</menu>	
 		<menu name="Help" action="HelpAction">
 	    	<menuitem name="About" action="about" />
 	    	<menuitem name="apireference" action="apireference" />
-	    	<separator name="sep7" />	
-	    	
+	    	<separator name="sepHelp1" />		    	
 	    	<menuitem name="sendfeedback" action="sendfeedback" />	
 	    	<menuitem name="onlineapireference" action="onlineapireference" />	    	
 	    	<menuitem name="onlinedocumentation" action="onlinedocumentation" />
@@ -127,11 +127,11 @@
 			<menuitem name="cutText" action="cutText" />			
 			<menuitem name="copyText" action="copyText" />			
 			<menuitem name="pasteText" action="pasteText" />
-			<separator name="sep24" /> 
+			<separator name="sepMargin1" /> 
 			<menuitem name="Find" action="find" />
-			<separator name="sep25" />
+			<separator name="sepMargin2" />
 			<menuitem name="gotoline" action="gotoline" />	
-    		<separator name="sep26" />
+    		<separator name="sepMargin3" />
 			<menuitem name="commentUncomment" action="commentUncomment" />
     	<!--<menuitem name="AddBreakpoint" action="addBreakpoint" />
     	<menuitem name="RemoveBreakpoint" action="removeBreakpoint" />
@@ -157,59 +157,59 @@
 	    <menuitem name="Close"  action="close" />
 	    <menuitem name="Close All"  action="closeall" />
     	<menuitem name="Close all but this"  action="closeallbutthis" />
-    	<separator name="sep8" />
+    	<separator name="sepNetbookPage1" />
     	<menuitem name="Save" action="save" />
     	<menuitem name="Save All" action="saveall" />	
 	</popup>	
 	<popup name='workspacePagePopupDirectory'>
 		<menuitem name="showfolderpopup" action="showfolderpopup" />		
 		<menuitem name="refreshproject"  action="refreshproject" />		
-		<separator name="sep9" />
+		<separator name="sepDirectory1" />
 		<!--<menu name="addFileSubmenu" action="addFileSubmenu">-->
 			<menuitem name="newfile"  action="newfile" />
 			<menuitem name="newdirectory"  action="newdirectory" />
-			<separator name="sep11" />
+			<separator name="sepDirectory2" />
 			<menuitem name="addfile"  action="addfile" />
 			<menuitem name="adddirectory"  action="adddirectory" />	   		
    		<!--</menu>	-->
-		<separator name="sep11" />			
+		<separator name="sepDirectory3" />			
     	<menuitem name="delete" action="deletefile" />	    	
     	<menuitem name="rename" action="renamefile" />	
-    	<separator name="sep9" />    
+    	<separator name="sepDirectory4" />    
     	<menuitem name="directorypreferences" action="directorypreferences" />
 	</popup>
 	<popup name='workspacePagePopupFile'>
 		<menuitem name="view"  action="view" />
-		<separator name="sep10" />
+		<separator name="sepFile1" />
 		<menuitem name="setasstart"  action="setasstart" />
 		<menuitem name="toggleexclude"  action="toggleexclude" />	
-		<separator name="sep91" /> 	
+		<separator name="sepFile2" /> 	
     	<menuitem name="delete" action="deletefile" />	    	
     	<menuitem name="rename" action="renamefile" />	
-    	<separator name="sep9" />    
+    	<separator name="sepFile2" />    
     	<menuitem name="filepreferences" action="filepreferences" />		    	
 	</popup>
 	<popup name='workspacePagePopupProject'>
 		<menuitem name="showprojectpopup" action="showprojectpopup" />	
 		<menuitem name="openoutputpopup" action="openoutputpopup" />	
 		<menuitem name="refreshproject"  action="refreshproject" />		
-		<separator name="sep10" />
+		<separator name="sepProject1" />
 	    <menuitem name="viewappfile"  action="viewappfile" />	
 		<menuitem name="unloadproject"  action="unloadproject" />
 		<menuitem name="exportZipProject"  action="exportZipProject" />
 		<menuitem name="archiveProject"  action="archiveProject" />		
 		<!--<menu name="addFileSubmenu" action="addFileSubmenu">-->
-		<separator name="sep261" />
+		<separator name="sepProject2" />
 			<menuitem name="newfile"  action="newfile" />
 			<menuitem name="newdirectory"  action="newdirectory" />
-			<separator name="sep11" />
+			<separator name="sepProject3" />
 			<menuitem name="addfile"  action="addfile" />
 			<menuitem name="adddirectory"  action="adddirectory" />	   		
-		<separator name="sep262" />
+		<separator name="sepProject4" />
    		<!--</menu>		 -->
 		<menuitem name="deleteproject"  action="deleteproject" />      		
 		<menuitem name="renameproject"  action="renameproject" />   			
-		<separator name="sep9" />
+		<separator name="sepProject5" />
 		<menuitem name="projectpreferencespopup" action="projectpreferencespopup" /> 
 	</popup>			
 </ui>

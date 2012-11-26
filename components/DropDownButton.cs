@@ -36,7 +36,7 @@ namespace Moscrif.IDE.Components
 	{
 		Gtk.Label label;
 		//List<ComboItemSet> items = new List<ComboItemSet> ();
-		ComboItemSet items = new ComboItemSet ();
+		internal ComboItemSet items = new ComboItemSet ();
 
 		public event EventHandler<ChangedEventArgs> Changed;
 		
@@ -155,7 +155,7 @@ namespace Moscrif.IDE.Components
 
 		protected override void OnPressed ()
 		{
-			base.OnPressed ();
+			//base.OnPressed ();
 			Gtk.Menu menu = new Gtk.Menu ();
 			//foreach (ComboItemSet iset in items) {
 
@@ -169,9 +169,11 @@ namespace Moscrif.IDE.Components
 			}
 			
 			Gtk.RadioMenuItem grp = new Gtk.RadioMenuItem ("");
+
 			foreach (ComboItem ci in items) {
 				Gtk.RadioMenuItem mi = new Gtk.RadioMenuItem (grp, ci.Label.Replace ("_","__"));
-			if (ci.Item == items.CurrentItem || ci.Item.Equals (items.CurrentItem))
+				//Gtk.MenuItem mi = new Gtk.MenuItem (grp, ci.Label.Replace ("_","__"));
+				if (ci.Item == items.CurrentItem || ci.Item.Equals (items.CurrentItem))
 					mi.Active = true;
 				
 				ComboItemSet isetLocal = items;
@@ -186,7 +188,7 @@ namespace Moscrif.IDE.Components
 			menu.Popup (null, null, PositionFunc, 0, Gtk.Global.CurrentEventTime);
 		}
 		
-		void PositionFunc (Gtk.Menu mn, out int x, out int y, out bool push_in)
+		internal void PositionFunc (Gtk.Menu mn, out int x, out int y, out bool push_in)
 		{
 			this.GdkWindow.GetOrigin (out x, out y);
 			Gdk.Rectangle rect = this.Allocation;

@@ -45,6 +45,11 @@ namespace Moscrif.IDE.Components
 
 			return respons;
 		}
+		public void UnLogin(){
+			MainClass.User = null;
+			SetLogin();
+		}
+
 
 		public void SetLogin(){
 

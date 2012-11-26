@@ -267,7 +267,6 @@ namespace Moscrif.IDE.Components
 						MainClass.MainWindow.ReloadWorkspace(workspace,false,true);
 				};
 				tblAction.Attach(lb,(uint)2,(uint)3,(uint)(no+2),(uint)(no+3),AttachOptions.Fill,AttachOptions.Shrink,0,0);
-				//tblRecentWork.Attach(lb,(uint)0,(uint)1,(uint)(no),(uint)(no+1),AttachOptions.Fill,AttachOptions.Shrink,0,0);
 				no++;
 				if (no>=2) break;
 			}
@@ -284,16 +283,17 @@ namespace Moscrif.IDE.Components
 					DropDownButton.ComboItem addComboItem = new DropDownButton.ComboItem(System.IO.Path.GetFileName(lRecentProjects[i].DisplayName)
 					                                                                   ,lRecentProjects[i].FileName);
 					otherSample.Add(addComboItem);
-					if(i==3){
+					/*if(i==3){
 						ddbSample.SelectItem(otherSample,addComboItem);
-					}
+					}*/
 				}
+				ddbSample.ActiveText="More...";
 				ddbSample.Changed+= delegate(object sender, DropDownButton.ChangedEventArgs e) {
 					if(e.Item !=null){
 						string worksPath = (string)e.Item;
 						Workspace.Workspace workspace = Workspace.Workspace.OpenWorkspace(worksPath);
 						if (workspace != null)
-							MainClass.MainWindow.ReloadWorkspace(workspace,false,true);
+							MainClass.MainWindow.ReloadWorkspace(workspace,true,true);
 					}
 				};
 				tblAction.Attach(ddbSample,(uint)2,(uint)3,(uint)(no+2),(uint)(no+3),AttachOptions.Fill,AttachOptions.Fill,0,0);
