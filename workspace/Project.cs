@@ -101,8 +101,16 @@ namespace Moscrif.IDE.Workspace
 			GetAllFiles(ref filesList, path, extension,false);
 		}
 
-
 		public void GetAllFiles(ref List<string> filesList, string path, string extension, bool skipMsc)
+		{
+			List<string> ext = new List<string>();
+			if(!String.IsNullOrEmpty(extension))
+				ext.Add(extension);
+			GetAllFiles(ref filesList, path, ext,skipMsc);
+
+		}
+
+		public void GetAllFiles(ref List<string> filesList, string path, List<string> extension, bool skipMsc)
 		{
 			//this.AbsolutProjectDir
 			if (!Directory.Exists(path)){
@@ -130,7 +138,7 @@ namespace Moscrif.IDE.Workspace
 				}
 
 				if(indx<0){
-					GetAllFiles(ref filesList, d.FullName,extension);
+					GetAllFiles(ref filesList, d.FullName,extension,skipMsc);
 				}
 			}
 
@@ -140,11 +148,10 @@ namespace Moscrif.IDE.Workspace
 				int indx = -1;
 				indx = MainClass.Settings.IgnoresFiles.FindIndex(x => x.Folder == f.Name && x.IsForPublish);
 
-				if(!String.IsNullOrEmpty(extension) ){
-					if(f.Extension.ToLower() == extension.ToLower()){
-						if(indx<0)
-							filesList.Add( f.FullName );
-					}
+				if(extension!=null || extension.Count>0){
+					int inx = extension.FindIndex(x=>x.ToLower()==f.Extension.ToLower());
+					if((inx>-1)&&(indx<0))
+						filesList.Add( f.FullName );
 				}else {
 					if(indx<0)
 						filesList.Add( f.FullName );

@@ -64,6 +64,7 @@ namespace Moscrif.IDE.Task
 			}
 
 			foreach (string file in searchPatern.CloseFiles){
+				Console.WriteLine(file);
 				MainClass.MainWindow.ProgressStepInvoke();
 				string replaceExpression = searchPatern.ReplaceExpresion == null ? null : searchPatern.ReplaceExpresion.ToString();
 

@@ -197,6 +197,7 @@ namespace Moscrif.IDE
 			main_window_actions.Add(new ShowLeftPaneAction(), null);
 			main_window_actions.Add(new ShowBottomPaneAction(), null);
 			main_window_actions.Add(new ShowRightPaneAction(), null);
+			main_window_actions.Add(new ShowFullscreenAction(), null);
 
 
 			ui.InsertActionGroup(main_window_actions, 0);

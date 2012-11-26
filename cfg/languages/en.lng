@@ -430,6 +430,8 @@ delete_project_f1 =  The Delete option permanently removes project from your har
 delete_project_unload = Unload
 delete_project_delete = Delete
 
+menu_fullscreen = Fullscreen
+menu_title_fullscreen =  Show in fullscreen mode.
 
 menu_show_left_pane = Navigation
 menu_title_show_left_pane =  Show/Hide navigation pane

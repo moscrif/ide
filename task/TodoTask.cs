@@ -46,7 +46,8 @@ namespace Moscrif.IDE.Task
 
 			List<string> files = new List<string>();
 
-			project.GetAllFiles(ref files,project.AbsolutProjectDir,".ms");
+			project.GetAllFiles(ref files,project.AbsolutProjectDir,".ms",true);
+			//project.GetAllFiles(ref files,project.AbsolutProjectDir,".ms");
 			//if(MainClass.MainWindow.EditorNotebook == null) return false;
 
 			List<string> openFiles = MainClass.MainWindow.EditorNotebook.OpenFiles;

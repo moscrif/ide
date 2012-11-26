@@ -76,6 +76,7 @@
 	    	<menuitem name="ShowLeftPane" action="showleftpane" />
 	    	<menuitem name="ShowBottonPane" action="showbottonpane" />		
 	    	<menuitem name="ShowRightPane" action="showrightpane" /> 	
+	    	<menuitem name="ShowFullscreen" action="showfullscreen" />
 		</menu>		
 	     <menu name="Project" action="Project">  
 	     	<menuitem name="NewProject" action="newproject" />	

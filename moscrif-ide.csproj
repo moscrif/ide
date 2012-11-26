@@ -483,6 +483,7 @@
     <Compile Include="components\WebButton.cs" />
     <Compile Include="controls\BuyDialog.cs" />
     <Compile Include="controls\LoginRegisterDialog.cs" />
+    <Compile Include="actions\ShowFullscreenAction.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

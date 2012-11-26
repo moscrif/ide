@@ -95,8 +95,12 @@ public partial class MainWindow : Gtk.Window
 
 	public MainWindow(string[] arguments) : base(Gtk.WindowType.Toplevel)
 	{
-		this.Fullscreen();
 		this.Maximize();
+
+		if(MainClass.Settings.FullscreenMode){
+			this.Fullscreen();
+		}
+
 		bool showSplash = true;
 		bool openFileFromArg = false;
 		string openFileAgument = "";
@@ -160,7 +164,7 @@ public partial class MainWindow : Gtk.Window
 		StockIconsManager.Initialize();
 		Moscrif.IDE.Tool.Logger.LogDebugInfo(String.Format("mainwindow.build.start-{0}",DateTime.Now));
 		Build();
-		this.Fullscreen();
+		//this.Fullscreen();
 		//this.Maximize();
 		Moscrif.IDE.Tool.Logger.LogDebugInfo(String.Format("mainwindow.build.end-{0}",DateTime.Now));
 		//this.HideAll();

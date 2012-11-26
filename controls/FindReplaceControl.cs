@@ -40,6 +40,13 @@ namespace Moscrif.IDE.Controls
 			sp.CloseFiles = new List<string>();
 			sp.OpenFiles = new List<string>();
 
+			List<string> textExtension = new List<string>();
+			textExtension.Add(".ms");
+			textExtension.Add(".txt");
+			textExtension.Add(".tab");
+			textExtension.Add(".xml");
+			textExtension.Add(".app");
+
 			switch (cbPlace.Active)
 			{
 			    case 0:{
@@ -53,13 +60,13 @@ namespace Moscrif.IDE.Controls
 				}
 			    case 2:{
 				sp.SearchTyp =  SearchPattern.TypSearch.CurentProject;
-				MainClass.Workspace.ActualProject.GetAllFiles(ref sp.CloseFiles,MainClass.Workspace.ActualProject.AbsolutProjectDir,string.Empty,true);
+				MainClass.Workspace.ActualProject.GetAllFiles(ref sp.CloseFiles,MainClass.Workspace.ActualProject.AbsolutProjectDir,textExtension,true);
 				break;
 				}
 			    case 3:{
 				sp.SearchTyp =  SearchPattern.TypSearch.AllOpenProject;
 				foreach (Project p in MainClass.Workspace.Projects)
-					p.GetAllFiles(ref sp.CloseFiles,p.AbsolutProjectDir,string.Empty);
+					p.GetAllFiles(ref sp.CloseFiles,p.AbsolutProjectDir,textExtension,true);
 				break;
 				}
 			}

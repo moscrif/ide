@@ -54,6 +54,9 @@ namespace  Moscrif.IDE.Settings
 		[XmlAttribute("bringErrorPaneToFront")]
 		public bool ShowErrorPane = true;
 
+		[XmlAttribute("fullscreenMode")]
+		public bool FullscreenMode = false;
+
 		//[XmlAttribute("loggAllStep")]
 		[XmlIgnore]
 		public bool LoggAllStep = true;
