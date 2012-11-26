@@ -65,11 +65,14 @@ namespace Moscrif.IDE.Controls
 
 			entrLoginR = new Entry();
 			entrPasswordR1 = new Entry();
+			entrPasswordR1.Visibility = false;
 			entrPasswordR2 = new Entry();
+			entrPasswordR2.Visibility = false;
 			entrEmailR = new Entry();
 			
 			entrLogin = new Entry();
 			entrPassword = new Entry();
+			entrPassword.Visibility = false;
 			chbRemember = new CheckButton();
 			chbRemember.Label = MainClass.Languages.Translate("loginDialog_remember");
 

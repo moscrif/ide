@@ -60,6 +60,8 @@ namespace Moscrif.IDE.Controls
 				}
 			    case 2:{
 				sp.SearchTyp =  SearchPattern.TypSearch.CurentProject;
+				if(MainClass.Workspace.ActualProject == null)
+					return sp;
 				MainClass.Workspace.ActualProject.GetAllFiles(ref sp.CloseFiles,MainClass.Workspace.ActualProject.AbsolutProjectDir,textExtension,true);
 				break;
 				}

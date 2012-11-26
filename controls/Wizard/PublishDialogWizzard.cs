@@ -29,8 +29,8 @@ namespace Moscrif.IDE.Controls.Wizard
 		//PublishAsynchronTask pt;
 		ListStore storeOutput;
 
-		private DropDownButton ddbTypPublish = new DropDownButton();
-		private DropDownButton ddbTypRemote = new DropDownButton();
+		private DropDownRadioButton ddbTypPublish = new DropDownRadioButton();
+		private DropDownRadioButton ddbTypRemote = new DropDownRadioButton();
 		DropDownButton.ComboItemSet publishItems = new DropDownButton.ComboItemSet ();
 		DropDownButton.ComboItemSet remoteItems = new DropDownButton.ComboItemSet ();
 		Label lblRemote = new Label("Remote: ");
@@ -63,7 +63,7 @@ namespace Moscrif.IDE.Controls.Wizard
 
 			Table tblHeader = new Table(1,4,false);
 			
-			ddbTypPublish = new DropDownButton();
+			ddbTypPublish = new DropDownRadioButton();
 			ddbTypPublish.Changed+= delegate(object sender, DropDownButton.ChangedEventArgs e)
 			{
 				if(e.Item !=null){
@@ -89,7 +89,7 @@ namespace Moscrif.IDE.Controls.Wizard
 			ddbTypPublish.WidthRequest = 175;
 			ddbTypPublish.SetItemSet(publishItems);
 			
-			ddbTypRemote = new DropDownButton();
+			ddbTypRemote = new DropDownRadioButton();
 			ddbTypRemote.Changed+= delegate(object sender, DropDownButton.ChangedEventArgs e)
 			{
 				if(e.Item !=null){
