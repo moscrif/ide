@@ -33,7 +33,6 @@ namespace Moscrif.IDE.Iface
 			string data = String.Format("{0}\n{1}\n{2}",email,login,GetMd5Sum(password+SALT));
 			client.UploadStringCompleted+= delegate(object sender, UploadStringCompletedEventArgs e) {
 
-
 				if (e.Cancelled){
 					if(loggNoTask!= null) loggNoTask(null,"Register failed.");
 					return;
@@ -141,6 +140,7 @@ namespace Moscrif.IDE.Iface
       			string URL = loginUrl;
 			//Console.WriteLine(URL);
 			WebClient client = new WebClient();
+
 
 			string data = String.Format("{0}\n{1}",name,GetMd5Sum(password+SALT)); //\n{2}\n{3}",name,GetMd5Sum(password+SALT),Environment.MachineName,Environment.UserName);
 			try{
