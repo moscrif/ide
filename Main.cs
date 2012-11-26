@@ -78,14 +78,9 @@ namespace Moscrif.IDE
 				ld.Run();
 				ld.Destroy();
 			} else {
-				//LoggUser lu = new LoggUser();
-				//lu.Ping(MainClass.Settings.Account.Token);
-
 				LoggingInfo log = new LoggingInfo();
 				log.LoggWebThread(LoggingInfo.ActionId.IDEStart);
 			}
-			/*LoggUser lu2 = new LoggUser();
-			lu2.Ping(MainClass.User.Token);*/
 
 			if (!String.IsNullOrEmpty(Paths.TempDir))
 			{

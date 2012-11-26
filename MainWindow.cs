@@ -43,9 +43,9 @@ public partial class MainWindow : Gtk.Window
 		set { runningEmulator = value;}
 	}
 	
-	private DropDownButton ddbProject = new DropDownButton();
-	private DropDownButton ddbDevice = new DropDownButton();
-	private DropDownButton ddbResolution = new DropDownButton();
+	private DropDownRadioButton ddbProject = new DropDownRadioButton();
+	private DropDownRadioButton ddbDevice = new DropDownRadioButton();
+	private DropDownRadioButton ddbResolution = new DropDownRadioButton();
 	//private DropDownButton ddbSocketIP = new DropDownButton();
 
 	private MenuBar mainMenu = new MenuBar();
@@ -96,10 +96,6 @@ public partial class MainWindow : Gtk.Window
 	public MainWindow(string[] arguments) : base(Gtk.WindowType.Toplevel)
 	{
 		this.Maximize();
-
-		if(MainClass.Settings.FullscreenMode){
-			this.Fullscreen();
-		}
 
 		bool showSplash = true;
 		bool openFileFromArg = false;
@@ -239,17 +235,17 @@ public partial class MainWindow : Gtk.Window
 		} catch {
 		}
 
-		ddbProject = new DropDownButton();
+		ddbProject = new DropDownRadioButton();
 		ddbProject.Changed+= OnChangedProject; 
 		ddbProject.WidthRequest = 175;
 		ddbProject.SetItemSet(projectItems);
 
-		ddbDevice = new DropDownButton();
+		ddbDevice = new DropDownRadioButton();
 		ddbDevice.Changed+= OnChangedDevice; 
 		ddbDevice.WidthRequest = 175;
 		ddbDevice.SetItemSet(deviceItems);
 
-		ddbResolution = new DropDownButton();
+		ddbResolution = new DropDownRadioButton();
 		ddbResolution.Changed+= OnChangedResolution; 
 		ddbResolution.WidthRequest = 175;
 		ddbResolution.SetItemSet(resolutionItems);
@@ -614,7 +610,9 @@ public partial class MainWindow : Gtk.Window
 		if((MainClass.Settings.Account != null) && (!String.IsNullOrEmpty(MainClass.Settings.Account.Token))){
 			LoggUser lu = new LoggUser();
 			if(!lu.Ping(MainClass.Settings.Account.Token))
-			{
+			{	
+				llcLogin.UnLogin();
+
 				Gtk.Application.Invoke(delegate{
 					LoginRegisterDialog ld = new LoginRegisterDialog(null);
 					ld.Run();
