@@ -484,6 +484,7 @@
     <Compile Include="controls\BuyDialog.cs" />
     <Compile Include="controls\LoginRegisterDialog.cs" />
     <Compile Include="actions\ShowFullscreenAction.cs" />
+    <Compile Include="components\DropDownRadioButton.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
