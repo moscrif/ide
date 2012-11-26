@@ -773,7 +773,6 @@ namespace Moscrif.IDE.Workspace
 
 			if(progressDialog != null)
 				progressDialog.AutomaticUpdate();
-			//Console.WriteLine("aaaaaa");
 
 			while (Application.EventsPending ())
 				Application.RunIteration ();

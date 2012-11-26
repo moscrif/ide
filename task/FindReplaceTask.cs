@@ -32,7 +32,6 @@ namespace Moscrif.IDE.Task
 		public bool ExecuteTask ()
 		{
 			output.Clear();
-
 			List<string> files = new List<string>();
 
 			List<TaskMessage> listOfTask = new List<TaskMessage>();
@@ -64,10 +63,9 @@ namespace Moscrif.IDE.Task
 			}
 
 			foreach (string file in searchPatern.CloseFiles){
-				Console.WriteLine(file);
+
 				MainClass.MainWindow.ProgressStepInvoke();
 				string replaceExpression = searchPatern.ReplaceExpresion == null ? null : searchPatern.ReplaceExpresion.ToString();
-
 
 				List<FindResult> table  = Tool.FileUtility.FindInFile(file, searchPatern.Expresion.ToString(),searchPatern.CaseSensitive,searchPatern.WholeWorlds,replaceExpression);
 				if (table == null) continue;

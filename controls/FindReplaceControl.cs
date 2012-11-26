@@ -75,26 +75,6 @@ namespace Moscrif.IDE.Controls
 
 			return sp;
 		}
-		/*
-			switch (searchPatern.SearchTyp)
-			{
-			    case SearchPattern.TypSearch.CurentProject:
-			        MainClass.Workspace.ActualProject.GetAllFiles(ref files,MainClass.Workspace.ActualProject.AbsolutProjectDir,string.Empty);
-			        break;
-			    case SearchPattern.TypSearch.AllOpenProject:{
-				foreach (Project p in MainClass.Workspace.Projects)
-					p.GetAllFiles(ref files,p.AbsolutProjectDir,string.Empty);
-			        break;
-				}
-			    case SearchPattern.TypSearch.AllOpenDocument:{
-
-			        break;
-				}
-			    default:
-			        Console.WriteLine("Default case");
-			        break;
-			}
-		 */
 
 		private void SetSearch(){
 
@@ -112,15 +92,6 @@ namespace Moscrif.IDE.Controls
 
 			MainClass.MainWindow.FindOutput.Clear();
 
-			/*foreach(string s in MainClass.MainWindow.EditorNotebook.OpenFiles)
-				Console.WriteLine(s);
-
-			Console.WriteLine("---------------");
-
-			foreach(string s in sp.CloseFiles)
-				Console.WriteLine(s);
-
-			Console.WriteLine("*********************");*/
 			// first - find/replace in open files
 			List<string> notOpen = new List<string>(sp.CloseFiles);
 			List<string> opened = new List<string>(sp.OpenFiles);

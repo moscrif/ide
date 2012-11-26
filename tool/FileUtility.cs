@@ -212,9 +212,6 @@ namespace Moscrif.IDE.Tool
 			if (!System.IO.File.Exists(filePath))
 				return null;
 
-			if(filePath=="/Users/miro/MoscrifWorkspace/gomoku/Gomoku/code2000.ttf")
-				Console.WriteLine("---");
-
 			FileAttributes fa = File.GetAttributes(filePath);
 			if ((fa & FileAttributes.System) == FileAttributes.System) {
 				return null;
