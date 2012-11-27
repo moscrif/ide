@@ -44,6 +44,7 @@ namespace Moscrif.IDE.Controls
 				this.TransientFor = MainClass.MainWindow;
 
 			this.BorderWidth = 10;
+			this.WindowPosition = Gtk.WindowPosition.CenterOnParent;
 
 			notebook1 = new Notebook();
 			btnInfo = new Button();

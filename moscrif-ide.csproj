@@ -249,9 +249,6 @@
     <Compile Include="devices\ConditionDevice.cs" />
     <Compile Include="devices\PublishProperty.cs" />
     <Compile Include="controls\ProgressDialog.cs" />
-    <Compile Include="controls\LoginDialog.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
     <Compile Include="components\LoginLogoutControl.cs" />
     <Compile Include="actions\AddThemeAction.cs" />
     <Compile Include="actions\ViewFileAction.cs" />
@@ -433,7 +430,6 @@
     <Compile Include="gtk-gui\Moscrif.IDE.Settings.DirConditionsWidget.cs" />
     <Compile Include="gtk-gui\Moscrif.IDE.Settings.DeviceWidget.cs" />
     <Compile Include="gtk-gui\Moscrif.IDE.Controls.ProgressDialog.cs" />
-    <Compile Include="gtk-gui\Moscrif.IDE.Controls.LoginDialog.cs" />
     <Compile Include="gtk-gui\Moscrif.IDE.Components.LoginLogoutControl.cs" />
     <Compile Include="gtk-gui\Moscrif.IDE.Controls.CreateThemeDialog.cs" />
     <Compile Include="gtk-gui\Moscrif.IDE.Components.StartEventControl.cs" />

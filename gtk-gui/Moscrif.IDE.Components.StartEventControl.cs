@@ -33,7 +33,7 @@ namespace Moscrif.IDE.Components
 			global::Stetic.BinContainer.Attach (this);
 			this.Name = "Moscrif.IDE.Components.StartEventControl";
 			// Container child Moscrif.IDE.Components.StartEventControl.Gtk.Container+ContainerChild
-			this.table1 = new global::Gtk.Table (((uint)(4)), ((uint)(3)), false);
+			this.table1 = new global::Gtk.Table (((uint)(5)), ((uint)(3)), false);
 			this.table1.Name = "table1";
 			this.table1.RowSpacing = ((uint)(6));
 			this.table1.ColumnSpacing = ((uint)(6));
@@ -165,6 +165,7 @@ namespace Moscrif.IDE.Components
 			w12.BottomAttach = ((uint)(4));
 			w12.XPadding = ((uint)(10));
 			w12.XOptions = ((global::Gtk.AttachOptions)(4));
+			w12.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
 			this.tblSamples = new global::Gtk.Table (((uint)(2)), ((uint)(6)), false);
 			this.tblSamples.Name = "tblSamples";
@@ -205,6 +206,7 @@ namespace Moscrif.IDE.Components
 			w16.RightAttach = ((uint)(2));
 			w16.XPadding = ((uint)(10));
 			w16.XOptions = ((global::Gtk.AttachOptions)(4));
+			w16.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
 			this.tblTwitt = new global::Gtk.Table (((uint)(6)), ((uint)(2)), false);
 			this.tblTwitt.WidthRequest = 0;
