@@ -53,6 +53,7 @@ namespace Moscrif.IDE.Editors.DatabaseView
 
 			HButtonBox hbbAction = new HButtonBox();
 			hbbAction.LayoutStyle = Gtk.ButtonBoxStyle.Start;
+			hbbAction.Spacing =6;
 
 			Button btnAddTable = new Button(MainClass.Languages.Translate("add_table"));
 			btnAddTable.Clicked+= delegate(object sender, EventArgs e) {
@@ -234,31 +235,6 @@ namespace Moscrif.IDE.Editors.DatabaseView
 				conn.Close();
 				conn = null;
 			}
-
-			/*try {
-			 *string sql = String.Format("PRAGMA table_info( '{0}' );", table_name);
-				DataTable dt = sqlLiteDal.RunSqlReader(sql,null);
-				if(dt != null ){
-					foreach ( DataRow row in dt.Rows ){
-
-						int cid = Convert.ToInt32(row[0]);
-						string name = row[1].ToString();
-						string type = row[2].ToString();
-						bool notnull = Convert.ToBoolean(row[3]);
-						string dfltValue = row[4].ToString();
-						bool pk = Convert.ToBoolean(row[5]);
-						tableModel.AppendValues(cid, name, type, notnull.ToString(), dfltValue, pk.ToString());
-					}
-				}
-
-			} catch (Exception ex) {
-				
-				MessageDialogs ms = new MessageDialogs(MessageDialogs.DialogButtonType.Ok, "Error", ex.Message, MessageType.Error,null);
-				ms.ShowDialog();
-
-			} finally {
-
-			}*/
 		}
 
 		private bool CheckSelectTable(){
@@ -321,31 +297,6 @@ namespace Moscrif.IDE.Editors.DatabaseView
 				conn.Close();
 				conn = null;;
 			}
-			/*string sql = "SELECT name,sql FROM sqlite_master WHERE type='table' ORDER BY name;";
-
-			DataTable dt = null;
-			try {
-
-				int i = -1;
-				dt = sqlLiteDal.RunSqlReader(sql,null);
-				if(dt != null ){
-					foreach ( DataRow row in dt.Rows ){
-						string name = row[0].ToString();
-						string schema = row[1].ToString();
-						tablesComboModel.AppendValues(name, schema);
-						i++;
-					}
-				}
-				cbTable.Active = i;
-				countTables = i;
-			} catch (Exception ex) {
-
-				MessageDialogs ms = new MessageDialogs(MessageDialogs.DialogButtonType.Ok, "Error", ex.Message, MessageType.Error,null);
-				ms.ShowDialog();
-				Logger.Error(ex.Message,null);
-			} finally {
-
-			}*/
 		}
 		
 		#region IDataBaseView implementation

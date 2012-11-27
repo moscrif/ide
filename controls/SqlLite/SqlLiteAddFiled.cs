@@ -35,8 +35,8 @@ namespace Moscrif.IDE.Controls.SqlLite
 						cbFieldType.SetActiveIter(ti);
 					}
 				}
-				}
-				ed.Destroy();
+			}
+			ed.Destroy();
 		}
 
 		public SqlLiteAddFiled(FieldTable ft,Gtk.Window parent)
@@ -44,7 +44,7 @@ namespace Moscrif.IDE.Controls.SqlLite
 			this.TransientFor =parent;
 
 			this.Build();
-
+			this.Title="Edit Field :"+ ft.Name;
 			fieldTable = ft;
 
 			CellRendererText textRenderer = new CellRendererText();
@@ -95,6 +95,7 @@ namespace Moscrif.IDE.Controls.SqlLite
 		{
 			this.TransientFor =parent;
 			this.Build();
+			this.Title="New Field";
 
 			CellRendererText textRenderer = new CellRendererText();
 			cbFieldType.PackStart(textRenderer, true);

@@ -21,6 +21,7 @@ namespace Moscrif.IDE.Controls.SqlLite
 		{
 			this.TransientFor = MainClass.MainWindow;
 			this.Build();
+			this.Title="Edit Table :"+ tableName;
 			this.tableName = tableName;
 			this.database = filePath;
 
@@ -77,26 +78,6 @@ namespace Moscrif.IDE.Controls.SqlLite
 					fieldsStore.AppendValues( name, type,notnull.ToString(),dfltValue,ft);
 		                    }
 		                }
-
-
-				/*if(dt != null ){
-					foreach ( DataRow row in dt.Rows )
-        				{
-						string name = row[1].ToString();
-						string type = row[2].ToString();
-
-						bool notnull = Convert.ToBoolean(row[3]);
-						string dfltValue = row[4].ToString();
-						bool pk = Convert.ToBoolean(row[5]);
-
-						FieldTable ft = new FieldTable(name,type);
-						ft.NotNULL =notnull;
-						ft.DefaultValue =dfltValue;
-
-						fields.Add(ft);
-						fieldsStore.AppendValues( name, type,notnull.ToString(),dfltValue,ft);
-					}
-				}*/
 
 			} catch (Exception ex) {
 

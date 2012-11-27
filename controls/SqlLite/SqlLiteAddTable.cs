@@ -22,6 +22,7 @@ namespace Moscrif.IDE.Controls.SqlLite
 		{
 			this.TransientFor = MainClass.MainWindow;
 			this.Build();
+			this.Title="New Table";
 			//this.dbConnection = dbConnection;
 			this.database = database;
 

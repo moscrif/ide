@@ -25,7 +25,7 @@ namespace Moscrif.IDE.Editors
 			fileName = filePath;
 			control = new Notebook();
 
-			control.TabPos = PositionType.Left;
+			control.TabPos = PositionType.Bottom;
 			control.AppendPage(new StructureDatabaseView(filePath),new Label(MainClass.Languages.Translate("sql_structure")));
 			control.AppendPage(new DataDatabaseView(filePath),new Label(MainClass.Languages.Translate("sql_data")));
 			control.AppendPage(new SqlDatabaseView(filePath),new Label(MainClass.Languages.Translate("sql_sql")));

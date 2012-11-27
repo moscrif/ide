@@ -6116,6 +6116,7 @@ All Open Project</property>
                         <child>
                           <widget class="Gtk.HButtonBox" id="hbuttonbox2">
                             <property name="MemberName" />
+                            <property name="Spacing">10</property>
                             <property name="Size">2</property>
                             <property name="LayoutStyle">End</property>
                             <child>
@@ -6584,6 +6585,7 @@ All Open Project</property>
                         <child>
                           <widget class="Gtk.HButtonBox" id="hbuttonbox2">
                             <property name="MemberName" />
+                            <property name="Spacing">10</property>
                             <property name="Size">3</property>
                             <property name="LayoutStyle">End</property>
                             <child>

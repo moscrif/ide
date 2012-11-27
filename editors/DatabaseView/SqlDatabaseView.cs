@@ -6,12 +6,11 @@ using MessageDialogs = Moscrif.IDE.Controls.MessageDialog;
 
 namespace Moscrif.IDE.Editors.DatabaseView
 {
-	public class SqlDatabaseView : VBox,IDataBaseView
+	public class SqlDatabaseView : Table,IDataBaseView//VBox
 	{
 		private string filename;
 
-		private VBox vbox;
-		private Label lblSql;
+		//private VBox vbox;
 		private Button btnExecute;
 		private TreeView treeView;
 		ListStore tableModel = new ListStore(typeof(int), typeof(string), typeof(string), typeof(string), typeof(string), typeof(string));
@@ -19,14 +18,10 @@ namespace Moscrif.IDE.Editors.DatabaseView
 		private TextView comandControl;
 		private TextView outputControl;
 
-		public SqlDatabaseView(string fileName)
+		public SqlDatabaseView(string fileName): base(7,1,false)
 		{
 			this.filename = fileName;
-			
-			vbox = new VBox();
-			
-			lblSql = new Label(MainClass.Languages.Translate("sql_script"));
-			vbox.PackStart(lblSql, false, false, 0);
+			this.RowSpacing = 5;
 
 			ScrolledWindow sw = new ScrolledWindow ();
 			sw.ShadowType = ShadowType.EtchedIn;
@@ -40,21 +35,24 @@ namespace Moscrif.IDE.Editors.DatabaseView
 
 			sw.Add(comandControl);
 
-			vbox.PackStart(sw, false, false, 0);
-
+			
+			Label lblSql = new Label(MainClass.Languages.Translate("sql_script"));
+			lblSql.Xalign=0;
+			lblSql.Yalign=0.5f;
+			this.Attach(lblSql,0,1,0,1,AttachOptions.Fill,AttachOptions.Shrink,3,3);
+			this.Attach(sw,0,1,1,2,AttachOptions.Fill,AttachOptions.Fill,3,3);
 
 			btnExecute = new Button();
 			btnExecute.Label = MainClass.Languages.Translate("execute_query");
-			btnExecute.WidthRequest = 75;
+			btnExecute.WidthRequest = 175;
+			btnExecute.HeightRequest = 25;
 			btnExecute.Clicked += delegate(object sender, EventArgs e) {
 				string sql = comandControl.Buffer.Text;
 				if (!String.IsNullOrEmpty(sql))
 					RunSql(sql);
 			};
 
-			vbox.PackEnd(btnExecute, false, false, 0);
-
-			this.PackStart(vbox, false, false, 5);
+			this.Attach(btnExecute,0,1,2,3,AttachOptions.Shrink,AttachOptions.Shrink,0,0);
 
 			ScrolledWindow swTv = new ScrolledWindow();
 			swTv.ShadowType = ShadowType.EtchedIn;
@@ -62,10 +60,16 @@ namespace Moscrif.IDE.Editors.DatabaseView
 
 			treeView = new TreeView(tableModel);
 			treeView.RulesHint = true;
+			treeView.EnableSearch = false;
 
 			swTv.Add(treeView);
 
-			this.PackStart(swTv, true, true, 5);
+			Label lblResult = new Label(MainClass.Languages.Translate("sql_result"));
+			lblResult.Xalign=0;
+			lblResult.Yalign=0.5f;
+
+			this.Attach(lblResult,0,1,3,4,AttachOptions.Fill,AttachOptions.Shrink,3,3);
+			this.Attach(swTv,0,1,4,5,AttachOptions.Expand|AttachOptions.Fill,AttachOptions.Expand|AttachOptions.Fill,3,3);
 
 			ScrolledWindow swOc = new ScrolledWindow ();
 			swOc.ShadowType = ShadowType.EtchedIn;
@@ -76,8 +80,13 @@ namespace Moscrif.IDE.Editors.DatabaseView
 			outputControl.Editable = false;
 			outputControl.HeightRequest = 150;
 			swOc.Add (outputControl);
-			this.PackEnd(swOc, false, false, 5);
 
+			Label lblOutput = new Label(MainClass.Languages.Translate("sql_output"));
+			lblOutput.Xalign=0;
+			lblOutput.Yalign=0.5f;
+
+			this.Attach(lblOutput,0,1,5,6,AttachOptions.Fill,AttachOptions.Shrink,3,3);
+			this.Attach(swOc,0,1,6,7,AttachOptions.Fill,AttachOptions.Fill,3,3);
 
 			this.ShowAll();
 		}
@@ -120,14 +129,14 @@ namespace Moscrif.IDE.Editors.DatabaseView
 				CellRendererText rendererText = new CellRendererText();
 				for (int i=0; i<numberCollumns;i++){
 					type[i] =typeof(string);
-					TreeViewColumn column = new TreeViewColumn(reader.GetName(i), rendererText, "text", i);
+					TreeViewColumn column = new TreeViewColumn(reader.GetName(i).Replace("_","__"), rendererText, "text", i);
 					column.SortColumnId = i;
 					column.Resizable = true;
 					column.Reorderable = true;
 					treeView.AppendColumn(column);
 				}
-
 				tableModel = new ListStore(type);
+
 
 				while (reader.Read()) {
 

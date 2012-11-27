@@ -104,7 +104,7 @@ namespace Moscrif.IDE.Editors.DatabaseView
 				CellRendererText rendererText = new CellRendererText();
 				for (int i=0; i<numberCollumns;i++){
 					type[i] =typeof(string);
-					TreeViewColumn column = new TreeViewColumn(reader.GetName(i), rendererText, "text", i);
+					TreeViewColumn column = new TreeViewColumn(reader.GetName(i).Replace("_","__"), rendererText, "text", i);
 					column.SortColumnId = i;
 					column.Resizable = true;
 					column.Reorderable = true;

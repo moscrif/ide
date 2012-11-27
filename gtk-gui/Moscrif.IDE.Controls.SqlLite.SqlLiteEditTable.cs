@@ -102,6 +102,7 @@ namespace Moscrif.IDE.Controls.SqlLite
 			// Container child vbox3.Gtk.Box+BoxChild
 			this.hbuttonbox2 = new global::Gtk.HButtonBox ();
 			this.hbuttonbox2.Name = "hbuttonbox2";
+			this.hbuttonbox2.Spacing = 10;
 			this.hbuttonbox2.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
 			// Container child hbuttonbox2.Gtk.ButtonBox+ButtonBoxChild
 			this.btnDeleteField = new global::Gtk.Button ();
