@@ -451,7 +451,6 @@
     <Compile Include="gtk-gui\Moscrif.IDE.Settings.GlobalOptionsWidget2.cs" />
     <Compile Include="gtk-gui\Moscrif.IDE.Controls.FeedbackDialog.cs" />
     <Compile Include="gtk-gui\Moscrif.IDE.Controls.ErrorDialog.cs" />
-    <Compile Include="components\DropDownButton.cs" />
     <Compile Include="controls\Wizard\PublishDialogWizzard.cs" />
     <Compile Include="gtk-gui\Moscrif.IDE.Controls.Wizard.PublishDialogWizzard.cs" />
     <Compile Include="task\PublishAsynchronTask.cs" />
@@ -481,6 +480,7 @@
     <Compile Include="controls\LoginRegisterDialog.cs" />
     <Compile Include="actions\ShowFullscreenAction.cs" />
     <Compile Include="components\DropDownRadioButton.cs" />
+    <Compile Include="components\DropDownButton.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -43,9 +43,9 @@ public partial class MainWindow : Gtk.Window
 		set { runningEmulator = value;}
 	}
 	
-	private DropDownRadioButton ddbProject = new DropDownRadioButton();
-	private DropDownRadioButton ddbDevice = new DropDownRadioButton();
-	private DropDownRadioButton ddbResolution = new DropDownRadioButton();
+	private DropDownButton ddbProject = new DropDownButton();
+	private DropDownButton ddbDevice = new DropDownButton();
+	private DropDownButton ddbResolution = new DropDownButton();
 	//private DropDownButton ddbSocketIP = new DropDownButton();
 
 	private MenuBar mainMenu = new MenuBar();
@@ -95,6 +95,9 @@ public partial class MainWindow : Gtk.Window
 
 	public MainWindow(string[] arguments): base(Gtk.WindowType.Toplevel)
 	{
+		this.HeightRequest = this.Screen.Height;
+		this.WidthRequest = this.Screen.Width;
+
 		bool showSplash = true;
 		bool openFileFromArg = false;
 		string openFileAgument = "";
@@ -154,14 +157,14 @@ public partial class MainWindow : Gtk.Window
 
 		if(showSplash)
 			splash.ShowAll();
-
 		StockIconsManager.Initialize();
 		Moscrif.IDE.Tool.Logger.LogDebugInfo(String.Format("mainwindow.build.start-{0}",DateTime.Now));
+
+		//StockIconsManager.Initialize();
+		//Moscrif.IDE.Tool.Logger.LogDebugInfo(String.Format("mainwindow.build.start-{0}",DateTime.Now));
 		Build();
-		//this.Fullscreen();
-		//this.Maximize();
+		this.Maximize();
 		Moscrif.IDE.Tool.Logger.LogDebugInfo(String.Format("mainwindow.build.end-{0}",DateTime.Now));
-		//this.HideAll();
 
 		SetSettingColor();
 
@@ -233,17 +236,17 @@ public partial class MainWindow : Gtk.Window
 		} catch {
 		}
 
-		ddbProject = new DropDownRadioButton();
+		ddbProject = new DropDownButton();
 		ddbProject.Changed+= OnChangedProject; 
 		ddbProject.WidthRequest = 175;
 		ddbProject.SetItemSet(projectItems);
 
-		ddbDevice = new DropDownRadioButton();
+		ddbDevice = new DropDownButton();
 		ddbDevice.Changed+= OnChangedDevice; 
 		ddbDevice.WidthRequest = 175;
 		ddbDevice.SetItemSet(deviceItems);
 
-		ddbResolution = new DropDownRadioButton();
+		ddbResolution = new DropDownButton();
 		ddbResolution.Changed+= OnChangedResolution; 
 		ddbResolution.WidthRequest = 175;
 		ddbResolution.SetItemSet(resolutionItems);
@@ -499,7 +502,7 @@ public partial class MainWindow : Gtk.Window
 		};
 		//table1.Attach(ddbSocketIP,2,3,0,1,AttachOptions.Shrink,AttachOptions.Shrink,0,0);
 		this.ShowAll();
-		this.Maximize();
+		//this.Maximize();
 
 		int x, y, w, h, d = 0;
 		hpOutput.Parent.ParentWindow.GetGeometry(out x, out y, out w, out h, out d);

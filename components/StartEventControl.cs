@@ -409,9 +409,6 @@ namespace Moscrif.IDE.Components
 				//if (no>8) break;
 			}
 			tblSamples.Attach(lbGM,(uint)x,(uint)(x+1),(uint)(y+1),(uint)(y+2),AttachOptions.Fill|AttachOptions.Expand,AttachOptions.Shrink,0,0);
-			//hbMorSample.PackStart(lbGM,true,true,0);
-			//hbMorSample.PackStart(lbOS,true,true,0);
-			//tblSamples.Attach(lbGM,(uint)0,(uint)1,(uint)(no),(uint)(no+1),AttachOptions.Fill|AttachOptions.Expand,AttachOptions.Shrink,0,0);
 			tblSamples.ShowAll();
 		}
 
