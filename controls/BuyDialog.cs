@@ -32,8 +32,7 @@ namespace Moscrif.IDE.Controls
 				this.TransientFor = parent;
 			this.WidthRequest = 570;
 			this.HeightRequest = 450;
-			//btnBuyNow.ModifyBg(StateType.Normal,new Color(109,158,24));
-			
+
 			this.ModifyBg (Gtk.StateType.Normal, Style.White);
 			string typ ="-100";
 			if(MainClass.User!=null)
@@ -55,6 +54,7 @@ namespace Moscrif.IDE.Controls
 			regularCursor = new Gdk.Cursor (Gdk.CursorType.Xterm);
 			
 			viewHeader = new TextView ();
+			viewHeader.CanFocus = false;
 			TextBuffer buffer = viewHeader.Buffer;
 
 			viewFooter = new TextView ();
@@ -63,11 +63,11 @@ namespace Moscrif.IDE.Controls
 			viewFooter.WidgetEventAfter += new WidgetEventAfterHandler (EventAfter);
 			viewFooter.MotionNotifyEvent += new MotionNotifyEventHandler (MotionNotify);
 			viewFooter.HeightRequest = 15;
-			//viewFooter.ModifyBg(StateType.Normal,new Color(255,0,0));//242,247,252
+			viewFooter.CanFocus = false;
 
 			viewTable = new TextView ();
+			viewTable.CanFocus = false;
 			TextBuffer buffer3 = viewTable.Buffer;
-
 
 			ScrolledWindow sw = new ScrolledWindow ();
 			sw.SetPolicy (PolicyType.Automatic, PolicyType.Automatic);
@@ -90,16 +90,12 @@ namespace Moscrif.IDE.Controls
 			InsertTextFooter (buffer2);
 			InsertTextTable (buffer3);
 
-	
-			//viewHeader.ModifyBase(StateType.Normal,this.Style.Background(StateType.Normal));
-
 			Table tbl = new Table(4,1,false);
 			if(MainClass.Platform.IsMac)
 				tbl.BorderWidth=20;
 			else 
 				tbl.BorderWidth=6;
 
-			//Button btnBuy = new Button();
 			BannerButton btnBuy = new BannerButton();
 			btnBuy.ModifyBase(StateType.Normal,new Gdk.Color(109,158,24));
 			btnBuy.ModifyBg(StateType.Normal,new Color(109,158,24));
@@ -118,23 +114,7 @@ namespace Moscrif.IDE.Controls
 			};
 
 			btnBuy.ImageIcon = new Pixbuf(buyPath);
-			//btnBuy.Xalign = 0.5F;
-			//btnBuy.Yalign =0.5F;
-			/*btnBuy.Clicked+= delegate(object sender, EventArgs e)
-			{
-				string url = "http://moscrif.com/download?t={0}";
-				if (MainClass.User!=null && (!String.IsNullOrEmpty(MainClass.User.Token))) {
-					url = string.Format(url,MainClass.User.Token);
-					
-				}
-				
-				System.Diagnostics.Process.Start(url);			
-				this.Respond( Gtk.ResponseType.Ok );
-			};*/
-			//btnBuy.Label="Buy";
 
-
-			//Button btnCancel = new Button();
 			BannerButton btnCancel = new BannerButton();
 			btnCancel.HeightRequest = 38;
 			btnCancel.WidthRequest = 170;
@@ -144,13 +124,7 @@ namespace Moscrif.IDE.Controls
 			btnCancel.ButtonPressEvent+= delegate(object o, ButtonPressEventArgs args) {
 				this.Respond( Gtk.ResponseType.Cancel );
 			};
-			/*btnCancel.Clicked+= delegate(object sender, EventArgs e) {
-				this.Respond( Gtk.ResponseType.Cancel );
-			};*/
-			//btnCancel.Label="Cancel";
-			//btnCancel.ModifyBg(StateType.Normal,new Color(109,158,24));
-			//btnCancel.Xalign = 0.5F;
-			//btnCancel.Yalign =0.5F;
+
 			Table tblButton = new Table (1,4,false);
 			tblButton.ColumnSpacing = 12;
 			tblButton.BorderWidth = 6;
@@ -158,13 +132,6 @@ namespace Moscrif.IDE.Controls
 			tblButton.Attach(btnCancel,1,2,0,1,AttachOptions.Shrink,AttachOptions.Shrink,0,0);
 			tblButton.Attach(btnBuy,2,3,0,1,AttachOptions.Shrink,AttachOptions.Shrink,0,0);
 			tblButton.Attach(new Label(""),3,4,0,1,AttachOptions.Expand,AttachOptions.Expand,0,0);
-
-			/*HBox h = new HBox ( );
-			h.BorderWidth = 6;
-			h.Spacing = 12;
-			h.PackStart (btnCancel,false,false,0);
-			h.PackStart (btnBuy,false,false,0);
-			h.HeightRequest = 50;*/
 
 			tbl.Attach(sw,0,1,0,1,AttachOptions.Fill,AttachOptions.Fill,0,0);
 

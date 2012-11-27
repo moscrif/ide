@@ -93,10 +93,8 @@ public partial class MainWindow : Gtk.Window
      	}*/
 
 
-	public MainWindow(string[] arguments) : base(Gtk.WindowType.Toplevel)
+	public MainWindow(string[] arguments): base(Gtk.WindowType.Toplevel)
 	{
-		this.Maximize();
-
 		bool showSplash = true;
 		bool openFileFromArg = false;
 		string openFileAgument = "";

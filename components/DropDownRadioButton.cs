@@ -10,7 +10,6 @@ namespace Moscrif.IDE.Components
 		public DropDownRadioButton()
 		{
 		}
-
 		
 		protected override void OnPressed ()
 		{

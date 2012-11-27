@@ -54,7 +54,7 @@ namespace Moscrif.IDE.Iface
 			ListFrameworkClass.Add(new FrameworkClass("store","libraries_storelib","store",LicenceTyp.PROFESIONAL));
 
 			ListFrameworkClass.Add(new FrameworkClass("signapp","basic_compiledsourcecode","compile & sign",LicenceTyp.PROFESIONAL));
-			ListFrameworkClass.Add(new FrameworkClass("marketdistribution","---","Market - Distribution",LicenceTyp.PROFESIONAL));
+			ListFrameworkClass.Add(new FrameworkClass("marketdistribution","---","Market - Distribution",LicenceTyp.BASIC));
 
 			ListFrameworkClass.Add(new FrameworkClass("conditions","---","Conditions",LicenceTyp.BASIC));
 			ListFrameworkClass.Add(new FrameworkClass("androidsupporteddevices","---","Android supported devices",LicenceTyp.PROFESIONAL));
