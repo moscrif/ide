@@ -105,7 +105,7 @@ namespace Moscrif.IDE.Iface
 		public bool GetBannerFromWeb(){
 			
 			string URL =bannerUrl;		
-			WebClient client = new WebClient();
+			SystemWebClient client = new SystemWebClient();
 		
 			try{
 				bannerFile = client.DownloadString(new Uri(URL));
@@ -120,7 +120,7 @@ namespace Moscrif.IDE.Iface
 			return true;		
 		}
 
-		private static int GetStatusCode(WebClient client, out string statusDescription)
+		private static int GetStatusCode(SystemWebClient client, out string statusDescription)
 		{
 			FieldInfo responseField = client.GetType().GetField("m_WebRequest", BindingFlags.Instance | BindingFlags.NonPublic);
 			

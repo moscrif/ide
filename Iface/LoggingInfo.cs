@@ -30,7 +30,7 @@ namespace Moscrif.IDE.Iface
 		private string data;
 
 		
-		private static int GetStatusCode(WebClient client, out string statusDescription)
+		private static int GetStatusCode(SystemWebClient client, out string statusDescription)
 		{
 			FieldInfo responseField = client.GetType().GetField("m_WebRequest", BindingFlags.Instance | BindingFlags.NonPublic);
 			
@@ -76,7 +76,7 @@ namespace Moscrif.IDE.Iface
 		public bool LoggWeb(string token,ActionId action,string data,LoginYesTaskHandler loggYesTask,LoginNoTaskHandler loggNoTask){
 			string URL =loggUrl;
 			
-			WebClient client = new WebClient();
+			SystemWebClient client = new SystemWebClient();
 			
 			if( !string.IsNullOrEmpty(token))
 				URL = String.Format(URL+"?token={0}&action={1}&data={2}",token,(int)action,data);
@@ -120,7 +120,7 @@ namespace Moscrif.IDE.Iface
 
 			string URL =loggUrl;
 			
-			WebClient client = new WebClient();
+			SystemWebClient client = new SystemWebClient();
 			
 			if( !string.IsNullOrEmpty(token))
 				URL = String.Format(URL+"?token={0}&action={1}",token,(int)action);
@@ -178,7 +178,7 @@ namespace Moscrif.IDE.Iface
 			
 			string URL =loggUrl;
 			
-			WebClient client = new WebClient();
+			SystemWebClient client = new SystemWebClient();
 			
 			if( !string.IsNullOrEmpty(token))
 				URL = String.Format(URL+"?token={0}&action={1}",token,(int)action);
@@ -233,7 +233,7 @@ namespace Moscrif.IDE.Iface
 			
 			string URL =feedbackUrl;
 			
-			WebClient client = new WebClient();
+			SystemWebClient client = new SystemWebClient();
 			
 			if( !string.IsNullOrEmpty(token))
 				URL = String.Format(URL+"?token={0}&action={1}",token,(int)action);

@@ -7,7 +7,7 @@ using System.IO;
 using Moscrif.IDE.Iface.Entities;
 using Moscrif.IDE.Iface;
 
-namespace  Moscrif.IDE.Settings
+namespace  Moscrif.IDE
 {
 	public class Settings
 	{
@@ -180,6 +180,9 @@ namespace  Moscrif.IDE.Settings
 
 		[XmlElement("imageEditor")]
 		public ImageEditorSetting ImageEditors = null;
+
+		[XmlElement("proxy")]
+		public ProxySetting Proxy = null;
 
 		[XmlElement ("sourceEditor")]
 		public SourceEditorSetting SourceEditorSettings = null;
@@ -663,6 +666,32 @@ namespace  Moscrif.IDE.Settings
 
 			[XmlElement("selectPointColor")]
 			public BackgroundColors SelectPointColor;
+		}
+
+		public class ProxySetting
+		{
+			public ProxySetting(){}
+			
+			public enum ProxyTyp{
+				NOPROXY = 0,
+				SYSTEM = 1,
+				CUSTON = 2
+			}
+
+			[XmlAttribute("proxyType")]
+			public ProxyTyp ProxyType;
+
+			[XmlAttribute("proxy")]
+			public string Proxy;
+
+			[XmlAttribute("port")]
+			public int Port;
+		
+			[XmlAttribute("name")]
+			public string Name;
+
+			[XmlAttribute("password")]
+			public string Password;
 		}
 
 		public class Range

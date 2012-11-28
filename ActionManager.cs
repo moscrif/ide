@@ -16,7 +16,7 @@ using MessageDialogs = Moscrif.IDE.Controls.MessageDialog;
 using MessageDialogsUrl = Moscrif.IDE.Controls.MessageDialogUrl;
 using Moscrif.IDE.Iface.Entities;
 using Moscrif.IDE.Iface;
-using Moscrif.IDE.Settings;
+using Moscrif.IDE.Option;
 using Moscrif.IDE.Tool;
 using Moscrif.IDE.Controls.Wizard;
 using Mono.TextEditor;

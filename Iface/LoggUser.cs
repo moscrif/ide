@@ -10,7 +10,7 @@ using Moscrif.IDE.Tool;
 using System.IO;
 using System.Timers;
 using System.Threading;
-using Moscrif.IDE.Settings;
+using Moscrif.IDE.Option;
 
 namespace Moscrif.IDE.Iface
 {
@@ -28,7 +28,7 @@ namespace Moscrif.IDE.Iface
 
 		public void Register(string email,string login,string password,LoginYesTaskHandler loggYesTask,LoginNoTaskHandler loggNoTask){
 			string URL = redgisterUrl;
-			WebClient client = new WebClient();
+			SystemWebClient client = new SystemWebClient();
 
 			string data = String.Format("{0}\n{1}\n{2}",email,login,GetMd5Sum(password+SALT));
 			client.UploadStringCompleted+= delegate(object sender, UploadStringCompletedEventArgs e) {
@@ -89,7 +89,7 @@ namespace Moscrif.IDE.Iface
       			string URL =pingUrl;
 			string result;
 
-			WebClient client = new WebClient();
+			SystemWebClient client = new SystemWebClient();
 
 			if( !string.IsNullOrEmpty(token))
 				URL = String.Format(URL+"?t={0}",token);
@@ -118,7 +118,7 @@ namespace Moscrif.IDE.Iface
 			return true;
 		}
 		
-		private static int GetStatusCode(WebClient client, out string statusDescription)
+		private static int GetStatusCode(SystemWebClient client, out string statusDescription)
 		{
 			FieldInfo responseField = client.GetType().GetField("m_WebRequest", BindingFlags.Instance | BindingFlags.NonPublic);
 		
@@ -138,9 +138,7 @@ namespace Moscrif.IDE.Iface
 			
 		public void CheckLogin(string name, string password,LoginYesTaskHandler loggYesTask,LoginNoTaskHandler loggNoTask){
       			string URL = loginUrl;
-			//Console.WriteLine(URL);
-			WebClient client = new WebClient();
-
+			SystemWebClient client = new SystemWebClient();
 
 			string data = String.Format("{0}\n{1}",name,GetMd5Sum(password+SALT)); //\n{2}\n{3}",name,GetMd5Sum(password+SALT),Environment.MachineName,Environment.UserName);
 			try{
@@ -175,7 +173,8 @@ namespace Moscrif.IDE.Iface
 			} catch (Exception ex){
 				Logger.Error(ex.Message);
 
-				if(loggNoTask!= null) loggNoTask(null,"Wrong username or password.");
+				//if(loggNoTask!= null) loggNoTask(null,"Wrong username or password.");
+				if(loggNoTask!= null) loggNoTask(null,ex.Message);
 				return;
 			}
 
@@ -204,7 +203,7 @@ namespace Moscrif.IDE.Iface
 		public void CheckLoginII(string name, string password,LoginYesTaskHandler loggYesTask,LoginNoTaskHandler loggNoTask){
       			string URL = loginUrl;
 
-			WebClient client = new WebClient();
+			SystemWebClient client = new SystemWebClient();
 
 			string data = String.Format("{0}\n{1}\n{2}\n{3}",name,GetMd5Sum(password+SALT),Environment.MachineName,Environment.UserName);
 			client.UploadStringCompleted+= delegate(object sender, UploadStringCompletedEventArgs e) {

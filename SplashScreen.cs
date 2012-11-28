@@ -80,7 +80,7 @@ namespace Moscrif.IDE
 				cbKeyBinding.Name="cbKeyBinding";
 
 				if(MainClass.Settings.BackgroundColor==null){
-					MainClass.Settings.BackgroundColor = new Moscrif.IDE.Settings.Settings.BackgroundColors(218,218,218);
+					MainClass.Settings.BackgroundColor = new Moscrif.IDE.Option.Settings.BackgroundColors(218,218,218);
 					/*if(MainClass.Platform.IsMac)
 						MainClass.Settings.BackgroundColor = new Moscrif.IDE.Settings.Settings.BackgroundColors(218,218,218);
 					else

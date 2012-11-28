@@ -2,7 +2,7 @@ using System;
 using System.Diagnostics;
 using MessageDialogs = Moscrif.IDE.Controls.MessageDialog;
 using Moscrif.IDE.Iface.Entities;
-using Moscrif.IDE.Settings;
+using Moscrif.IDE.Option;
 using Moscrif.IDE.Iface;
 
 namespace Moscrif.IDE.Actions

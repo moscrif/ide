@@ -7,7 +7,7 @@ using System.Net;
 
 namespace Moscrif.IDE.Iface
 {
-	public class WebClientTimeout: WebClient
+	public class WebClientTimeout: SystemWebClient
 	{
 		//time in milliseconds
 		private int timeout;

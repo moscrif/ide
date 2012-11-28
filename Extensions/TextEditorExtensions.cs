@@ -35,7 +35,7 @@ namespace Moscrif.IDE.Extensions
 			string[] words =  fullWord.Split('.');
 			string word =words[words.Length-1];
 			
-			Completion.CompletionData cd;
+			//Completion.CompletionData cd;
 			
 			if(!String.IsNullOrEmpty(type)){
 				return MainClass.CompletedCache.ListDataMembers.FindAll(x=>x.Parent == type && x.CompletionText == word);

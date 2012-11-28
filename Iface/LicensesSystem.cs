@@ -125,7 +125,7 @@ namespace Moscrif.IDE.Iface
 		public bool GetLicenses(){
 			
 			string URL =licenceUrl;		
-			WebClient client = new WebClient();
+			SystemWebClient client = new SystemWebClient();
 			
 			try{
 				licenceFile = client.DownloadString(new Uri(URL));
@@ -140,7 +140,7 @@ namespace Moscrif.IDE.Iface
 			return true;		
 		}
 
-		private static int GetStatusCode(WebClient client, out string statusDescription)
+		private static int GetStatusCode(SystemWebClient client, out string statusDescription)
 		{
 			FieldInfo responseField = client.GetType().GetField("m_WebRequest", BindingFlags.Instance | BindingFlags.NonPublic);
 			

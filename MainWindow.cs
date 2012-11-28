@@ -14,7 +14,7 @@ using Moscrif.IDE.Workspace;
 using Moscrif.IDE.Devices;
 using Moscrif.IDE.Tool;
 using Moscrif.IDE.Task;
-using Moscrif.IDE.Settings;
+using Moscrif.IDE.Option;
 using Moscrif.IDE.Controls.Properties;
 using MessageDialogs = Moscrif.IDE.Controls.MessageDialog;
 using Moscrif.IDE.Iface.Entities;
@@ -989,7 +989,7 @@ public partial class MainWindow : Gtk.Window
 		Gdk.Color col = new Gdk.Color(224, 41, 47);
 
 		if (MainClass.Settings.BackgroundColor == null){
-			MainClass.Settings.BackgroundColor = new Moscrif.IDE.Settings.Settings.BackgroundColors(218,218,218);
+			MainClass.Settings.BackgroundColor = new Moscrif.IDE.Option.Settings.BackgroundColors(218,218,218);
 		}
 		col = new Gdk.Color(MainClass.Settings.BackgroundColor.Red,MainClass.Settings.BackgroundColor.Green,MainClass.Settings.BackgroundColor.Blue);
 

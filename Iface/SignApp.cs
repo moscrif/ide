@@ -34,7 +34,7 @@ namespace Moscrif.IDE.Iface
 			}
 			//Console.WriteLine("URL -> {0}", URL);
 			
-			WebClient client = new WebClient();
+			SystemWebClient client = new SystemWebClient();
 			
 			string data ="";
 			

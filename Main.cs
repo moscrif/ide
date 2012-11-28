@@ -7,7 +7,7 @@ using Moscrif.IDE.Tool;
 using Moscrif.IDE.Task;
 using Moscrif.IDE.Execution;
 using GLib;
-using Moscrif.IDE.Settings;
+using Moscrif.IDE.Option;
 using Moscrif.IDE.Iface;
 using Moscrif.IDE.Iface.Entities;
 using MessageDialogs = Moscrif.IDE.Controls.MessageDialog;
@@ -170,8 +170,8 @@ namespace Moscrif.IDE
 			}
 		}
 
-		static Moscrif.IDE.Settings.Settings settings = null;
-		static internal Moscrif.IDE.Settings.Settings Settings
+		static Moscrif.IDE.Option.Settings settings = null;
+		static internal Moscrif.IDE.Option.Settings Settings
 		{
 			get {
 				if (settings != null)
@@ -181,18 +181,18 @@ namespace Moscrif.IDE
 				
 				if (File.Exists(file)) {
 					try{
-						settings = Moscrif.IDE.Settings.Settings.OpenSettings(file);
+						settings = Moscrif.IDE.Option.Settings.OpenSettings(file);
 					}catch{//(Exception ex){
 						MessageDialogs ms = new MessageDialogs(MessageDialogs.DialogButtonType.Ok, "Error", Languages.Translate("setting_file_corrupted"), Gtk.MessageType.Error,null);
 						ms.ShowDialog();
 
-						settings = new Moscrif.IDE.Settings.Settings(file);
+						settings = new Moscrif.IDE.Option.Settings(file);
 					}
 
 					settings.FilePath = file;
 				}
 				if (settings == null)
-					settings = new Moscrif.IDE.Settings.Settings(file);
+					settings = new Moscrif.IDE.Option.Settings(file);
 				return settings;
 			}
 		}
