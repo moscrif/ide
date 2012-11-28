@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using Moscrif.IDE.Iface.Entities;
 
-namespace Moscrif.IDE.Settings
+namespace Moscrif.IDE.Option
 {
 	public class WebCache
 	{

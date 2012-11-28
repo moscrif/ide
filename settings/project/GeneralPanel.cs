@@ -8,7 +8,7 @@ using Moscrif.IDE.Components;
 using Moscrif.IDE.Tool;
 
 
-namespace Moscrif.IDE.Settings
+namespace Moscrif.IDE.Option
 {
 
 	internal class GeneralPanel : OptionsPanel

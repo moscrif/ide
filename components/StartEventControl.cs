@@ -6,7 +6,7 @@ using System.Threading;
 using System.Collections;
 using System.Collections.Generic;
 using Moscrif.IDE.Actions;
-using Moscrif.IDE.Settings;
+using Moscrif.IDE.Option;
 using Moscrif.IDE.Iface.Entities;
 using Moscrif.IDE.Tool;
 using Gtk;
@@ -44,7 +44,6 @@ namespace Moscrif.IDE.Components
 				BannerThread.Name = "BannerThread";
 				BannerThread.IsBackground = true;
 				BannerThread.Start();
-
 
 				tblTwitt.WidthRequest = 500;
 				tblTwitt.HeightRequest = 130;
@@ -443,17 +442,6 @@ namespace Moscrif.IDE.Components
 				if (evnt.Region.RectIn (bgRect) != OverlapType.Out)
 					for (int x = bgRect.X; x < bgRect.Right; x += bgPixbuf.Width)
 						GdkWindow.DrawPixbuf (gc, bgPixbuf, 0, 0, x, bgRect.Y, bgPixbuf.Width, bgRect.Height, RgbDither.None, 0, 0);
-
-/*				var bgRect = new Rectangle (Allocation.X , Allocation.Y, Allocation.Width ,Allocation.Height);
-				if (evnt.Region.RectIn (bgRect) != OverlapType.Out)
-					for (int y = bgRect.Y; y < bgRect.Bottom; y += bgPixbuf.Height)
-						for (int x = bgRect.X; x < bgRect.Right; x += bgPixbuf.Width)
-							GdkWindow.DrawPixbuf (gc, bgPixbuf, 0, 0, x, y, bgPixbuf.Width,bgPixbuf.Height, RgbDither.None, 0, 0);
-				var lRect = new Rectangle (Allocation.Right- logoPixbuf.Width, Allocation.Bottom-logoPixbuf.Height, Allocation.Width ,Allocation.Height);
-				if (evnt.Region.RectIn (lRect) != OverlapType.Out)
-					GdkWindow.DrawPixbuf (gc, logoPixbuf, 0, 0, lRect.X, lRect.Y, logoPixbuf.Width, logoPixbuf.Height, RgbDither.None, 0, 0);
-*/
-
 			}
 
 			foreach (Widget widget in Children)

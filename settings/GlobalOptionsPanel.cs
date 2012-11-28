@@ -7,15 +7,15 @@ using MessageDialogs = Moscrif.IDE.Controls.MessageDialog;
 using Moscrif.IDE.Iface.Entities;
 using Moscrif.IDE.Components;
 
-namespace Moscrif.IDE.Settings
+namespace Moscrif.IDE.Option
 {
 	internal class GlobalOptionsPanel : OptionsPanel
 	{
-		GlobalOptionsWidget2 widget;
+		GlobalOptionsWidget widget;
 
 		public override Widget CreatePanelWidget ()
 		{
-			return widget = new  GlobalOptionsWidget2 (ParentDialog);
+			return widget = new  GlobalOptionsWidget (ParentDialog);
 		}
 
 		public override void ApplyChanges ()
@@ -47,7 +47,7 @@ namespace Moscrif.IDE.Settings
 	}
 
 
-	internal partial class  GlobalOptionsWidget2 : Gtk.Bin
+	internal partial class  GlobalOptionsWidget : Gtk.Bin
 	{
 		ListStore storeIFo = new ListStore(typeof(string),typeof(bool),typeof(bool), typeof(IgnoreFolder));
 		ListStore storeIFi = new ListStore(typeof(string),typeof(bool),typeof(bool), typeof(IgnoreFolder));
@@ -61,7 +61,7 @@ namespace Moscrif.IDE.Settings
 		FavoriteEntry fePublishTool ;
 		FavoriteEntry feEmulator ;
 
-		public GlobalOptionsWidget2(Gtk.Window parent)
+		public GlobalOptionsWidget(Gtk.Window parent)
 		{
 			parentWindow = parent;
 

@@ -1,7 +1,7 @@
 using System;
 using Gtk;
 using Moscrif.IDE.Workspace;
-namespace Moscrif.IDE.Settings
+namespace Moscrif.IDE.Option
 {
 
 	internal class  DirGeneralPanel : OptionsPanel

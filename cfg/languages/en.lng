@@ -133,6 +133,8 @@ import_project_f1 = Import Project
 show_denied = Show all
 hide_denied  = Show revelant
 
+proxy = Proxy
+
 location_workspace = Workspace
 location_application = Application
 all_files = All files

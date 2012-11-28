@@ -3,7 +3,7 @@ using Gdk;
 using Gtk;
 using System.IO;
 using System.Collections.Generic;
-using Moscrif.IDE.Settings;
+using Moscrif.IDE.Option;
 using Moscrif.IDE.Iface.Entities;
 using Moscrif.IDE.Components;
 using Moscrif.IDE.Controls;

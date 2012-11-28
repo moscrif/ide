@@ -1,7 +1,8 @@
 using System;
 using Gtk;
+using Moscrif.IDE.Option;
 
-namespace Moscrif.IDE.Settings
+namespace Moscrif.IDE.Option
 {
 
 	internal class ProxyPanel : OptionsPanel
@@ -33,7 +34,7 @@ namespace Moscrif.IDE.Settings
 		}
 		
 		public override string Icon {
-			get { return "compile.png"; }
+			get { return "file-ms.png"; }
 		}
 		
 	}
@@ -43,14 +44,70 @@ namespace Moscrif.IDE.Settings
 		public ProxyWidget()
 		{
 			this.Build();
-			this.ShowAll();
+			if(MainClass.Settings.Proxy== null){
+				MainClass.Settings.Proxy = new Settings.ProxySetting();
+			}
+
+			switch(MainClass.Settings.Proxy.ProxyType){
+				case 0:{
+					rbNoProxy.Active = true;
+					break;
+				}
+				case 1:{
+					rbSystemProxy.Active = true;
+					break;
+				}
+				case 2:{
+					rbCustomProxy.Active = true;
+					break;
+				}
+
+			}
+			if(!String.IsNullOrEmpty(MainClass.Settings.Proxy.Name))
+				entrName.Text = MainClass.Settings.Proxy.Name;
+
+			if(!String.IsNullOrEmpty(MainClass.Settings.Proxy.Password))
+				entrPassword.Text = MainClass.Settings.Proxy.Password;
+
+			if(!String.IsNullOrEmpty(MainClass.Settings.Proxy.Proxy))
+				entrProxy.Text = MainClass.Settings.Proxy.Proxy;
+
+			sbPort.Value = MainClass.Settings.Proxy.Port;
+
 		}
 		public void Store()
 		{
+			if(rbNoProxy.Active){
+				MainClass.Settings.Proxy.ProxyType = 0;
 
+			} else if ( rbCustomProxy.Active){
+				MainClass.Settings.Proxy.ProxyType = 2;
+				MainClass.Settings.Proxy.Name= entrName.Text;
+				MainClass.Settings.Proxy.Password= entrPassword.Text;
+				MainClass.Settings.Proxy.Proxy= entrProxy.Text;
+
+				MainClass.Settings.Proxy.Port= (int)sbPort.Value;
+
+			} else {
+				MainClass.Settings.Proxy.ProxyType = 1;
+			}
 
 		}
 
+		protected void OnRbNoProxyToggled (object sender, EventArgs e)
+		{
+			frmProxyConfiguration.Sensitive = false;
+		}
+
+		protected void OnRbSystemProxyToggled (object sender, EventArgs e)
+		{
+			frmProxyConfiguration.Sensitive = false;
+		}
+
+		protected void OnRbCustomProxyToggled (object sender, EventArgs e)
+		{
+			frmProxyConfiguration.Sensitive = true;
+		}
 	}
 }
 

@@ -7,7 +7,7 @@ using Moscrif.IDE.Controls;
 using Moscrif.IDE.Iface.Entities;
 using Moscrif.IDE.Tool;
 
-namespace Moscrif.IDE.Settings
+namespace Moscrif.IDE.Option
 {
 	internal class DirConditionsPanel : OptionsPanel
 	{

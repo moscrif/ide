@@ -1,7 +1,7 @@
 using System;
 using Moscrif.IDE.Workspace;
 
-namespace Moscrif.IDE.Settings
+namespace Moscrif.IDE.Option
 {
 	public class DevicePropertyData{
 

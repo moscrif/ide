@@ -7,7 +7,7 @@ using Moscrif.IDE.Tool;
 using Moscrif.IDE.Devices;
 using Moscrif.IDE.Iface.Entities;
 
-namespace Moscrif.IDE.Settings
+namespace Moscrif.IDE.Option
 {
 
 	internal class EmulatorOptionsPanel : OptionsPanel

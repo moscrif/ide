@@ -8,7 +8,7 @@ using Moscrif.IDE.Devices;
 using Moscrif.IDE.Iface.Entities;
 using System.Collections.Generic;
 
-namespace Moscrif.IDE.Settings
+namespace Moscrif.IDE.Option
 {
 
 	internal class ResolutionOptionsPanel : OptionsPanel

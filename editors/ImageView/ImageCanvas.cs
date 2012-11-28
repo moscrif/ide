@@ -3,7 +3,7 @@ using Gtk;
 using Cairo;
 using Gdk;
 using System.Collections.Generic;
-using Moscrif.IDE.Settings;
+using Moscrif.IDE.Option;
 //using Rsvg;
 
 using System.IO;
@@ -25,13 +25,13 @@ namespace Moscrif.IDE.Editors.ImageView
 				shapeListPoint = new List<BarierPoint>();
 
 			if(MainClass.Settings.ImageEditors == null){
-				MainClass.Settings.ImageEditors =  new Settings.Settings.ImageEditorSetting();
+				MainClass.Settings.ImageEditors =  new Option.Settings.ImageEditorSetting();
 				MainClass.Settings.ImageEditors.LineWidth = 3;
 				MainClass.Settings.ImageEditors.PointWidth = 5;
 
-				MainClass.Settings.ImageEditors.LineColor = new Settings.Settings.BackgroundColors(10,10,255,32767);
-				MainClass.Settings.ImageEditors.PointColor = new Settings.Settings.BackgroundColors(10,10,255,32767);
-				MainClass.Settings.ImageEditors.SelectPointColor = new Settings.Settings.BackgroundColors(255,10,10,32767);
+				MainClass.Settings.ImageEditors.LineColor = new Option.Settings.BackgroundColors(10,10,255,32767);
+				MainClass.Settings.ImageEditors.PointColor = new Option.Settings.BackgroundColors(10,10,255,32767);
+				MainClass.Settings.ImageEditors.SelectPointColor = new Option.Settings.BackgroundColors(255,10,10,32767);
 			}
 
 			lineWitdth = MainClass.Settings.ImageEditors.LineWidth;

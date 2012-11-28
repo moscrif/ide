@@ -4,7 +4,7 @@ using System.IO;
 using Moscrif.IDE.Workspace;
 using Moscrif.IDE.Execution;
 using Moscrif.IDE.Tool;
-using Moscrif.IDE.Settings;
+using Moscrif.IDE.Option;
 using Moscrif.IDE.Iface.Entities;
 using Moscrif.IDE.Controls;
 using Moscrif.IDE.Devices;
@@ -168,7 +168,7 @@ namespace Moscrif.IDE.Task
 				//project.GeneratePublishCombination();
 			}
 
-			bool cancelled = false;
+			//bool cancelled = false;
 			bool isAndroid = false;
 
 			foreach(CombinePublish ccc in  listCombinePublish){

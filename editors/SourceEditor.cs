@@ -20,7 +20,7 @@ using IdeEditAction = Moscrif.IDE.Editors.SourceEditorActions.EditAction;
 
 using Moscrif.IDE.Completion;
 using Moscrif.IDE.Controls;
-using Moscrif.IDE.Settings;
+using Moscrif.IDE.Option;
 using Moscrif.IDE.Workspace;
 using Moscrif.IDE.Iface.Entities;
 
@@ -66,7 +66,7 @@ namespace Moscrif.IDE.Editors
 		public SourceEditor(string filePath)
 		{
 			if(MainClass.Settings.SourceEditorSettings == null){
-				MainClass.Settings.SourceEditorSettings = new  Moscrif.IDE.Settings.Settings.SourceEditorSetting();
+				MainClass.Settings.SourceEditorSettings = new  Moscrif.IDE.Option.Settings.SourceEditorSetting();
 			}
 
 			errors = new List<ErrorMarker>();

@@ -5,7 +5,7 @@ using Moscrif.IDE.Workspace;
 using Moscrif.IDE.Devices;
 using Moscrif.IDE.Iface.Entities;
 
-namespace Moscrif.IDE.Settings
+namespace Moscrif.IDE.Option
 {
 	public partial class PreferencesDialog : Gtk.Dialog
 	{
@@ -334,14 +334,12 @@ namespace Moscrif.IDE.Settings
 			filtering.Widget = filtering.Panel.CreatePanelWidget();
 			list.Add(filtering);
 
-			/*
-			SettingPanel test = new SettingPanel();
-			test.Panel = new TestOptionsPanel();
-			if (this.inicialize != null)
-				test.Panel.Initialize(this, MainClass.Workspace);
-			test.Widget = test.Panel.CreatePanelWidget();
-			list.Add(test);
-			 */
+			SettingPanel proxyPannel = new SettingPanel();
+			proxyPannel.Panel = new ProxyPanel();
+			proxyPannel.Panel.Initialize(this, null);
+			proxyPannel.Widget = proxyPannel.Panel.CreatePanelWidget();
+			list.Add(proxyPannel);
+
 			return list;
 		}
 

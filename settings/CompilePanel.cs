@@ -1,7 +1,7 @@
 using System;
 using Gtk;
 
-namespace Moscrif.IDE.Settings
+namespace Moscrif.IDE.Option
 {
 	internal class CompilePanel : OptionsPanel
 	{
@@ -36,7 +36,6 @@ namespace Moscrif.IDE.Settings
 		}
 
 	}
-
 
 
 	public partial class CompileWidget : Gtk.Bin

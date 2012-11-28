@@ -5,7 +5,7 @@ using Moscrif.IDE.Workspace;
 using Moscrif.IDE.Controls;
 using Moscrif.IDE.Iface.Entities;
 
-namespace  Moscrif.IDE.Settings
+namespace  Moscrif.IDE.Option
 {
 	internal class FileConditionsPanel : OptionsPanel
 	{

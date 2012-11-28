@@ -9,7 +9,7 @@ using MessageDialogs = Moscrif.IDE.Controls.MessageDialog;
 using Moscrif.IDE.Iface.Entities;
 using Moscrif.IDE.Iface;
 
-namespace Moscrif.IDE.Settings
+namespace Moscrif.IDE.Option
 {
 	internal class ImageEditorPanel : OptionsPanel
 	{

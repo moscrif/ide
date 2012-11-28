@@ -1,6 +1,6 @@
 using System;
 using System.IO;
-using Moscrif.IDE.Settings;
+using Moscrif.IDE.Option;
 using Gtk;
 
 namespace  Moscrif.IDE.Actions

@@ -2,7 +2,7 @@ using System;
 using Gtk;
 using Moscrif.IDE.Components;
 
-namespace Moscrif.IDE.Settings
+namespace Moscrif.IDE.Option
 {
 
 	internal class GlobalEditorPanel : OptionsPanel
@@ -49,7 +49,7 @@ namespace Moscrif.IDE.Settings
 		{
 			this.Build();
 					if(MainClass.Settings.SourceEditorSettings == null){
-				MainClass.Settings.SourceEditorSettings = new  Moscrif.IDE.Settings.Settings.SourceEditorSetting();
+				MainClass.Settings.SourceEditorSettings = new  Moscrif.IDE.Option.Settings.SourceEditorSetting();
 			}
 
 			if (!String.IsNullOrEmpty(MainClass.Settings.SourceEditorSettings.EditorFont))

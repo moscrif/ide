@@ -7,7 +7,7 @@ using MessageDialogs = Moscrif.IDE.Controls.MessageDialog;
 using System.Linq;
 using Moscrif.IDE.Iface.Entities;
 
-namespace Moscrif.IDE.Settings
+namespace Moscrif.IDE.Option
 {
 	internal class ProjectConditionsPanel : OptionsPanel
 	{

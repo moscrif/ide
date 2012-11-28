@@ -8,7 +8,7 @@ using Moscrif.IDE.Devices;
 using MessageDialogs = Moscrif.IDE.Controls.MessageDialog;
 using Moscrif.IDE.Iface.Entities;
 
-namespace  Moscrif.IDE.Settings
+namespace  Moscrif.IDE.Option
 {
 
 	internal class FilteringPanel : OptionsPanel

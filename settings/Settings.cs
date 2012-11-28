@@ -7,7 +7,7 @@ using System.IO;
 using Moscrif.IDE.Iface.Entities;
 using Moscrif.IDE.Iface;
 
-namespace  Moscrif.IDE
+namespace  Moscrif.IDE.Option
 {
 	public class Settings
 	{
@@ -670,16 +670,20 @@ namespace  Moscrif.IDE
 
 		public class ProxySetting
 		{
-			public ProxySetting(){}
+			public ProxySetting(){
+				ProxyType = 1;
+				Proxy="";
+				Password="";
+			}
 			
-			public enum ProxyTyp{
+			/*public enum ProxyTyp{
 				NOPROXY = 0,
 				SYSTEM = 1,
 				CUSTON = 2
-			}
+			}*/
 
 			[XmlAttribute("proxyType")]
-			public ProxyTyp ProxyType;
+			public int ProxyType;
 
 			[XmlAttribute("proxy")]
 			public string Proxy;

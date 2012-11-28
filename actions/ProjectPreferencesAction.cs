@@ -5,7 +5,7 @@ using System.Reflection;
 using Moscrif.IDE.Components;
 using Moscrif.IDE.Iface.Entities;
 using Moscrif.IDE.Controls;
-using Moscrif.IDE.Settings;
+using Moscrif.IDE.Option;
 using MessageDialogs = Moscrif.IDE.Controls.MessageDialog;
 
 namespace Moscrif.IDE.Actions

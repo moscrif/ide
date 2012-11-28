@@ -1,7 +1,7 @@
 using System;
 using Gtk;
 using Moscrif.IDE.Workspace;
-using Moscrif.IDE.Settings;
+using Moscrif.IDE.Option;
 using Moscrif.IDE.Iface.Entities;
 
 namespace Moscrif.IDE.Controls.Properties

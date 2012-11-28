@@ -1,7 +1,7 @@
 using System;
 using Gtk;
 
-namespace Moscrif.IDE.Settings
+namespace Moscrif.IDE.Option
 {
 	public abstract class OptionsPanel: IOptionsPanel
 	{

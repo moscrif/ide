@@ -1,6 +1,6 @@
 using System;
 
-namespace  Moscrif.IDE.Settings
+namespace  Moscrif.IDE.Option
 {
 	public class SecuritySample
 	{

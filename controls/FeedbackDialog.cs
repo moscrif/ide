@@ -1,6 +1,6 @@
 using System;
 using Moscrif.IDE.Iface.Entities;
-using Moscrif.IDE.Settings;
+using Moscrif.IDE.Option;
 using Moscrif.IDE.Iface;
 using Moscrif.IDE.Components;
 using System.IO;

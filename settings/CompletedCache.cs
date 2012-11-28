@@ -10,7 +10,7 @@ using Moscrif.IDE.Controls.SqlLite;
 using Mono.Data.Sqlite;
 using Moscrif.IDE.Tool;
 
-namespace Moscrif.IDE.Settings
+namespace Moscrif.IDE.Option
 {
 	public class CompletedCache
 	{

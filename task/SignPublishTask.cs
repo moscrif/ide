@@ -4,7 +4,7 @@ using System.IO;
 using Moscrif.IDE.Workspace;
 using Moscrif.IDE.Execution;
 using Moscrif.IDE.Tool;
-using Moscrif.IDE.Settings;
+using Moscrif.IDE.Option;
 using Moscrif.IDE.Iface.Entities;
 using Moscrif.IDE.Controls;
 using Moscrif.IDE.Devices;

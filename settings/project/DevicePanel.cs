@@ -10,7 +10,7 @@ using Moscrif.IDE.Iface.Entities;
 using Moscrif.IDE.Execution;
 using System.Text.RegularExpressions;
 
-namespace Moscrif.IDE.Settings
+namespace Moscrif.IDE.Option
 {
 	internal class DevicePanel : OptionsPanel
 	{

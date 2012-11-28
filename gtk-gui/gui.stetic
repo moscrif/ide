@@ -1884,7 +1884,7 @@ All Open Project</property>
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Dialog" id="Moscrif.IDE.Settings.PreferencesDialog" design-size="706 534">
+  <widget class="Gtk.Dialog" id="Moscrif.IDE.Option.PreferencesDialog" design-size="706 534">
     <property name="MemberName" />
     <property name="WindowPosition">Center</property>
     <property name="Buttons">2</property>
@@ -2027,7 +2027,7 @@ All Open Project</property>
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Bin" id="Moscrif.IDE.Settings.GlobalOptionsWidget2" design-size="618 419">
+  <widget class="Gtk.Bin" id="Moscrif.IDE.Option.GlobalOptionsWidget" design-size="618 419">
     <property name="MemberName" />
     <property name="Visible">False</property>
     <property name="GeneratePublic">False</property>
@@ -2358,7 +2358,7 @@ All Open Project</property>
           <widget class="Gtk.Notebook" id="notebook1">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
-            <property name="CurrentPage">1</property>
+            <property name="CurrentPage">0</property>
             <child>
               <widget class="Gtk.Frame" id="frame1">
                 <property name="MemberName" />
@@ -2662,7 +2662,7 @@ All Open Project</property>
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Bin" id="Moscrif.IDE.Settings.KeyBindingWidget" design-size="369 311">
+  <widget class="Gtk.Bin" id="Moscrif.IDE.Option.KeyBindingWidget" design-size="369 311">
     <property name="MemberName" />
     <property name="Visible">False</property>
     <child>
@@ -2857,7 +2857,7 @@ All Open Project</property>
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Bin" id="Moscrif.IDE.Settings.DevicesOptionsWidget" design-size="443 375">
+  <widget class="Gtk.Bin" id="Moscrif.IDE.Option.DevicesOptionsWidget" design-size="444 375">
     <property name="MemberName" />
     <property name="Visible">False</property>
     <child>
@@ -3648,7 +3648,7 @@ All Open Project</property>
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Bin" id="Moscrif.IDE.Settings.GlobalEditorWidget" design-size="476 300">
+  <widget class="Gtk.Bin" id="Moscrif.IDE.Option.GlobalEditorWidget" design-size="476 300">
     <property name="MemberName" />
     <property name="Visible">False</property>
     <child>
@@ -4032,7 +4032,7 @@ All Open Project</property>
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Bin" id="Moscrif.IDE.Settings.CompileWidget" design-size="300 300">
+  <widget class="Gtk.Bin" id="Moscrif.IDE.Option.CompileWidget" design-size="300 300">
     <property name="MemberName" />
     <property name="Visible">False</property>
     <child>
@@ -4230,7 +4230,7 @@ All Open Project</property>
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Bin" id="Moscrif.IDE.Settings.ProjectConditionsWidget" design-size="435 301">
+  <widget class="Gtk.Bin" id="Moscrif.IDE.Option.ProjectConditionsWidget" design-size="435 301">
     <property name="MemberName" />
     <property name="Visible">False</property>
     <child>
@@ -4479,7 +4479,7 @@ All Open Project</property>
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Bin" id="Moscrif.IDE.Settings.ApplicationWidget" design-size="300 300">
+  <widget class="Gtk.Bin" id="Moscrif.IDE.Option.ApplicationWidget" design-size="303 300">
     <property name="MemberName" />
     <property name="Visible">False</property>
     <child>
@@ -4543,7 +4543,7 @@ All Open Project</property>
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Bin" id="Moscrif.IDE.Settings.FileGeneralWidget" design-size="300 300">
+  <widget class="Gtk.Bin" id="Moscrif.IDE.Option.FileGeneralWidget" design-size="300 300">
     <property name="MemberName" />
     <property name="Visible">False</property>
     <child>
@@ -4764,7 +4764,7 @@ All Open Project</property>
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Bin" id="Moscrif.IDE.Settings.FileConditionsWidget" design-size="300 300">
+  <widget class="Gtk.Bin" id="Moscrif.IDE.Option.FileConditionsWidget" design-size="305 300">
     <property name="MemberName" />
     <property name="Visible">False</property>
     <child>
@@ -4783,7 +4783,7 @@ All Open Project</property>
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Bin" id="Moscrif.IDE.Settings.DirGeneralWidget" design-size="300 300">
+  <widget class="Gtk.Bin" id="Moscrif.IDE.Option.DirGeneralWidget" design-size="304 300">
     <property name="MemberName" />
     <property name="Visible">False</property>
     <child>
@@ -4966,7 +4966,7 @@ All Open Project</property>
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Bin" id="Moscrif.IDE.Settings.DirConditionsWidget" design-size="318 300">
+  <widget class="Gtk.Bin" id="Moscrif.IDE.Option.DirConditionsWidget" design-size="318 300">
     <property name="MemberName" />
     <property name="Visible">False</property>
     <child>
@@ -5030,7 +5030,7 @@ All Open Project</property>
           </widget>
           <packing>
             <property name="Position">1</property>
-            <property name="AutoSize">False</property>
+            <property name="AutoSize">True</property>
           </packing>
         </child>
         <child>
@@ -5039,7 +5039,7 @@ All Open Project</property>
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Bin" id="Moscrif.IDE.Settings.DeviceWidget" design-size="487 496">
+  <widget class="Gtk.Bin" id="Moscrif.IDE.Option.DeviceWidget" design-size="487 496">
     <property name="MemberName" />
     <property name="Visible">False</property>
     <child>
@@ -6842,7 +6842,7 @@ All Open Project</property>
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Bin" id="Moscrif.IDE.Settings.FilteringWidget" design-size="444 300">
+  <widget class="Gtk.Bin" id="Moscrif.IDE.Option.FilteringWidget" design-size="444 300">
     <property name="MemberName" />
     <property name="Visible">False</property>
     <child>
@@ -7089,7 +7089,7 @@ All Open Project</property>
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Bin" id="Moscrif.IDE.Settings.ImageEditorWidget" design-size="605 442">
+  <widget class="Gtk.Bin" id="Moscrif.IDE.Option.ImageEditorWidget" design-size="608 442">
     <property name="MemberName" />
     <property name="Visible">False</property>
     <child>
@@ -7387,7 +7387,7 @@ All Open Project</property>
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Bin" id="Moscrif.IDE.Settings.GeneralWidget" design-size="377 300">
+  <widget class="Gtk.Bin" id="Moscrif.IDE.Option.GeneralWidget" design-size="377 300">
     <property name="MemberName" />
     <property name="Visible">False</property>
     <child>
@@ -8007,7 +8007,7 @@ All Open Project</property>
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Bin" id="Moscrif.IDE.Settings.ResolutionOptionWidget" design-size="300 300">
+  <widget class="Gtk.Bin" id="Moscrif.IDE.Option.ResolutionOptionWidget" design-size="303 300">
     <property name="MemberName" />
     <property name="Visible">False</property>
     <child>
@@ -9817,6 +9817,333 @@ All Open Project</property>
             <property name="Position">2</property>
             <property name="Expand">False</property>
             <property name="Fill">False</property>
+          </packing>
+        </child>
+      </widget>
+    </child>
+  </widget>
+  <widget class="Gtk.Bin" id="Moscrif.IDE.Option.ProxyWidget" design-size="300 300">
+    <property name="MemberName" />
+    <property name="Visible">False</property>
+    <child>
+      <widget class="Gtk.Table" id="tblMain">
+        <property name="MemberName" />
+        <property name="NRows">5</property>
+        <property name="NColumns">2</property>
+        <property name="RowSpacing">6</property>
+        <property name="ColumnSpacing">6</property>
+        <child>
+          <placeholder />
+        </child>
+        <child>
+          <placeholder />
+        </child>
+        <child>
+          <placeholder />
+        </child>
+        <child>
+          <placeholder />
+        </child>
+        <child>
+          <placeholder />
+        </child>
+        <child>
+          <placeholder />
+        </child>
+        <child>
+          <widget class="Gtk.Frame" id="frmProxyConfiguration">
+            <property name="MemberName" />
+            <child>
+              <widget class="Gtk.Alignment" id="GtkAlignment">
+                <property name="MemberName" />
+                <property name="Xalign">0</property>
+                <property name="Yalign">0</property>
+                <property name="LeftPadding">12</property>
+                <child>
+                  <widget class="Gtk.Table" id="tbCustomlProxy">
+                    <property name="MemberName" />
+                    <property name="NRows">4</property>
+                    <property name="NColumns">2</property>
+                    <property name="RowSpacing">6</property>
+                    <property name="ColumnSpacing">6</property>
+                    <property name="BorderWidth">4</property>
+                    <child>
+                      <widget class="Gtk.Entry" id="entrName">
+                        <property name="MemberName" />
+                        <property name="CanFocus">True</property>
+                        <property name="IsEditable">True</property>
+                        <property name="InvisibleChar">●</property>
+                      </widget>
+                      <packing>
+                        <property name="TopAttach">2</property>
+                        <property name="BottomAttach">3</property>
+                        <property name="LeftAttach">1</property>
+                        <property name="RightAttach">2</property>
+                        <property name="XPadding">3</property>
+                        <property name="AutoSize">True</property>
+                        <property name="XOptions">Fill</property>
+                        <property name="YOptions">Fill</property>
+                        <property name="XExpand">False</property>
+                        <property name="XFill">True</property>
+                        <property name="XShrink">False</property>
+                        <property name="YExpand">False</property>
+                        <property name="YFill">True</property>
+                        <property name="YShrink">False</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <widget class="Gtk.Entry" id="entrPassword">
+                        <property name="MemberName" />
+                        <property name="CanFocus">True</property>
+                        <property name="IsEditable">True</property>
+                        <property name="InvisibleChar">●</property>
+                      </widget>
+                      <packing>
+                        <property name="TopAttach">3</property>
+                        <property name="BottomAttach">4</property>
+                        <property name="LeftAttach">1</property>
+                        <property name="RightAttach">2</property>
+                        <property name="XPadding">3</property>
+                        <property name="AutoSize">True</property>
+                        <property name="XOptions">Fill</property>
+                        <property name="YOptions">Fill</property>
+                        <property name="XExpand">False</property>
+                        <property name="XFill">True</property>
+                        <property name="XShrink">False</property>
+                        <property name="YExpand">False</property>
+                        <property name="YFill">True</property>
+                        <property name="YShrink">False</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <widget class="Gtk.Entry" id="entrProxy">
+                        <property name="MemberName" />
+                        <property name="CanFocus">True</property>
+                        <property name="IsEditable">True</property>
+                        <property name="InvisibleChar">●</property>
+                      </widget>
+                      <packing>
+                        <property name="LeftAttach">1</property>
+                        <property name="RightAttach">2</property>
+                        <property name="XPadding">3</property>
+                        <property name="AutoSize">True</property>
+                        <property name="XOptions">Fill</property>
+                        <property name="YOptions">Fill</property>
+                        <property name="XExpand">False</property>
+                        <property name="XFill">True</property>
+                        <property name="XShrink">False</property>
+                        <property name="YExpand">False</property>
+                        <property name="YFill">True</property>
+                        <property name="YShrink">False</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <widget class="Gtk.Label" id="label1">
+                        <property name="MemberName" />
+                        <property name="Xalign">0</property>
+                        <property name="LabelProp" translatable="yes">Address :</property>
+                      </widget>
+                      <packing>
+                        <property name="YPadding">5</property>
+                        <property name="AutoSize">True</property>
+                        <property name="XOptions">Fill</property>
+                        <property name="YOptions">Fill</property>
+                        <property name="XExpand">False</property>
+                        <property name="XFill">True</property>
+                        <property name="XShrink">False</property>
+                        <property name="YExpand">False</property>
+                        <property name="YFill">True</property>
+                        <property name="YShrink">False</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <widget class="Gtk.Label" id="label2">
+                        <property name="MemberName" />
+                        <property name="Xalign">0</property>
+                        <property name="LabelProp" translatable="yes">Port :</property>
+                      </widget>
+                      <packing>
+                        <property name="TopAttach">1</property>
+                        <property name="BottomAttach">2</property>
+                        <property name="AutoSize">True</property>
+                        <property name="XOptions">Fill</property>
+                        <property name="YOptions">Fill</property>
+                        <property name="XExpand">False</property>
+                        <property name="XFill">True</property>
+                        <property name="XShrink">False</property>
+                        <property name="YExpand">False</property>
+                        <property name="YFill">True</property>
+                        <property name="YShrink">False</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <widget class="Gtk.Label" id="label3">
+                        <property name="MemberName" />
+                        <property name="Xalign">0</property>
+                        <property name="LabelProp" translatable="yes">Name :</property>
+                      </widget>
+                      <packing>
+                        <property name="TopAttach">2</property>
+                        <property name="BottomAttach">3</property>
+                        <property name="AutoSize">True</property>
+                        <property name="XOptions">Fill</property>
+                        <property name="YOptions">Fill</property>
+                        <property name="XExpand">False</property>
+                        <property name="XFill">True</property>
+                        <property name="XShrink">False</property>
+                        <property name="YExpand">False</property>
+                        <property name="YFill">True</property>
+                        <property name="YShrink">False</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <widget class="Gtk.Label" id="label4">
+                        <property name="MemberName" />
+                        <property name="Xalign">0</property>
+                        <property name="LabelProp" translatable="yes">Password :</property>
+                      </widget>
+                      <packing>
+                        <property name="TopAttach">3</property>
+                        <property name="BottomAttach">4</property>
+                        <property name="AutoSize">True</property>
+                        <property name="XOptions">Fill</property>
+                        <property name="YOptions">Fill</property>
+                        <property name="XExpand">False</property>
+                        <property name="XFill">True</property>
+                        <property name="XShrink">False</property>
+                        <property name="YExpand">False</property>
+                        <property name="YFill">True</property>
+                        <property name="YShrink">False</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <widget class="Gtk.SpinButton" id="sbPort">
+                        <property name="MemberName" />
+                        <property name="CanFocus">True</property>
+                        <property name="Upper">1000000000</property>
+                        <property name="PageIncrement">10</property>
+                        <property name="StepIncrement">1</property>
+                        <property name="ClimbRate">1</property>
+                        <property name="Numeric">True</property>
+                      </widget>
+                      <packing>
+                        <property name="TopAttach">1</property>
+                        <property name="BottomAttach">2</property>
+                        <property name="LeftAttach">1</property>
+                        <property name="RightAttach">2</property>
+                        <property name="XPadding">3</property>
+                        <property name="AutoSize">True</property>
+                        <property name="XOptions">Fill</property>
+                        <property name="YOptions">Fill</property>
+                        <property name="XExpand">False</property>
+                        <property name="XFill">True</property>
+                        <property name="XShrink">False</property>
+                        <property name="YExpand">False</property>
+                        <property name="YFill">True</property>
+                        <property name="YShrink">False</property>
+                      </packing>
+                    </child>
+                  </widget>
+                </child>
+              </widget>
+            </child>
+            <child>
+              <widget class="Gtk.Label" id="GtkLabel3">
+                <property name="MemberName" />
+                <property name="LabelProp" translatable="yes">&lt;b&gt;Proxy Configuration&lt;/b&gt;</property>
+                <property name="UseMarkup">True</property>
+              </widget>
+              <packing>
+                <property name="type">label_item</property>
+              </packing>
+            </child>
+          </widget>
+          <packing>
+            <property name="TopAttach">3</property>
+            <property name="BottomAttach">4</property>
+            <property name="AutoSize">True</property>
+            <property name="XOptions">Fill</property>
+            <property name="YOptions">Fill</property>
+            <property name="XExpand">False</property>
+            <property name="XFill">True</property>
+            <property name="XShrink">False</property>
+            <property name="YExpand">False</property>
+            <property name="YFill">True</property>
+            <property name="YShrink">False</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.RadioButton" id="rbCustomProxy">
+            <property name="MemberName" />
+            <property name="CanFocus">True</property>
+            <property name="Label" translatable="yes">Manual proxy configuration</property>
+            <property name="Active">True</property>
+            <property name="DrawIndicator">True</property>
+            <property name="HasLabel">True</property>
+            <property name="UseUnderline">True</property>
+            <property name="Group">group1</property>
+            <signal name="Toggled" handler="OnRbCustomProxyToggled" />
+          </widget>
+          <packing>
+            <property name="TopAttach">2</property>
+            <property name="BottomAttach">3</property>
+            <property name="AutoSize">True</property>
+            <property name="XOptions">Fill</property>
+            <property name="YOptions">Fill</property>
+            <property name="XExpand">False</property>
+            <property name="XFill">True</property>
+            <property name="XShrink">False</property>
+            <property name="YExpand">False</property>
+            <property name="YFill">True</property>
+            <property name="YShrink">False</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.RadioButton" id="rbNoProxy">
+            <property name="MemberName" />
+            <property name="CanFocus">True</property>
+            <property name="Label" translatable="yes">No proxy</property>
+            <property name="DrawIndicator">True</property>
+            <property name="HasLabel">True</property>
+            <property name="UseUnderline">True</property>
+            <property name="Group">group1</property>
+            <signal name="Toggled" handler="OnRbNoProxyToggled" />
+          </widget>
+          <packing>
+            <property name="AutoSize">True</property>
+            <property name="XOptions">Fill</property>
+            <property name="YOptions">Fill</property>
+            <property name="XExpand">False</property>
+            <property name="XFill">True</property>
+            <property name="XShrink">False</property>
+            <property name="YExpand">False</property>
+            <property name="YFill">True</property>
+            <property name="YShrink">False</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.RadioButton" id="rbSystemProxy">
+            <property name="MemberName" />
+            <property name="CanFocus">True</property>
+            <property name="Label" translatable="yes">Use system proxy settings</property>
+            <property name="DrawIndicator">True</property>
+            <property name="HasLabel">True</property>
+            <property name="UseUnderline">True</property>
+            <property name="Group">group1</property>
+            <signal name="Toggled" handler="OnRbSystemProxyToggled" />
+          </widget>
+          <packing>
+            <property name="TopAttach">1</property>
+            <property name="BottomAttach">2</property>
+            <property name="AutoSize">True</property>
+            <property name="XOptions">Fill</property>
+            <property name="YOptions">Fill</property>
+            <property name="XExpand">False</property>
+            <property name="XFill">True</property>
+            <property name="XShrink">False</property>
+            <property name="YExpand">False</property>
+            <property name="YFill">True</property>
+            <property name="YShrink">False</property>
           </packing>
         </child>
       </widget>
