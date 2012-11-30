@@ -5,13 +5,13 @@ using Moscrif.IDE.Components;
 namespace Moscrif.IDE.Option
 {
 
-	internal class GlobalEditorPanel : OptionsPanel
+	internal class TextEditorPanel : OptionsPanel
 	{
-		GlobalEditorWidget widget;
+		TextEditorWidget widget;
 
 		public override Widget CreatePanelWidget()
 		{
-			return widget = new GlobalEditorWidget();
+			return widget = new TextEditorWidget();
 		}
 
 		public override void ApplyChanges()
@@ -43,9 +43,9 @@ namespace Moscrif.IDE.Option
 
 	}
 
-	public partial class GlobalEditorWidget : Gtk.Bin
+	public partial class TextEditorWidget : Gtk.Bin
 	{
-		public GlobalEditorWidget()
+		public TextEditorWidget()
 		{
 			this.Build();
 					if(MainClass.Settings.SourceEditorSettings == null){

@@ -166,7 +166,8 @@ namespace Moscrif.IDE.Editors
 		}
 
 		public event EventHandler<ModifiedChangedEventArgs> ModifiedChanged;
-		public event EventHandler<WriteStatusEventArgs> WriteStatusChange;					
+		public event EventHandler<WriteStatusEventArgs> WriteStatusChange;
+
 		#endregion
 
 		void OnModifiedChanged(bool newModified)

@@ -379,7 +379,6 @@ namespace Moscrif.IDE.Editors
 				WriteStatusChange(this, mchEventArg);
 		}
 
-
 		#endregion
 }
 

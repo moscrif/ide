@@ -30,7 +30,7 @@ namespace Moscrif.IDE.Option
 		}
 		
 		public override string Label {
-			get { return MainClass.Languages.Translate("proxy"); }
+			get { return MainClass.Languages.Translate("network"); }
 		}
 		
 		public override string Icon {
@@ -49,15 +49,15 @@ namespace Moscrif.IDE.Option
 			}
 
 			switch(MainClass.Settings.Proxy.ProxyType){
-				case 0:{
+				case Option.Settings.ProxySetting.ProxyTyp.NOPROXY:{
 					rbNoProxy.Active = true;
 					break;
 				}
-				case 1:{
+				case  Option.Settings.ProxySetting.ProxyTyp.SYSTEM:{
 					rbSystemProxy.Active = true;
 					break;
 				}
-				case 2:{
+				case  Option.Settings.ProxySetting.ProxyTyp.CUSTON:{
 					rbCustomProxy.Active = true;
 					break;
 				}
@@ -78,10 +78,10 @@ namespace Moscrif.IDE.Option
 		public void Store()
 		{
 			if(rbNoProxy.Active){
-				MainClass.Settings.Proxy.ProxyType = 0;
+				MainClass.Settings.Proxy.ProxyType = Option.Settings.ProxySetting.ProxyTyp.NOPROXY;
 
 			} else if ( rbCustomProxy.Active){
-				MainClass.Settings.Proxy.ProxyType = 2;
+				MainClass.Settings.Proxy.ProxyType = Option.Settings.ProxySetting.ProxyTyp.CUSTON;
 				MainClass.Settings.Proxy.Name= entrName.Text;
 				MainClass.Settings.Proxy.Password= entrPassword.Text;
 				MainClass.Settings.Proxy.Proxy= entrProxy.Text;
@@ -89,7 +89,7 @@ namespace Moscrif.IDE.Option
 				MainClass.Settings.Proxy.Port= (int)sbPort.Value;
 
 			} else {
-				MainClass.Settings.Proxy.ProxyType = 1;
+				MainClass.Settings.Proxy.ProxyType = Option.Settings.ProxySetting.ProxyTyp.SYSTEM;
 			}
 
 		}

@@ -32,6 +32,7 @@ namespace Moscrif.IDE.Option
 			this.tblMain.Name = "tblMain";
 			this.tblMain.RowSpacing = ((uint)(6));
 			this.tblMain.ColumnSpacing = ((uint)(6));
+			this.tblMain.BorderWidth = ((uint)(2));
 			// Container child tblMain.Gtk.Table+TableChild
 			this.frmProxyConfiguration = new global::Gtk.Frame ();
 			this.frmProxyConfiguration.Name = "frmProxyConfiguration";

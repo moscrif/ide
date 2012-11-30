@@ -134,6 +134,7 @@ show_denied = Show all
 hide_denied  = Show revelant
 
 proxy = Proxy
+network = Network
 
 location_workspace = Workspace
 location_application = Application

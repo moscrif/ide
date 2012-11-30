@@ -72,7 +72,7 @@ namespace Moscrif.IDE.Controls
 				this.Child.ShowAll ();
 			}
 			this.DefaultWidth = 664;
-			this.DefaultHeight = 460;
+			this.DefaultHeight = 461;
 			this.Show ();
 			this.btnResetMatrix.Clicked += new global::System.EventHandler (this.OnButton12Clicked);
 			this.buttonOk.Clicked += new global::System.EventHandler (this.OnButtonOkClicked);

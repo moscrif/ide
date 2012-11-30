@@ -247,7 +247,7 @@ namespace Moscrif.IDE.Controls
 				this.Child.ShowAll ();
 			}
 			this.DefaultWidth = 447;
-			this.DefaultHeight = 308;
+			this.DefaultHeight = 303;
 			this.vbox3.Hide ();
 			this.trmProject.Hide ();
 			this.Show ();

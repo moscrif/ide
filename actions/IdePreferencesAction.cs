@@ -19,12 +19,9 @@ namespace  Moscrif.IDE.Actions
 			int result = pd.Run();
 			if (result == (int)ResponseType.Ok) {
 
-
 				MainClass.Settings.SaveSettings();
-
 				MainClass.MainWindow.ReloadSettings(true);
-				//string fileName = nfd.FileName;
-				//MainClass.MainWindow.CreateFile(fileName);
+			
 			}
 			pd.Destroy();
 		}

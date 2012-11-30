@@ -186,7 +186,7 @@ namespace Moscrif.IDE.Controls
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
-			this.DefaultWidth = 256;
+			this.DefaultWidth = 260;
 			this.DefaultHeight = 260;
 			this.Show ();
 			this.buttonOk.Clicked += new global::System.EventHandler (this.OnButtonOkClicked);

@@ -29,11 +29,26 @@ namespace Moscrif.IDE.Components
 		public StartEventControl()
 		{
 			try{
+
 				string file = System.IO.Path.Combine(MainClass.Paths.ResDir, "background.png");
 				if(File.Exists(file))
 					bgPixbuf = new Gdk.Pixbuf (file);
 	
 				this.Build();
+			   
+				this.Events = EventMask.AllEventsMask;
+				this.ConfigureEvent+= delegate(object o, ConfigureEventArgs args) {
+					Console.WriteLine("ConfigureEvent");
+				};
+
+				this.ResizeChecked+= delegate(object sender, EventArgs e) {
+					Console.WriteLine("ResizeChecked");
+				};
+
+				this.ScreenChanged+= delegate(object o, ScreenChangedArgs args) {
+					Console.WriteLine("ScreenChanged");
+				};
+
 				bannerImage.WidthRequest = 400;
 				bannerImage.HeightRequest = 120;
 				table1.Attach(bannerImage,1,2,0,1,AttachOptions.Fill,AttachOptions.Shrink,0,0);
@@ -52,7 +67,6 @@ namespace Moscrif.IDE.Components
 				lblProject.ModifyFg (Gtk.StateType.Normal, new Color(90,100,110));
 				lblAccount.ModifyFg (Gtk.StateType.Normal, new Color(90,100,110));
 				lbRecent.ModifyFg (Gtk.StateType.Normal, new Color(90,100,110));
-
 
 				Pango.FontDescription customFont = lblTwiter.Style.FontDescription.Copy();//  Pango.FontDescription.FromString(MainClass.Settings.ConsoleTaskFont);
 				customFont.Size = customFont.Size+(int)(customFont.Size/2);//24
@@ -139,7 +153,8 @@ namespace Moscrif.IDE.Components
 	
 				getRecentWorkspace();
 	
-				getSamples();
+				//getSamples();
+
 				filllStartPageThread = new Thread(new ThreadStart(FilllStartPage));
 				//filllStartPageThread.Priority = ThreadPriority.Normal;
 				filllStartPageThread.Name = "FilllStartPage";
@@ -190,12 +205,43 @@ namespace Moscrif.IDE.Components
 			}
 		}
 
-		protected override bool OnMotionNotifyEvent(Gdk.EventMotion evnt)
+		protected override void OnRealized()
 		{
+			base.OnRealized();
+			getSamples();
+			Console.WriteLine("REALIZE");
+			int xx, yy, w, h, d = 0;
+			this.ParentWindow.GetGeometry(out xx, out yy, out w, out h, out d);
+			
+			Console.WriteLine("w X h: {0}; {1} ",w,h);
+			
+			int count = w/140;
+			Console.WriteLine("count "+count);
+			
+			Console.WriteLine("this.Allocation.Width "+this.Allocation.Width);
+			
+			this.GetSizeRequest(out w,out h);
+			Console.WriteLine("w X h: {0}; {1} ",w,h); 
+		}
 
+		protected override void OnMapped()
+		{
+			base.OnMapped();
+			Console.WriteLine("MAPPED");
+			int xx, yy, w, h, d = 0;
+			this.ParentWindow.GetGeometry(out xx, out yy, out w, out h, out d);
+			
+			Console.WriteLine("w X h: {0}; {1} ",w,h);
+			
+			int count = w/140;
+			Console.WriteLine("count "+count);
+			
+			Console.WriteLine("this.Allocation.Width "+this.Allocation.Width);
+			
+			this.GetSizeRequest(out w,out h);
+			Console.WriteLine("w X h: {0}; {1} ",w,h); 
 
-			return base.OnMotionNotifyEvent(evnt);
-		} 
+		}
 
 		private void LoadDefaultBanner(){
 			//hbMenuRight
@@ -300,6 +346,21 @@ namespace Moscrif.IDE.Components
 		}
 
 		private void getSamples(){
+
+			int xx, yy, w, h, d = 0;
+			this.ParentWindow.GetGeometry(out xx, out yy, out w, out h, out d);
+
+			Console.WriteLine("w X h: {0}; {1} ",w,h);
+
+			int count = w/140;
+			Console.WriteLine("count "+count);
+
+			/*Console.WriteLine("this.Allocation.Width "+this.Allocation.Width);
+
+			this.GetSizeRequest(out w,out h);
+			Console.WriteLine("w X h: {0}; {1} ",w,h); 
+			*/
+
 			string defaultIcon =  System.IO.Path.Combine(MainClass.Paths.ResDir,"logo96.png");
 			DirectoryInfo dir = new DirectoryInfo(MainClass.Paths.SampleDir);
 			
@@ -308,7 +369,7 @@ namespace Moscrif.IDE.Components
 			lbGM.Icon = defaultIcon;
 			lbGM.Label =MainClass.Languages.Translate("more_sample_label");
 			lbGM.LinkUrl =MainClass.Settings.SamplesBaseUrl;
-			lbGM.WidthRequest = 53;
+			lbGM.WidthRequest = 140;
 			//lbGM.Description =MainClass.Languages.Translate("more_sample_tt");
 			
 			WebButton lbOS = new WebButton();
@@ -317,8 +378,7 @@ namespace Moscrif.IDE.Components
 			//lbOS.Description =MainClass.Languages.Translate("open_sample_tt");
 			
 			if (!dir.Exists ){
-				tblSamples.Attach(lbGM,(uint)0,(uint)1,(uint)(0),(uint)(1),AttachOptions.Fill,AttachOptions.Shrink,0,0);
-				
+				tblSamples.Attach(lbGM,(uint)0,(uint)1,(uint)(0),(uint)(1),AttachOptions.Fill,AttachOptions.Shrink,0,0);				
 				return;
 			}
 			
@@ -342,11 +402,6 @@ namespace Moscrif.IDE.Components
 				//if(!File.Exists(zipFile)) continue;
 				string  txtFile = System.IO.Path.Combine(di.FullName,di.Name+".txt");
 				
-				//FileInfo[] zipFile = di.GetFiles(di.Name+".zip",SearchOption.TopDirectoryOnly);
-				//FileInfo[] txtFile = di.GetFiles(di.Name+".txt",SearchOption.TopDirectoryOnly);
-				//FileInfo[] pngFile = di.GetFiles(di.Name+".png",SearchOption.TopDirectoryOnly);
-				
-				//if (zipFile.Length < 1 ) continue;
 
 				LinkImageButton lb = new LinkImageButton();
 				lb.Label = System.IO.Path.GetFileName(di.Name);
@@ -380,10 +435,15 @@ namespace Moscrif.IDE.Components
 			
 				if (pngFile.Length > 0){
 
-					//btn.Image = new Gtk.Image(pngFile);
-					lb.Icon =pngFile;
+					if(File.Exists(pngFile))
+						lb.Icon =pngFile;
+					else 
+						lb.Icon = defaultIcon;
+				}else {
+					lb.Icon = defaultIcon;
 				}
-				lb.WidthRequest = 53;
+
+				lb.WidthRequest = 140;
 				string fileName = zipFile;
 				lb.Clicked+= delegate(object sender, EventArgs e) {
 					
@@ -401,7 +461,8 @@ namespace Moscrif.IDE.Components
 				
 				no++;
 				x++;
-				if(x>4){
+				//if(x>4){
+				if(x>=count-1){
 					break;
 				}
 

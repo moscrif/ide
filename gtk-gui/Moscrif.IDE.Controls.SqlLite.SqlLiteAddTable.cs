@@ -164,7 +164,7 @@ namespace Moscrif.IDE.Controls.SqlLite
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
-			this.DefaultWidth = 400;
+			this.DefaultWidth = 408;
 			this.DefaultHeight = 300;
 			this.Show ();
 			this.btnDeleteField.Clicked += new global::System.EventHandler (this.OnBtnDeleteFieldClicked);

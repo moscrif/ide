@@ -11,17 +11,17 @@ namespace Moscrif.IDE.Iface
 	{
 		public SystemWebClient():base()
 		{
-			//Fix ERROR The remote server returned an error: (417) Expectation failed.
+		//Fix ERROR The remote server returned an error: (417) Expectation failed.
 		System.Net.ServicePointManager.Expect100Continue = false;
 
 		if(MainClass.Settings!=null){
 			if(MainClass.Settings.Proxy!=null){
-				if(MainClass.Settings.Proxy.ProxyType==0){
+					if(MainClass.Settings.Proxy.ProxyType== Option.Settings.ProxySetting.ProxyTyp.NOPROXY ){
 					this.Proxy = null;
-				} else if(MainClass.Settings.Proxy.ProxyType==1){
-					//WebProxy wp =  WebRequest.DefaultWebProxy ;
+					} else if(MainClass.Settings.Proxy.ProxyType== Option.Settings.ProxySetting.ProxyTyp.SYSTEM){
+					//WebRequest.DefaultWebProxy ;
 					//WebRequest.GetSystemWebProxy();
-				} else if(MainClass.Settings.Proxy.ProxyType==2){
+					} else if(MainClass.Settings.Proxy.ProxyType==Option.Settings.ProxySetting.ProxyTyp.CUSTON){
 					WebProxy wp = new WebProxy(MainClass.Settings.Proxy.Proxy,MainClass.Settings.Proxy.Port);
 					if(!String.IsNullOrEmpty(MainClass.Settings.Proxy.Name)){
 						wp.Credentials = new NetworkCredential(MainClass.Settings.Proxy.Name, MainClass.Settings.Proxy.Password);

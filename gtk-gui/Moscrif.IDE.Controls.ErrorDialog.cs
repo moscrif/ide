@@ -130,7 +130,7 @@ namespace Moscrif.IDE.Controls
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
-			this.DefaultWidth = 604;
+			this.DefaultWidth = 599;
 			this.DefaultHeight = 356;
 			this.Show ();
 		}

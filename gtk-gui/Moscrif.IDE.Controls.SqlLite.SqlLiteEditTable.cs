@@ -174,7 +174,7 @@ namespace Moscrif.IDE.Controls.SqlLite
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
-			this.DefaultWidth = 400;
+			this.DefaultWidth = 398;
 			this.DefaultHeight = 300;
 			this.Show ();
 			this.btnRenameTable.Clicked += new global::System.EventHandler (this.OnBtnRenameTableClicked);

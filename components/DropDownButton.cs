@@ -63,6 +63,15 @@ namespace Moscrif.IDE.Components
 			public ComboItem FindItem(string label){
 				return this.Find(x=>x.Label == label);
 			}
+			public ComboItem FindItemByValue(object val){
+				//return this.Find(x=>x.Item == val);
+				foreach(ComboItem ci in this ){
+					if(ci.Item.Equals(val)){
+						return ci;
+					}
+				}
+				return null;
+			}
 		}
 		
 		public class ChangedEventArgs: EventArgs
@@ -150,6 +159,17 @@ namespace Moscrif.IDE.Components
 				else args.Item = null;
 
 				Changed (this, args);
+			}
+		}
+
+		public void SelectValue (ComboItemSet iset, object item)
+		{
+			if(item != null){
+				ComboItem ci = iset.FindItemByValue(item);
+				if(ci!= null){
+					SelectItem(iset,ci);
+					return;
+				}
 			}
 		}
 

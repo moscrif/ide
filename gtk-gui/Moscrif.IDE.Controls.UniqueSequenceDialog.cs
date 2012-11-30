@@ -121,7 +121,7 @@ namespace Moscrif.IDE.Controls
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
-			this.DefaultWidth = 470;
+			this.DefaultWidth = 476;
 			this.DefaultHeight = 339;
 			this.Show ();
 			this.tvInput.KeyReleaseEvent += new global::Gtk.KeyReleaseEventHandler (this.OnTvInputKeyReleaseEvent);

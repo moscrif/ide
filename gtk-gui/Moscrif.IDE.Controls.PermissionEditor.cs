@@ -85,7 +85,7 @@ namespace Moscrif.IDE.Controls
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
-			this.DefaultWidth = 750;
+			this.DefaultWidth = 747;
 			this.DefaultHeight = 491;
 			this.Show ();
 			this.tvPermission.PasteClipboard += new global::System.EventHandler (this.OnTvPermissionPasteClipboard);

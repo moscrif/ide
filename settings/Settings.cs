@@ -200,6 +200,10 @@ namespace  Moscrif.IDE.Option
 		[XmlArrayItem("view")]
 		public List<LogicalSystem> LogicalSort = null;
 
+		[XmlArrayAttribute("extensionList")]
+		[XmlArrayItem("extension")]
+		public List<ExtensionSetting> ExtensionList;
+
 		[XmlElement("resolution")]
 		public Condition Resolution;
 
@@ -436,16 +440,16 @@ namespace  Moscrif.IDE.Option
 				GenerateResolution();
 			}
 
-			if ((IgnoresFolders == null)) GenerateIgnoreFolder();
-			if ((IgnoresFiles == null)) GenerateIgnoreFiles();
-
-			if ((DisplayOrientations == null)) GenerateOrientations();
-			if ((InstallLocations == null)) GenerateInstallLocation();
-			if ((OSSupportedDevices == null)) GenerateOSSupportedDevices();
-			if ((PlatformResolutions == null)) GeneratePlatformResolutions();
-			if ((ApplicationType == null)) GenerateApplicationType();
-			if ((AndroidSupportedDevices == null)) GenerateAndroidSupportedDevices();
-			//if ((LibsDefine == null)) GenerateLibs();
+			if (IgnoresFolders == null) GenerateIgnoreFolder();
+			if (IgnoresFiles == null) GenerateIgnoreFiles();
+			if (ExtensionList == null) GenerateExtensionList();
+			if (DisplayOrientations == null) GenerateOrientations();
+			if (InstallLocations == null) GenerateInstallLocation();
+			if (OSSupportedDevices == null) GenerateOSSupportedDevices();
+			if (PlatformResolutions == null) GeneratePlatformResolutions();
+			if (ApplicationType == null) GenerateApplicationType();
+			if (AndroidSupportedDevices == null) GenerateAndroidSupportedDevices();
+			//if(LibsDefine == null)) GenerateLibs();
 
 			//VersionSetting = 111202;
 
@@ -478,6 +482,7 @@ namespace  Moscrif.IDE.Option
 							s.LogicalSort = LogicalSystem.GetDefaultLogicalSystem();
 						}
 
+
 						if ((s.Resolution == null) || ((s.Resolution.Rules.Count <1 )) ){
 							s.GenerateResolution();
 						} else {
@@ -489,6 +494,10 @@ namespace  Moscrif.IDE.Option
 						if ((s.IgnoresFolders == null) || (s.IgnoresFolders.Count<1)){
 							s.GenerateIgnoreFolder();
 						}
+						if((s.ExtensionList == null)||(s.ExtensionList.Count<1)){
+							s.GenerateExtensionList();
+						}
+
 						if ((s.IgnoresFiles == null) || (s.IgnoresFiles.Count<1)){
 							s.GenerateIgnoreFiles();
 						}
@@ -668,22 +677,76 @@ namespace  Moscrif.IDE.Option
 			public BackgroundColors SelectPointColor;
 		}
 
+		public class ExtensionSetting
+		{
+			public ExtensionSetting(){
+			}
+
+			public ExtensionSetting(string extension, OpenTyp typ){
+				Extension = extension;
+				OpenType = typ;
+				ExternalProgram="";
+			}
+			
+			public enum OpenTyp{
+				[XmlEnum("0")]
+				TEXT = 0,
+				[XmlEnum("1")]
+				IMAGE = 1,
+				[XmlEnum("2")]
+				DATABASE = 2,
+				[XmlEnum("-1")]
+				SYSTEM = -1,
+				[XmlEnum("-2")]
+				EXTERNAL = -2
+			}
+
+			[XmlAttribute("openType")]
+			public OpenTyp OpenType;
+			
+			[XmlAttribute("Extension")]
+			public string Extension;
+			
+			[XmlAttribute("externalProgram")]
+			public string ExternalProgram;
+			
+			[XmlAttribute("parameter")]
+			public string Parameter;
+
+			[XmlIgnore]
+			List<string> Extensions{
+				get{
+					string[] exts = Extension.Split(' ',',');
+
+					List<string> extensions = new List<string>(exts);
+
+					return extensions;
+				}
+			}
+		}
+
+
 		public class ProxySetting
 		{
 			public ProxySetting(){
-				ProxyType = 1;
+				ProxyType = ProxyTyp.SYSTEM;
 				Proxy="";
 				Password="";
 			}
-			
-			/*public enum ProxyTyp{
+
+
+			public enum ProxyTyp{
+				[XmlEnum("0")]
 				NOPROXY = 0,
+				[XmlEnum("1")]
 				SYSTEM = 1,
+				[XmlEnum("2")]
 				CUSTON = 2
-			}*/
+			}
+
 
 			[XmlAttribute("proxyType")]
-			public int ProxyType;
+			public ProxyTyp ProxyType;
 
 			[XmlAttribute("proxy")]
 			public string Proxy;
@@ -941,6 +1004,13 @@ namespace  Moscrif.IDE.Option
 			IgnoresFiles.Add(new IgnoreFolder("Thumbs.db",true,true));
 		}
 
+
+		public void GenerateExtensionList(){
+			ExtensionList = new List<ExtensionSetting>();
+			ExtensionList.Add(new ExtensionSetting(".xml,.ms,.mso,.txt,.tab,.app",ExtensionSetting.OpenTyp.TEXT ));
+			ExtensionList.Add(new ExtensionSetting(".png,.jpg,.bmp",ExtensionSetting.OpenTyp.IMAGE));
+			ExtensionList.Add(new ExtensionSetting(".db",ExtensionSetting.OpenTyp.DATABASE));
+		}
 
 		public void GenerateIgnoreFolder(){
 			IgnoresFolders = new List<IgnoreFolder>();

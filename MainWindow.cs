@@ -95,8 +95,8 @@ public partial class MainWindow : Gtk.Window
 
 	public MainWindow(string[] arguments): base(Gtk.WindowType.Toplevel)
 	{
-		this.HeightRequest = this.Screen.Height;
-		this.WidthRequest = this.Screen.Width;
+		this.HeightRequest = this.Screen.Height;//-50;
+		this.WidthRequest = this.Screen.Width;//-50;
 
 		bool showSplash = true;
 		bool openFileFromArg = false;
@@ -577,6 +577,7 @@ public partial class MainWindow : Gtk.Window
 		BannerThread.Name = "BannerThread";
 		BannerThread.IsBackground = true;
 		BannerThread.Start();
+	
 	}
 	
 	private void LoadDefaultBanner(){
@@ -1641,8 +1642,6 @@ public partial class MainWindow : Gtk.Window
 			return null;
 
 		Project p = MainClass.Workspace.CloseProject(appname);
-
-		TreeIter iter = new TreeIter();
 
 		DropDownButton.ComboItem findProject =projectItems.FindItem(p.ProjectName);
 		if(findProject != null ){

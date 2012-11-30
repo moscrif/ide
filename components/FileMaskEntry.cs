@@ -22,7 +22,6 @@ namespace Moscrif.IDE.Components
 		public event EventHandler PathChanged;
 
 		public FileMaskEntry (List<string> mask, object parent): this (mask, parent,MainClass.MainWindow){}
-		//public FileMaskEntry (List<string> mask, object parent,Gtk.Window parentWindow): this (mask, parent,parentWindow){}
 
 		public FileMaskEntry (List<string> mask, object parent,Gtk.Window parentWindow): base (false, 6)//(string name, bool isFolder) : base (false, 6)
 		{

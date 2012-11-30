@@ -281,7 +281,6 @@ namespace Moscrif.IDE.Task
 		}
 
 		private string messageError;
-		private TaskMessage oldTaskMessage;
 		private bool isLog; // novy text
 		private bool isOldLog; // predchadzajuci text
 

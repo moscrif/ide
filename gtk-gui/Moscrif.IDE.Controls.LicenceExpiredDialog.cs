@@ -57,7 +57,7 @@ namespace Moscrif.IDE.Controls
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
-			this.DefaultWidth = 373;
+			this.DefaultWidth = 375;
 			this.DefaultHeight = 131;
 			this.Show ();
 			this.btnBuyNow.Clicked += new global::System.EventHandler (this.OnBtnBuyNowClicked);

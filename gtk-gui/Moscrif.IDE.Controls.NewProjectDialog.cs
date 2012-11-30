@@ -95,7 +95,7 @@ namespace Moscrif.IDE.Controls
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
-			this.DefaultWidth = 400;
+			this.DefaultWidth = 396;
 			this.DefaultHeight = 189;
 			this.Show ();
 			this.entry3.KeyReleaseEvent += new global::Gtk.KeyReleaseEventHandler (this.OnEntry3KeyReleaseEvent);

@@ -111,15 +111,9 @@ namespace Moscrif.IDE.Option
 		// ked n ieje adresar vpublis-dir tak znepristupnit !!!!!!
 		private DevicePropertyData dpd;
 		private SkinThemeControl skinThemeControl;
-
-		//displey name, full path, is selected, location (workspace,app), publish path
 		Gtk.ListStore fontListStore = new Gtk.ListStore(typeof(string), typeof(string), typeof(bool),typeof(string),typeof(string));
-		//Gtk.ListStore skinListStore = new Gtk.ListStore(typeof(string), typeof(string));
-		//Gtk.ListStore themeListStore = new Gtk.ListStore(typeof(string), typeof(string));
 		Gtk.Window parentWindow;
 		List<string> fonts = new List<string>();
-
-		//Gtk.Menu popupCondition = new Gtk.Menu();
 
 		private PublishProperty FindPublishProperty(List<PublishProperty> ppArray, string name)
 		{

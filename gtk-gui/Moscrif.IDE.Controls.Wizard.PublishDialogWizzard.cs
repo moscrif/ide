@@ -122,7 +122,7 @@ namespace Moscrif.IDE.Controls.Wizard
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
-			this.DefaultWidth = 738;
+			this.DefaultWidth = 742;
 			this.DefaultHeight = 482;
 			this.Show ();
 			this.btnCancel.Clicked += new global::System.EventHandler (this.OnBtnCancelClicked);

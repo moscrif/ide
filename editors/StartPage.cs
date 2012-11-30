@@ -141,12 +141,13 @@ namespace Moscrif.IDE.Editors
 			get {return editorAction;}
 		}
 
+		public event EventHandler<ModifiedChangedEventArgs> ModifiedChanged;
+		public event EventHandler<WriteStatusEventArgs> WriteStatusChange;
+
 		public void ActivateEditor(bool updateStatus){
 
 		}
 
-		public event EventHandler<ModifiedChangedEventArgs> ModifiedChanged;
-		public event EventHandler<WriteStatusEventArgs> WriteStatusChange;						
 		#endregion
 
 		void OnModifiedChanged(bool newModified)

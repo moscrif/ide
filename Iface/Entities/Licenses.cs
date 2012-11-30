@@ -80,7 +80,6 @@ namespace Moscrif.IDE.Iface.Entities
 		public License()
 		{
 		}
-		private Gdk.Pixbuf bannerPixbuf;
 
 		public static License LoadLicense(string data){
 			try {

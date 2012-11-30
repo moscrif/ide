@@ -20,13 +20,6 @@ namespace Moscrif.IDE.Option
 		{
 			this.Build(); 
 
-			//this.Resizable = true;
-
-			/*this.DefaultWidth =  650;
-			this.DefaultHeight = 500;*/
-			/*this.WidthRequest =  650;
-			this.HeightRequest = 500;*/
-			
 			this.TransientFor = MainClass.MainWindow;
 			this.Title = title;
 
@@ -39,7 +32,7 @@ namespace Moscrif.IDE.Option
 		public PreferencesDialog(TypPreferences typ,string title)
 		{
 			this.Build();
-			//this.Resizable = false;
+
 			this.TransientFor = MainClass.MainWindow;
 			this.Title = title;
 
@@ -62,12 +55,10 @@ namespace Moscrif.IDE.Option
 			col.PackStart(crp, false);
 			col.AddAttribute(crp, "stock-id", 1);
 			col.AddAttribute(crp, "visible", 3);
-			//col.AddAttribute(crp, "cell-background", 4);
 			col.AddAttribute(crp, "sensitive", 4);
 			CellRendererText crt = new CellRendererText();
 			col.PackStart(crt, true);
 			col.AddAttribute(crt, "markup", 2);
-			//col.AddAttribute(crt, "cell-background", 4);
 			col.AddAttribute(crt, "sensitive", 4);
 
 			tvCategory.AppendColumn(col);
@@ -312,10 +303,10 @@ namespace Moscrif.IDE.Option
 			emulator.Widget = emulator.Panel.CreatePanelWidget();
 			list.Add(emulator);
 
-			SettingPanel globEditor = new SettingPanel();
-			globEditor.Panel = new GlobalEditorPanel();
-			globEditor.Widget = globEditor.Panel.CreatePanelWidget();
-			list.Add(globEditor);
+			SettingPanel textEditor = new SettingPanel();
+			textEditor.Panel = new TextEditorPanel();
+			textEditor.Widget = textEditor.Panel.CreatePanelWidget();
+			list.Add(textEditor);
 
 			SettingPanel imageEditorSetting = new SettingPanel();
 			imageEditorSetting.Panel = new ImageEditorPanel();
@@ -339,6 +330,11 @@ namespace Moscrif.IDE.Option
 			proxyPannel.Panel.Initialize(this, null);
 			proxyPannel.Widget = proxyPannel.Panel.CreatePanelWidget();
 			list.Add(proxyPannel);
+
+			SettingPanel editorEditor = new SettingPanel();
+			editorEditor.Panel = new EditorPanel();
+			editorEditor.Widget = editorEditor.Panel.CreatePanelWidget();
+			list.Add(editorEditor);
 
 			return list;
 		}

@@ -65,7 +65,7 @@ namespace Moscrif.IDE.Controls
 				this.Child.ShowAll ();
 			}
 			this.DefaultWidth = 613;
-			this.DefaultHeight = 300;
+			this.DefaultHeight = 301;
 			this.Show ();
 			this.tvFiles.RowActivated += new global::Gtk.RowActivatedHandler (this.OnTvFilesRowActivated);
 			this.buttonOk.Clicked += new global::System.EventHandler (this.OnButtonOkClicked);

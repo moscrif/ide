@@ -185,7 +185,7 @@ namespace Moscrif.IDE.Editors
 			listEditor.Add(se);
 			
 			NotebookEditorLabel nl = new NotebookEditorLabel(this, se);
-			
+
 			int i = this.AppendPage(se.Control, nl);
 
 			se.ModifiedChanged += delegate(object sender, ModifiedChangedEventArgs e) {

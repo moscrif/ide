@@ -100,7 +100,6 @@ namespace Moscrif.IDE.Option
 					Save(true);
 				}
 
-				//ResolutionDisplay dd =GetSelectedDevicesDisplay();
 				selectedResolDisplay = GetSelectedDevicesDisplay();
 				if (selectedResolDisplay == null ) return;
 

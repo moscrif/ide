@@ -407,7 +407,7 @@ namespace Moscrif.IDE.Controls.Wizard
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
-			this.DefaultWidth = 569;
+			this.DefaultWidth = 564;
 			this.DefaultHeight = 383;
 			this.Show ();
 			this.btnBack.Clicked += new global::System.EventHandler (this.OnBtnBackClicked);
