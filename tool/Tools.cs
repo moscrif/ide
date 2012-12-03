@@ -60,14 +60,19 @@ namespace Moscrif.IDE.Tool
 			return stockIcon;
 		}
 
-		public bool IsOpenedEditorFiles(string path){
+		public Option.Settings.ExtensionSetting FindFileTyp(string extension){
+			if(MainClass.Settings.ExtensionList== null || MainClass.Settings.ExtensionList.Count<1){
+				MainClass.Settings.GenerateExtensionList();
+			}
 
-			string ext = System.IO.Path.GetExtension(path);
-			if(validExtension.FindIndex(x=>x == ext) >-1)
-				return true;
-			else return false;
-
-
+			foreach(Option.Settings.ExtensionSetting es in MainClass.Settings.ExtensionList){
+				foreach(string str in es.Extensions){
+					if(str.ToLower() == extension.ToLower()){
+						return es;
+					}
+				}
+			}
+			return null;
 		}
 
 		/// <summary>

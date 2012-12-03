@@ -714,7 +714,7 @@ namespace  Moscrif.IDE.Option
 			public string Parameter;
 
 			[XmlIgnore]
-			List<string> Extensions{
+			public List<string> Extensions{
 				get{
 					string[] exts = Extension.Split(' ',',');
 

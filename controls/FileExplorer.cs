@@ -433,15 +433,12 @@ namespace Moscrif.IDE.Controls
 		}
 
 		private void OpenFile(string path){
-
-
-			if(MainClass.Tools.IsOpenedEditorFiles(path)){
+			//if(MainClass.Tools.IsOpenedEditorFiles(path)){
 				MainClass.MainWindow.OpenFile(path,true);
-			} else {
+			//} else {
 
-				System.Diagnostics.Process.Start ("file://" + path);
-			}
-
+			//	System.Diagnostics.Process.Start ("file://" + path);
+			//}
 		}
 
 

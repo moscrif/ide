@@ -21,7 +21,6 @@ namespace Moscrif.IDE.Editors
 		private List<IEditor> listEditor = null;
 		private SearchPattern searchPatern = null;
 		public bool OnLoadFinish = false;
-		//Thread filllStartPageThread;
 
 		public event PageIsChangedHandler PageIsChanged;
 
@@ -118,35 +117,65 @@ namespace Moscrif.IDE.Editors
 
 		public IEditor Open(string path)
 		{
-			//Console.WriteLine(path);
 			string extension = System.IO.Path.GetExtension(path);
-			/*if (path.StartsWith("http://")){
-				extension = ".html";
-			} else*/
 			if (!System.IO.File.Exists(path) && (path != "StartPage") ){
 				MessageDialogs md = new MessageDialogs(MessageDialogs.DialogButtonType.Ok, MainClass.Languages.Translate("file_not_exist"), path, MessageType.Error,null);
 				md.ShowDialog();
 				return null;
 			}
+
 			string ext = System.IO.Path.GetExtension(path);
-			if(ext.ToLower() ==".ttf"){
+
+			/*if(ext.ToLower() ==".ttf"){
 				if (!String.IsNullOrEmpty(path)){
 					System.Diagnostics.Process.Start(path);
 				}
 				return null;
-			}
-
+			}*/
 			IEditor se = FindEditor(path);
 			if (se != null) {
 				this.CurrentPage = this.PageNum(se.Control);
 				return null;
 			}
-			try {
+
+			Option.Settings.ExtensionSetting exSet =MainClass.Tools.FindFileTyp(ext);
+			if(exSet == null){
 				if (path == "StartPage"){
 					se = new StartPage(path);
-				} else {
+					//return null;
+				} else {//	if (!String.IsNullOrEmpty(path)){
+					System.Diagnostics.Process.Start(path);
+					return null;
+				}
 
-					switch (extension) {
+			}
+			try {
+				if(se == null){
+					switch (exSet.OpenType) {
+					case Option.Settings.ExtensionSetting.OpenTyp.IMAGE:
+						se = new ImageEditor(path);
+						break;
+					case Option.Settings.ExtensionSetting.OpenTyp.DATABASE:
+						se = new DatabaseEditor(path);
+						break;
+					case Option.Settings.ExtensionSetting.OpenTyp.TEXT:
+						se = new SourceEditor(path);
+						break;
+					case Option.Settings.ExtensionSetting.OpenTyp.SYSTEM:{
+						System.Diagnostics.Process.Start(path);
+						return null;
+					}
+					case Option.Settings.ExtensionSetting.OpenTyp.EXTERNAL:{
+
+						MainClass.MainWindow.RunProcess(exSet.ExternalProgram, exSet.Parameter+" "+path, "", false,null);
+
+						return null;
+					}
+					default:
+						se = new SourceEditor(path);
+						break;
+					}
+					/*switch (extension) {
 					case ".png":
 					case ".jpg":
 					case ".jpeg":
@@ -159,13 +188,13 @@ namespace Moscrif.IDE.Editors
 					case ".db":
 						se = new DatabaseEditor(path);
 						break;
-					/*case ".html":
-						se = new WebViewer(path);
-						break;*/
+					//case ".html":
+					//	se = new WebViewer(path);
+					//	break;
 					default:
 						se = new SourceEditor(path);
 						break;
-					}
+					}*/
 				}
 			} catch(Exception ex) {
 				MessageDialogs md = new MessageDialogs(MessageDialogs.DialogButtonType.Ok, ex.Message, path, MessageType.Error,null);
