@@ -165,6 +165,7 @@ namespace Moscrif.IDE.Option
 			this.rbCustomProxy = new global::Gtk.RadioButton (global::Mono.Unix.Catalog.GetString ("Manual proxy configuration"));
 			this.rbCustomProxy.CanFocus = true;
 			this.rbCustomProxy.Name = "rbCustomProxy";
+			this.rbCustomProxy.Active = true;
 			this.rbCustomProxy.DrawIndicator = true;
 			this.rbCustomProxy.UseUnderline = true;
 			this.rbCustomProxy.Group = new global::GLib.SList (global::System.IntPtr.Zero);

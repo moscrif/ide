@@ -138,7 +138,7 @@ namespace Moscrif.IDE.Editors
 				return null;
 			}
 
-			Option.Settings.ExtensionSetting exSet =MainClass.Tools.FindFileTyp(ext);
+			ExtensionSetting exSet =MainClass.Tools.FindFileTyp(ext);
 			if(exSet == null){
 				if (path == "StartPage"){
 					se = new StartPage(path);
@@ -152,20 +152,20 @@ namespace Moscrif.IDE.Editors
 			try {
 				if(se == null){
 					switch (exSet.OpenType) {
-					case Option.Settings.ExtensionSetting.OpenTyp.IMAGE:
+					case ExtensionSetting.OpenTyp.IMAGE:
 						se = new ImageEditor(path);
 						break;
-					case Option.Settings.ExtensionSetting.OpenTyp.DATABASE:
+					case ExtensionSetting.OpenTyp.DATABASE:
 						se = new DatabaseEditor(path);
 						break;
-					case Option.Settings.ExtensionSetting.OpenTyp.TEXT:
+					case ExtensionSetting.OpenTyp.TEXT:
 						se = new SourceEditor(path);
 						break;
-					case Option.Settings.ExtensionSetting.OpenTyp.SYSTEM:{
+					case ExtensionSetting.OpenTyp.SYSTEM:{
 						System.Diagnostics.Process.Start(path);
 						return null;
 					}
-					case Option.Settings.ExtensionSetting.OpenTyp.EXTERNAL:{
+					case ExtensionSetting.OpenTyp.EXTERNAL:{
 
 						MainClass.MainWindow.RunProcess(exSet.ExternalProgram, exSet.Parameter+" "+path, "", false,null);
 

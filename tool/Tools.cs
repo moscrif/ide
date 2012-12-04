@@ -4,12 +4,13 @@ using System.Text;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Security.Cryptography;
-using Moscrif.IDE.Controls;
 using ICSharpCode.SharpZipLib.Zip;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 using MessageDialogs = Moscrif.IDE.Controls.MessageDialog;
 using System.Timers;
 using System.Text.RegularExpressions;
+using Moscrif.IDE.Controls;
+using Moscrif.IDE.Iface.Entities;
 
 namespace Moscrif.IDE.Tool
 {
@@ -60,12 +61,12 @@ namespace Moscrif.IDE.Tool
 			return stockIcon;
 		}
 
-		public Option.Settings.ExtensionSetting FindFileTyp(string extension){
+		public ExtensionSetting FindFileTyp(string extension){
 			if(MainClass.Settings.ExtensionList== null || MainClass.Settings.ExtensionList.Count<1){
 				MainClass.Settings.GenerateExtensionList();
 			}
 
-			foreach(Option.Settings.ExtensionSetting es in MainClass.Settings.ExtensionList){
+			foreach(ExtensionSetting es in MainClass.Settings.ExtensionList){
 				foreach(string str in es.Extensions){
 					if(str.ToLower() == extension.ToLower()){
 						return es;

@@ -1,6 +1,7 @@
 using System;
 using Gtk;
 using Moscrif.IDE.Option;
+using Moscrif.IDE.Iface.Entities;
 
 namespace Moscrif.IDE.Option
 {
@@ -45,19 +46,19 @@ namespace Moscrif.IDE.Option
 		{
 			this.Build();
 			if(MainClass.Settings.Proxy== null){
-				MainClass.Settings.Proxy = new Settings.ProxySetting();
+				MainClass.Settings.Proxy = new ProxySetting();
 			}
 
 			switch(MainClass.Settings.Proxy.ProxyType){
-				case Option.Settings.ProxySetting.ProxyTyp.NOPROXY:{
+				case ProxySetting.ProxyTyp.NOPROXY:{
 					rbNoProxy.Active = true;
 					break;
 				}
-				case  Option.Settings.ProxySetting.ProxyTyp.SYSTEM:{
+				case  ProxySetting.ProxyTyp.SYSTEM:{
 					rbSystemProxy.Active = true;
 					break;
 				}
-				case  Option.Settings.ProxySetting.ProxyTyp.CUSTON:{
+				case  ProxySetting.ProxyTyp.CUSTON:{
 					rbCustomProxy.Active = true;
 					break;
 				}
@@ -78,10 +79,10 @@ namespace Moscrif.IDE.Option
 		public void Store()
 		{
 			if(rbNoProxy.Active){
-				MainClass.Settings.Proxy.ProxyType = Option.Settings.ProxySetting.ProxyTyp.NOPROXY;
+				MainClass.Settings.Proxy.ProxyType = ProxySetting.ProxyTyp.NOPROXY;
 
 			} else if ( rbCustomProxy.Active){
-				MainClass.Settings.Proxy.ProxyType = Option.Settings.ProxySetting.ProxyTyp.CUSTON;
+				MainClass.Settings.Proxy.ProxyType = ProxySetting.ProxyTyp.CUSTON;
 				MainClass.Settings.Proxy.Name= entrName.Text;
 				MainClass.Settings.Proxy.Password= entrPassword.Text;
 				MainClass.Settings.Proxy.Proxy= entrProxy.Text;
@@ -89,7 +90,7 @@ namespace Moscrif.IDE.Option
 				MainClass.Settings.Proxy.Port= (int)sbPort.Value;
 
 			} else {
-				MainClass.Settings.Proxy.ProxyType = Option.Settings.ProxySetting.ProxyTyp.SYSTEM;
+				MainClass.Settings.Proxy.ProxyType = ProxySetting.ProxyTyp.SYSTEM;
 			}
 
 		}

@@ -5,12 +5,26 @@ using Moscrif.IDE.Task;
 using System.Collections.Generic;
 using Moscrif.IDE.Workspace;
 using Moscrif.IDE.Iface.Entities;
+using Moscrif.IDE.Option;
 
 namespace Moscrif.IDE.Controls
 {
 	public partial class FindReplaceControl : Gtk.Bin
 	{
 		private bool ignoreTextChange = false;
+		List<string> textExtension = new List<string>();
+
+		public FindReplaceControl()
+		{
+			this.Build();
+			this.cbPlace.Active = 0;
+
+			textExtension.Add(".ms");
+			textExtension.Add(".txt");
+			textExtension.Add(".tab");
+			textExtension.Add(".xml");
+			textExtension.Add(".app");
+		}
 
 		protected virtual void OnButton1Clicked(object sender, System.EventArgs e)
 		{
@@ -25,9 +39,7 @@ namespace Moscrif.IDE.Controls
 				else {
 					sp.ReplaceExpresion = null;
 					StartFindReplaceInFiles(sp);
-
 				}
-
 			}
 		}
 
@@ -39,13 +51,6 @@ namespace Moscrif.IDE.Controls
 			sp.Expresion = this.entrExpresion.Text;
 			sp.CloseFiles = new List<string>();
 			sp.OpenFiles = new List<string>();
-
-			List<string> textExtension = new List<string>();
-			textExtension.Add(".ms");
-			textExtension.Add(".txt");
-			textExtension.Add(".tab");
-			textExtension.Add(".xml");
-			textExtension.Add(".app");
 
 			switch (cbPlace.Active)
 			{
@@ -132,13 +137,6 @@ namespace Moscrif.IDE.Controls
 			tl.TasksList.Add(ft);
 
 			MainClass.MainWindow.RunSecondaryTaskList(tl, MainClass.MainWindow.FindOutputWritte,false);
-		}
-
-
-		public FindReplaceControl()
-		{
-			this.Build();
-			this.cbPlace.Active = 0;
 		}
 
 		public void SetFocus(){

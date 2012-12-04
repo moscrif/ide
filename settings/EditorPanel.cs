@@ -3,6 +3,7 @@ using Gtk;
 using Moscrif.IDE.Components;
 using Moscrif.IDE.Option;
 using Moscrif.IDE.Controls;
+using Moscrif.IDE.Iface.Entities;
 using MessageDialogs = Moscrif.IDE.Controls.MessageDialog;
 
 namespace Moscrif.IDE.Option
@@ -47,10 +48,10 @@ namespace Moscrif.IDE.Option
 		private FileEntry feExternalPRogram = new FileEntry();
 		DropDownRadioButton ddrbAction = new DropDownRadioButton();
 		DropDownButton.ComboItemSet actionItems = new DropDownButton.ComboItemSet ();
-		Gtk.ListStore resolStore = new Gtk.ListStore(typeof(string),typeof(Option.Settings.ExtensionSetting));
+		Gtk.ListStore resolStore = new Gtk.ListStore(typeof(string),typeof(ExtensionSetting));
 		Gtk.Window parentWindow;
 
-		Option.Settings.ExtensionSetting selectedExtensionSetting;
+		ExtensionSetting selectedExtensionSetting;
 		TreeIter selectedTreeIter = new TreeIter();
 
 		public EditorWidget(Gtk.Window parent)
@@ -58,13 +59,13 @@ namespace Moscrif.IDE.Option
 			this.Build();
 			this.parentWindow = parent;
 			feExternalPRogram.IsFolder = false;
-			DropDownButton.ComboItem textEdit = new DropDownButton.ComboItem("Text Editor",(int)Option.Settings.ExtensionSetting.OpenTyp.TEXT);
+			DropDownButton.ComboItem textEdit = new DropDownButton.ComboItem("Text Editor",(int)ExtensionSetting.OpenTyp.TEXT);
 
 			actionItems.Add(textEdit);
-			actionItems.Add(new DropDownButton.ComboItem("Image Editor",(int)Option.Settings.ExtensionSetting.OpenTyp.IMAGE));
-			actionItems.Add(new DropDownButton.ComboItem("Database Editor",(int)Option.Settings.ExtensionSetting.OpenTyp.DATABASE));
-			actionItems.Add(new DropDownButton.ComboItem("System program",(int)Option.Settings.ExtensionSetting.OpenTyp.SYSTEM));
-			actionItems.Add(new DropDownButton.ComboItem("External Program",(int)Option.Settings.ExtensionSetting.OpenTyp.EXTERNAL));
+			actionItems.Add(new DropDownButton.ComboItem("Image Editor",(int)ExtensionSetting.OpenTyp.IMAGE));
+			actionItems.Add(new DropDownButton.ComboItem("Database Editor",(int)ExtensionSetting.OpenTyp.DATABASE));
+			actionItems.Add(new DropDownButton.ComboItem("System program",(int)ExtensionSetting.OpenTyp.SYSTEM));
+			actionItems.Add(new DropDownButton.ComboItem("External Program",(int)ExtensionSetting.OpenTyp.EXTERNAL));
 
 			ddrbAction.Changed+= delegate(object sender, DropDownButton.ChangedEventArgs e)
 			{
@@ -110,7 +111,7 @@ namespace Moscrif.IDE.Option
 				MainClass.Settings.GenerateExtensionList();
 			}
 
-			foreach(Option.Settings.ExtensionSetting ex in MainClass.Settings.ExtensionList){
+			foreach(ExtensionSetting ex in MainClass.Settings.ExtensionList){
 				resolStore.AppendValues(ex.Extension,ex);
 			}
 			tvExtension.Selection.Changed+= delegate(object sender, EventArgs e) {
@@ -130,7 +131,7 @@ namespace Moscrif.IDE.Option
 			tvExtension.Selection.SelectPath(new TreePath("0"));
 		}
 
-		private Option.Settings.ExtensionSetting GetSelectedExtensionSetting()
+		private ExtensionSetting GetSelectedExtensionSetting()
 		{
 			TreeSelection ts = tvExtension.Selection;
 			
@@ -143,7 +144,7 @@ namespace Moscrif.IDE.Option
 			
 			selectedTreeIter = ti;
 			
-			return  (Option.Settings.ExtensionSetting)tvExtension.Model.GetValue(ti, 1);
+			return  (ExtensionSetting)tvExtension.Model.GetValue(ti, 1);
 		}
 
 		public void Store(){
@@ -167,13 +168,13 @@ namespace Moscrif.IDE.Option
 				return ;
 			
 			selectedTreeIter = ti;
-			selectedExtensionSetting = (Option.Settings.ExtensionSetting)tvExtension.Model.GetValue(ti, 1);
+			selectedExtensionSetting = (ExtensionSetting)tvExtension.Model.GetValue(ti, 1);
 
 			int seltyp =  (int)ddrbAction.CurrentItem;
-			selectedExtensionSetting.OpenType = (Option.Settings.ExtensionSetting.OpenTyp)seltyp;
+			selectedExtensionSetting.OpenType = (ExtensionSetting.OpenTyp)seltyp;
 
 			selectedExtensionSetting.Extension = entrExtension.Text;
-			if(selectedExtensionSetting.OpenType == Moscrif.IDE.Option.Settings.ExtensionSetting.OpenTyp.EXTERNAL){
+			if(selectedExtensionSetting.OpenType == ExtensionSetting.OpenTyp.EXTERNAL){
 				selectedExtensionSetting.ExternalProgram=feExternalPRogram.Path; 
 				selectedExtensionSetting.Parameter= entrParameters.Text;
 			}
@@ -200,7 +201,7 @@ namespace Moscrif.IDE.Option
 			
 			selectedTreeIter = ti;
 			
-			Option.Settings.ExtensionSetting es = (Option.Settings.ExtensionSetting)tvExtension.Model.GetValue(ti, 1);
+			ExtensionSetting es = (ExtensionSetting)tvExtension.Model.GetValue(ti, 1);
 
 			MainClass.Settings.ExtensionList.Remove(selectedExtensionSetting);
 			resolStore.Remove(ref ti);
@@ -216,9 +217,9 @@ namespace Moscrif.IDE.Option
 				string newStr = ed.TextEntry;
 				if (!String.IsNullOrEmpty(newStr) ){
 
-					Option.Settings.ExtensionSetting es= new Option.Settings.ExtensionSetting();
+					ExtensionSetting es= new ExtensionSetting();
 					es.Extension =newStr;
-					es.OpenType = Moscrif.IDE.Option.Settings.ExtensionSetting.OpenTyp.TEXT;
+					es.OpenType = ExtensionSetting.OpenTyp.TEXT;
 					resolStore.AppendValues(es.Extension,es);
 					MainClass.Settings.ExtensionList.Add(es);
 				}

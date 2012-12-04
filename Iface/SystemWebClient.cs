@@ -4,6 +4,7 @@ using System.Xml.Serialization;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using Moscrif.IDE.Iface.Entities;
 
 namespace Moscrif.IDE.Iface
 {
@@ -16,12 +17,12 @@ namespace Moscrif.IDE.Iface
 
 		if(MainClass.Settings!=null){
 			if(MainClass.Settings.Proxy!=null){
-					if(MainClass.Settings.Proxy.ProxyType== Option.Settings.ProxySetting.ProxyTyp.NOPROXY ){
+					if(MainClass.Settings.Proxy.ProxyType== ProxySetting.ProxyTyp.NOPROXY ){
 					this.Proxy = null;
-					} else if(MainClass.Settings.Proxy.ProxyType== Option.Settings.ProxySetting.ProxyTyp.SYSTEM){
+					} else if(MainClass.Settings.Proxy.ProxyType== ProxySetting.ProxyTyp.SYSTEM){
 					//WebRequest.DefaultWebProxy ;
 					//WebRequest.GetSystemWebProxy();
-					} else if(MainClass.Settings.Proxy.ProxyType==Option.Settings.ProxySetting.ProxyTyp.CUSTON){
+					} else if(MainClass.Settings.Proxy.ProxyType==ProxySetting.ProxyTyp.CUSTON){
 					WebProxy wp = new WebProxy(MainClass.Settings.Proxy.Proxy,MainClass.Settings.Proxy.Port);
 					if(!String.IsNullOrEmpty(MainClass.Settings.Proxy.Name)){
 						wp.Credentials = new NetworkCredential(MainClass.Settings.Proxy.Name, MainClass.Settings.Proxy.Password);
