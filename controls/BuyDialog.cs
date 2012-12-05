@@ -23,7 +23,7 @@ namespace Moscrif.IDE.Controls
 		string featureTitle;
 		int featureLicenceId =-100;
 
-		public BuyDialog(int featureLicenceId,string featureTitle,Gtk.Window parent) : base ( )
+		public BuyDialog(int featureLicenceId,string featureTitle,Gtk.Window parent) : base ()
 		{
 			this.featureTitle = featureTitle;
 			this.featureLicenceId = featureLicenceId;
@@ -217,11 +217,6 @@ namespace Moscrif.IDE.Controls
 					buffer.Insert (ref insertIter, String.Format(" {0} \n", ftv.Name));
 				}
 			}
-			
-			//buffer.Insert (ref insertIter,"\n");
-			//buffer.Insert (ref insertIter,"More features area avalable in Pro License.");
-			//InsertLink (buffer, ref insertIter, "Buy Pro now!", 1);
-			
 			buffer.ApplyTag ("word_wrap", buffer.StartIter, buffer.EndIter);
 		}
 
@@ -249,7 +244,6 @@ namespace Moscrif.IDE.Controls
 			}
 		}
 		
-		// Links can also be activated by clicking.
 		void EventAfter (object sender, WidgetEventAfterArgs args)
 		{
 			if (args.Event.Type != Gdk.EventType.ButtonRelease)
@@ -275,7 +269,6 @@ namespace Moscrif.IDE.Controls
 			FollowIfLink (view, iter);
 		}
 		
-		// Update the cursor image if the pointer moved.
 		void MotionNotify (object sender, MotionNotifyEventArgs args)
 		{
 			TextView view = sender as TextView;

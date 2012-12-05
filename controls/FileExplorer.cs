@@ -671,17 +671,6 @@ namespace Moscrif.IDE.Controls
 			} else {
 				upButton.Sensitive = true;
 			}
-
-			/*if(!string.IsNullOrEmpty(MainClass.Workspace.FileExplorerPath)){
-				parent = new DirectoryInfo (MainClass.Workspace.FileExplorerPath);
-				FillStore (false);
-
-				if(parent.Parent==null){
-					upButton.Sensitive = false;
-				} else {
-					upButton.Sensitive = true;
-				}
-			}*/
 		}
 	}
 }

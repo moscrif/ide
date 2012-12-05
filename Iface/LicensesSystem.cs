@@ -59,8 +59,8 @@ namespace Moscrif.IDE.Iface
 			ListFrameworkClass.Add(new FrameworkClass("conditions","---","Conditions",LicenceTyp.BASIC));
 			ListFrameworkClass.Add(new FrameworkClass("androidsupporteddevices","---","Android supported devices",LicenceTyp.PROFESIONAL));
 			ListFrameworkClass.Add(new FrameworkClass("windowsandmac","publishtools_desktop_1","Windows and Mac OS",LicenceTyp.BASIC));
-			//ListFrameworkClass.Add(new FrameworkClass("facbookappid","---","facbook app id",LicenceTyp.PROFESIONAL));
 		}
+
 		public License GetUserLicense(){
 			if(MainClass.User!=null){
 				if(MainClass.User.License!= null)
@@ -88,7 +88,6 @@ namespace Moscrif.IDE.Iface
 				return lcs2.Featutes;
 			}
 			List<Feature> difList = new List<Feature>(lcs2.Featutes.Except(userLicence.Featutes,new FeatureComparer()).ToArray());
-			//List<Feature> difList=lcs2.Featutes.Except(userLicence.Featutes);
 			return difList;
 		}
 
@@ -115,7 +114,8 @@ namespace Moscrif.IDE.Iface
 						
 					}
 					ld.Destroy();
-					return false;
+					return true;
+					//return false;
 				}
 			}
 

@@ -54,7 +54,6 @@ namespace Moscrif.IDE.Option
 	{
 		private Project project;
 		private List<Condition> conditions;
-		//private Condition resolution;
 		private bool generatePublishList = false;
 		private int maxCond = 0;
 		Gtk.Window parentWindow;

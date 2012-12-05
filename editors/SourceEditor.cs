@@ -84,9 +84,23 @@ namespace Moscrif.IDE.Editors
 			SyntaxMode mode = new SyntaxMode();
 
 			string extension = System.IO.Path.GetExtension(filePath);
-			
+			//editor.AccelCanActivate
+
 			switch (extension) {
 			case ".ms":
+			{
+				try{
+					mode = SyntaxModeService.GetSyntaxMode("text/moscrif");
+				}catch(Exception ex){
+					MessageDialogs msd = new MessageDialogs(MessageDialogs.DialogButtonType.Ok, MainClass.Languages.Translate("error_load_syntax"), MainClass.Languages.Translate("error_load_syntax_f1"), Gtk.MessageType.Error,null);
+					msd.ShowDialog();
+					Tool.Logger.Error(ex.Message);
+				}
+				isCompileExtension = true;
+
+				(editor as ICompletionWidget).BanCompletion = false;
+				break;
+			}
 			case ".mso":
 				{
 					try{
@@ -402,9 +416,6 @@ namespace Moscrif.IDE.Editors
 					Tool.Logger.Error(ex.Source);
 				}
 			});
-			//MainClass.MainWindow.TaskOutput.WriteTask_II(sender, name, status, taskMessage);
-			
-			//MainClass.MainWindow.EndTaskWritte(sender,name,status,taskMessage);
 		}
 
 
@@ -450,19 +461,6 @@ namespace Moscrif.IDE.Editors
 			editor.Options.ShowFoldMargin = true;
 		}
 
-		/*
-		public void RunSecondaryTaskList(TaskList tasklist){
-
-			MainClass.TaskServices.RunSecondaryTastList(tasklist,EndTaskWritte);//);null
-			//tasklist.ExecuteTask();
-		}*/
-
-		/*	[GLib.ConnectBefore]
-		void OnKeyPressEvent(object s, KeyPressEventArgs args)
-		{
-
-		}*/
-
 		void OnButtonPressEvent(object o, Gtk.ButtonPressEventArgs args)
 		{
 			//if (currentCompletionContext != null) {
@@ -475,7 +473,6 @@ namespace Moscrif.IDE.Editors
 			if (args.Button == 3) {
 				editor.Caret.Line = args.LineNumber;
 				editor.Caret.Column = 1;
-				//IdeApp.CommandService.ShowContextMenu ("/MonoDevelop/SourceEditor2/IconContextMenu/Editor");
 				Gtk.Menu popupMenu = (Gtk.Menu)MainClass.MainWindow.ActionUiManager.GetWidget("/iconMarginPopup");
 				if (popupMenu != null) {
 					popupMenu.ShowAll();

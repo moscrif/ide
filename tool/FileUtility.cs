@@ -117,7 +117,7 @@ namespace Moscrif.IDE.Tool
 			string[] aPath = absPath.Split(separators);
 			int indx = 0;
 			for (; indx < Math.Min(bPath.Length, aPath.Length); ++indx)
-        //if(!bPath[indx].Equals(aPath[indx]))
+        		//if(!bPath[indx].Equals(aPath[indx]))
 				if (String.Compare(bPath [indx], aPath [indx], true) != 0)
 					break;
 
@@ -223,7 +223,6 @@ namespace Moscrif.IDE.Tool
 
 			List<FindResult> result = new List<FindResult>();
 			StreamReader reader = new StreamReader(filePath);
-			//char[] separators = { '\n',',','.',' ',';','\t' };
 			bool isChanged = false;
 
 			StringBuilder sb = new StringBuilder();

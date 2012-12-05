@@ -36,6 +36,9 @@ namespace Moscrif.IDE.Editors.SourceEditorActions
 
 		public void InsertCompletion(object obj, EventArgs args)
 		{
+			if(widget.BanCompletion){
+				return;
+			}
 
 			CompletionWindowManager.IsTemplateModes = false;
 			ICompletionDataList completionList = new CompletionDataList();
@@ -56,9 +59,6 @@ namespace Moscrif.IDE.Editors.SourceEditorActions
 			editor.GrabFocus();
 		}
 
-
-
-		//CodeCompletionContext completionContext
 		public virtual ICompletionDataList ShowCodeTemplatesCommand()
 		{
 			CompletionDataList list = new CompletionDataList();

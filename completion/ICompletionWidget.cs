@@ -33,11 +33,6 @@ namespace Moscrif.IDE.Completion
 {
 	public interface ICompletionWidget
 	{
-		// XXX
-		/*CodeCompletionContext CurrentCodeCompletionContext {
-			get;
-		}
-*/
 		int TextLength { get; }
 		int SelectedLength { get; }
 		string GetText (int startOffset, int endOffset);
@@ -54,5 +49,7 @@ namespace Moscrif.IDE.Completion
 		void SetCompletionText (CodeCompletionContext ctx, string partial_word, string complete_word);
 		
 		event EventHandler CompletionContextChanged;
+
+		bool BanCompletion { get; set;}
 	}
 }

@@ -12,6 +12,8 @@ namespace Moscrif.IDE.Components
 {
 	public class TextEdit : Mono.TextEditor.TextEditor,ICompletionWidget
 	{
+		private bool banCompletion = true;
+
 		public TextEdit()
 		{
 			 this.Caret.PositionChanged += delegate {
@@ -43,7 +45,6 @@ namespace Moscrif.IDE.Components
 
 		bool DelayedTooltipShow ()
 		{
-			//Console.WriteLine("DelayedTooltipShow ->"+DateTime.Now);
 			try {
 				int caretOffset = this.Caret.Offset;
 				int start = Math.Min (caretOffset, this.Document.Length - 1);
@@ -87,24 +88,7 @@ namespace Moscrif.IDE.Components
 
 				foreach (var r in list) {
 					GetMarker (r);
-					//UsageMarker marker = GetMarker (r);//GetMarker (Convert.ToInt32(r.Key));
 				}
-
-				/*ResolveResult resolveResult = textEditorResolver.GetLanguageItem (caretOffset, expression);
-				if (resolveResult == null)
-					return false;
-				if (resolveResult is AggregatedResolveResult) {
-					foreach (var curResult in ((AggregatedResolveResult)resolveResult).ResolveResults) {
-						var references = GetReferences (curResult);
-						if (references.Any (r => r.Position <= caretOffset && caretOffset <= r.Position  + r.Name.Length )) {
-							ShowReferences (references);
-							break;
-						}
-					}
-				} else {
-					ShowReferences (GetReferences (resolveResult));
-				}*/
-
 
 			} catch (Exception e) {
 				Tool.Logger.Error("Unhandled Exception in HighlightingUsagesExtension",null);
@@ -176,7 +160,6 @@ namespace Moscrif.IDE.Components
 					LineSegment ls = this.Document.GetLine(lineNumber);
 					int lengthLine =ls.EndOffset-ls.Offset +localDelta;
 					string line = text.Substring(ls.Offset,lengthLine);
-					//string line = this.editor.Document.GetTextBetween(ls.Offset,ls.EndOffset);
 					result.Add(new FindResult((object)(lineNumber+1),(object)line,(object)idx,(object)(idx+expresion.Length) ));
 				}
 				idx += expresion.Length;
@@ -197,7 +180,6 @@ namespace Moscrif.IDE.Components
 			this.TextViewMargin.AlphaBlendSearchResults = false;
 			foreach (var pair in markers) {
 				pair.RemoveFromLine(this.Document);
-				//this.Document.RemoveMarker (pair.Value, true);
 			}
 			markers.Clear ();
 		}
@@ -238,7 +220,6 @@ namespace Moscrif.IDE.Components
 			bool result = base.OnKeyReleaseEvent (evnt);
 
 			List<FoldSegment> list = GetFolding();
-			//this.Document.ClearFoldSegments();
 			this.Document.UpdateFoldSegments(list,true);
 
 			return result ;
@@ -330,7 +311,6 @@ namespace Moscrif.IDE.Components
 				if (CompletionWindowManager.PreProcessKeyEvent (evnt.Key,(char)evnt.Key, evnt.State, out ka)) {
 					CompletionWindowManager.PostProcessKeyEvent (ka);
 
-					//if ((!isLetterOrDigit)||
 					if(evnt.Key == Gdk.Key.Up || evnt.Key == Gdk.Key.Down || evnt.Key == Gdk.Key.Return
 					|| evnt.Key == Gdk.Key.Left || evnt.Key == Gdk.Key.Right  ) //)
 						return true;
@@ -351,6 +331,9 @@ namespace Moscrif.IDE.Components
 
 			if(!MainClass.Settings.SourceEditorSettings.AggressivelyTriggerCL)
 				return result;
+			if(banCompletion){
+				return result;
+			}
 
 			completionType = CompletionTyp.allType;
 
@@ -918,6 +901,15 @@ namespace Moscrif.IDE.Components
 		int ICompletionWidget.TextLength {
 			get {
 				return this.Document.Length;
+			}
+		}
+
+		bool ICompletionWidget.BanCompletion {
+			get {
+				return banCompletion;
+			}
+			set {
+				banCompletion = value;
 			}
 		}
 

@@ -530,10 +530,6 @@ namespace  Moscrif.IDE.Option
 							s.GenerateAndroidSupportedDevices();
 						}
 
-						/*if ((s.LibsDefine == null) ||  (s.LibsDefine.Count <1)){
-							s.GenerateLibs();
-						}*/
-
 						if (s.VersionSetting < 111202){ //year, month, day
 							s.GenerateIgnoreFolder();
 							s.VersionSetting = 111202;
@@ -567,24 +563,14 @@ namespace  Moscrif.IDE.Option
 							s.MaxRssTweetMessageCount = 3;
 							s.VersionSetting = 121106;
 						}
-
-
-
-
 						return s;
 					}
 				} catch (Exception ex) {
 					
 					throw ex;
-					/*MessageDialogs ms = new MessageDialogs(MessageDialogs.DialogButtonType.Ok, "Error", "Settings file is corrupted!", Gtk.MessageType.Error);
-					ms.ShowDialog();
-					return new Settings();*/
 				}
 			} else {
 				throw new Exception("Settings file does not exist!");
-				/*MessageDialogs ms = new MessageDialogs(MessageDialogs.DialogButtonType.Ok, "Error", "Settings file does not exist!", Gtk.MessageType.Error);
-				ms.ShowDialog();
-				return new Settings();*/
 			}
 		}
 
