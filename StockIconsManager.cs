@@ -118,8 +118,6 @@ namespace Moscrif.IDE
 			IconFactory icon_factory = new IconFactory();
 			icon_factory.AddDefault();
 			
-			Assembly entry_asm = System.Reflection.Assembly.GetEntryAssembly();
-			
 			foreach (string item_id in stock_icon_names) {
 				StockItem item = new StockItem(item_id, null, 0, Gdk.ModifierType.ShiftMask, null);
 				
@@ -134,13 +132,10 @@ namespace Moscrif.IDE
 						default_pixbuf = new Pixbuf(file);
 					}catch(Exception ex){
 						Tool.Logger.Error(ex.Message);
-						//continue;
 					}
 				}
 				
 				icon_set = new IconSet();
-				// (default_pixbuf);
-				IconSource icoS = new IconSource();
 				
 				if (System.IO.File.Exists(file)){
 					try{

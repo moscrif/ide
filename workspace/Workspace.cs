@@ -144,7 +144,6 @@ namespace Moscrif.IDE.Workspace
 						return workspaceUserSetting;
 					}
 
-					string mspFile= System.IO.Path.GetFileName(FilePath);
 					string mspPath = System.IO.Path.GetDirectoryName(FilePath);
 
 					string userName = String.Format("{0}.{1}-{2}.user",Name,Environment.MachineName,Environment.UserName);
@@ -508,7 +507,6 @@ namespace Moscrif.IDE.Workspace
 		public Project ConvertAppToProject(AppFile aplicationFile)
 		{
 			string mspDir = System.IO.Path.GetDirectoryName(aplicationFile.ApplicationFile);
-			string projectDir = System.IO.Path.Combine(mspDir, aplicationFile.Name);//Id
 			string filename = System.IO.Path.Combine(mspDir, aplicationFile.Name + ".msp");
 
 			Project p = FindProject(filename);

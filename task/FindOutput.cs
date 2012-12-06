@@ -11,17 +11,12 @@ namespace Moscrif.IDE.Task
 	{
 		private ListStore outputModel = new ListStore(typeof(string), typeof(string), typeof(string), typeof(string), typeof(TaskMessage));
 		private TreeView treeView = null;
-
-		private object lock_Write = new object();
-
-		//
+		
 		Queue<QueuedUpdate> updates = new Queue<QueuedUpdate>();
 		QueuedTextWrite lastTextWrite;
 		bool outputDispatcherRunning = false;
 		GLib.TimeoutHandler outputDispatcher;
-		private List<TaskMessage> oldError;
-
-
+		
 		#region ITaskOutput implementation
 		void ITaskOutput.ClearOutput ()
 		{
@@ -109,8 +104,6 @@ namespace Moscrif.IDE.Task
 			
 			this.Add(treeView);
 
-			oldError = new List<TaskMessage>();
-			
 			this.ShowAll();
 		}
 

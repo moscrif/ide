@@ -49,8 +49,6 @@ namespace Moscrif.IDE.Controls
 
 				AppFile appFile= new AppFile(filePath);
 
-				string mspDir = System.IO.Path.GetDirectoryName(filePath);
-				//string projectDir = System.IO.Path.Combine(mspDir, appFile.Id);
 				string projectDir = appFile.Directory;
 				if (!Directory.Exists(projectDir) )
 				{

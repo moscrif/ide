@@ -78,8 +78,6 @@ namespace Moscrif.IDE.Option
 			tvFiles.AppendColumn(MainClass.Languages.Translate("file"), new Gtk.CellRendererText(), "text", 0);
 			tvFiles.AppendColumn(MainClass.Languages.Translate("path"), new Gtk.CellRendererText(), "text", 1);
 
-			DirectoryInfo dir = new DirectoryInfo(MainClass.Paths.DisplayDir);
-
 			string[] listFi = Directory.GetFiles(MainClass.Paths.DisplayDir, "*.ini");
 			foreach (string fi in listFi){
 				EmulatorDisplay dd = new EmulatorDisplay(fi);

@@ -46,6 +46,7 @@ namespace Moscrif.IDE.Controls.Wizard
 		string projectDir = "";
 		TreePath selectedTypPrj ;
 		FileTemplate.Attribute atrApplication;
+		FileEntry feLocation;
 
 		int page = 0;
 		public NewProjectWizzard_New(Window parent)
@@ -170,9 +171,6 @@ namespace Moscrif.IDE.Controls.Wizard
 			ivSelectOrientation.PixbufColumn = COL_PIXBUF;
 			ivSelectOrientation.TooltipColumn = COL_DISPLAY_TEXT;
 
-			//Gdk.Pixbuf iconPort = MainClass.Tools.GetIconFromStock("file-new.png",IconSize.LargeToolbar);
-			//Gdk.Pixbuf iconLL = MainClass.Tools.GetIconFromStock("file-ms.png",IconSize.LargeToolbar);
-			//Gdk.Pixbuf iconLR = MainClass.Tools.GetIconFromStock("preferences.png",IconSize.LargeToolbar);
 			foreach(SettingValue ds in MainClass.Settings.DisplayOrientations){
 				storeOrientation.AppendValues (ds.Display,ds.Display,null,ds.Value);
 			}
@@ -183,8 +181,15 @@ namespace Moscrif.IDE.Controls.Wizard
 			cbeWorkspace.TextColumn = 0;
 			cbeWorkspace.Changed+= OnCbeWorkspaceChanged;
 
-				//
+			this.feLocation = new FileEntry();
+			this.table3.Attach (this.feLocation,1,2,2,3);
+			Gtk.Table.TableChild w9 = ((Gtk.Table.TableChild)(this.table3 [this.feLocation]));
+			w9.XOptions = ((Gtk.AttachOptions)(4));
+			w9.YOptions = ((Gtk.AttachOptions)(4));
+
+
 			table3.Attach(cbeWorkspace,1,2,1,2,AttachOptions.Fill|AttachOptions.Expand,AttachOptions.Fill,0,0);
+
 
 			CellRendererText rendererWorkspace = new CellRendererText();
 			cbeWorkspace.PackStart(rendererWorkspace, true);
@@ -227,6 +232,8 @@ namespace Moscrif.IDE.Controls.Wizard
 			prjDefaultName = "Project"+MainClass.Settings.ProjectCount.ToString();
 			entrProjectName.Text = prjDefaultName;
 			cbeWorkspace.ShowAll();
+			feLocation.ShowAll();
+
 
 			CellRendererText rendererTemplate = new CellRendererText();
 			cbTemplate.PackStart(rendererTemplate, true);
@@ -254,11 +261,7 @@ namespace Moscrif.IDE.Controls.Wizard
 
 				if(tiChb.Equals(TreeIter.Zero))return;
 
-				string name = storeTemplate.GetValue(tiChb, 0).ToString(); 
-				string path = storeTemplate.GetValue(tiChb, 1).ToString();
 				string appPath = storeTemplate.GetValue(tiChb, 2).ToString();
-
-				//string appPath = System.IO.Path.Combine(path,"$application$.app");
 				if(File.Exists(appPath)){
 					AppFile app = new AppFile(appPath);
 					List<string> libs = new List<string>(app.Libs);
@@ -288,8 +291,6 @@ namespace Moscrif.IDE.Controls.Wizard
 
 		private void RenderWorkspaceName(CellLayout column, Gtk.CellRenderer cell, Gtk.TreeModel model, Gtk.TreeIter iter)
 		{
-			string text = (string) model.GetValue (iter, 0);
-			string text2 = (string) model.GetValue (iter, 1);
 			int type = Convert.ToInt32(storeWorkspace.GetValue(iter, 2));
 
 			Pango.FontDescription fd = new Pango.FontDescription();
@@ -303,7 +304,6 @@ namespace Moscrif.IDE.Controls.Wizard
 
 		private void RenderWorkspacePath(CellLayout column, Gtk.CellRenderer cell, Gtk.TreeModel model, Gtk.TreeIter iter)
 		{
-			string text = (string) model.GetValue (iter, 0);
 			string text2 = (string) model.GetValue (iter, 1);
 			int type = Convert.ToInt32(storeWorkspace.GetValue(iter, 2));
 			
@@ -752,13 +752,8 @@ namespace Moscrif.IDE.Controls.Wizard
 			FileTemplate ft= new FileTemplate(fi,false);
 			atrApplication.Value = projectName;
 			ft.Attributes.Add(atrApplication);
-
-			/*int indx = ft.Attributes.FindIndex(x=>x.Name=="application");
-			if(indx>-1)
-				ft.Attributes[indx].Value = projectName;*/
 			
 			string contentApp = FileTemplateUtilities.Apply(ft.Content, ft.GetAttributesAsDictionary());
-
 
 			string contentMsp="";
 			if(System.IO.File.Exists(mspPath)){
@@ -842,11 +837,8 @@ namespace Moscrif.IDE.Controls.Wizard
 				DirectoryInfo di = new DirectoryInfo(dir);
 
 				string name = System.IO.Path.GetFileNameWithoutExtension(di.FullName);
-				string ex = System.IO.Path.GetExtension(di.FullName);
-				
 
 				AppFile app = new AppFile(appPath);
-
 				RadioButton rb = new RadioButton(name);
 				rb.Group = rbGroup.Group;
 				rb.Name = name;

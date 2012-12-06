@@ -143,7 +143,7 @@ namespace Moscrif.IDE.Option
 
 			foreach (IgnoreFolder ignoref in MainClass.Settings.IgnoresFolders){
 
-				Gtk.TreeIter tir = storeIFo.AppendValues(ignoref.Folder,ignoref.IsForIde,ignoref.IsForPublish,ignoref);
+				storeIFo.AppendValues(ignoref.Folder,ignoref.IsForIde,ignoref.IsForPublish,ignoref);
 			}
 
 			/* Ignore Files */
@@ -183,7 +183,7 @@ namespace Moscrif.IDE.Option
 			
 			foreach (IgnoreFolder ignoref in MainClass.Settings.IgnoresFiles){
 				
-				Gtk.TreeIter tir = storeIFi.AppendValues(ignoref.Folder,ignoref.IsForIde,ignoref.IsForPublish,ignoref);
+				storeIFi.AppendValues(ignoref.Folder,ignoref.IsForIde,ignoref.IsForPublish,ignoref);
 			}
 			/**/
 
@@ -380,7 +380,7 @@ namespace Moscrif.IDE.Option
 
 			foreach (IgnoreFolder ignoref in MainClass.Settings.IgnoresFolders){
 				
-				Gtk.TreeIter tir = storeIFo.AppendValues(ignoref.Folder,ignoref.IsForIde,ignoref.IsForPublish,ignoref);
+				storeIFo.AppendValues(ignoref.Folder,ignoref.IsForIde,ignoref.IsForPublish,ignoref);
 			}
 		}
 
@@ -446,7 +446,7 @@ namespace Moscrif.IDE.Option
 			
 			foreach (IgnoreFolder ignoref in MainClass.Settings.IgnoresFiles){
 				
-				Gtk.TreeIter tir = storeIFi.AppendValues(ignoref.Folder,ignoref.IsForIde,ignoref.IsForPublish,ignoref);
+				storeIFi.AppendValues(ignoref.Folder,ignoref.IsForIde,ignoref.IsForPublish,ignoref);
 			}
 		}
 

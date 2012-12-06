@@ -14,8 +14,6 @@ namespace Moscrif.IDE.Task
 		List<TaskMessage> output = new List<TaskMessage>();
 		StateEnum stateTask = StateEnum.OK;
 
-		private bool loggAll = MainClass.Settings.LoggAllStep;
-
 		public RunEmulatorDebugTask()
 		{
 		}

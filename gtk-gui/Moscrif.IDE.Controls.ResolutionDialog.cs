@@ -5,9 +5,9 @@ namespace Moscrif.IDE.Controls
 	public partial class ResolutionDialog
 	{
 		private global::Gtk.Table table1;
+		private global::Gtk.CheckButton chbCreateFile;
 		private global::Gtk.Entry entrName;
 		private global::Gtk.Entry entrSpecific;
-		private global::Gtk.CheckButton chbCreateFile;
 		private global::Gtk.Label label1;
 		private global::Gtk.Label label2;
 		private global::Gtk.Label label3;
@@ -34,33 +34,6 @@ namespace Moscrif.IDE.Controls
 			this.table1.ColumnSpacing = ((uint)(6));
 			this.table1.BorderWidth = ((uint)(10));
 			// Container child table1.Gtk.Table+TableChild
-			this.entrName = new global::Gtk.Entry ();
-			this.entrName.CanFocus = true;
-			this.entrName.Name = "entrName";
-			this.entrName.IsEditable = true;
-			this.entrName.InvisibleChar = '●';
-			this.table1.Add (this.entrName);
-			global::Gtk.Table.TableChild w2 = ((global::Gtk.Table.TableChild)(this.table1 [this.entrName]));
-			w2.LeftAttach = ((uint)(1));
-			w2.RightAttach = ((uint)(2));
-			w2.YPadding = ((uint)(3));
-			w2.XOptions = ((global::Gtk.AttachOptions)(4));
-			w2.YOptions = ((global::Gtk.AttachOptions)(4));
-			// Container child table1.Gtk.Table+TableChild
-			this.entrSpecific = new global::Gtk.Entry ();
-			this.entrSpecific.CanFocus = true;
-			this.entrSpecific.Name = "entrSpecific";
-			this.entrSpecific.IsEditable = true;
-			this.entrSpecific.InvisibleChar = '●';
-			this.table1.Add (this.entrSpecific);
-			global::Gtk.Table.TableChild w3 = ((global::Gtk.Table.TableChild)(this.table1 [this.entrSpecific]));
-			w3.TopAttach = ((uint)(1));
-			w3.BottomAttach = ((uint)(2));
-			w3.LeftAttach = ((uint)(1));
-			w3.RightAttach = ((uint)(2));
-			w3.XOptions = ((global::Gtk.AttachOptions)(4));
-			w3.YOptions = ((global::Gtk.AttachOptions)(4));
-			// Container child table1.Gtk.Table+TableChild
 			this.chbCreateFile = new global::Gtk.CheckButton ();
 			this.chbCreateFile.CanFocus = true;
 			this.chbCreateFile.Name = "chbCreateFile";
@@ -69,9 +42,36 @@ namespace Moscrif.IDE.Controls
 			this.chbCreateFile.DrawIndicator = true;
 			this.chbCreateFile.UseUnderline = true;
 			this.table1.Add (this.chbCreateFile);
-			global::Gtk.Table.TableChild w4 = ((global::Gtk.Table.TableChild)(this.table1 [this.chbCreateFile]));
-			w4.TopAttach = ((uint)(4));
-			w4.BottomAttach = ((uint)(5));
+			global::Gtk.Table.TableChild w2 = ((global::Gtk.Table.TableChild)(this.table1 [this.chbCreateFile]));
+			w2.TopAttach = ((uint)(4));
+			w2.BottomAttach = ((uint)(5));
+			w2.LeftAttach = ((uint)(1));
+			w2.RightAttach = ((uint)(2));
+			w2.XOptions = ((global::Gtk.AttachOptions)(4));
+			w2.YOptions = ((global::Gtk.AttachOptions)(4));
+			// Container child table1.Gtk.Table+TableChild
+			this.entrName = new global::Gtk.Entry ();
+			this.entrName.CanFocus = true;
+			this.entrName.Name = "entrName";
+			this.entrName.IsEditable = true;
+			this.entrName.InvisibleChar = '●';
+			this.table1.Add (this.entrName);
+			global::Gtk.Table.TableChild w3 = ((global::Gtk.Table.TableChild)(this.table1 [this.entrName]));
+			w3.LeftAttach = ((uint)(1));
+			w3.RightAttach = ((uint)(2));
+			w3.YPadding = ((uint)(3));
+			w3.XOptions = ((global::Gtk.AttachOptions)(4));
+			w3.YOptions = ((global::Gtk.AttachOptions)(4));
+			// Container child table1.Gtk.Table+TableChild
+			this.entrSpecific = new global::Gtk.Entry ();
+			this.entrSpecific.CanFocus = true;
+			this.entrSpecific.Name = "entrSpecific";
+			this.entrSpecific.IsEditable = true;
+			this.entrSpecific.InvisibleChar = '●';
+			this.table1.Add (this.entrSpecific);
+			global::Gtk.Table.TableChild w4 = ((global::Gtk.Table.TableChild)(this.table1 [this.entrSpecific]));
+			w4.TopAttach = ((uint)(1));
+			w4.BottomAttach = ((uint)(2));
 			w4.LeftAttach = ((uint)(1));
 			w4.RightAttach = ((uint)(2));
 			w4.XOptions = ((global::Gtk.AttachOptions)(4));
@@ -108,12 +108,12 @@ namespace Moscrif.IDE.Controls
 			w7.XOptions = ((global::Gtk.AttachOptions)(4));
 			w7.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
-			this.sbHeight = new global::Gtk.SpinButton (0D, 2000D, 50D);
+			this.sbHeight = new global::Gtk.SpinButton (0, 2000, 50);
 			this.sbHeight.WidthRequest = 110;
 			this.sbHeight.CanFocus = true;
 			this.sbHeight.Name = "sbHeight";
-			this.sbHeight.Adjustment.PageIncrement = 100D;
-			this.sbHeight.ClimbRate = 1D;
+			this.sbHeight.Adjustment.PageIncrement = 100;
+			this.sbHeight.ClimbRate = 1;
 			this.sbHeight.Numeric = true;
 			this.table1.Add (this.sbHeight);
 			global::Gtk.Table.TableChild w8 = ((global::Gtk.Table.TableChild)(this.table1 [this.sbHeight]));
@@ -124,12 +124,12 @@ namespace Moscrif.IDE.Controls
 			w8.XOptions = ((global::Gtk.AttachOptions)(4));
 			w8.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
-			this.sbWidth = new global::Gtk.SpinButton (0D, 2000D, 50D);
+			this.sbWidth = new global::Gtk.SpinButton (0, 2000, 50);
 			this.sbWidth.WidthRequest = 110;
 			this.sbWidth.CanFocus = true;
 			this.sbWidth.Name = "sbWidth";
-			this.sbWidth.Adjustment.PageIncrement = 100D;
-			this.sbWidth.ClimbRate = 1D;
+			this.sbWidth.Adjustment.PageIncrement = 100;
+			this.sbWidth.ClimbRate = 1;
 			this.sbWidth.Numeric = true;
 			this.table1.Add (this.sbWidth);
 			global::Gtk.Table.TableChild w9 = ((global::Gtk.Table.TableChild)(this.table1 [this.sbWidth]));

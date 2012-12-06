@@ -18,11 +18,7 @@ namespace Moscrif.IDE.Iface
 		public LoggingInfo() {
 			
 		}
-		
-		string redgisterUrl = MainClass.Settings.checkVersion ;
-		string pingUrl = MainClass.Settings.pingUrl ;
 		string loggUrl = MainClass.Settings.loggUrl ;
-		string loginUrl = MainClass.Settings.loginUrl ;
 		string feedbackUrl = MainClass.Settings.feedbackUrl ;
 
 		private  string token;

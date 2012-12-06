@@ -9,6 +9,7 @@ namespace Moscrif.IDE.Controls
 	{
 		private SkinThemeControl skinthemecontrol1;
 		private FileMaskEntry feOutput ;
+		private FileEntry feRoot;
 		private bool project = false;
 		public string  WorkspaceName {
 			get {
@@ -134,14 +135,10 @@ namespace Moscrif.IDE.Controls
 	            if (expander1.Expanded) {
 	                limits.MinHeight = SizeRequest().Height + table2.SizeRequest().Height;
 	                limits.MaxHeight = Gdk.Screen.Default.Height;
-	               // limits.MinWidth = SizeRequest().Width + table2.SizeRequest().Width;
-	               // limits.MaxWidth = Gdk.Screen.Default.Width;
 
 	            } else {
 	                limits.MinHeight = -1;
 	                limits.MaxHeight = -1;
-	                //limits.MinWidth = -1;
-	                //limits.MaxWidth = -1;
 	            }
 
 	            SetGeometryHints (this, limits,
@@ -153,6 +150,16 @@ namespace Moscrif.IDE.Controls
 		{
 			this.TransientFor = MainClass.MainWindow;
 			this.Build();
+
+			this.feRoot = new FileEntry ();
+			this.feRoot.Name = "feRoot";
+			this.feRoot.IsFolder = true;
+			this.feRoot.BrowserTitle = "Root Directory";
+			this.table2b.Attach (this.feRoot,1,2,1,2);
+			Gtk.Table.TableChild w3 = ((Gtk.Table.TableChild)(this.table2b [this.feRoot]));
+			w3.YOptions = ((Gtk.AttachOptions)(4));
+			feRoot.ShowAll();
+
 			skinthemecontrol1 = new SkinThemeControl();
 			vbox3.PackEnd(skinthemecontrol1,false,true,0);
 			skinthemecontrol1.ShowAll();
@@ -178,8 +185,6 @@ namespace Moscrif.IDE.Controls
 			if (project){
 				vbox3.Visible = true;
 				trmProject.Visible = true;
-				//hseparator1.Visible = true;
-				//expander2.Expanded = true;
 				skinthemecontrol1.SetLabelWidth(85);
 			} else {
 				this.Resize(450,90);

@@ -54,7 +54,7 @@ namespace Moscrif.IDE.Tool
 				case XmlNodeType.EndElement:
 					if (endNodes.Contains (reader.LocalName)) 
 						return;
-					IXmlLineInfo xmlInfo = (IXmlLineInfo)reader;
+					//IXmlLineInfo xmlInfo = (IXmlLineInfo)reader;
 					//LoggingService.LogWarning ("Encountered end node '{0}' when expecting one of '{1}'. Location ln:{2} col: {3}. Stack Trace:{4}",reader.LocalName, ConcatString (endNodes), xmlInfo.LineNumber, xmlInfo.LinePosition, new System.Diagnostics.StackTrace ());
 					break;
 				case XmlNodeType.Element:

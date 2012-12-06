@@ -33,20 +33,10 @@ public partial class MainWindow : Gtk.Window
 	DropDownButton.ComboItemSet projectItems = new DropDownButton.ComboItemSet ();
 	DropDownButton.ComboItemSet deviceItems = new DropDownButton.ComboItemSet ();
 	DropDownButton.ComboItemSet resolutionItems = new DropDownButton.ComboItemSet ();
-	//DropDownButton.ComboItemSet socketIPItems = new DropDownButton.ComboItemSet ();
-
-
-	private bool runningEmulator = false;
-	public bool RunningEmulator
-	{
-		get { return runningEmulator; }
-		set { runningEmulator = value;}
-	}
 	
 	private DropDownButton ddbProject = new DropDownButton();
 	private DropDownButton ddbDevice = new DropDownButton();
 	private DropDownButton ddbResolution = new DropDownButton();
-	//private DropDownButton ddbSocketIP = new DropDownButton();
 
 	private MenuBar mainMenu = new MenuBar();
 	Toolbar toolbarLeft = new Toolbar();
@@ -56,6 +46,8 @@ public partial class MainWindow : Gtk.Window
 	Toolbar toolbarBanner = new Toolbar ();
 
 	BannerButton bannerImage = new BannerButton ();
+
+	LoginLogoutControl llcLogin;
 
 	public EditorNotebook EditorNotebook = new EditorNotebook();
 	public Notebook FileNotebook = new Notebook();
@@ -84,6 +76,15 @@ public partial class MainWindow : Gtk.Window
 	private NotebookMenuLabel garbageColectorLabel;
 
 	private SplashScreenForm splash;
+
+	private bool runningEmulator = false;
+	public bool RunningEmulator
+	{
+		get { return runningEmulator; }
+		set { runningEmulator = value;}
+	}
+
+
 	//private bool statusSplash = false;
 
 	/*bool update_status ()
@@ -159,12 +160,19 @@ public partial class MainWindow : Gtk.Window
 			splash.ShowAll();
 		StockIconsManager.Initialize();
 		Moscrif.IDE.Tool.Logger.LogDebugInfo(String.Format("mainwindow.build.start-{0}",DateTime.Now));
-
-		//StockIconsManager.Initialize();
-		//Moscrif.IDE.Tool.Logger.LogDebugInfo(String.Format("mainwindow.build.start-{0}",DateTime.Now));
 		Build();
 		this.Maximize();
+
 		Moscrif.IDE.Tool.Logger.LogDebugInfo(String.Format("mainwindow.build.end-{0}",DateTime.Now));
+
+		this.llcLogin = new LoginLogoutControl();
+		this.llcLogin.Events = ((Gdk.EventMask)(256));
+		this.llcLogin.Name = "llcLogin";
+		this.statusbar1.Add (this.llcLogin);
+		Gtk.Box.BoxChild w14 = ((Gtk.Box.BoxChild)(this.statusbar1 [this.llcLogin]));
+		w14.Position = 2;
+		w14.Expand = false;
+		w14.Fill = false;
 
 		SetSettingColor();
 
@@ -1028,8 +1036,6 @@ public partial class MainWindow : Gtk.Window
 			LogMonitor.SetFont(MainClass.Settings.ConsoleTaskFont);
 			LogGarbageCollector.SetFont(MainClass.Settings.ConsoleTaskFont);
 		}
-
-		string path = string.Empty;
 
 		ReloadDevice(setSelectedDevices);
 

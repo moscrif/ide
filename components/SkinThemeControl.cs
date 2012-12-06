@@ -12,8 +12,7 @@ using Moscrif.IDE.Execution;
 
 namespace  Moscrif.IDE.Components
 {
-	[System.ComponentModel.Category("Moscfift.Ide.Components")]
-	[System.ComponentModel.ToolboxItem(true)]
+
 	public partial class SkinThemeControl : Gtk.Bin
 	{
 		Gtk.ListStore skinListStore = new Gtk.ListStore(typeof(string), typeof(string));

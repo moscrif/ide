@@ -404,7 +404,6 @@
     <Compile Include="Iface\SocketServer.cs" />
     <Compile Include="controls\ErrorDialog.cs" />
     <Compile Include="Iface\LoggingInfo.cs" />
-    <Compile Include="settings\Security.cs" />
     <Compile Include="actions\SendFeedbackAction.cs" />
     <Compile Include="controls\FeedbackDialog.cs" />
     <Compile Include="controls\Wizard\PublishDialogWizzard.cs" />
@@ -488,6 +487,7 @@
     <Compile Include="gtk-gui\Moscrif.IDE.Option.EditorWidget.cs" />
     <Compile Include="Iface\Entities\ExtensionSetting.cs" />
     <Compile Include="Iface\Entities\ProxySetting.cs" />
+    <Compile Include="settings\Security.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -11,9 +11,6 @@ namespace Moscrif.IDE.Task
 		private ListStore outputModel = new ListStore(typeof(string), typeof(string), typeof(string));
 		private TreeView treeView = null;
 
-		private object lock_Write = new object();
-
-		//
 		Queue<QueuedUpdate> updates = new Queue<QueuedUpdate>();
 		QueuedTextWrite lastTextWrite;
 		bool outputDispatcherRunning = false;
@@ -38,11 +35,6 @@ namespace Moscrif.IDE.Task
 			treeView.ModifyFont(customFont);
 
 			Gtk.CellRendererText fileNameRenderer = new Gtk.CellRendererText();
-
-			//treeView.AppendColumn("Name", new CellRendererText(), "text", 0);
-			//treeView.AppendColumn("Stat", new CellRendererText(), "text", 1);
-			//treeView.AppendColumn("Message", new CellRendererText(), "text", 2);
-			//treeView.AppendColumn("Place", new CellRendererText(), "text", 3);
 
 			TreeViewColumn tvcName = new TreeViewColumn ("Category",  fileNameRenderer, "text", 0);
 			tvcName.MinWidth = 100;

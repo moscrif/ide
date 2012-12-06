@@ -36,7 +36,7 @@ namespace Moscrif.IDE.Components
 			Child.Events = Gdk.EventMask.AllEventsMask;
 
 			this.Clicked+= delegate(object sender, EventArgs e) {
-				menu.Popup (null, null, new Gtk.MenuPositionFunc (OnPosition), 3, Gtk.Global.CurrentEventTime);
+				this.menu.Popup (null, null, new Gtk.MenuPositionFunc (OnPosition), 3, Gtk.Global.CurrentEventTime);
 			};
 
 			if (string.IsNullOrEmpty (icon)) {

@@ -5,8 +5,7 @@ using Gdk;
 
 namespace Moscrif.IDE.Components
 {
-	[System.ComponentModel.Category("Moscfift.Ide.Components")]
-	[System.ComponentModel.ToolboxItem(true)]
+
 	public class FavoriteEntry : Gtk.HBox
 	{
 		string name;

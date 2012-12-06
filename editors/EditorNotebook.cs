@@ -117,7 +117,6 @@ namespace Moscrif.IDE.Editors
 
 		public IEditor Open(string path)
 		{
-			string extension = System.IO.Path.GetExtension(path);
 			if (!System.IO.File.Exists(path) && (path != "StartPage") ){
 				MessageDialogs md = new MessageDialogs(MessageDialogs.DialogButtonType.Ok, MainClass.Languages.Translate("file_not_exist"), path, MessageType.Error,null);
 				md.ShowDialog();

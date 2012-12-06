@@ -236,9 +236,8 @@ namespace Moscrif.IDE.Task
 					AppendChild(parentIter,tm.Child);
 			}*/
 			if ( tm != null){
-				TreeIter ti = outputModel.AppendValues(parentIter,System.IO.Path.GetFileName(tm.File), tm.Line, tm.Message, tm.File);
+				outputModel.AppendValues(parentIter,System.IO.Path.GetFileName(tm.File), tm.Line, tm.Message, tm.File);
 				if (tm.Child != null){
-					//AppendChild(ti,tm.Child);
 					AppendChild(parentIter,tm.Child);
 				}
 			}

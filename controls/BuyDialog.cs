@@ -48,7 +48,7 @@ namespace Moscrif.IDE.Controls
 				iTyp = -100;
 			}
 
-			featureLicence = MainClass.LicencesSystem.GetLicence(featureLicenceId.ToString());
+			featureLicence = MainClass.LicencesSystem.GetLicence(this.featureLicenceId.ToString());
 			
 			handCursor = new Gdk.Cursor (Gdk.CursorType.Hand2);
 			regularCursor = new Gdk.Cursor (Gdk.CursorType.Xterm);
@@ -168,11 +168,6 @@ namespace Moscrif.IDE.Controls
 		
 		private void InsertTextHeader (TextBuffer buffer)
 		{
-			Pixbuf pixbuf = MainClass.Tools.GetIconFromStock("logo74.png",IconSize.Dialog);
-			pixbuf = pixbuf.ScaleSimple (32, 32, InterpType.Bilinear);
-			
-			Pixbuf pixbuf2 = MainClass.Tools.GetIconFromStock("file-ms.png",IconSize.Menu);
-
 			TextIter insertIter = buffer.StartIter;
 
 			string upgradeLicence = "";
@@ -202,8 +197,6 @@ namespace Moscrif.IDE.Controls
 
 		private void InsertTextTable (TextBuffer buffer)
 		{
-			Pixbuf pixbuf = MainClass.Tools.GetIconFromStock("logo74.png",IconSize.Dialog);
-			pixbuf = pixbuf.ScaleSimple (32, 32, InterpType.Bilinear);
 			Pixbuf pixbuf2 = MainClass.Tools.GetIconFromStock("file-ms.png",IconSize.Menu);
 
 			TextIter insertIter = buffer.StartIter;

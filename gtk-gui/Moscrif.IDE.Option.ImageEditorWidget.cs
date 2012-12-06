@@ -135,13 +135,13 @@ namespace Moscrif.IDE.Option
 			w8.XOptions = ((global::Gtk.AttachOptions)(4));
 			w8.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
-			this.sbLine = new global::Gtk.SpinButton (1D, 100D, 1D);
+			this.sbLine = new global::Gtk.SpinButton (1, 100, 1);
 			this.sbLine.CanFocus = true;
 			this.sbLine.Name = "sbLine";
-			this.sbLine.Adjustment.PageIncrement = 10D;
-			this.sbLine.ClimbRate = 1D;
+			this.sbLine.Adjustment.PageIncrement = 10;
+			this.sbLine.ClimbRate = 1;
 			this.sbLine.Numeric = true;
-			this.sbLine.Value = 1D;
+			this.sbLine.Value = 1;
 			this.table1.Add (this.sbLine);
 			global::Gtk.Table.TableChild w9 = ((global::Gtk.Table.TableChild)(this.table1 [this.sbLine]));
 			w9.LeftAttach = ((uint)(1));
@@ -149,13 +149,13 @@ namespace Moscrif.IDE.Option
 			w9.XOptions = ((global::Gtk.AttachOptions)(4));
 			w9.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
-			this.sbPoint = new global::Gtk.SpinButton (1D, 100D, 1D);
+			this.sbPoint = new global::Gtk.SpinButton (1, 100, 1);
 			this.sbPoint.CanFocus = true;
 			this.sbPoint.Name = "sbPoint";
-			this.sbPoint.Adjustment.PageIncrement = 10D;
-			this.sbPoint.ClimbRate = 1D;
+			this.sbPoint.Adjustment.PageIncrement = 10;
+			this.sbPoint.ClimbRate = 1;
 			this.sbPoint.Numeric = true;
-			this.sbPoint.Value = 1D;
+			this.sbPoint.Value = 1;
 			this.table1.Add (this.sbPoint);
 			global::Gtk.Table.TableChild w10 = ((global::Gtk.Table.TableChild)(this.table1 [this.sbPoint]));
 			w10.TopAttach = ((uint)(1));

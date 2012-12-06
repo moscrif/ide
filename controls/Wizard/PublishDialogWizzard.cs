@@ -785,13 +785,13 @@ namespace Moscrif.IDE.Controls.Wizard
 				pt.ErrorWrite+= MainClass.MainWindow.ErrorTaskWritte;
 				pt.LogWrite+= MainClass.MainWindow.LogTaskWritte;
 				pt.WriteStep+=  delegate(object sender, StepEventArgs e) {
-					TreeIter ti =  storeOutput.AppendValues(e.Message1,e.Message2,null,e.IsError);
+
+					storeOutput.AppendValues(e.Message1,e.Message2,null,e.IsError);
 
 					if(status!=1)
 						status = e.Status;
 					while (Gtk.Application.EventsPending ())
 						Gtk.Application.RunIteration ();
-					//return ti;
 				};
 				pt.Initialize(list);
 
@@ -820,12 +820,11 @@ namespace Moscrif.IDE.Controls.Wizard
 				pt.ErrorWrite+= MainClass.MainWindow.ErrorTaskWritte;
 				pt.LogWrite+= MainClass.MainWindow.LogTaskWritte;
 				pt.WriteStep+=  delegate(object sender, StepEventArgs e) {
-					TreeIter ti =  storeOutput.AppendValues(e.Message1,e.Message2,null,e.IsError);
+					storeOutput.AppendValues(e.Message1,e.Message2,null,e.IsError);
 					if(status!=1)
 						status = e.Status;
 					while (Gtk.Application.EventsPending ())
 						Gtk.Application.RunIteration ();
-					//return ti;
 				};
 				pt.Initialize(list);
 				

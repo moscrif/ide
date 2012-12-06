@@ -3,7 +3,7 @@ using Moscrif.IDE.Controls;
 
 namespace Moscrif.IDE.Components
 {
-	[System.ComponentModel.ToolboxItem(true)]
+
 	public partial class LoginLogoutControl : Gtk.Bin
 	{
 		public LoginLogoutControl()
@@ -20,7 +20,6 @@ namespace Moscrif.IDE.Components
 		{
 			LoginLogout();
 		}
-
 
 		public void LoginLogout(){
 
@@ -49,7 +48,6 @@ namespace Moscrif.IDE.Components
 			MainClass.User = null;
 			SetLogin();
 		}
-
 
 		public void SetLogin(){
 

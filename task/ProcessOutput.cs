@@ -10,10 +10,7 @@ namespace Moscrif.IDE.Task
 	{
 		private TreeStore outputModel = new TreeStore(typeof(string), typeof(string), typeof(string), typeof(string));
 		private TreeView treeView = null;
-
-		private object lock_Write = new object();
-
-		//
+		
 		Queue<QueuedUpdate> updates = new Queue<QueuedUpdate>();
 		QueuedTextWrite lastTextWrite;
 		bool outputDispatcherRunning = false;

@@ -21,14 +21,6 @@ namespace Moscrif.IDE.Controls
 			tvItem1.AppendColumn(MainClass.Languages.Translate("template"), new Gtk.CellRendererText(), "text", 0);
 			tvItem1.AppendColumn(MainClass.Languages.Translate("description"), new Gtk.CellRendererText(), "text", 1);
 
-			//tblMain.Visible = false;
-
-			CellRendererText textRenderer = new CellRendererText();
-			//cbFileTemplates.Changed += new EventHandler(OnComboDeviceChanged);
-			//cbFileTemplates.PackStart(textRenderer, true);
-			//cbFileTemplates.AddAttribute(textRenderer, "text", 1);
-
-
 			tvItem.Selection.Changed+= delegate(object sender, EventArgs e) {
 
 				fileListStore.Clear();

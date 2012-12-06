@@ -79,8 +79,6 @@ namespace Moscrif.IDE.Controls
 
 			if(MainClass.Platform.IsWindows){
 
-				Toolbar toolbarDisk = new Toolbar ();
-
 				SeparatorMenuItem smi = new SeparatorMenuItem();
 				menu.Insert (smi, -1);
 
@@ -445,7 +443,6 @@ namespace Moscrif.IDE.Controls
 		void FillStore (bool savePath)
 		{
 			int lngText = 1;
-			string maxLng =" ";
 			store.Clear ();
 			DirectoryInfo[] directoryInfo;
 
@@ -473,7 +470,6 @@ namespace Moscrif.IDE.Controls
 				store.AppendValues (di.FullName, di.Name, dirIcon, true);
 				if(di.Name.Length>lngText){
 					lngText =di.Name.Length;
-					maxLng =di.Name;
 				}
 
 			}
@@ -486,7 +482,6 @@ namespace Moscrif.IDE.Controls
 
 				if(file.Name.Length>lngText){
 					lngText =file.Name.Length;
-					maxLng =file.Name;
 				}
 			}
 			iconView.ItemWidth =250;

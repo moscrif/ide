@@ -141,7 +141,7 @@ namespace Moscrif.IDE.Controls
 					state = MainClass.Languages.Translate("error_missing_libs");
 				}
 
-				Gtk.TreeIter ti = libstListStore.AppendValues(lib, state,isSelect,missing,framneworkLibPath);
+				libstListStore.AppendValues(lib, state,isSelect,missing,framneworkLibPath);
 			}
 		}
 

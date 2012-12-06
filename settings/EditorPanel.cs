@@ -52,7 +52,6 @@ namespace Moscrif.IDE.Option
 		Gtk.Window parentWindow;
 
 		ExtensionSetting selectedExtensionSetting;
-		TreeIter selectedTreeIter = new TreeIter();
 
 		public EditorWidget(Gtk.Window parent)
 		{
@@ -141,8 +140,7 @@ namespace Moscrif.IDE.Option
 			TreePath[] tp = ts.GetSelectedRows();
 			if (tp.Length < 1)
 				return null;
-			
-			selectedTreeIter = ti;
+
 			
 			return  (ExtensionSetting)tvExtension.Model.GetValue(ti, 1);
 		}
@@ -166,8 +164,7 @@ namespace Moscrif.IDE.Option
 			TreePath[] tp = ts.GetSelectedRows();
 			if (tp.Length < 1)
 				return ;
-			
-			selectedTreeIter = ti;
+
 			selectedExtensionSetting = (ExtensionSetting)tvExtension.Model.GetValue(ti, 1);
 
 			int seltyp =  (int)ddrbAction.CurrentItem;
@@ -198,8 +195,6 @@ namespace Moscrif.IDE.Option
 			TreePath[] tp = ts.GetSelectedRows();
 			if (tp.Length < 1)
 				return ;
-			
-			selectedTreeIter = ti;
 			
 			ExtensionSetting es = (ExtensionSetting)tvExtension.Model.GetValue(ti, 1);
 

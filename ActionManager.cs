@@ -829,12 +829,12 @@ namespace Moscrif.IDE
 
 		}
 		npw.Destroy();*/
-		PublishDialog pd = new PublishDialog();
+		/*PublishDialog pd = new PublishDialog();
 		if(pd.Run() == (int)ResponseType.Ok){
 			
 		}
 		pd.Destroy();
-					
+		*/			
 	}
 	#endregion	
 	}

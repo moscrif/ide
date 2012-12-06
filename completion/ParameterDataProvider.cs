@@ -9,13 +9,13 @@ namespace Moscrif.IDE.Completion
 	public class ParameterDataProvider : IParameterDataProvider
 	{
 		//private Mono.TextEditor.TextEditorData editor;
-		private TextEditor editor;
+		//private TextEditor editor;
 		//private List<Function> functions = new List<Function> ();
 
 		private List<CompletionData> list =  new List<CompletionData> ();
 		public ParameterDataProvider (Mono.TextEditor.TextEditor editor, string functionName)
 		{
-			this.editor = editor;
+			//this.editor = editor;
 			List<CompletionData> cd = editor.GetCompletionMemberData(functionName);
 			if(cd!= null)
 				list.AddRange(cd);

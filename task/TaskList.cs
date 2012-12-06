@@ -35,8 +35,6 @@ namespace Moscrif.IDE.Task
 						//Console.WriteLine("EndTaskWritte IS null");
 					}*/
 				} else {
-
-					List<string> errorList = new List<string>();
 					task.OnEndTaskWrite(task, task.Name, task.StateTask.ToString(), task.Output);
 					/*if (EndTaskWritte != null) {
 						//Console.WriteLine(EndTaskWritte.ToString());
@@ -63,29 +61,12 @@ namespace Moscrif.IDE.Task
 
 				if (task.ExecuteTask()) {
 					task.OnEndTaskWrite(task, task.Name,task.StateTask.ToString(), task.Output);
-					/*if (EndTaskWritte != null){
-						EndTaskWritte(task, task.Name,task.StateTask.ToString(), task.Output);
-					} else {
-						//Console.WriteLine("EndTaskWritte IS null");
-					}*/
 				} else {
-
-					List<string> errorList = new List<string>();
 					task.OnEndTaskWrite(task, task.Name, task.StateTask.ToString(), task.Output);
-					/*if (EndTaskWritte != null) {
-						EndTaskWritte(task, task.Name, task.StateTask.ToString(), task.Output);
-					}else {
-
-						//Console.WriteLine("EndTaskWritte IS null");
-					}*/
 					return;
 				}
 			}
 		}
-
-		//public event ProcessTaskHandler EndTaskWritte;
-		//public event ProcessErrorHandler ErrorTaskWritte;
-		//public event ProcessErrorHandler LogTaskWritte;
 	}
 }
 

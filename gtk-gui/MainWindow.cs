@@ -18,7 +18,6 @@ public partial class MainWindow
 	private global::Gtk.Table table1;
 	private global::Gtk.Label lblMessage2;
 	private global::Gtk.ProgressBar pbProgress;
-	private global::Moscrif.IDE.Components.LoginLogoutControl llcLogin;
 	
 	protected virtual void Build ()
 	{
@@ -72,7 +71,7 @@ public partial class MainWindow
 		this.vpBody = new global::Gtk.VPaned ();
 		this.vpBody.CanFocus = true;
 		this.vpBody.Name = "vpBody";
-		this.vpBody.Position = 417;
+		this.vpBody.Position = 442;
 		// Container child vpBody.Gtk.Paned+PanedChild
 		this.hpBodyMidle = new global::Gtk.HPaned ();
 		this.hpBodyMidle.CanFocus = true;
@@ -136,20 +135,11 @@ public partial class MainWindow
 		this.statusbar1.Add (this.hbox1);
 		global::Gtk.Box.BoxChild w13 = ((global::Gtk.Box.BoxChild)(this.statusbar1 [this.hbox1]));
 		w13.Position = 1;
-		// Container child statusbar1.Gtk.Box+BoxChild
-		this.llcLogin = new global::Moscrif.IDE.Components.LoginLogoutControl ();
-		this.llcLogin.Events = ((global::Gdk.EventMask)(256));
-		this.llcLogin.Name = "llcLogin";
-		this.statusbar1.Add (this.llcLogin);
-		global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.statusbar1 [this.llcLogin]));
+		this.vbMain.Add (this.statusbar1);
+		global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.vbMain [this.statusbar1]));
 		w14.Position = 2;
 		w14.Expand = false;
 		w14.Fill = false;
-		this.vbMain.Add (this.statusbar1);
-		global::Gtk.Box.BoxChild w15 = ((global::Gtk.Box.BoxChild)(this.vbMain [this.statusbar1]));
-		w15.Position = 2;
-		w15.Expand = false;
-		w15.Fill = false;
 		this.Add (this.vbMain);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();

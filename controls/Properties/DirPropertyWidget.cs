@@ -12,11 +12,9 @@ namespace Moscrif.IDE.Controls.Properties
 	{
 
 		private FileItem fiOld;
-		private FilePropertisData fpdOld;
 		Project project;
 		public DirPropertyWidget(FilePropertisData fpd)
 		{
-			fpdOld = fpd;
 			project = fpd.Project;
 			fiOld = project.FilesProperty.Find(x => x.SystemFilePath == fpd.Filename);
 			if (fiOld == null){

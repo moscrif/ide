@@ -516,7 +516,6 @@ namespace Moscrif.IDE.Components
 		private void getTweet(){
 
 			XmlDocument rssDoc;
-			XmlNode nodeRss = new XmlDocument();
 			XmlNode nodeChannel = new XmlDocument();
 			XmlNode nodeItem;
 
@@ -531,11 +530,6 @@ namespace Moscrif.IDE.Components
 						nodeChannel = rssDoc.ChildNodes[i];
 					}
 				}
-				/*for (int i = 0; i < nodeRss.ChildNodes.Count; i++){
-					if (nodeRss.ChildNodes[i].Name == "channel"){
-						nodeChannel = nodeRss.ChildNodes[i];
-					}
-				}*/
 				for (int i = 0; i < nodeChannel.ChildNodes.Count; i++)
       				{
 					if (nodeChannel.ChildNodes[i].Name == "status")

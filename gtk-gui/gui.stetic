@@ -101,7 +101,7 @@
           <widget class="Gtk.VPaned" id="vpBody">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
-            <property name="Position">417</property>
+            <property name="Position">442</property>
             <child>
               <widget class="Gtk.HPaned" id="hpBodyMidle">
                 <property name="MemberName" />
@@ -215,16 +215,7 @@
               </packing>
             </child>
             <child>
-              <widget class="Moscrif.IDE.Components.LoginLogoutControl" id="llcLogin">
-                <property name="MemberName" />
-                <property name="Events">ButtonPressMask</property>
-              </widget>
-              <packing>
-                <property name="Position">2</property>
-                <property name="AutoSize">True</property>
-                <property name="Expand">False</property>
-                <property name="Fill">False</property>
-              </packing>
+              <placeholder />
             </child>
           </widget>
           <packing>
@@ -1516,7 +1507,7 @@ All Open Project</property>
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Dialog" id="Moscrif.IDE.Controls.NewWorkspaceDialog" design-size="447 303">
+  <widget class="Gtk.Dialog" id="Moscrif.IDE.Controls.NewWorkspaceDialog" design-size="444 303">
     <property name="MemberName" />
     <property name="Title" translatable="yes">New Workspace</property>
     <property name="WindowPosition">CenterOnParent</property>
@@ -1539,6 +1530,9 @@ All Open Project</property>
                 <property name="RowSpacing">6</property>
                 <property name="ColumnSpacing">6</property>
                 <child>
+                  <placeholder />
+                </child>
+                <child>
                   <widget class="Gtk.Entry" id="entWorkspace">
                     <property name="MemberName" />
                     <property name="CanFocus">True</property>
@@ -1548,27 +1542,6 @@ All Open Project</property>
                     <signal name="KeyReleaseEvent" handler="OnEntWorkspaceKeyReleaseEvent" />
                   </widget>
                   <packing>
-                    <property name="LeftAttach">1</property>
-                    <property name="RightAttach">2</property>
-                    <property name="AutoSize">False</property>
-                    <property name="YOptions">Fill</property>
-                    <property name="XExpand">True</property>
-                    <property name="XFill">True</property>
-                    <property name="XShrink">False</property>
-                    <property name="YExpand">False</property>
-                    <property name="YFill">True</property>
-                    <property name="YShrink">False</property>
-                  </packing>
-                </child>
-                <child>
-                  <widget class="Moscrif.IDE.Components.FileEntry" id="feRoot">
-                    <property name="MemberName" />
-                    <property name="IsFolder">True</property>
-                    <property name="BrowserTitle">Root Directory</property>
-                  </widget>
-                  <packing>
-                    <property name="TopAttach">1</property>
-                    <property name="BottomAttach">2</property>
                     <property name="LeftAttach">1</property>
                     <property name="RightAttach">2</property>
                     <property name="AutoSize">False</property>
@@ -2123,31 +2096,6 @@ All Open Project</property>
               </packing>
             </child>
             <child>
-              <widget class="Gtk.FontButton" id="fontbutton1">
-                <property name="MemberName" />
-                <property name="CanFocus">True</property>
-                <property name="FontName">Monospace 10</property>
-                <property name="ShowStyle">False</property>
-                <property name="UseFont">True</property>
-                <property name="UseSize">True</property>
-              </widget>
-              <packing>
-                <property name="TopAttach">8</property>
-                <property name="BottomAttach">9</property>
-                <property name="LeftAttach">1</property>
-                <property name="RightAttach">2</property>
-                <property name="AutoSize">True</property>
-                <property name="XOptions">Fill</property>
-                <property name="YOptions">Fill</property>
-                <property name="XExpand">False</property>
-                <property name="XFill">True</property>
-                <property name="XShrink">False</property>
-                <property name="YExpand">False</property>
-                <property name="YFill">True</property>
-                <property name="YShrink">False</property>
-              </packing>
-            </child>
-            <child>
               <widget class="Gtk.CheckButton" id="chbAutoselectProject">
                 <property name="MemberName" />
                 <property name="CanFocus">True</property>
@@ -2234,6 +2182,31 @@ All Open Project</property>
               <packing>
                 <property name="TopAttach">6</property>
                 <property name="BottomAttach">7</property>
+                <property name="LeftAttach">1</property>
+                <property name="RightAttach">2</property>
+                <property name="AutoSize">True</property>
+                <property name="XOptions">Fill</property>
+                <property name="YOptions">Fill</property>
+                <property name="XExpand">False</property>
+                <property name="XFill">True</property>
+                <property name="XShrink">False</property>
+                <property name="YExpand">False</property>
+                <property name="YFill">True</property>
+                <property name="YShrink">False</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="Gtk.FontButton" id="fontbutton1">
+                <property name="MemberName" />
+                <property name="CanFocus">True</property>
+                <property name="FontName">Monospace 10</property>
+                <property name="ShowStyle">False</property>
+                <property name="UseFont">True</property>
+                <property name="UseSize">True</property>
+              </widget>
+              <packing>
+                <property name="TopAttach">8</property>
+                <property name="BottomAttach">9</property>
                 <property name="LeftAttach">1</property>
                 <property name="RightAttach">2</property>
                 <property name="AutoSize">True</property>
@@ -3698,31 +3671,6 @@ All Open Project</property>
           <placeholder />
         </child>
         <child>
-          <widget class="Gtk.FontButton" id="fontbutton1">
-            <property name="MemberName" />
-            <property name="CanFocus">True</property>
-            <property name="FontName">Monospace 10</property>
-            <property name="ShowStyle">False</property>
-            <property name="UseFont">True</property>
-            <property name="UseSize">True</property>
-          </widget>
-          <packing>
-            <property name="TopAttach">1</property>
-            <property name="BottomAttach">2</property>
-            <property name="LeftAttach">1</property>
-            <property name="RightAttach">2</property>
-            <property name="AutoSize">True</property>
-            <property name="XOptions">Fill</property>
-            <property name="YOptions">Fill</property>
-            <property name="XExpand">False</property>
-            <property name="XFill">True</property>
-            <property name="XShrink">False</property>
-            <property name="YExpand">False</property>
-            <property name="YFill">True</property>
-            <property name="YShrink">False</property>
-          </packing>
-        </child>
-        <child>
           <widget class="Gtk.CheckButton" id="chbAgressivelyTriggerCL">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
@@ -3904,6 +3852,31 @@ All Open Project</property>
           <packing>
             <property name="TopAttach">3</property>
             <property name="BottomAttach">4</property>
+            <property name="LeftAttach">1</property>
+            <property name="RightAttach">2</property>
+            <property name="AutoSize">True</property>
+            <property name="XOptions">Fill</property>
+            <property name="YOptions">Fill</property>
+            <property name="XExpand">False</property>
+            <property name="XFill">True</property>
+            <property name="XShrink">False</property>
+            <property name="YExpand">False</property>
+            <property name="YFill">True</property>
+            <property name="YShrink">False</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.FontButton" id="fontbutton1">
+            <property name="MemberName" />
+            <property name="CanFocus">True</property>
+            <property name="FontName">Monospace 10</property>
+            <property name="ShowStyle">False</property>
+            <property name="UseFont">True</property>
+            <property name="UseSize">True</property>
+          </widget>
+          <packing>
+            <property name="TopAttach">1</property>
+            <property name="BottomAttach">2</property>
             <property name="LeftAttach">1</property>
             <property name="RightAttach">2</property>
             <property name="AutoSize">True</property>
@@ -5242,7 +5215,7 @@ All Open Project</property>
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Bin" id="Moscrif.IDE.Components.LoginLogoutControl" design-size="149 25">
+  <widget class="Gtk.Bin" id="Moscrif.IDE.Components.LoginLogoutControl" design-size="149 26">
     <property name="MemberName" />
     <property name="Visible">False</property>
     <child>
@@ -6254,6 +6227,30 @@ All Open Project</property>
               <placeholder />
             </child>
             <child>
+              <widget class="Gtk.CheckButton" id="chbNulable">
+                <property name="MemberName" />
+                <property name="CanFocus">True</property>
+                <property name="Label" translatable="yes">Not NULL</property>
+                <property name="DrawIndicator">True</property>
+                <property name="HasLabel">True</property>
+                <property name="UseUnderline">True</property>
+              </widget>
+              <packing>
+                <property name="TopAttach">2</property>
+                <property name="BottomAttach">3</property>
+                <property name="LeftAttach">1</property>
+                <property name="RightAttach">2</property>
+                <property name="AutoSize">True</property>
+                <property name="YOptions">Fill</property>
+                <property name="XExpand">True</property>
+                <property name="XFill">True</property>
+                <property name="XShrink">False</property>
+                <property name="YExpand">False</property>
+                <property name="YFill">True</property>
+                <property name="YShrink">False</property>
+              </packing>
+            </child>
+            <child>
               <widget class="Gtk.Entry" id="entrDefault">
                 <property name="MemberName" />
                 <property name="CanFocus">True</property>
@@ -6333,30 +6330,6 @@ All Open Project</property>
               <packing>
                 <property name="TopAttach">1</property>
                 <property name="BottomAttach">2</property>
-                <property name="LeftAttach">1</property>
-                <property name="RightAttach">2</property>
-                <property name="AutoSize">True</property>
-                <property name="YOptions">Fill</property>
-                <property name="XExpand">True</property>
-                <property name="XFill">True</property>
-                <property name="XShrink">False</property>
-                <property name="YExpand">False</property>
-                <property name="YFill">True</property>
-                <property name="YShrink">False</property>
-              </packing>
-            </child>
-            <child>
-              <widget class="Gtk.CheckButton" id="chbNulable">
-                <property name="MemberName" />
-                <property name="CanFocus">True</property>
-                <property name="Label" translatable="yes">Not NULL</property>
-                <property name="DrawIndicator">True</property>
-                <property name="HasLabel">True</property>
-                <property name="UseUnderline">True</property>
-              </widget>
-              <packing>
-                <property name="TopAttach">2</property>
-                <property name="BottomAttach">3</property>
                 <property name="LeftAttach">1</property>
                 <property name="RightAttach">2</property>
                 <property name="AutoSize">True</property>
@@ -8137,6 +8110,32 @@ All Open Project</property>
               <placeholder />
             </child>
             <child>
+              <widget class="Gtk.CheckButton" id="chbCreateFile">
+                <property name="MemberName" />
+                <property name="CanFocus">True</property>
+                <property name="Label" translatable="yes">Create emulator resolution</property>
+                <property name="Active">True</property>
+                <property name="DrawIndicator">True</property>
+                <property name="HasLabel">True</property>
+                <property name="UseUnderline">True</property>
+              </widget>
+              <packing>
+                <property name="TopAttach">4</property>
+                <property name="BottomAttach">5</property>
+                <property name="LeftAttach">1</property>
+                <property name="RightAttach">2</property>
+                <property name="AutoSize">True</property>
+                <property name="XOptions">Fill</property>
+                <property name="YOptions">Fill</property>
+                <property name="XExpand">False</property>
+                <property name="XFill">True</property>
+                <property name="XShrink">False</property>
+                <property name="YExpand">False</property>
+                <property name="YFill">True</property>
+                <property name="YShrink">False</property>
+              </packing>
+            </child>
+            <child>
               <widget class="Gtk.Entry" id="entrName">
                 <property name="MemberName" />
                 <property name="CanFocus">True</property>
@@ -8168,32 +8167,6 @@ All Open Project</property>
               <packing>
                 <property name="TopAttach">1</property>
                 <property name="BottomAttach">2</property>
-                <property name="LeftAttach">1</property>
-                <property name="RightAttach">2</property>
-                <property name="AutoSize">True</property>
-                <property name="XOptions">Fill</property>
-                <property name="YOptions">Fill</property>
-                <property name="XExpand">False</property>
-                <property name="XFill">True</property>
-                <property name="XShrink">False</property>
-                <property name="YExpand">False</property>
-                <property name="YFill">True</property>
-                <property name="YShrink">False</property>
-              </packing>
-            </child>
-            <child>
-              <widget class="Gtk.CheckButton" id="chbCreateFile">
-                <property name="MemberName" />
-                <property name="CanFocus">True</property>
-                <property name="Label" translatable="yes">Create emulator resolution</property>
-                <property name="Active">True</property>
-                <property name="DrawIndicator">True</property>
-                <property name="HasLabel">True</property>
-                <property name="UseUnderline">True</property>
-              </widget>
-              <packing>
-                <property name="TopAttach">4</property>
-                <property name="BottomAttach">5</property>
                 <property name="LeftAttach">1</property>
                 <property name="RightAttach">2</property>
                 <property name="AutoSize">True</property>
@@ -8711,7 +8684,7 @@ All Open Project</property>
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Dialog" id="Moscrif.IDE.Controls.Wizard.NewProjectWizzard_New" design-size="564 383">
+  <widget class="Gtk.Dialog" id="Moscrif.IDE.Controls.Wizard.NewProjectWizzard_New" design-size="556 383">
     <property name="MemberName" />
     <property name="WindowPosition">CenterOnParent</property>
     <property name="Buttons">3</property>
@@ -8856,6 +8829,9 @@ All Open Project</property>
                       <placeholder />
                     </child>
                     <child>
+                      <placeholder />
+                    </child>
+                    <child>
                       <widget class="Gtk.Entry" id="entrProjectName">
                         <property name="MemberName" />
                         <property name="CanFocus">True</property>
@@ -8868,27 +8844,6 @@ All Open Project</property>
                         <property name="AutoSize">False</property>
                         <property name="YOptions">Fill</property>
                         <property name="XExpand">True</property>
-                        <property name="XFill">True</property>
-                        <property name="XShrink">False</property>
-                        <property name="YExpand">False</property>
-                        <property name="YFill">True</property>
-                        <property name="YShrink">False</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <widget class="Moscrif.IDE.Components.FileEntry" id="feLocation">
-                        <property name="MemberName" />
-                        <property name="IsFolder">True</property>
-                      </widget>
-                      <packing>
-                        <property name="TopAttach">2</property>
-                        <property name="BottomAttach">3</property>
-                        <property name="LeftAttach">1</property>
-                        <property name="RightAttach">2</property>
-                        <property name="AutoSize">True</property>
-                        <property name="XOptions">Fill</property>
-                        <property name="YOptions">Fill</property>
-                        <property name="XExpand">False</property>
                         <property name="XFill">True</property>
                         <property name="XShrink">False</property>
                         <property name="YExpand">False</property>
@@ -9664,7 +9619,7 @@ All Open Project</property>
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Dialog" id="Moscrif.IDE.Controls.Wizard.PublishDialogWizzard" design-size="742 482">
+  <widget class="Gtk.Dialog" id="Moscrif.IDE.Controls.Wizard.PublishDialogWizzard" design-size="731 482">
     <property name="MemberName" />
     <property name="WindowPosition">CenterOnParent</property>
     <property name="Buttons">3</property>

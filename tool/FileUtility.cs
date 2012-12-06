@@ -199,7 +199,7 @@ namespace Moscrif.IDE.Tool
 				reader.Close();
 				Regex regexBar = new Regex(expresion, RegexOptions.IgnorePatternWhitespace | RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
-				MatchCollection mcAll = Regex.Matches(content, expresion);
+				MatchCollection mcAll =regexBar.Matches(content);//Regex.Matches(content, expresion);
 				
 				return mcAll;
 			}catch {
@@ -455,7 +455,6 @@ namespace Moscrif.IDE.Tool
 
 		public static void CreateFile(string newFile, string content)
 		{
-			string fileName = System.IO.Path.GetFileName(newFile);
 			string dir = System.IO.Path.GetDirectoryName(newFile);
 			string nameExtens = System.IO.Path.GetExtension(newFile);
 			string nameClear = System.IO.Path.GetFileNameWithoutExtension(newFile);

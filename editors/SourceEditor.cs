@@ -446,7 +446,7 @@ namespace Moscrif.IDE.Editors
 			if (!String.IsNullOrEmpty(MainClass.Settings.SourceEditorSettings.EditorFont))
 				options.FontName = MainClass.Settings.SourceEditorSettings.EditorFont;
 
-			try{
+			try{//check parse style
 				Mono.TextEditor.Highlighting.Style style = SyntaxModeService.GetColorStyle(null, "Moscrif");
 			}catch(Exception ex){
 				options.ColorScheme = "";

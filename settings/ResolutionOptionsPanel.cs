@@ -81,12 +81,14 @@ namespace Moscrif.IDE.Option
 
 		private void RenderResolution(Gtk.TreeViewColumn column, Gtk.CellRenderer cell, Gtk.TreeModel model, Gtk.TreeIter iter)
 		{
-			int type = (int) model.GetValue (iter, 0);
+
 			Rule rule = (Rule) model.GetValue (iter, 3);
 
+			/*
+			int type = (int) model.GetValue (iter, 0);
 			Pango.FontDescription fd = new Pango.FontDescription();
 
-			/*if (type < 0) {
+			if (type < 0) {
 				fd.Weight = Pango.Weight.Bold;
 
 			} else {

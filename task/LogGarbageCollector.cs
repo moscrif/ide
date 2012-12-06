@@ -13,9 +13,6 @@ namespace Moscrif.IDE.Task
 
 		public int CountItem = 0;
 
-		private object lock_Write = new object();
-
-		//
 		Queue<QueuedUpdate> updates = new Queue<QueuedUpdate>();
 		QueuedTextWrite lastTextWrite;
 		bool outputDispatcherRunning = false;
@@ -39,17 +36,7 @@ namespace Moscrif.IDE.Task
 			FontDescription customFont =  Pango.FontDescription.FromString(MainClass.Settings.ConsoleTaskFont);
 			treeView.ModifyFont(customFont);
 
-			Gtk.CellRendererText fileNameRenderer = new Gtk.CellRendererText();
-
 			treeView.AppendColumn(MainClass.Languages.Translate("message"), new CellRendererText(), "text", 0);
-			//treeView.AppendColumn("Stat", new CellRendererText(), "text", 1);
-			//treeView.AppendColumn("Message", new CellRendererText(), "text", 2);
-			//treeView.AppendColumn("Place", new CellRendererText(), "text", 3);
-
-			/*TreeViewColumn tvcMessage = new TreeViewColumn ( MainClass.Languages.Translate("message"),  fileNameRenderer, "text", 0);
-			tvcMessage.MinWidth = 500;
-			tvcMessage.Resizable = true;
-			treeView.AppendColumn(tvcMessage);*/
 
 			treeView.HeadersVisible = true;
 			treeView.EnableTreeLines = true;
@@ -126,15 +113,6 @@ namespace Moscrif.IDE.Task
 			if (clearOutput)
 				Clear();
 			TaskResult tr = new TaskResult(name, status, error);
-			//raw text has an extra optimisation here, as we can append it to existing updates
-						/*lock (updates) {
-				if (lastTextWrite != null) {
-					if (lastTextWrite.Tag == null) {
-						lastTextWrite.Write(tr);
-						return;
-					}
-				}
-			}*/
 			QueuedTextWrite qtw = new QueuedTextWrite(tr);
 			AddQueuedUpdate(qtw);
 		}

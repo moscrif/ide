@@ -8,8 +8,6 @@ using System.Collections.Generic;
 
 namespace Moscrif.IDE.Components
 {
-	/*[System.ComponentModel.Category("Moscfift.Ide.Components")]
-	[System.ComponentModel.ToolboxItem(true)]*/
 	public class NavigationBar  : Gtk.HBox
 	{
 
@@ -22,7 +20,6 @@ namespace Moscrif.IDE.Components
 		}
 
 		ComboBoxEntry cbeNavigation;
-		CheckButton chButton;
 		Button btnFavorite;
 		Pixbuf pixbufYes = null;
 		Pixbuf pixbufNo = null;
@@ -92,8 +89,6 @@ namespace Moscrif.IDE.Components
 			} else {
 				btnFavorite = new Button();
 			}
-
-			chButton = new CheckButton();
 
 			btnFavorite.TooltipText = MainClass.Languages.Translate("close");
 			btnFavorite.Relief = ReliefStyle.None;

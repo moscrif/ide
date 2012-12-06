@@ -10,11 +10,9 @@ namespace Moscrif.IDE.Controls.Properties
 	public class FilePropertyWidget : Gtk.HBox
 	{
 		private FileItem fiOld;
-		private FilePropertisData fpdOld;
 
 		public FilePropertyWidget(FilePropertisData fpd)
 		{
-			fpdOld = fpd;
 			Project project = fpd.Project;
 			fiOld = project.FilesProperty.Find(x => x.SystemFilePath == fpd.Filename);
 			if (fiOld == null){

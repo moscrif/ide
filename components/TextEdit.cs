@@ -215,8 +215,6 @@ namespace Moscrif.IDE.Components
 		[GLib.ConnectBefore]
 		protected override bool OnKeyReleaseEvent (Gdk.EventKey evnt)
 		{
-			char charKey = (char)Gdk.Keyval.ToUnicode (evnt.KeyValue);
-
 			bool result = base.OnKeyReleaseEvent (evnt);
 
 			List<FoldSegment> list = GetFolding();
@@ -305,8 +303,6 @@ namespace Moscrif.IDE.Components
 			};
 
 			KeyActions ka = KeyActions.None;
-			bool isLetterOrDigit = char.IsLetterOrDigit((char) evnt.Key);
-
 			//if (currentCompletionContext != null) {
 				if (CompletionWindowManager.PreProcessKeyEvent (evnt.Key,(char)evnt.Key, evnt.State, out ka)) {
 					CompletionWindowManager.PostProcessKeyEvent (ka);
@@ -487,7 +483,6 @@ namespace Moscrif.IDE.Components
 
 		private int FindPrevWordOffset ( int offset)// MonoDevelop.Ide.Gui.TextEditor editor,
 		{
-			int endOffset = offset;
 
 			while(--offset >= 0 && ( ( (!char.IsPunctuation(this.Document.GetCharAt (offset))) &&
 						( !char.IsSymbol(this.Document.GetCharAt (offset)) ) &&
@@ -518,8 +513,6 @@ namespace Moscrif.IDE.Components
 
 		private int FindPrevWordOffsetWithoutDot ( int offset)// MonoDevelop.Ide.Gui.TextEditor editor,
 		{
-			int endOffset = offset;
-
 			while(--offset >= 0 && ( ( (!char.IsPunctuation(this.Document.GetCharAt (offset))) &&
 						( !char.IsSymbol(this.Document.GetCharAt (offset)) ) &&
 						( !char.IsWhiteSpace(this.Document.GetCharAt (offset)) )
@@ -533,9 +526,7 @@ namespace Moscrif.IDE.Components
 		}
 
 		private int FindPrevWordOffsetWithoutBrackets ( int offset)// MonoDevelop.Ide.Gui.TextEditor editor,
-		{
-			int endOffset = offset;
-			
+		{			
 			while(--offset >= 0 && ( ( (!char.IsPunctuation(this.Document.GetCharAt (offset))) &&
 			                          ( !char.IsSymbol(this.Document.GetCharAt (offset)) ) &&
 			                          ( !char.IsWhiteSpace(this.Document.GetCharAt (offset)) )
@@ -551,8 +542,6 @@ namespace Moscrif.IDE.Components
 
 		private int FindPrevWordOffsetStartSpace ( int offset)// MonoDevelop.Ide.Gui.TextEditor editor,
 		{
-			int endOffset = offset;
-
 			while(--offset >= 0 && ( char.IsWhiteSpace(this.Document.GetCharAt (offset)) ))
 				;
 
@@ -665,11 +654,9 @@ namespace Moscrif.IDE.Components
 		public  List<FoldSegment> GetFolding(){
 
 			List<FoldSegment> result = new List<FoldSegment> ();
-		        Stack<FoldSegment> foldSegments = new Stack<FoldSegment> ();
 
 			string allRegex =@"//\s*?@region.*|//\s*?@endregion\s*?";
 			Regex regexAll = new Regex(allRegex, RegexOptions.IgnorePatternWhitespace | RegexOptions.Compiled | RegexOptions.CultureInvariant);
-
 
 			MatchCollection mcAll = regexAll.Matches(this.Document.Text);
 

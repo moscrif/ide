@@ -133,11 +133,11 @@ namespace Moscrif.IDE.Option
 			w7.XOptions = ((global::Gtk.AttachOptions)(4));
 			w7.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child tbCustomlProxy.Gtk.Table+TableChild
-			this.sbPort = new global::Gtk.SpinButton (0D, 1000000000D, 1D);
+			this.sbPort = new global::Gtk.SpinButton (0, 1000000000, 1);
 			this.sbPort.CanFocus = true;
 			this.sbPort.Name = "sbPort";
-			this.sbPort.Adjustment.PageIncrement = 10D;
-			this.sbPort.ClimbRate = 1D;
+			this.sbPort.Adjustment.PageIncrement = 10;
+			this.sbPort.ClimbRate = 1;
 			this.sbPort.Numeric = true;
 			this.tbCustomlProxy.Add (this.sbPort);
 			global::Gtk.Table.TableChild w8 = ((global::Gtk.Table.TableChild)(this.tbCustomlProxy [this.sbPort]));

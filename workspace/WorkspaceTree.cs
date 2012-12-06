@@ -264,8 +264,6 @@ namespace Moscrif.IDE.Workspace
 			
 		}
 
-
-
 		[GLib.ConnectBefore]
 		void OnButtonRelease(object obj, ButtonReleaseEventArgs args)
 		{
@@ -273,10 +271,8 @@ namespace Moscrif.IDE.Workspace
 
 				TreeIter ti = GetSelectedIter();
 
-				//if (ti == TreeIter.Zero) return;
 				if(ti.Equals(TreeIter.Zero))return;
-				//if (ti. != null) {
-				string ti_PATH = store.GetValue(ti, PATH_ROW).ToString();
+			
 				int ti_TYP = (Int32)store.GetValue(ti, TYPE_ROW);
 				this.popupMenu = new Menu();
 
@@ -444,7 +440,6 @@ namespace Moscrif.IDE.Workspace
 			store.Foreach((model, path, iterr) =>
 			{
 				string myPath = store.GetValue(iterr, PATH_ROW).ToString();
-				int myTyp = (int)store.GetValue(iterr, TYPE_ROW);
 				
 				if ((myPath == filename) ) {
 					//iter = iterr;
@@ -460,8 +455,6 @@ namespace Moscrif.IDE.Workspace
 				}
 				return false;
 			});
-			//return GetSelectedProjectApp();
-
 		}
 
 		public TreeIter GetSelectedIter()
@@ -520,15 +513,12 @@ namespace Moscrif.IDE.Workspace
 			FileInfo f = new FileInfo(fileName);
 			string stockIcon = MainClass.Tools.GetIconForExtension(f.Extension);
 			
-			TreeIter iter = store.AppendValues(ti, MainClass.Tools.GetIconFromStock(stockIcon, Gtk.IconSize.SmallToolbar), f.Name, f.FullName, TypeFile.SourceFile);
-			
+			store.AppendValues(ti, MainClass.Tools.GetIconFromStock(stockIcon, Gtk.IconSize.SmallToolbar), f.Name, f.FullName, TypeFile.SourceFile);
 		}
 
 
 		public void AddThemeDirectoryToTree(string fileName, Gtk.TreeIter ti)
 		{
-			FileInfo f = new FileInfo(fileName);
-			
 			DirectoryInfo di = new DirectoryInfo(fileName);
 
 			TreeIter themeIter;
@@ -557,8 +547,6 @@ namespace Moscrif.IDE.Workspace
 
 		public void AddDirectoryToTree(string fileName, Gtk.TreeIter ti)
 		{
-			FileInfo f = new FileInfo(fileName);
-			
 			DirectoryInfo di = new DirectoryInfo(fileName);
 			
 			TreeIter iter = store.AppendValues(ti, MainClass.Tools.GetIconFromStock("folder.png", Gtk.IconSize.SmallToolbar), di.Name, di.FullName, TypeFile.Directory);
@@ -656,42 +644,6 @@ namespace Moscrif.IDE.Workspace
 				}
 			}
 		}
-
-		/*private Menu GetPopUp(){
-			return  (Menu)MainClass.MainWindow.ActionUiManager.GetWidget("/workspacePagePopupDirectory");
-		}*/
-		/*
-		private static string GetIconString(string extension)
-		{
-			string stockIcon = Stock.Dnd;
-			
-			switch (extension) {
-			case ".xml":
-				stockIcon = "file-html.png";
-				break;
-			case ".ms":
-				stockIcon = "file-ms.png";
-				break;
-			case ".mso":
-				stockIcon = "file-ms.png";
-				break;
-			case ".txt":
-				stockIcon = "file-text.png";
-				break;
-			case ".db":
-				stockIcon = "file-database.png";
-				break;
-			case ".png":
-			case ".jpg":
-				stockIcon = "file-image.png";
-				break;
-			default:
-				stockIcon = "empty.png";
-				break;
-			}
-			
-			return stockIcon;
-		}*/
 
 		private static Gdk.Pixbuf GetIcon(string name)
 		{
