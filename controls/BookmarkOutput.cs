@@ -12,16 +12,7 @@ namespace Moscrif.IDE.Controls
 	{
 		private TreeStore outputModel = new TreeStore(typeof(string),typeof(int),typeof(string));//, typeof(string), typeof(string));
 		private TreeView treeView = null;
-
-		private object lock_Write = new object();
-
-		//
-		//Queue<QueuedUpdate> updates = new Queue<QueuedUpdate>();
-		//QueuedTextWrite lastTextWrite;
-		//bool outputDispatcherRunning = false;
-		//GLib.TimeoutHandler outputDispatcher;
-
-
+		
 		public BookmarkOutput()
 		{
 			this.ShadowType = ShadowType.Out;
@@ -32,11 +23,6 @@ namespace Moscrif.IDE.Controls
 
 			FontDescription customFont =  Pango.FontDescription.FromString(MainClass.Settings.ConsoleTaskFont);
 			treeView.ModifyFont(customFont);
-
-			//treeView.AppendColumn("Name", new CellRendererText(), "text", 0);
-			//treeView.AppendColumn("Stat", new CellRendererText(), "text", 1);
-			//treeView.AppendColumn("Message", new CellRendererText(), "text", 2);
-			//treeView.AppendColumn("Place", new CellRendererText(), "text", 3);
 
 			TreeViewColumn tvcState = new TreeViewColumn (MainClass.Languages.Translate("Line"),  new CellRendererText(), "text", 1);
 			tvcState.MinWidth = 25;
@@ -50,13 +36,6 @@ namespace Moscrif.IDE.Controls
 			tvcText.MinWidth = 100;
 			treeView.AppendColumn(tvcText);
 
-			/*TreeViewColumn tvcMessage = new TreeViewColumn (MainClass.Languages.Translate("message"),  new CellRendererText(), "text", 2);
-			tvcMessage.MinWidth = 100;
-			treeView.AppendColumn(tvcMessage);
-			TreeViewColumn tvcPlace = new TreeViewColumn (MainClass.Languages.Translate("location"),  new CellRendererText(), "text", 3);
-			tvcPlace.MinWidth = 100;
-			treeView.AppendColumn(tvcPlace);*/
-
 			treeView.HeadersVisible = true;
 			treeView.EnableTreeLines = true;
 			
@@ -64,8 +43,6 @@ namespace Moscrif.IDE.Controls
 			treeView.EnableSearch =false;
 			treeView.HasFocus = false;
 
-			//outputDispatcher = new GLib.TimeoutHandler(OutputDispatchHandler);
-			
 			this.Add(treeView);
 			
 			this.ShowAll();
@@ -80,11 +57,6 @@ namespace Moscrif.IDE.Controls
 					WriteTask(fs.FileName,b.Line+1,b.Name);
 					//Console.WriteLine("bookmark -> {0};{1}",fs.FileName,line);
 				}
-
-				/*foreach(int line in fs.Bookmarks){
-					WriteTask(fs.FileName,line+1);
-					//Console.WriteLine("bookmark -> {0};{1}",fs.FileName,line);
-				}*/
 			}
 		}
 
@@ -92,8 +64,7 @@ namespace Moscrif.IDE.Controls
 		private void OnRowActivate(object o, RowActivatedArgs args)
 		{
 			TreeIter ti = new TreeIter();
-			//filter.GetIter(out ti, args.Path);
-			//TreePath childTP = outputModel.ConvertPathToChildPath(args.Path);
+
 			try {
 				outputModel.GetIter(out ti, args.Path);
 				//if (ti != TreeIter.Zero) {
@@ -122,33 +93,10 @@ namespace Moscrif.IDE.Controls
 				Logger.Error(ex.Message,null);
 			}
 
-			/*
-			//raw text has an extra optimisation here, as we can append it to existing updates
-			lock (updates) {
-				//TreeIter iter = outputModel.AppendValues(name, status, "", "");
-				
-				outputModel.AppendValues(file, line);
-			}*/
 		}
-
-		/*public void WriteTask( string file, int line,bool clearOutput)
-		{
-			if (clearOutput)
-				Clear();
-
-			QueuedTextWrite qtw = new QueuedTextWrite(file,line);
-			AddQueuedUpdate(qtw);
-		}*/
-
 
 		public void Clear()
 		{
-			
-			//lock (updates) {
-			//	updates.Clear();
-				//lastTextWrite = null;
-				//outputDispatcherRunning = false;
-			//}
 			outputModel.Clear();
 		}
 	}

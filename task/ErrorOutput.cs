@@ -11,14 +11,10 @@ namespace Moscrif.IDE.Task
 		private TreeStore outputModel = new TreeStore(typeof(string), typeof(string), typeof(string), typeof(string));
 		private TreeView treeView = null;
 
-		private object lock_Write = new object();
-
-		//
 		Queue<QueuedUpdate> updates = new Queue<QueuedUpdate>();
 		QueuedTextWrite lastTextWrite;
 		bool outputDispatcherRunning = false;
 		GLib.TimeoutHandler outputDispatcher;
-
 
 		#region ITaskOutput implementation
 		void ITaskOutput.ClearOutput ()
@@ -254,7 +250,7 @@ namespace Moscrif.IDE.Task
 					foreach (TaskMessage tm in task.errors){
 
 						if (tm.Child != null){
-							TaskMessage tmChild = tm.Child;
+							//TaskMessage tmChild = tm.Child;
 							TreeIter ti = outputModel.AppendValues( System.IO.Path.GetFileName(tm.File), tm.Line, tm.Message, tm.File);
 							AppendChild(ti,tm.Child);
 

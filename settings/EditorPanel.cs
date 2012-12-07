@@ -195,8 +195,6 @@ namespace Moscrif.IDE.Option
 			TreePath[] tp = ts.GetSelectedRows();
 			if (tp.Length < 1)
 				return ;
-			
-			ExtensionSetting es = (ExtensionSetting)tvExtension.Model.GetValue(ti, 1);
 
 			MainClass.Settings.ExtensionList.Remove(selectedExtensionSetting);
 			resolStore.Remove(ref ti);

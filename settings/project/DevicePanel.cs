@@ -824,9 +824,6 @@ namespace Moscrif.IDE.Option
 			}
 
 			}
-
-			DirectoryInfo dir = new DirectoryInfo(MainClass.Paths.DisplayDir);
-
 			nvFonts.Model = fontListStore;
 
 			CellRendererToggle crt = new CellRendererToggle();

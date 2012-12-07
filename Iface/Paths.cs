@@ -9,8 +9,6 @@ namespace Moscrif.IDE.Iface
 {
 	public class Paths
 	{
-		private static Platform platform = new Platform();
-		
 		private string appPath = System.AppDomain.CurrentDomain.BaseDirectory;
 
 		public string AppPath
@@ -69,25 +67,23 @@ namespace Moscrif.IDE.Iface
 		{
 			get { 
 				if (String.IsNullOrEmpty(workDir)){
-					//if (platform.IsWindows){
-					//	workDir = System.IO.Path.Combine(appPath,"Work");
-					//} else {
-						string userDir =Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-						
-						if(userDir.Contains(" ")){
-							if(MainClass.Platform.IsWindows){
-								string root =System.IO.Path.GetPathRoot(userDir);
 
-								userDir	= root+"MoscrifWorkspace";
-								//userDir	="c:/MoscrifWorkspace/";
-								Tool.Logger.LogDebugInfo("Default Workspace dir contains space. Create alternative in " +userDir);
-								workDir = userDir;
-								return workDir;
-							}
+					string userDir =Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+					
+					if(userDir.Contains(" ")){
+						if(MainClass.Platform.IsWindows){
+							string root =System.IO.Path.GetPathRoot(userDir);
+
+							userDir	= root+"MoscrifWorkspace";
+							//userDir	="c:/MoscrifWorkspace/";
+							Tool.Logger.LogDebugInfo("Default Workspace dir contains space. Create alternative in " +userDir);
+							workDir = userDir;
+							return workDir;
 						}
+					}
 
-						workDir = System.IO.Path.Combine(userDir,"MoscrifWorkspace");
-					//}
+					workDir = System.IO.Path.Combine(userDir,"MoscrifWorkspace");
+
 				}
 				return workDir;
 			}
@@ -118,15 +114,12 @@ namespace Moscrif.IDE.Iface
 		{
 			get {
 				if (String.IsNullOrEmpty(settingDir)){
-					//if (platform.IsWindows){
-					//	settingDir = ConfingDir;
-					//} else {
-						string userDir =Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-						settingDir = System.IO.Path.Combine(userDir,".Moscrif");
+					string userDir =Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+					settingDir = System.IO.Path.Combine(userDir,".Moscrif");
 
 					if (!Directory.Exists(settingDir))
 						Directory.CreateDirectory(settingDir);
-					//}
+
 				}
 				return settingDir;
 			}

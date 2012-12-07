@@ -117,6 +117,8 @@ namespace Moscrif.IDE.Editors
 
 		public IEditor Open(string path)
 		{
+			path = Tool.FileUtility.GetSystemPath(path);
+
 			if (!System.IO.File.Exists(path) && (path != "StartPage") ){
 				MessageDialogs md = new MessageDialogs(MessageDialogs.DialogButtonType.Ok, MainClass.Languages.Translate("file_not_exist"), path, MessageType.Error,null);
 				md.ShowDialog();
@@ -466,6 +468,8 @@ namespace Moscrif.IDE.Editors
 
 		public IEditor FindEditor(string filePath)
 		{
+			filePath= Tool.FileUtility.GetSystemPath(filePath);
+
 			if (MainClass.Platform.IsWindows){
 				return listEditor.Find(x => x.FileName.ToLower() == filePath.ToLower());
 			} else{

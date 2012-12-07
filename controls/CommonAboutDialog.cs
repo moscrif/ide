@@ -13,7 +13,6 @@ namespace Moscrif.IDE.Controls
 	internal class ScrollBox : DrawingArea
 	{
 		Pixbuf image;
-		Pixbuf monoPowered;
 		Gdk.GC backGc;
 
 
@@ -23,9 +22,7 @@ namespace Moscrif.IDE.Controls
 			this.ModifyBg(Gtk.StateType.Normal,new Gdk.Color(255, 255, 255)); //new Gdk.Color(49, 49, 74));
 			
 			image = new Gdk.Pixbuf(System.IO.Path.Combine(MainClass.Paths.ResDir, "moscrif.png"));
-			monoPowered = new Gdk.Pixbuf(System.IO.Path.Combine(MainClass.Paths.ResDir, "moscrif.png"));
 			this.SetSizeRequest(600, image.Height - 1);
-			
 		}
 
 		private void DrawImage()

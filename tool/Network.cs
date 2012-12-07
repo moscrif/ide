@@ -14,7 +14,7 @@ namespace Moscrif.IDE.Tool
 		public static List<string> GetIpAdress(){
 		
 			List<string> ipList = new List<string>();
-			IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
+			IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());//Resolve(Dns.GetHostName());
 			foreach (IPAddress ip in ipHostInfo.AddressList){
 				if(ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork){
 					string ipAdress = ip.ToString();

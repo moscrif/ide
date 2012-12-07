@@ -983,8 +983,8 @@ namespace Moscrif.IDE.Task
 
 				if( File.Exists(fileCompile)){
 
-					FileInfo fiCompile = new FileInfo(fileCompile);
 					// len tie ms ktorych datum upravy je vetsi, ako datum upravy msc subory
+					//FileInfo fiCompile = new FileInfo(fileCompile);
 						//if(f.LastWriteTime > fiCompile.LastWriteTime){
 							list.Add(f.FullName);
 						//}

@@ -40,8 +40,6 @@ namespace Moscrif.IDE.Actions
 			filter.AddPattern("*.zip");
 			fc.AddFilter(filter);
 
-			string exportFile = fc.Filename;
-
 			string appname = "";
 			int typ = -1;
 			Gtk.TreeIter ti = new Gtk.TreeIter();
@@ -58,7 +56,6 @@ namespace Moscrif.IDE.Actions
 			}
 
 			fc.CurrentName =p.ProjectName;
-			//fc.SetFilename(p.ProjectName);
 
 			if (fc.Run() != (int)ResponseType.Accept) {
 				fc.Destroy();

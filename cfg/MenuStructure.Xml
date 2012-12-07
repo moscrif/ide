@@ -107,8 +107,8 @@
 			<menuitem name="idepreferences" action="idepreferences" />
 			<!--
 			<separator name="sepTools3" /> 
-			<menuitem name="generateAutoComplete" action="generateAutoComplete" />	--> 
-			<menuitem name="Test" action="test" />	
+			<menuitem name="generateAutoComplete" action="generateAutoComplete" />	 
+			<menuitem name="Test" action="test" />	-->
 		</menu>	
 		<menu name="Help" action="HelpAction">
 	    	<menuitem name="About" action="about" />

@@ -29,7 +29,6 @@ namespace  Moscrif.IDE.Tool
 	
 	        public static string MD5Hash(string text, string salt)
 	        {
-	            MD5 md = MD5CryptoServiceProvider.Create();
 	            ASCIIEncoding enc = new ASCIIEncoding();
 	            byte[] buffer = enc.GetBytes(text + salt);
 	            return MD5Hash(buffer);

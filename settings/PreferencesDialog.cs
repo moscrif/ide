@@ -10,7 +10,6 @@ namespace Moscrif.IDE.Option
 	public partial class PreferencesDialog : Gtk.Dialog
 	{
 		protected TreeStore store;
-		HashSet<object> modifiedObjects = new HashSet<object>();
 		Dictionary<int, SettingPanel> pages = new Dictionary<int, SettingPanel>();
 		List<SettingPanel> list;
 		private TypPreferences typPreferences;

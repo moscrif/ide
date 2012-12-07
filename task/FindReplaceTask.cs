@@ -32,7 +32,6 @@ namespace Moscrif.IDE.Task
 		public bool ExecuteTask ()
 		{
 			output.Clear();
-			List<string> files = new List<string>();
 
 			List<TaskMessage> listOfTask = new List<TaskMessage>();
 			int filesCount = 0;

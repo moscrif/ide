@@ -15,17 +15,14 @@ namespace Moscrif.IDE.Controls
 		private List<string> projectLibs;
 		Gtk.ListStore libstListStore = new Gtk.ListStore(typeof(string), typeof(string), typeof(bool), typeof(bool),typeof(string));
 
-		private string libsInProject;
-
 		public LibsManagerDialog(string libsInProject,Gtk.Window parentWindow)
 		{
 			this.TransientFor = parentWindow;
 			this.Build();
-			this.libsInProject = libsInProject;
-			//this.TransientFor = MainClass.MainWindow;
 
 			if(!String.IsNullOrEmpty(libsInProject)){
 				libsInProject = libsInProject.Replace(",", " ");
+				libsInProject = libsInProject.Replace(";", " ");
 				string[] libs = libsInProject.Split(' ');
 				projectLibs = new List<string>(libs);
 

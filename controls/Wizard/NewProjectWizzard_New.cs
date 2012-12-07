@@ -538,7 +538,6 @@ namespace Moscrif.IDE.Controls.Wizard
 					TreeIter tiChb = new TreeIter();
 					cbTemplate.GetActiveIter(out tiChb);
 
-					string path = storeTemplate.GetValue(tiChb, 1).ToString();
 					string appPath = storeTemplate.GetValue(tiChb, 2).ToString();
 
 					if(File.Exists(appPath)){
@@ -552,15 +551,14 @@ namespace Moscrif.IDE.Controls.Wizard
 					}
 
 					Widget[] widgets = tblScreens.Children;
-					string path = "";
+
 					string appPath = "";
 					foreach (Widget w in widgets ){
 						if((w as RadioButton).Active){
 							appPath = (w as RadioButton).TooltipMarkup;
 						}
 					}
-					path = System.IO.Path.GetDirectoryName(appPath);
-
+	
 					widgets = tblLibraries.Children;
 					string libs = "core ui";
 					string orientation = "";
@@ -717,11 +715,9 @@ namespace Moscrif.IDE.Controls.Wizard
 				MainClass.Settings.ProjectCount = MainClass.Settings.ProjectCount +1;
 
 			string oldName = System.IO.Path.GetFileNameWithoutExtension(appPath);
-			string oldApp = System.IO.Path.GetFileName(appPath);
 
 			if(String.IsNullOrEmpty(MainClass.Workspace.FilePath)) return null;
-			
-			string fileName = projectName;//System.IO.Path.GetFileNameWithoutExtension(destinationFile);
+
 			string destinationDir = System.IO.Path.GetDirectoryName(appPath); // aka workspace from
 			string projectDir = System.IO.Path.Combine(destinationDir,oldName); // aka project dir from
 		
@@ -765,10 +761,8 @@ namespace Moscrif.IDE.Controls.Wizard
 				} catch {
 				}						
 			}
-			//contentMsp = Regex.Replace(contentMsp,oldApp,System.IO.Path.GetFileName(newApp));
 			contentMsp = Regex.Replace(contentMsp,oldName,System.IO.Path.GetFileNameWithoutExtension(newApp));
 
-			//contentMsp = contentMsp.Replace(oldApp,projectName);
 			Project prj = null;
 			try {
 				FileUtility.CreateFile(newApp,contentApp); 

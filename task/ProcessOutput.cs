@@ -175,7 +175,7 @@ namespace Moscrif.IDE.Task
 		private void AppendChild(TreeIter parentIter, TaskMessage tm){
 
 			if ( tm != null){
-				TreeIter ti = outputModel.AppendValues(parentIter,System.IO.Path.GetFileName(tm.File), tm.Line, tm.Message, tm.File);
+				outputModel.AppendValues(parentIter,System.IO.Path.GetFileName(tm.File), tm.Line, tm.Message, tm.File);
 				if (tm.Child != null)
 					AppendChild(parentIter,tm.Child);
 			}
@@ -202,7 +202,7 @@ namespace Moscrif.IDE.Task
 							ti = outputModel.AppendValues(iter, "", tm.Line, tm.Message, "");
 
 						if (tm.Child != null){
-							TaskMessage tmChild = tm.Child;
+							//TaskMessage tmChild = tm.Child;
 							//TreeIter ti = outputModel.AppendValues( System.IO.Path.GetFileName(tm.File), tm.Line, tm.Message, tm.File);
 							AppendChild(ti,tm.Child);
 

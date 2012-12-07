@@ -122,18 +122,8 @@ namespace Moscrif.IDE
 				StockItem item = new StockItem(item_id, null, 0, Gdk.ModifierType.ShiftMask, null);
 				
 				IconSet icon_set = null;
-				
-				Pixbuf default_pixbuf = null;
-				
-				//Tools tools = new Tools();
+
 				string file = System.IO.Path.Combine(MainClass.Paths.ResDir, item_id);
-				if (System.IO.File.Exists(file)){
-					try{
-						default_pixbuf = new Pixbuf(file);
-					}catch(Exception ex){
-						Tool.Logger.Error(ex.Message);
-					}
-				}
 				
 				icon_set = new IconSet();
 				

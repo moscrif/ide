@@ -105,13 +105,10 @@ namespace Moscrif.IDE.Iface
 			SocketPacket socketData = (SocketPacket)asyn.AsyncState ;
 			try
 			{	
-				SocketPacket spacket = (SocketPacket)asyn.AsyncState ;
-				
 				int numbytes = 0;
 				numbytes = socketData.m_currentSocket.EndReceive (asyn);
 				char[] chars = new char[numbytes];
-				System.Text.Decoder d = System.Text.Encoding.UTF8.GetDecoder();
-				int charLen = d.GetChars(socketData.dataBuffer, 0, numbytes, chars, 0);
+				//System.Text.Decoder d = System.Text.Encoding.UTF8.GetDecoder();
 				string recievedData = new String(chars);
 
 				m_currentmessage += recievedData;

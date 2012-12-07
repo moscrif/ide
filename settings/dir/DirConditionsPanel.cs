@@ -53,7 +53,6 @@ namespace Moscrif.IDE.Option
 
 	public partial class DirConditionsWidget : Gtk.Bin
 	{
-		FilePropertisData fcd;
 		Project project;
 		FileItem fi_old;
 		string filepath;
@@ -65,7 +64,6 @@ namespace Moscrif.IDE.Option
 		public DirConditionsWidget(FilePropertisData fcd)
 		{
 			this.Build();
-			this.fcd = fcd;
 			project = fcd.Project;
 			filepath = fcd.Filename;
 			

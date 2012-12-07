@@ -34,10 +34,7 @@ namespace Moscrif.IDE.Controls
 			this.HeightRequest = 450;
 
 			this.ModifyBg (Gtk.StateType.Normal, Style.White);
-			string typ ="-100";
-			if(MainClass.User!=null)
-				typ =MainClass.User.LicenseId;
-			
+
 			string userLicenceId ="-100";
 			if(MainClass.User != null){
 				userLicenceId = MainClass.User.LicenseId;

@@ -219,7 +219,7 @@ namespace Moscrif.IDE.Actions
 			XmlDocument rssDoc;
 			XmlNode nodeRss = new XmlDocument();
 
-			XmlNode nodeChannel = new XmlDocument();
+			//XmlNode nodeChannel = new XmlDocument();
 			XmlNode nodeItem;
 
 			try{

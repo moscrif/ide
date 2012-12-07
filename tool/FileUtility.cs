@@ -172,6 +172,8 @@ namespace Moscrif.IDE.Tool
 
 		public static string GetSystemPath(string path)
 		{
+			if(String.IsNullOrEmpty(path))
+				return path;
 
 			string sysPath = path.Replace('/', Path.DirectorySeparatorChar);
 			sysPath = sysPath.Replace('\\', Path.DirectorySeparatorChar);

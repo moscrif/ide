@@ -16,7 +16,6 @@ namespace Moscrif.IDE.Tool
 {
 	public class Tools
 	{
-		private List<string> validExtension = new List<string>(new string[]{".xml",".ms",".mso",".txt",".db",".png",".jpg",".bmp",".tab",".app",".msp",".msw",".mss"});
 		private ProgressDialog progressDialog;
 
 		/// <summary>

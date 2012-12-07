@@ -233,16 +233,13 @@ namespace Moscrif.IDE.Task
 					if (indx >-1 ) isLog = true;
 				}
 
-				TaskMessage tm;
-
 				if (indx > -1) {
 					// pred touto spravou existuje stara v buffry tak ju spracujem.
 					if (!String.IsNullOrEmpty(messageError)){
-						//Console.WriteLine("indx > -1 messageError - is full ");
-						tm = new TaskMessage();
+
 						if(isOldLog)
-							tm =GetLog(messageError);
-						else tm =GetError(messageError);
+							GetLog(messageError);
+						else GetError(messageError);
 
 						messageError = "";
 					}
@@ -259,13 +256,9 @@ namespace Moscrif.IDE.Task
 					// odoberem staru spravu
 					if (indx>0) messageError = messageError.Remove(0,indx);
 
-					//Console.WriteLine("message ->"+message);
-					//if (message.EndsWith("\r\n\r\n"))// koniec erroru
-					//{
-						tm = new TaskMessage();
 						if(isLog)
-							tm =GetLog(messageError);
-						else tm =GetError(messageError);
+							GetLog(messageError);
+						else GetError(messageError);
 					messageError = "";
 					continue;
 
@@ -289,10 +282,9 @@ namespace Moscrif.IDE.Task
 					}
 					if (indx>0) messageError = messageError.Remove(0,indx);
 
-					tm = new TaskMessage();
 					if(isOldLog)
-						tm =GetLog(messageError);
-					else tm =GetError(messageError);
+						GetLog(messageError);
+					else GetError(messageError);
 					messageError = "";
 				}
 			}

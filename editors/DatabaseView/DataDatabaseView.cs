@@ -9,8 +9,6 @@ namespace Moscrif.IDE.Editors.DatabaseView
 {
 	public class DataDatabaseView : VBox,IDataBaseView
 	{
-		private string filename;
-
 		private HBox hbox;
 		private Label lblTable;
 		private ComboBox cbTable;
@@ -23,8 +21,6 @@ namespace Moscrif.IDE.Editors.DatabaseView
 
 		public DataDatabaseView(string fileName)
 		{
-			this.filename =fileName;
-
 			hbox = new HBox();
 			sqlLiteDal = new SqlLiteDal(fileName);
 

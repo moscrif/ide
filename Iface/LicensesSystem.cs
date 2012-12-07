@@ -30,7 +30,6 @@ namespace Moscrif.IDE.Iface
 		}
 
 		public License GetNextLicence(string typ){
-			string newTyp = typ;
 			int iTyp =0;
 			if(Int32.TryParse(typ,out iTyp)){
 				iTyp = iTyp-100;

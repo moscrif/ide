@@ -124,7 +124,6 @@ namespace Moscrif.IDE.Option
 					if(numberCollumns >=7)
 						returnType= reader.GetValue(6).ToString();
 
-					string[] obj = new string[numberCollumns];
 					cd = new CompletionData(name,null,signature,name,1,parent,returnType);
 
 					cd.Signature =signature;

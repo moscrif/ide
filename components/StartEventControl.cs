@@ -378,7 +378,8 @@ namespace Moscrif.IDE.Components
 			//lbOS.Description =MainClass.Languages.Translate("open_sample_tt");
 			
 			if (!dir.Exists ){
-				tblSamples.Attach(lbGM,(uint)0,(uint)1,(uint)(0),(uint)(1),AttachOptions.Fill,AttachOptions.Shrink,0,0);				
+				tblSamples.Attach(lbGM,(uint)0,(uint)1,(uint)(1),(uint)(2),AttachOptions.Fill,AttachOptions.Fill,0,0);				
+				tblSamples.ShowAll();
 				return;
 			}
 			
@@ -457,18 +458,18 @@ namespace Moscrif.IDE.Components
 					MainClass.MainWindow.ImportProject(fileName,true);
 				};
 				
-				tblSamples.Attach(lb,(uint)x,(uint)(x+1),(uint)(y+1),(uint)(y+2),AttachOptions.Fill|AttachOptions.Expand,AttachOptions.Shrink,0,0);
+				tblSamples.Attach(lb,(uint)x,(uint)(x+1),(uint)(y+1),(uint)(y+2),AttachOptions.Fill,AttachOptions.Shrink,0,0);
 				
 				no++;
 				x++;
-				//if(x>4){
-				if(x>=count-1){
+				if(x>4){
+				//if(x>=count-1){
 					break;
 				}
 
 				//if (no>8) break;
 			}
-			tblSamples.Attach(lbGM,(uint)x,(uint)(x+1),(uint)(y+1),(uint)(y+2),AttachOptions.Fill|AttachOptions.Expand,AttachOptions.Shrink,0,0);
+			tblSamples.Attach(lbGM,(uint)x,(uint)(x+1),(uint)(y+1),(uint)(y+2),AttachOptions.Fill,AttachOptions.Shrink,0,0);
 			tblSamples.ShowAll();
 		}
 

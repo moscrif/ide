@@ -22,7 +22,6 @@ namespace Moscrif.IDE.Iface
 
 		string redgisterUrl = MainClass.Settings.redgisterUrl ;
 		string pingUrl = MainClass.Settings.pingUrl ;
-		string loggUrl = MainClass.Settings.loggUrl ;
 		string loginUrl = MainClass.Settings.loginUrl ;
 		string SALT = Security.SALT;
 

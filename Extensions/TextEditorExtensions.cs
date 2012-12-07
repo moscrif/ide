@@ -26,7 +26,6 @@ namespace Moscrif.IDE.Extensions
 			CompletionDataList listComplete = new CompletionDataList();
 			listComplete.CompletionSelectionMode = CompletionSelectionMode.OwnTextField;
 
-			string codestring = editor.Document.Text;
 			string type = "";
 			string parent = "";
 			
@@ -52,8 +51,6 @@ namespace Moscrif.IDE.Extensions
 		/// </returns>
 		public static Completion.CompletionData GetCompletionData(this TextEditor editor ,string fullWord )
 		{
-
-			string codestring = editor.Document.Text;
 			string type = "";
 			string parent = "";
 

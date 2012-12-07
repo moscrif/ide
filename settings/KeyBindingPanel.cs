@@ -69,13 +69,11 @@ namespace  Moscrif.IDE.Option
 		List<KeyBindingSection> curentBind ;
 		Gtk.TreeStore keybStore = new Gtk.TreeStore( typeof(string),typeof(string),typeof(string),typeof(int),typeof(KeyBinding));
 
-		Gtk.Window parentWindow;
-
 		KeyBindings keyBindFile ;
 
 		public KeyBindingWidget(Gtk.Window parent)
 		{
-			parentWindow = parent;
+			//parentWindow = parent;
 			this.Build();
 
 			/*if(!isRequired){
@@ -214,11 +212,11 @@ namespace  Moscrif.IDE.Option
 			Gdk.Key key;
 			Gdk.ModifierType mt;
 
-			Console.WriteLine("key 1->{0};mt->{1}",args.Event.Key,args.Event.State);
+			//Console.WriteLine("key 1->{0};mt->{1}",args.Event.Key,args.Event.State);
 
 			MapRawKeys (args.Event, out key, out mt);
 
-			Console.WriteLine("key 2->{0};mt->{1}",key,mt);
+			//Console.WriteLine("key 2->{0};mt->{1}",key,mt);
 
 			if(accelComplete){
 				if(key == Gdk.Key.BackSpace){

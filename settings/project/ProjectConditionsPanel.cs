@@ -88,16 +88,16 @@ namespace Moscrif.IDE.Option
 			this.conditions = new List<Condition>();
 
 			//this.resolution = project.Resolution.Clone();
-			foreach (Rule rl in MainClass.Settings.Resolution.Rules ){
+			//foreach (Rule rl in MainClass.Settings.Resolution.Rules ){
 
 				//Gtk.TreeIter tir = resolStore.AppendValues(rl.Id,rl.Name,rl.Specific,rl);
 				//if (this.project.Resolution != null) {
-					int indx = MainClass.Settings.Resolution.Rules.FindIndex(x=> x.Id == rl.Id);
+				//	int indx = MainClass.Settings.Resolution.Rules.FindIndex(x=> x.Id == rl.Id);
 
 					//if (indx > -1)
 					//	tvResolution.Selection.SelectIter(tir);
 				//}
-			}
+			//}
 
 
 			//conditions = new List<Condition>(project.ConditoinsDefine.ToArray());

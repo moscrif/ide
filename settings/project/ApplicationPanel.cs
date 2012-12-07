@@ -57,13 +57,8 @@ namespace Moscrif.IDE.Option
 	{
 		ApplicationFileControl afc;
 		Project project;
-		Gtk.Menu popupCondition = new Gtk.Menu();
-		Gtk.Button btnClose = new Button();
-
 
 		private bool generatePublishList = false;
-//		private string projectArtefact = "";
-//		private bool checkChange = true;
 
 		private ComboBox cbType;
 		Gtk.Window parentWindow;
@@ -98,84 +93,11 @@ namespace Moscrif.IDE.Option
 			afc = new ApplicationFileControl(project.AppFile,ApplicationFileControl.Mode.EditNoSaveButton,parentWindow);
 			vbox2.PackEnd(afc, true, true, 0);
 
-		/*	Gdk.Pixbuf default_pixbuf = null;
-			string file = System.IO.Path.Combine(MainClass.Paths.ResDir, "stock-menu.png");
-			popupCondition = new Gtk.Menu();
-
-			if (System.IO.File.Exists(file)) {
-				default_pixbuf = new Gdk.Pixbuf(file);
-
-				Gtk.Button btnClose = new Gtk.Button(new Gtk.Image(default_pixbuf));
-				btnClose.TooltipText = MainClass.Languages.Translate("insert_condition_name");
-				btnClose.Relief = Gtk.ReliefStyle.None;
-				btnClose.CanFocus = false;
-				btnClose.WidthRequest = btnClose.HeightRequest = 19;
-
-				btnClose.Clicked += delegate {
-					popupCondition.Popup(null,null, new Gtk.MenuPositionFunc (GetPosition) ,3,Gtk.Global.CurrentEventTime);
-					//popupCondition.Popup();
-				};
-				tblGlobal.Attach(btnClose, 2, 3, 1, 2, AttachOptions.Shrink, AttachOptions.Shrink, 0, 0);
-			}
-			ReloadPanel();
-
-
-			tblGlobal.Attach(feOutput, 1, 2, 2,3, AttachOptions.Fill|AttachOptions.Expand, AttachOptions.Fill|AttachOptions.Expand, 0, 0);
-
-			if (String.IsNullOrEmpty(project.ProjectOutput)){
-				if (!String.IsNullOrEmpty(MainClass.Workspace.OutputDirectory)){
-					string fullOutput = MainClass.Workspace.OutputMaskToFullPath;
-
-					if (!System.IO.Directory.Exists(fullOutput)){
-						try {
-							System.IO.Directory.CreateDirectory(fullOutput);
-						}catch{	}
-					}
-
-					feOutput.DefaultPath  = fullOutput;
-					feOutput.VisiblePath  = MainClass.Workspace.OutputDirectory;
-				}
-				else feOutput.DefaultPath  = project.AbsolutProjectDir;
-			} else {
-				string fullProjectOutput = project.OutputMaskToFullPath;
-				feOutput.DefaultPath  = fullProjectOutput;
-				feOutput.VisiblePath  = project.ProjectOutput;
-			}
-
-			if (String.IsNullOrEmpty(project.ProjectArtefac)) {
-
-				string name = System.IO.Path.GetFileNameWithoutExtension(project.RelativeAppFilePath);
-				projectArtefact = String.Format("{0}_$({1})_$({2})", name, MainClass.Settings.Platform.Name, MainClass.Settings.Resolution.Name);
-				project.ProjectArtefac = projectArtefact;
-
-			} else
-				projectArtefact = project.ProjectArtefac;
-
-			entrName.Text= projectArtefact;
-
-			entrName.Changed+= delegate(object sender, EventArgs e) {
-				if(checkChange)
-					CheckMessage();
-			};*/
 		}
 
 
 		public void ReloadPanel(){
 
-		/*	popupCondition = new Gtk.Menu(); 
-			popupCondition.AttachToWidget(btnClose,new Gtk.MenuDetachFunc(DetachWidget));
-
-			AddMenuItem(MainClass.Settings.Platform.Name);
-			AddMenuItem(MainClass.Settings.Resolution.Name);
-
-			if (project.ConditoinsDefine != null){
-				foreach (Condition cd in project.ConditoinsDefine) {
-
-					AddMenuItem(cd.Name);
-				}
-			}
-
-			popupCondition.ShowAll();*/
 		}
 
 		private void DetachWidget(Gtk.Widget attach_widget, Gtk.Menu menu){}
@@ -235,14 +157,7 @@ namespace Moscrif.IDE.Option
 			cbType.GetActiveIter(out ti);
 			string text = cbType.Model.GetValue(ti,1).ToString();
 
-			//entrName.Text = String.Format("{0}_$({1})_$({2})",name,MainClass.Settings.Platform.Name,MainClass.Settings.Resolution.Name);
-
-			//string nameApp = entrName.Text;
-
 			project.ApplicationType =text;
-		//	project.ProjectOutput = feOutput.Path;
-		//	project.ProjectArtefac = nameApp;
-
 			if (generatePublishList){
 				// bude to treba volat aj ked zmeny vybrane rozlisenia v projekte
 				project.GeneratePublishCombination();

@@ -85,13 +85,12 @@ namespace Moscrif.IDE.Iface
 				
 				if (e.Cancelled){
 					if(loggNoTask!= null) loggNoTask(null,"Wrong username or password.");
-					return;
+					return ;
 				}
 				if (e.Error != null){
 					if(loggNoTask!= null) loggNoTask(null,"Wrong username or password.");
-					return;
+					return ;
 				}
-				string result = e.Result;
 			};
 			
 			try{

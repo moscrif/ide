@@ -1250,9 +1250,9 @@ namespace Moscrif.IDE.Task
 			foreach (FileInfo f in di.GetFiles("*.ms")){
 				string fileCompile = System.IO.Path.ChangeExtension(f.FullName,".msc");
 				if( File.Exists(fileCompile)){
-					
-					FileInfo fiCompile = new FileInfo(fileCompile);
+
 					// len tie ms ktorych datum upravy je vetsi, ako datum upravy msc subory
+					//FileInfo fiCompile = new FileInfo(fileCompile);
 					//if(f.LastWriteTime > fiCompile.LastWriteTime){
 					int indx = -1;
 					indx = MainClass.Settings.IgnoresFiles.FindIndex(x => x.Folder == f.Name && x.IsForPublish);

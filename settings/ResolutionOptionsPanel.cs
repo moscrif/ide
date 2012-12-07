@@ -48,7 +48,6 @@ namespace Moscrif.IDE.Option
 	{
 		//private Condition resolution;
 		private int maxCond = 0;
-		List<int> resolutions = new List<int>();
 
 		Gtk.ListStore resolStore = new Gtk.ListStore(typeof(int), typeof(string),typeof(string),typeof(Rule),typeof(bool));
 		Gtk.Window parentWindow;
@@ -81,20 +80,7 @@ namespace Moscrif.IDE.Option
 
 		private void RenderResolution(Gtk.TreeViewColumn column, Gtk.CellRenderer cell, Gtk.TreeModel model, Gtk.TreeIter iter)
 		{
-
 			Rule rule = (Rule) model.GetValue (iter, 3);
-
-			/*
-			int type = (int) model.GetValue (iter, 0);
-			Pango.FontDescription fd = new Pango.FontDescription();
-
-			if (type < 0) {
-				fd.Weight = Pango.Weight.Bold;
-
-			} else {
-				fd.Weight = Pango.Weight.Normal;
-			}
-			(cell as Gtk.CellRendererText).FontDesc = fd;*/
 
 			if(rule!=null){
 				(cell as Gtk.CellRendererText).Text = String.Format("{0}x{1}",rule.Width,rule.Height);
@@ -150,7 +136,7 @@ namespace Moscrif.IDE.Option
 					if(ed.CreateFile){
 						try{
 							string newFile = System.IO.Path.Combine(MainClass.Paths.DisplayDir, res.Name + ".ini");
-							EmulatorDisplay dd= EmulatorDisplay.Create(newFile,res.Width,res.Height);
+							EmulatorDisplay.Create(newFile,res.Width,res.Height);
 						}catch(Exception ex){
 							Tool.Logger.Error(ex.Message,null);
 							MessageDialogs ms = new MessageDialogs(MessageDialogs.DialogButtonType.Ok, "Error", ex.Message, MessageType.Error,parentWindow);
