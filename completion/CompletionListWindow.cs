@@ -77,7 +77,6 @@ namespace Moscrif.IDE.Completion
 		public CompletionListWindow ()
 		{
 			SizeAllocated += new SizeAllocatedHandler (ListSizeChanged);
-			//Events = Gdk.EventMask.PropertyChangeMask;
 			Moscrif.IDE.Components.WindowTransparencyDecorator.Attach (this);
 			DataProvider = this;
 			HideDeclarationView ();

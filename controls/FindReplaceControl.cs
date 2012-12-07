@@ -18,12 +18,7 @@ namespace Moscrif.IDE.Controls
 		{
 			this.Build();
 			this.cbPlace.Active = 0;
-
-			textExtension.Add(".ms");
-			textExtension.Add(".txt");
-			textExtension.Add(".tab");
-			textExtension.Add(".xml");
-			textExtension.Add(".app");
+			textExtension = MainClass.Tools.GetAllExtension(ExtensionSetting.OpenTyp.TEXT);
 		}
 
 		protected virtual void OnButton1Clicked(object sender, System.EventArgs e)

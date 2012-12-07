@@ -53,7 +53,7 @@ namespace Moscrif.IDE.Iface
 						} else {
 							banner.LoadFromCache();
 						}
-					}catch (Exception ex){
+					}catch {//(Exception ex){
 						ErrorCount ++;
 						if(ErrorCount>=3){
 							cnt++;
@@ -92,7 +92,7 @@ namespace Moscrif.IDE.Iface
 						} else {
 							banner.LoadFromCache();
 						}
-					}catch (Exception ex){
+					}catch {//(Exception ex){
 						return null;
 					}
 				}

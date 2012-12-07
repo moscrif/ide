@@ -61,6 +61,31 @@ namespace Moscrif.IDE.Tool
 			return stockIcon;
 		}
 
+		/// <summary>
+		/// Get all extension for specified typ
+		/// </summary>
+		/// <param name="type">type</param>
+		/// <returns>Return list string</returns>
+		public List<string> GetAllExtension(ExtensionSetting.OpenTyp type){
+			List<string> allExtension = new List<string>();
+			if(MainClass.Settings.ExtensionList== null || MainClass.Settings.ExtensionList.Count<1){
+				MainClass.Settings.GenerateExtensionList();
+			}
+			
+			foreach(ExtensionSetting es in MainClass.Settings.ExtensionList){
+				if(es.OpenType==type){
+					allExtension.AddRange(es.Extensions);
+				}
+			}
+			return allExtension;
+		}
+
+
+		/// <summary>
+		/// Get extension setting for specified extension.
+		/// </summary>
+		/// <param name="extension">Extension.</param>
+		/// <returns>Return ExtensionSetting or null </returns>
 		public ExtensionSetting FindFileTyp(string extension){
 			if(MainClass.Settings.ExtensionList== null || MainClass.Settings.ExtensionList.Count<1){
 				MainClass.Settings.GenerateExtensionList();
@@ -77,7 +102,7 @@ namespace Moscrif.IDE.Tool
 		}
 
 		/// <summary>
-		/// Open folder in system explorel.
+		/// Open folder in system explorer.
 		/// </summary>
 		/// <param name="path">Folder.</param>
 		public void OpenFolder(string path){

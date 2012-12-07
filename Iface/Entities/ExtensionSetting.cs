@@ -46,7 +46,7 @@ namespace Moscrif.IDE.Iface.Entities
 		[XmlIgnore]
 		public List<string> Extensions{
 			get{
-				string[] exts = Extension.Split(' ',',');
+				string[] exts = Extension.Split(' ',',',';');
 				
 				List<string> extensions = new List<string>(exts);
 				

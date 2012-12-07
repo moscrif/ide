@@ -32,8 +32,6 @@ namespace Moscrif.IDE.Editors
 {
 	public class SourceEditor : Gtk.Frame, IEditor
 	{
-		//,ICompletionWidget
-		// Mozno zbytocne, pozri Poznamka1
 		private string fileName = String.Empty;
 		private bool modified = false;
 		//private TypeEditor typeEditor = TypeEditor.TextEditor;
