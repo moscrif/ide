@@ -29,7 +29,6 @@ using Moscrif.IDE.Extensions;
 using System.Net;
 using System.Net.Sockets;
 
-
 namespace Moscrif.IDE
 {
 	public class ActionManager : IEnumerable
@@ -57,7 +56,7 @@ namespace Moscrif.IDE
 			}
 		}
 
-		private void PopulateActionGroups()
+	private void PopulateActionGroups()
 	{
 	    main_window_actions.Add(new ActionEntry[] { new ActionEntry("IdeAction",null,"Ide",	null,null,null ),
 				new ActionEntry("FileAction", null, "File", null, null, null),

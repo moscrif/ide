@@ -99,6 +99,7 @@ namespace  Moscrif.IDE.Option
 
 		[XmlElement("documentsBaseUrl")]
 		public string DocumentsBaseUrl = "http://moscrif.com/documents?source=IDE" ;
+
 /*#if DEBUG 
 		[XmlIgnore]
 		public String signUrl = "http://rc.moscrif.com/ide/signApp.ashx?t={0}&a={1}";
@@ -209,7 +210,10 @@ namespace  Moscrif.IDE.Option
 
 		[XmlElement("account")]
 		public Account Account;	
-		
+
+		[XmlElement("emulatorSettings")]
+		public EmulatorSetting EmulatorSettings;
+
 		[XmlAttribute("lastOpenedFileDir")]
 		public string LastOpenedFileDir ;
 		
@@ -449,6 +453,8 @@ namespace  Moscrif.IDE.Option
 			if (PlatformResolutions == null) GeneratePlatformResolutions();
 			if (ApplicationType == null) GenerateApplicationType();
 			if (AndroidSupportedDevices == null) GenerateAndroidSupportedDevices();
+			if ((EmulatorSettings == null)) EmulatorSettings = new EmulatorSetting();
+			EmulatorSettings.UsDefault = true;
 			//if(LibsDefine == null)) GenerateLibs();
 
 			//VersionSetting = 111202;
@@ -478,10 +484,15 @@ namespace  Moscrif.IDE.Option
 						XmlSerializer serializer = new XmlSerializer(typeof(Settings));
 						Settings s = (Settings)serializer.Deserialize(fs);
 
+
+						if ((s.EmulatorSettings == null) || ( String.IsNullOrEmpty(s.EmulatorSettings.Exec) ) ) {
+							s.EmulatorSettings = new EmulatorSetting();
+							s.EmulatorSettings.UsDefault = true;
+						}
+
 						if ((s.LogicalSort == null) || ((s.LogicalSort.Count <1 )) ) {
 							s.LogicalSort = LogicalSystem.GetDefaultLogicalSystem();
 						}
-
 
 						if ((s.Resolution == null) || ((s.Resolution.Rules.Count <1 )) ){
 							s.GenerateResolution();
@@ -572,6 +583,21 @@ namespace  Moscrif.IDE.Option
 			} else {
 				throw new Exception("Settings file does not exist!");
 			}
+		}
+
+		public class EmulatorSetting
+		{
+			public EmulatorSetting(){
+			}
+			
+			[XmlAttribute("usDefault")]
+			public bool UsDefault ;
+
+			[XmlAttribute("params")]
+			public string Params = "" ;
+			
+			[XmlAttribute("exec")]
+			public string Exec = "" ;
 		}
 
 		public class BackgroundColors
@@ -909,7 +935,7 @@ namespace  Moscrif.IDE.Option
 
 		public void GenerateExtensionList(){
 			ExtensionList = new List<ExtensionSetting>();
-			ExtensionList.Add(new ExtensionSetting(".xml,.ms,.mso,.txt,.tab,.app",ExtensionSetting.OpenTyp.TEXT ));
+			ExtensionList.Add(new ExtensionSetting(".xml,.ms,.mso,.txt,.tab,.app,.js",ExtensionSetting.OpenTyp.TEXT ));
 			ExtensionList.Add(new ExtensionSetting(".png,.jpg,.bmp",ExtensionSetting.OpenTyp.IMAGE));
 			ExtensionList.Add(new ExtensionSetting(".db",ExtensionSetting.OpenTyp.DATABASE));
 		}

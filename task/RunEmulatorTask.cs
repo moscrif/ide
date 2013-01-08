@@ -115,43 +115,22 @@ namespace Moscrif.IDE.Task
 				return false;
 
 			}
-
-			string cmd = Path.Combine(MainClass.Settings.EmulatorDirectory,  "moscrif.exe");
-
-
-			if(MainClass.Platform.IsMac){
-
-				string file = System.IO.Path.Combine( MainClass.Settings.EmulatorDirectory,  "Moscrif.app");//.app
-
-				if(!System.IO.Directory.Exists(file) ){
-					output.Add(new TaskMessage(MainClass.Languages.Translate("emulator_not_found")));
-					stateTask = StateEnum.ERROR;
-					Tool.Logger.Error(MainClass.Languages.Translate("emulator_not_found"),null);
-					return false;
-				}
-
-				file = System.IO.Path.Combine(file,  "Contents");
-				file = System.IO.Path.Combine(file,  "MacOS");
-				file = System.IO.Path.Combine(file,  "Moscrif");
-				cmd = file;
-
-				Tool.Logger.LogDebugInfo(String.Format("command MAC ->{0}",cmd),null);
-				if(!System.IO.File.Exists(file) ){
-					output.Add(new TaskMessage(MainClass.Languages.Translate("emulator_not_found")));
-					stateTask = StateEnum.ERROR;
-					Tool.Logger.Error(MainClass.Languages.Translate("emulator_not_found"),null);
-					return false;
-				}
-
-			} else {
-				Tool.Logger.LogDebugInfo(String.Format("command WIN ->{0}",cmd),null);
-				if(!System.IO.File.Exists(cmd)  ){
-					output.Add(new TaskMessage(MainClass.Languages.Translate("emulator_not_found")));
-					stateTask = StateEnum.ERROR;
-					Tool.Logger.Error(MainClass.Languages.Translate("emulator_not_found"),null);
-					return false;
-				}
+			string cmd = "";
+			if(MainClass.Settings.EmulatorSettings == null){
+				MainClass.Settings.EmulatorSettings = new Moscrif.IDE.Option.Settings.EmulatorSetting();
+				MainClass.Settings.EmulatorSettings.UsDefault = true;
+				
 			}
+
+			if(MainClass.Settings.EmulatorSettings.UsDefault){
+				if(!GetDefaultCommand(out cmd)){
+					return false;
+				}
+			} else {
+				cmd = MainClass.Settings.EmulatorSettings.Exec;
+			}
+
+
 
 
 			AppFile appFile = MainClass.Workspace.ActualProject.AppFile;
@@ -159,12 +138,11 @@ namespace Moscrif.IDE.Task
 			if (!projDir.EndsWith(Path.DirectorySeparatorChar.ToString())) projDir += Path.DirectorySeparatorChar;
 			string args = String.Format("/f {0} /d {1} /o console", Path.GetFileName(appFile.ApplicationFile), projDir);
 
-
-
-		if(MainClass.Platform.IsMac){
-
-				args = String.Format(" -f {0} -d {1} -o console", Path.GetFileName(appFile.ApplicationFile), projDir);
-
+			if(MainClass.Settings.EmulatorSettings.UsDefault){
+				if(MainClass.Platform.IsMac){
+					
+					args = String.Format(" -f {0} -d {1} -o console", Path.GetFileName(appFile.ApplicationFile), projDir);
+					
 					Process []pArry = Process.GetProcesses();
 					foreach(Process p in pArry)
 					{
@@ -172,7 +150,7 @@ namespace Moscrif.IDE.Task
 							try {
 								string s = p.ProcessName;
 								s = s.ToLower();
-
+								
 								if (s.CompareTo("moscrif") ==0){
 									Tool.Logger.LogDebugInfo("Kill Emulator Mac",null);
 									p.Kill();
@@ -187,33 +165,38 @@ namespace Moscrif.IDE.Task
 							}
 						}
 					}
-				Tool.Logger.LogDebugInfo(String.Format("args MAC ->{0} ",args),null);
-
-			} else {
-
-				if(MainClass.Platform.IsWindows){
-					Process []pArry = Process.GetProcesses();
-					foreach(Process p in pArry)
-					{
-						try{
-							string s = p.ProcessName;
-							s = s.ToLower();
-		
-							if (s.CompareTo("moscrif") ==0){
-							
-
-								Tool.Logger.LogDebugInfo("Kill Emulator win",null);
-								p.Kill();
-								MainClass.MainWindow.RunningEmulator= false;
+					Tool.Logger.LogDebugInfo(String.Format("args MAC ->{0} ",args),null);
+					
+				} else {
+					
+					if(MainClass.Platform.IsWindows){
+						Process []pArry = Process.GetProcesses();
+						foreach(Process p in pArry)
+						{
+							try{
+								string s = p.ProcessName;
+								s = s.ToLower();
+								
+								if (s.CompareTo("moscrif") ==0){
+									
+									
+									Tool.Logger.LogDebugInfo("Kill Emulator win",null);
+									p.Kill();
+									MainClass.MainWindow.RunningEmulator= false;
+								}
+							} catch{
+								//Console.WriteLine(ex.Message);
+								//Tool.Logger.Error(ex.Message,null);;
 							}
-						} catch{
-							//Console.WriteLine(ex.Message);
-							//Tool.Logger.Error(ex.Message,null);;
 						}
 					}
+					Tool.Logger.LogDebugInfo(String.Format("args WIN ->{0} ",args),null);
 				}
-				Tool.Logger.LogDebugInfo(String.Format("args WIN ->{0} ",args),null);
+			} else {
+				args = String.Format(MainClass.Settings.EmulatorSettings.Params, Path.GetFileName(appFile.ApplicationFile), projDir);
+
 			}
+
 
 			try{
 				Tool.Logger.LogDebugInfo("RUN EMULATOR -Start",null);
@@ -227,6 +210,45 @@ namespace Moscrif.IDE.Task
 				return false;
 			}
 
+			return true;
+		}
+
+		private bool GetDefaultCommand(out string cmd){
+			cmd = Path.Combine(MainClass.Settings.EmulatorDirectory,  "moscrif.exe");
+			
+			if(MainClass.Platform.IsMac){
+				
+				string file = System.IO.Path.Combine( MainClass.Settings.EmulatorDirectory,  "Moscrif.app");//.app
+				
+				if(!System.IO.Directory.Exists(file) ){
+					output.Add(new TaskMessage(MainClass.Languages.Translate("emulator_not_found")));
+					stateTask = StateEnum.ERROR;
+					Tool.Logger.Error(MainClass.Languages.Translate("emulator_not_found"),null);
+					return false;
+				}
+				
+				file = System.IO.Path.Combine(file,  "Contents");
+				file = System.IO.Path.Combine(file,  "MacOS");
+				file = System.IO.Path.Combine(file,  "Moscrif");
+				cmd = file;
+				
+				Tool.Logger.LogDebugInfo(String.Format("command MAC ->{0}",cmd),null);
+				if(!System.IO.File.Exists(file) ){
+					output.Add(new TaskMessage(MainClass.Languages.Translate("emulator_not_found")));
+					stateTask = StateEnum.ERROR;
+					Tool.Logger.Error(MainClass.Languages.Translate("emulator_not_found"),null);
+					return false;
+				}
+				
+			} else {
+				Tool.Logger.LogDebugInfo(String.Format("command WIN ->{0}",cmd),null);
+				if(!System.IO.File.Exists(cmd)  ){
+					output.Add(new TaskMessage(MainClass.Languages.Translate("emulator_not_found")));
+					stateTask = StateEnum.ERROR;
+					Tool.Logger.Error(MainClass.Languages.Translate("emulator_not_found"),null);
+					return false;
+				}
+			}
 			return true;
 		}
 

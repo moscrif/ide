@@ -29,7 +29,7 @@ namespace Moscrif.IDE.Components
 		public StartEventControl()
 		{
 			try{
-
+				
 				string file = System.IO.Path.Combine(MainClass.Paths.ResDir, "background.png");
 				if(File.Exists(file))
 					bgPixbuf = new Gdk.Pixbuf (file);
@@ -224,25 +224,6 @@ namespace Moscrif.IDE.Components
 			Console.WriteLine("w X h: {0}; {1} ",w,h); 
 		}
 
-		protected override void OnMapped()
-		{
-			base.OnMapped();
-			Console.WriteLine("MAPPED");
-			int xx, yy, w, h, d = 0;
-			this.ParentWindow.GetGeometry(out xx, out yy, out w, out h, out d);
-			
-			Console.WriteLine("w X h: {0}; {1} ",w,h);
-			
-			int count = w/140;
-			Console.WriteLine("count "+count);
-			
-			Console.WriteLine("this.Allocation.Width "+this.Allocation.Width);
-			
-			this.GetSizeRequest(out w,out h);
-			Console.WriteLine("w X h: {0}; {1} ",w,h); 
-
-		}
-
 		private void LoadDefaultBanner(){
 			//hbMenuRight
 			string bannerParth  = System.IO.Path.Combine(MainClass.Paths.ResDir,"banner");
@@ -271,8 +252,7 @@ namespace Moscrif.IDE.Components
 							Gtk.Application.Invoke(delegate{
 								bannerImage.ImageIcon = bnr.BannerPixbufResized400;
 								bannerImage.LinkUrl = bnr.Url;
-							});
-							
+							});							
 						} else {
 							//Console.WriteLine("Banner is NULL");
 						}
@@ -289,8 +269,6 @@ namespace Moscrif.IDE.Components
 				Logger.Error("ERROR - Cannot run banner thread.");
 				Logger.Error(tae.Message);
 				LoadDefaultBanner();
-			}finally{
-				
 			}
 		}
 
@@ -328,9 +306,6 @@ namespace Moscrif.IDE.Components
 					DropDownButton.ComboItem addComboItem = new DropDownButton.ComboItem(System.IO.Path.GetFileName(lRecentProjects[i].DisplayName)
 					                                                                   ,lRecentProjects[i].FileName);
 					otherSample.Add(addComboItem);
-					/*if(i==3){
-						ddbSample.SelectItem(otherSample,addComboItem);
-					}*/
 				}
 				ddbSample.ActiveText="More...";
 				ddbSample.Changed+= delegate(object sender, DropDownButton.ChangedEventArgs e) {
@@ -351,15 +326,11 @@ namespace Moscrif.IDE.Components
 			this.ParentWindow.GetGeometry(out xx, out yy, out w, out h, out d);
 
 			Console.WriteLine("w X h: {0}; {1} ",w,h);
+			w = this.Allocation.Width;
 
 			int count = w/140;
 			Console.WriteLine("count "+count);
-
-			/*Console.WriteLine("this.Allocation.Width "+this.Allocation.Width);
-
-			this.GetSizeRequest(out w,out h);
-			Console.WriteLine("w X h: {0}; {1} ",w,h); 
-			*/
+			Console.WriteLine("this.Allocation.Width "+this.Allocation.Width);
 
 			string defaultIcon =  System.IO.Path.Combine(MainClass.Paths.ResDir,"logo96.png");
 			DirectoryInfo dir = new DirectoryInfo(MainClass.Paths.SampleDir);
@@ -370,13 +341,11 @@ namespace Moscrif.IDE.Components
 			lbGM.Label =MainClass.Languages.Translate("more_sample_label");
 			lbGM.LinkUrl =MainClass.Settings.SamplesBaseUrl;
 			lbGM.WidthRequest = 140;
-			//lbGM.Description =MainClass.Languages.Translate("more_sample_tt");
-			
+
 			WebButton lbOS = new WebButton();
 			lbOS.Label =MainClass.Languages.Translate("open_sample_label");
 			lbOS.LinkUrl =MainClass.Paths.SampleDir;
-			//lbOS.Description =MainClass.Languages.Translate("open_sample_tt");
-			
+
 			if (!dir.Exists ){
 				tblSamples.Attach(lbGM,(uint)0,(uint)1,(uint)(1),(uint)(2),AttachOptions.Fill,AttachOptions.Fill,0,0);				
 				tblSamples.ShowAll();
@@ -462,8 +431,8 @@ namespace Moscrif.IDE.Components
 				
 				no++;
 				x++;
-				if(x>4){
-				//if(x>=count-1){
+				//if(x>4){
+				if(x>=count-1){
 					break;
 				}
 

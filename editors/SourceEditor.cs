@@ -99,6 +99,20 @@ namespace Moscrif.IDE.Editors
 				(editor as ICompletionWidget).BanCompletion = false;
 				break;
 			}
+			case ".js":
+			{
+				try{
+					mode = SyntaxModeService.GetSyntaxMode("text/x-java");
+				}catch(Exception ex){
+					MessageDialogs msd = new MessageDialogs(MessageDialogs.DialogButtonType.Ok, MainClass.Languages.Translate("error_load_syntax"), MainClass.Languages.Translate("error_load_syntax_f1"), Gtk.MessageType.Error,null);
+					msd.ShowDialog();
+					Tool.Logger.Error(ex.Message);
+				}
+				isCompileExtension = true;
+				
+				(editor as ICompletionWidget).BanCompletion = false;
+				break;
+			}
 			case ".mso":
 				{
 					try{
