@@ -909,20 +909,6 @@ namespace  Moscrif.IDE.Option
 				}
 			}
 			return libsDefine;
-			/*LibsDefine = new List<string>();
-			LibsDefine.Add("core");
-			LibsDefine.Add("graphics");			
-			LibsDefine.Add("ui");
-			LibsDefine.Add("web");
-			LibsDefine.Add("zip");
-			LibsDefine.Add("sqlite");
-			LibsDefine.Add("media");			
-			LibsDefine.Add("crypto");
-			LibsDefine.Add("sensor");
-			LibsDefine.Add("box2d");
-			LibsDefine.Add("game2d");
-			LibsDefine.Add("skin");
-			LibsDefine.Add("uix");*/
 		}
 
 

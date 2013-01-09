@@ -131,14 +131,14 @@ namespace Moscrif.IDE.Task
 			}
 
 
-
-
 			AppFile appFile = MainClass.Workspace.ActualProject.AppFile;
 			string projDir = Path.GetDirectoryName(appFile.ApplicationFile);
 			if (!projDir.EndsWith(Path.DirectorySeparatorChar.ToString())) projDir += Path.DirectorySeparatorChar;
 			string args = String.Format("/f {0} /d {1} /o console", Path.GetFileName(appFile.ApplicationFile), projDir);
+			string wordDir = MainClass.Settings.EmulatorDirectory;
 
 			if(MainClass.Settings.EmulatorSettings.UsDefault){
+				wordDir = "";
 				if(MainClass.Platform.IsMac){
 					
 					args = String.Format(" -f {0} -d {1} -o console", Path.GetFileName(appFile.ApplicationFile), projDir);
@@ -165,7 +165,6 @@ namespace Moscrif.IDE.Task
 							}
 						}
 					}
-					Tool.Logger.LogDebugInfo(String.Format("args MAC ->{0} ",args),null);
 					
 				} else {
 					
@@ -190,7 +189,6 @@ namespace Moscrif.IDE.Task
 							}
 						}
 					}
-					Tool.Logger.LogDebugInfo(String.Format("args WIN ->{0} ",args),null);
 				}
 			} else {
 				args = String.Format(MainClass.Settings.EmulatorSettings.Params, Path.GetFileName(appFile.ApplicationFile), projDir);
@@ -199,8 +197,10 @@ namespace Moscrif.IDE.Task
 
 
 			try{
+				Tool.Logger.LogDebugInfo(String.Format("command ->{0}",cmd),null);
+				Tool.Logger.LogDebugInfo(String.Format("arguments ->{0}",args),null);
 				Tool.Logger.LogDebugInfo("RUN EMULATOR -Start",null);
-				MainClass.MainWindow.RunEmulator(cmd, args, MainClass.Settings.EmulatorDirectory,ProcessOutputChange);
+				MainClass.MainWindow.RunEmulator(cmd, args,wordDir ,ProcessOutputChange);
 
 			}catch (Exception ex){
 
@@ -231,8 +231,7 @@ namespace Moscrif.IDE.Task
 				file = System.IO.Path.Combine(file,  "MacOS");
 				file = System.IO.Path.Combine(file,  "Moscrif");
 				cmd = file;
-				
-				Tool.Logger.LogDebugInfo(String.Format("command MAC ->{0}",cmd),null);
+
 				if(!System.IO.File.Exists(file) ){
 					output.Add(new TaskMessage(MainClass.Languages.Translate("emulator_not_found")));
 					stateTask = StateEnum.ERROR;
@@ -241,7 +240,6 @@ namespace Moscrif.IDE.Task
 				}
 				
 			} else {
-				Tool.Logger.LogDebugInfo(String.Format("command WIN ->{0}",cmd),null);
 				if(!System.IO.File.Exists(cmd)  ){
 					output.Add(new TaskMessage(MainClass.Languages.Translate("emulator_not_found")));
 					stateTask = StateEnum.ERROR;
@@ -259,6 +257,7 @@ namespace Moscrif.IDE.Task
 			//this.output.Add( new TaskMessage(">> " + message.Trim() + "<<"));
 
 			MainClass.MainWindow.OutputConsole.WriteText(message);
+			Console.WriteLine(message);
 			//return;
 			/*string msg = message.Trim();
 			if (String.IsNullOrEmpty(msg))
